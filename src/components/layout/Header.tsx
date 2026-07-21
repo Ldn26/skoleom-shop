@@ -374,6 +374,18 @@ function ProfileMenu() {
             role="menu"
           >
             <div className="truncate px-3 py-2.5 text-xs text-white/45" />
+                 <button
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                navigate(localizePath('/profile'));
+                setOpen(false);
+              }}
+              className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-white/85 transition hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <User size={15} />
+              {t('header.profile.profile', { defaultValue: 'Mon profil' })}
+            </button>
             <button
               type="button"
               role="menuitem"
@@ -386,18 +398,7 @@ function ProfileMenu() {
                 ? t('common.states.loading', { defaultValue: 'Déconnexion...' })
                 : t('header.profile.logout', { defaultValue: 'Déconnexion' })}
             </button>
-            <button
-              type="button"
-              role="menuitem"
-              onClick={() => {
-                navigate(localizePath('/profile'));
-                setOpen(false);
-              }}
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-white/85 transition hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <User size={15} />
-              {t('header.profile.profile', { defaultValue: 'Mon profil' })}
-            </button>
+       
           </motion.div>
         )}
       </AnimatePresence>

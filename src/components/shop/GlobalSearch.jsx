@@ -42,7 +42,9 @@ function Row({ onClick, children }) {
   );
 }
 
-export default function GlobalSearch({ placeholder = 'Rechercher un produit, une marque…' }) {
+export default function GlobalSearch({ 
+   className = '',
+  placeholder = 'Rechercher un produit, une marque…' }) {
   const [term, setTerm] = useState('');
   const [open, setOpen] = useState(false);
   const boxRef = useRef(null);
@@ -288,7 +290,7 @@ const normalizeSearchText = (value) =>
 
 
 
-      <div className={'relative w-full min-w-0 max-w-[420px]'}>
+      <div className="relative w-full min-w-0 max-w-[420px]">
         <input
   ref={inputRef}
           type="text"
