@@ -13,9 +13,17 @@ export async function GET(request: Request) {
   if (auth.role !== 'vendeur' && auth.role !== 'admin') {
     return NextResponse.json({ error: 'Accès réservé aux vendeurs' }, { status: 403 });
   }
+
+
   try {
     const params = Object.fromEntries(new URL(request.url).searchParams.entries());
-    const data = await wooService.getOrders({ per_page: 20, ...params });
+    console.log(auth.id, 'auth.id');
+    // if (userId) {
+    //   params.meta_key = '_monetizer_user_id';
+    //   params.meta_value = String(userId);
+    // }
+    const data = await wooService.getOrders({ per_page: 20, ...params, customer: auth.id });
+    // const data = await wooService.getOrders({ per_page: 20, ...params   });
     return NextResponse.json(data);
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: err.response?.status || 500 });
