@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import { getAuth } from '@/server/auth';
 import { TryOn } from '@/server/db';
-import { getAvatar } from '@/server/services/avatarService';
+import avatarController from '@/server/controllers/avatarController';
 import {
   analyzeFit,
   fetchImageAsBase64,
   renderTryOnImage,
   toDataUrl,
   uploadToCloudinary,
-} from '../../../src/server/services/tryOnService';
+} from '@/server/services/tryOnService';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     if (!avatarId) return NextResponse.json({ error: 'avatarId est requis' }, { status: 400 });
     if (!product || !product.name) return NextResponse.json({ error: 'product est requis' }, { status: 400 });
 
-    const av = await getAvatar(avatarId);
+    const av = await avatarController.getAvatar(avatarId);
     if (!av) return NextResponse.json({ error: 'Avatar introuvable' }, { status: 404 });
 
     const fitMeasurements = measurements || av.measurements || {};
