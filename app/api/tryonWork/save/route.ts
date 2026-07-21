@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAuth } from '@/server/auth';
 import { TryOn } from '@/server/db';
-import { getAvatar } from '@/server/services/avatarService';
+import avatarController from '@/server/controllers/avatarController';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     if (!overlayUrl) return NextResponse.json({ error: 'overlayUrl est requis' }, { status: 400 });
     if (!product || !product.name) return NextResponse.json({ error: 'product est requis' }, { status: 400 });
 
-    const av = await getAvatar(avatarId);
+    const av = await avatarController.getAvatar(avatarId);
 
     const saved = await TryOn.create({
       id_user: auth.id,

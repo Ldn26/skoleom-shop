@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAuth } from '@/server/auth';
 import { TryOn } from '@/server/db';
-import { getAvatar } from '@/server/services/avatarService';
+import avatarController from '@/server/controllers/avatarController';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -13,7 +13,7 @@ export async function GET(request: Request, ctx: { params: Promise<{ avatarId: s
     if (!avatarId) return NextResponse.json({ error: 'avatarId est requis' }, { status: 400 });
     if (!auth) return NextResponse.json({ error: 'Utilisateur non authentifié' }, { status: 401 });
 
-    const avatar = await getAvatar(avatarId);
+    const avatar = await avatarController.getAvatar(avatarId);
     if (!avatar) return NextResponse.json({ error: 'Avatar introuvable' }, { status: 404 });
 
     const rows = await TryOn.findAll({
