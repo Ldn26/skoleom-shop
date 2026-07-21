@@ -1,0 +1,21 @@
+/**
+ * Ajustements propres au rendu React inline (le header de l'app est « fixed »,
+ * contrairement au mode iframe). Importé APRÈS page-base.css + le CSS de page.
+ *
+ * Définit l'offset de navbar et garantit que la première section dégage bien
+ * la barre de navigation fixe (sinon le contenu passe dessous).
+ */
+.hub-native {
+  --hub-nav-offset: 76px;
+}
+@media (min-width: 1024px) {
+  .hub-native {
+    --hub-nav-offset: 116px;
+  }
+}
+
+/* Pages « .cb » (creer-boutique, audiovisual-store-page) : la 1re section doit
+   dégager la navbar fixe. */
+.hub-native .cb-hero {
+  padding-top: calc(var(--hub-nav-offset) + 28px) !important;
+}

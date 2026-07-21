@@ -1,0 +1,218 @@
+[
+  {
+    "id": "P01",
+    "name": "Wool Coat",
+    "brand": "Skoleom Atelier",
+    "price": 129,
+    "originalPrice": 189,
+    "cashback": 12.9,
+    "category": "outerwear",
+    "stock": 46,
+    "hotspot": {
+      "x": 38.5,
+      "y": 67
+    },
+    "icon": "coat",
+    "color": "#8B6F47",
+    "description": "Manteau laine premium, coupe oversize",
+    "rating": 4.8
+  },
+  {
+    "id": "P02",
+    "name": "Sneakers",
+    "brand": "Skoleom Sport",
+    "price": 89,
+    "originalPrice": 119,
+    "cashback": 8.9,
+    "category": "footwear",
+    "stock": 23,
+    "hotspot": {
+      "x": 46,
+      "y": 67.5
+    },
+    "icon": "sneakers",
+    "color": "#2D3748",
+    "description": "Baskets running, technologie Cloud Foam",
+    "rating": 4.6
+  },
+  {
+    "id": "P03",
+    "name": "Leather Bag",
+    "brand": "Skoleom Heritage",
+    "price": 159,
+    "originalPrice": 229,
+    "cashback": 15.9,
+    "category": "accessories",
+    "stock": 15,
+    "hotspot": {
+      "x": 53,
+      "y": 67.5
+    },
+    "icon": "bag",
+    "color": "#8B4513",
+    "description": "Sac à main cuir véritable, fait main",
+    "rating": 4.9
+  },
+  {
+    "id": "P04",
+    "name": "Gold Hoops",
+    "brand": "Skoleom Jewelry",
+    "price": 69,
+    "originalPrice": 95,
+    "cashback": 6.9,
+    "category": "jewelry",
+    "stock": 89,
+    "hotspot": {
+      "x": 56.5,
+      "y": 32
+    },
+    "icon": "jewelry",
+    "color": "#FFD700",
+    "description": "Boucles d'oreilles plaqué or 18 carats",
+    "rating": 4.7
+  },
+  {
+    "id": "P05",
+    "name": "Black Top",
+    "brand": "Skoleom Essentials",
+    "price": 49,
+    "originalPrice": 75,
+    "cashback": 4.9,
+    "category": "tops",
+    "stock": 102,
+    "hotspot": {
+      "x": 58,
+      "y": 52
+    },
+    "icon": "top",
+    "color": "#0a0a0a",
+    "description": "Top noir col rond, coton bio",
+    "rating": 4.5
+  },
+  {
+    "id": "P06",
+    "name": "Pendant Necklace",
+    "brand": "Skoleom Jewelry",
+    "price": 119,
+    "originalPrice": 149,
+    "cashback": 11.9,
+    "category": "jewelry",
+    "stock": 31,
+    "hotspot": {
+      "x": 56,
+      "y": 44
+    },
+    "icon": "necklace",
+    "color": "#FFD700",
+    "description": "Collier pendentif géométrique, or fin",
+    "rating": 4.8
+  },
+  {
+    "id": "P07",
+    "name": "Stack Rings",
+    "brand": "Skoleom Jewelry",
+    "price": 39,
+    "originalPrice": 59,
+    "cashback": 3.9,
+    "category": "jewelry",
+    "stock": 67,
+    "hotspot": {
+      "x": 48,
+      "y": 76
+    },
+    "icon": "rings",
+    "color": "#FFD700",
+    "description": "Lot de 3 bagues empilables minimalistes",
+    "rating": 4.6
+  },
+  {
+    "id": "P08",
+    "name": "Phone Smart X",
+    "brand": "Skoleom Tech",
+    "price": 899,
+    "originalPrice": 1099,
+    "cashback": 89.9,
+    "category": "tech",
+    "stock": 8,
+    "hotspot": {
+      "x": 35,
+      "y": 50
+    },
+    "icon": "phone",
+    "color": "#1e3a8a",
+    "description": "Smartphone 5G, écran OLED, AI in-video native",
+    "rating": 4.9
+  },
+  {
+    "id": "P09",
+    "name": "Beige Trench",
+    "brand": "Skoleom Atelier",
+    "price": 199,
+    "originalPrice": 289,
+    "cashback": 19.9,
+    "category": "outerwear",
+    "stock": 19,
+    "hotspot": {
+      "x": 38,
+      "y": 42
+    },
+    "icon": "trench",
+    "color": "#D4B896",
+    "description": "Trench beige, doublure soie",
+    "rating": 4.8
+  },
+  {
+    "id": "P10",
+    "name": "Cargo Pants",
+    "brand": "Skoleom Sport",
+    "price": 79,
+    "originalPrice": 109,
+    "cashback": 7.9,
+    "category": "bottoms",
+    "stock": 41,
+    "hotspot": {
+      "x": 38,
+      "y": 56
+    },
+    "icon": "pants",
+    "color": "#E5DCC8",
+    "description": "Pantalon cargo coton brossé, taille mid",
+    "rating": 4.4
+  },
+  {
+    "id": "P11",
+    "name": "Brown Boots",
+    "brand": "Skoleom Heritage",
+    "price": 149,
+    "originalPrice": 199,
+    "cashback": 14.9,
+    "category": "footwear",
+    "stock": 22,
+    "hotspot": {
+      "x": 41,
+      "y": 60
+    },
+    "icon": "boots",
+    "color": "#5C4033",
+    "description": "Boots cuir tanné végétal",
+    "rating": 4.7
+  },
+  {
+    "id": "P12",
+    "name": "Smart Watch",
+    "brand": "Skoleom Tech",
+    "price": 249,
+    "originalPrice": 349,
+    "cashback": 24.9,
+    "category": "tech",
+    "stock": 14,
+    "hotspot": {
+      "x": 64,
+      "y": 80
+    },
+    "icon": "smartwatch",
+    "color": "#1e3a8a",
+    "description": "Montre connectée, paiement intégré Skoleom",
+    "rating": 4.8
+  }
+]

@@ -1,0 +1,36 @@
+/*
+ * Filtres daltonisme sur médias uniquement (pas sur #root entier).
+ * Beaucoup plus léger que le filtre full-page qui provoquait des lags Safari.
+ *
+ * Exclure une image : data-a11y-no-filter
+ * (logos officiels, favicons, captures produit à conserver telles quelles).
+ */
+
+html[data-a11y-color-vision='deuteranopia'] img:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='deuteranopia'] video:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='deuteranopia'] iframe:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='deuteranopia'] picture:not([data-a11y-no-filter]) img {
+  filter: url(#a11y-deuteranopia);
+}
+
+html[data-a11y-color-vision='protanopia'] img:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='protanopia'] video:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='protanopia'] iframe:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='protanopia'] picture:not([data-a11y-no-filter]) img {
+  filter: url(#a11y-protanopia);
+}
+
+html[data-a11y-color-vision='tritanopia'] img:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='tritanopia'] video:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='tritanopia'] iframe:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='tritanopia'] picture:not([data-a11y-no-filter]) img {
+  filter: url(#a11y-tritanopia);
+}
+
+/* Achromatopsie — grayscale CSS (plus performant que SVG) */
+html[data-a11y-color-vision='achromatopsia'] img:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='achromatopsia'] video:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='achromatopsia'] iframe:not([data-a11y-no-filter]),
+html[data-a11y-color-vision='achromatopsia'] picture:not([data-a11y-no-filter]) img {
+  filter: grayscale(1) contrast(1.12);
+}

@@ -1,0 +1,108 @@
+.hub-native {
+  --sk-reveal-distance: 30px;
+  --sk-reveal-duration: 0.9s;
+  --sk-reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sk-reveal-stagger-step: 110ms;
+}
+.hub-native .sk-reveal {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+  will-change: opacity, transform;
+}
+.hub-native .sk-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hub-native .sk-reveal-stagger > .sk-reveal-item {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+  transition-delay: calc(var(--sk-reveal-i, 0) * var(--sk-reveal-stagger-step, 85ms));
+  will-change: opacity, transform;
+}
+.hub-native .sk-reveal-stagger.is-visible > .sk-reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hub-native .pros-stats-grid > .pros-stat-card.sk-reveal-item,
+.hub-native .pros-stats-grid > .sk-reveal-item,
+.hub-native .hero-stats > .hstat.sk-reveal-item {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+  pointer-events: none;
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+}
+.hub-native .pros-sol-grid > .sk-reveal-item {
+  opacity: 0;
+  pointer-events: none;
+}
+.hub-native .pros-stats-grid > .pros-stat-card.sk-reveal-item.is-visible,
+.hub-native .pros-stats-grid > .sk-reveal-item.is-visible,
+.hub-native .hero-stats > .hstat.sk-reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.hub-native .hero-stats.sk-reveal-stagger.is-visible > .hstat.sk-reveal-item:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+}
+@media (max-width: 1024px) {
+  .hub-native {
+    --sk-reveal-distance: 22px;
+    --sk-reveal-duration: 0.85s;
+    --sk-reveal-stagger-step: 100ms;
+  }
+}
+@media (max-width: 640px) {
+  .hub-native {
+    --sk-reveal-distance: 18px;
+    --sk-reveal-duration: 0.8s;
+    --sk-reveal-stagger-step: 90ms;
+  }
+}
+@media (max-width: 430px) {
+  .hub-native {
+    --sk-reveal-distance: 14px;
+    --sk-reveal-duration: 0.75s;
+    --sk-reveal-stagger-step: 80ms;
+  }
+}
+.hub-native .phone-mockup.sk-phone-reveal {
+  opacity: 0;
+  transform: translateY(24px) translateX(28px) scale(0.94);
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+  transition-delay: 0.12s;
+  will-change: opacity, transform;
+}
+.hub-native section.hiw.is-visible .phone-mockup.sk-phone-reveal,
+.hub-native .hiw-visual.is-visible .phone-mockup.sk-phone-reveal {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+.hub-native .apl-hero.sk-reveal > .apl-h1,
+.hub-native .apl-hero.sk-reveal > .apl-lead {
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hub-native .sk-reveal,
+  .hub-native .sk-reveal-stagger > .sk-reveal-item,
+  .hub-native .hero-stats > .hstat.sk-reveal-item,
+  .hub-native .phone-mockup.sk-phone-reveal,
+  .hub-native .apl-hero.sk-reveal > .apl-h1,
+  .hub-native .apl-hero.sk-reveal > .apl-lead,
+  .hub-native .apl-feature.sk-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

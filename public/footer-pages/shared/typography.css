@@ -1,0 +1,77 @@
+/**
+ * Typographie Skoleom Universe — alignée sur src/styles (Poppins + échelle Tailwind).
+ */
+:root {
+  --sk-text-xs: 12px;
+  --sk-text-sub: 15px;
+  --sk-text-sm: 16px;
+  --sk-text-base: 18px;
+  --sk-text-lg: 18px;
+  --sk-text-xl: 20px;
+  --sk-text-2xl: 24px;
+  --sk-text-3xl: 28px;
+  --sk-line-tight: 1.35;
+  --sk-line-body: 1.5;
+  --sk-line-relaxed: 1.625;
+  --sk-line-loose: 1.75;
+}
+
+html {
+  font-size: 16px;
+  font-family:
+    'Poppins',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: var(--sk-text-base);
+  line-height: var(--sk-line-body);
+}
+
+h1,
+h2,
+.ph1,
+.sh2,
+.hh1,
+.ph2,
+.hero-h1,
+.section-h2,
+.phero h1,
+.cta-box h2,
+.launch h2,
+.hub-block h3,
+.card h3,
+.step h3,
+.fcard h3,
+.sc-name,
+.sm-name,
+.uc-name,
+.modal-name,
+.step-num,
+.step-content h3,
+.stat-n,
+.hstat-n,
+.pname,
+.pprice,
+.roi-title,
+.rn,
+.pros-metric-val,
+.sv,
+.flogo,
+.pstat-n {
+  font-family: 'Anton', sans-serif;
+}
+
+.sk-footer,
+.sk-footer h3 {
+  font-family: 'Poppins', sans-serif;
+}

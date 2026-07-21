@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# URLs utilitaires / privées
+Disallow: /admin/
+Disallow: /dashboard
+Disallow: /orders
+Disallow: /favorites
+Disallow: /login
+Disallow: /register
+Disallow: /search
+
+Sitemap: https://universe.skoleom.com/sitemap.xml

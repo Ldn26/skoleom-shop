@@ -1,0 +1,323 @@
+/**
+ * Carrousel boutiques hub — même front que l'accueil (BoutiqueMarqueeCarousel).
+ * Utilisé sur boutiques.html et toute page footer qui monte data-sk-hub-bq-carousel.
+ */
+
+.sk-hub-bq-root {
+  width: 100vw;
+  max-width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.sk-hub-bq-marquee {
+  width: 100vw;
+  max-width: 100vw;
+  cursor: grab;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.sk-hub-bq-marquee:active {
+  cursor: grabbing;
+}
+
+.sk-hub-bq-marquee::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+.sk-hub-bq-marquee::-webkit-scrollbar-track {
+  background: transparent;
+  margin-inline: 32%;
+}
+
+.sk-hub-bq-marquee::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.22);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.sk-hub-bq-marquee:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.sk-hub-bq-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  gap: 12px;
+  padding: 4px 8px;
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-track {
+    gap: 16px;
+  }
+}
+
+.sk-hub-bq-card {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #000;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+  width: calc(100vw - 2rem);
+  aspect-ratio: 3 / 4;
+  min-height: min(85vw, 520px);
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card {
+    width: calc((100vw - 2.5rem) / 2);
+    min-height: min(72vw, 420px);
+    aspect-ratio: 2 / 3;
+    border-radius: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sk-hub-bq-card {
+    width: calc((100vw - 3rem) / 3);
+    aspect-ratio: 3 / 4;
+    min-height: 0;
+  }
+}
+
+.sk-hub-bq-card:hover {
+  opacity: 0.95;
+}
+
+.sk-hub-bq-card:focus-visible {
+  outline: 2px solid #c8ff3b;
+  outline-offset: 2px;
+}
+
+.sk-hub-bq-card__media {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sk-hub-bq-card__bg {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  height: 118%;
+  width: 118%;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0.9;
+  transition:
+    transform 0.5s ease-out,
+    opacity 0.5s ease-out;
+}
+
+.sk-hub-bq-card:hover .sk-hub-bq-card__bg {
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.sk-hub-bq-card--shop .sk-hub-bq-card__bg {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  transform: scale(1.02);
+  object-position: center;
+}
+
+.sk-hub-bq-card--shop:hover .sk-hub-bq-card__bg {
+  transform: scale(1.06);
+}
+
+.sk-hub-bq-card__shade {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.95;
+  background:
+    linear-gradient(to top, rgb(0 0 0 / 0.92) 0%, rgb(0 0 0 / 0.55) 42%, transparent 72%),
+    radial-gradient(ellipse 120% 90% at 100% 100%, rgb(0 0 0 / 0.55) 0%, transparent 62%);
+}
+
+.sk-hub-bq-card__logo-slot {
+  pointer-events: none;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 4rem;
+  width: min(78%, 220px);
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__logo-slot {
+    left: 16px;
+    top: 16px;
+    height: 4.25rem;
+    width: min(72%, 200px);
+  }
+}
+
+@media (min-width: 768px) {
+  .sk-hub-bq-card__logo-slot {
+    height: 5rem;
+  }
+}
+
+.sk-hub-bq-card__logo-slot--invest {
+  height: 3rem;
+  width: min(70%, 190px);
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__logo-slot--invest {
+    height: 3.25rem;
+    width: min(66%, 180px);
+  }
+}
+
+@media (min-width: 768px) {
+  .sk-hub-bq-card__logo-slot--invest {
+    height: 3.5rem;
+  }
+}
+
+.sk-hub-bq-card__logo-slot--services {
+  height: 6.75rem;
+  width: min(78%, 230px);
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__logo-slot--services {
+    height: 7.25rem;
+  }
+}
+
+.sk-hub-bq-card__logo-slot--food-beverage {
+  height: 4.5rem;
+  width: min(62%, 170px);
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__logo-slot--food-beverage {
+    height: 5rem;
+  }
+}
+
+.sk-hub-bq-card__logo-slot--real-estate {
+  height: 6.5rem;
+  width: min(88%, 270px);
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__logo-slot--real-estate {
+    height: 7.5rem;
+    width: min(86%, 260px);
+  }
+}
+
+@media (min-width: 768px) {
+  .sk-hub-bq-card__logo-slot--real-estate {
+    height: 8.25rem;
+  }
+}
+
+.sk-hub-bq-card__logo {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left top;
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.85));
+}
+
+.sk-hub-bq-card__logo--real-estate {
+  transform-origin: top left;
+  transform: scale(1.12);
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__logo--real-estate {
+    transform: scale(1.18);
+  }
+}
+
+@media (min-width: 768px) {
+  .sk-hub-bq-card__logo--real-estate {
+    transform: scale(1.22);
+  }
+}
+
+.sk-hub-bq-card__cta-wrap {
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px 16px;
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__cta-wrap {
+    padding: 12px 16px 20px;
+  }
+}
+
+.sk-hub-bq-card__cta {
+  pointer-events: none;
+  display: inline-flex;
+  min-width: 7.5rem;
+  max-width: 11rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #ffd000;
+  padding: 10px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.65);
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .sk-hub-bq-card__cta {
+    min-width: 8rem;
+    max-width: 9.5rem;
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-hub-bq-card:hover .sk-hub-bq-card__bg {
+    transform: translate(-50%, -50%);
+  }
+
+  .sk-hub-bq-card--shop:hover .sk-hub-bq-card__bg {
+    transform: scale(1.02);
+  }
+}

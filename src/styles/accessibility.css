@@ -1,0 +1,175 @@
+/* -------------------------------------------------------------------------- */
+/* Accessibilité — variables, thèmes, daltonisme, dyslexie, liseuse            */
+/* -------------------------------------------------------------------------- */
+
+@import './color-vision-themes.css';
+@import './color-vision-global.css';
+@import './color-vision-media.css';
+
+:root {
+  --a11y-text-scale: 1;
+  --a11y-font-sans: 'Poppins', system-ui, sans-serif;
+  --a11y-font-display: 'Anton', system-ui, sans-serif;
+  --a11y-line-height: 1.5;
+  --a11y-letter-spacing: normal;
+  --a11y-word-spacing: normal;
+}
+
+/* Échelle de texte globale */
+html {
+  font-size: calc(100% * var(--a11y-text-scale));
+}
+
+html[data-a11y-spacing] {
+  --a11y-line-height: 1.75;
+  --a11y-letter-spacing: 0.04em;
+  --a11y-word-spacing: 0.12em;
+}
+
+html[data-a11y-font='dyslexia'] {
+  --a11y-font-sans: 'Lexend', 'Comic Sans MS', 'Arial', sans-serif;
+  --a11y-font-display: 'Lexend', var(--a11y-font-sans);
+  --a11y-line-height: 1.65;
+  --a11y-letter-spacing: 0.06em;
+  --a11y-word-spacing: 0.14em;
+}
+
+body,
+.font-sans {
+  font-family: var(--a11y-font-sans);
+  line-height: var(--a11y-line-height);
+  letter-spacing: var(--a11y-letter-spacing);
+  word-spacing: var(--a11y-word-spacing);
+}
+
+.font-display {
+  font-family: var(--a11y-font-display);
+  letter-spacing: var(--a11y-letter-spacing);
+}
+
+/* Thème contraste élevé */
+html.a11y-high-contrast {
+  --univ-lime: #ffff00;
+  --univ-orange: #ffaa00;
+  --univ-yellow: #ffff66;
+  --univ-blue: #66b3ff;
+  --sk-scrollbar-thumb: rgba(255, 255, 255, 0.5);
+}
+
+html.a11y-high-contrast body {
+  background: #000;
+  color: #fff;
+}
+
+html.a11y-high-contrast .text-white\/70,
+html.a11y-high-contrast .text-white\/65,
+html.a11y-high-contrast .text-white\/60,
+html.a11y-high-contrast .text-white\/55,
+html.a11y-high-contrast .text-white\/50,
+html.a11y-high-contrast .text-white\/45,
+html.a11y-high-contrast .text-white\/40,
+html.a11y-high-contrast .text-white\/35 {
+  color: #e8e8e8 !important;
+}
+
+html.a11y-high-contrast a:focus-visible,
+html.a11y-high-contrast button:focus-visible,
+html.a11y-high-contrast input:focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}
+
+/* Thème doux (lumière réduite, contrastes atténués) */
+html.a11y-soft {
+  --univ-lime: #b8e86a;
+  --univ-orange: #e07a52;
+}
+
+html.a11y-soft body {
+  background: #121212;
+  color: #f0f0f0;
+}
+
+/* Mode lecture — colonne centrée, fond neutre */
+html[data-a11y-reading-mode] #main-content {
+  max-width: 42rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 1rem;
+}
+
+html.light[data-a11y-reading-mode] #main-content {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Réduction des animations (préférence utilisateur) */
+html[data-a11y-reduce-motion] *,
+html[data-a11y-reduce-motion] *::before,
+html[data-a11y-reduce-motion] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-a11y-reduce-motion='false']) *,
+  html:not([data-a11y-reduce-motion='false']) *::before,
+  html:not([data-a11y-reduce-motion='false']) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus renforcé */
+html[data-a11y-enhanced-focus] a:focus-visible,
+html[data-a11y-enhanced-focus] button:focus-visible,
+html[data-a11y-enhanced-focus] input:focus-visible,
+html[data-a11y-enhanced-focus] select:focus-visible,
+html[data-a11y-enhanced-focus] textarea:focus-visible,
+html[data-a11y-enhanced-focus] [tabindex]:focus-visible {
+  outline: 3px solid var(--univ-lime) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--univ-lime) 25%, transparent);
+}
+
+/* Panneau accessibilité */
+.a11y-panel-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.a11y-option-active {
+  border-color: var(--univ-lime) !important;
+  background: color-mix(in srgb, var(--univ-lime) 12%, transparent) !important;
+}
+
+.a11y-swatch {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.a11y-swatch-regular {
+  background: linear-gradient(90deg, #e74c3c, #f39c12, #f1c40f, #2ecc71, #3498db, #9b59b6);
+}
+
+.a11y-swatch-deuteranopia {
+  background: linear-gradient(90deg, #fde047, #38bdf8, #2563eb);
+}
+
+.a11y-swatch-protanopia {
+  background: linear-gradient(90deg, #fef08a, #fb923c, #3b82f6);
+}
+
+.a11y-swatch-tritanopia {
+  background: linear-gradient(90deg, #86efac, #f87171, #c084fc);
+}
+
+.a11y-swatch-achromatopsia {
+  background: linear-gradient(90deg, #333, #888, #ccc);
+}

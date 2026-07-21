@@ -1,0 +1,129 @@
+/* Apparition au scroll — grandes sections footer-pages */
+:root {
+  --sk-reveal-distance: 30px;
+  --sk-reveal-duration: 0.9s;
+  --sk-reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sk-reveal-stagger-step: 110ms;
+}
+
+.sk-reveal {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+  will-change: opacity, transform;
+}
+
+.sk-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grilles — cartes une par une (gauche → droite, ordre DOM) */
+.sk-reveal-stagger > .sk-reveal-item {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+  transition-delay: calc(var(--sk-reveal-i, 0) * var(--sk-reveal-stagger-step, 85ms));
+  will-change: opacity, transform;
+}
+
+.sk-reveal-stagger.is-visible > .sk-reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pros home + hero stats — chaque article reçoit .is-visible en séquence (JS) */
+.pros-stats-grid > .pros-stat-card.sk-reveal-item,
+.pros-stats-grid > .sk-reveal-item,
+.hero-stats > .hstat.sk-reveal-item {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+  pointer-events: none;
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+}
+
+/* pros-sol-grid : directions gérées dans pour-les-pros.html (#page-home) */
+.pros-sol-grid > .sk-reveal-item {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pros-stats-grid > .pros-stat-card.sk-reveal-item.is-visible,
+.pros-stats-grid > .sk-reveal-item.is-visible,
+.hero-stats > .hstat.sk-reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Séquence JS — masqué tant que l'article n'a pas .is-visible */
+.hero-stats.sk-reveal-stagger.is-visible > .hstat.sk-reveal-item:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(var(--sk-reveal-distance));
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --sk-reveal-distance: 22px;
+    --sk-reveal-duration: 0.85s;
+    --sk-reveal-stagger-step: 100ms;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --sk-reveal-distance: 18px;
+    --sk-reveal-duration: 0.8s;
+    --sk-reveal-stagger-step: 90ms;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --sk-reveal-distance: 14px;
+    --sk-reveal-duration: 0.75s;
+    --sk-reveal-stagger-step: 80ms;
+  }
+}
+
+/* Mockup téléphone HIW — apparition décalée après la colonne texte */
+.phone-mockup.sk-phone-reveal {
+  opacity: 0;
+  transform: translateY(24px) translateX(28px) scale(0.94);
+  transition:
+    opacity var(--sk-reveal-duration) var(--sk-reveal-ease),
+    transform var(--sk-reveal-duration) var(--sk-reveal-ease);
+  transition-delay: 0.12s;
+  will-change: opacity, transform;
+}
+
+section.hiw.is-visible .phone-mockup.sk-phone-reveal,
+.hiw-visual.is-visible .phone-mockup.sk-phone-reveal {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+.apl-hero.sk-reveal > .apl-h1,
+.apl-hero.sk-reveal > .apl-lead {
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-reveal,
+  .sk-reveal-stagger > .sk-reveal-item,
+  .hero-stats > .hstat.sk-reveal-item,
+  .phone-mockup.sk-phone-reveal,
+  .apl-hero.sk-reveal > .apl-h1,
+  .apl-hero.sk-reveal > .apl-lead,
+  .apl-feature.sk-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

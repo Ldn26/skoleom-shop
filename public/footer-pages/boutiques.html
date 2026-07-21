@@ -1,0 +1,4509 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>Boutiques Audiovisuelles — Skoleom Universe</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="shared/typography.css" />
+    <link rel="stylesheet" href="shared/hub-boutique-carousel.css" />
+    <style>
+      :root {
+        --bg: #060608;
+        --bg2: #0c0c10;
+        --bg3: #131318;
+        --bg4: #1a1a22;
+        --txt: #f0eff8;
+        --sub: #7a79a0;
+        --sub2: #3d3c55;
+        --green: #c8ff3b;
+        --orange: #ff5c1a;
+        --pink: #ff2d9b;
+        --cyan: #00d4ff;
+        --gold: #ffd000;
+        --purple: #7b2fff;
+        --violet: #5b2bff;
+        --border: rgba(255, 255, 255, 0.06);
+        --border2: rgba(255, 255, 255, 0.11);
+        --r: 18px;
+        --rs: 10px;
+        --rp: 999px;
+        --phone-gutter: max(18px, env(safe-area-inset-left, 0px));
+        --phone-gutter-r: max(18px, env(safe-area-inset-right, 0px));
+        --touch-min: 44px;
+        --hub-copy-xs: calc(0.875rem + 2px);
+        --hub-copy-sm: calc(0.95rem + 2px);
+        --hub-copy: calc(1rem + 2px);
+        --hub-copy-lg: calc(1.05rem + 2px);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        overflow-x: clip;
+        max-width: 100%;
+        scroll-padding-top: calc(var(--hub-nav-offset, 64px) + 12px);
+      }
+      body {
+        background: var(--bg);
+        color: var(--txt);
+        font-family: 'Poppins', sans-serif;
+        overflow-x: clip;
+        max-width: 100%;
+      }
+      section,
+      .inner,
+      .hero {
+        max-width: 100%;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .sk-brand-img {
+        width: auto;
+        object-fit: contain;
+        display: block;
+      }
+      .hdr .sk-brand-img {
+        height: 32px;
+        max-width: 200px;
+      }
+      .sk-footer-logo .sk-brand-img {
+        height: 36px;
+        max-width: 220px;
+      }
+      .sk-shop-cover {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition:
+          transform 0.45s ease,
+          opacity 0.35s ease;
+      }
+      .sc-visual .sk-shop-cover {
+        opacity: 0.52;
+      }
+      .store-card.big .sc-visual .sk-shop-cover {
+        opacity: 0.48;
+      }
+      .sm-hbg .sk-shop-cover {
+        opacity: 0.92;
+      }
+      .sm-hbg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.5) 100%);
+        pointer-events: none;
+      }
+      .uc-shop-cover .sk-shop-cover {
+        opacity: 0.5;
+      }
+      .pvideo-bg .sk-shop-cover {
+        opacity: 1;
+      }
+      .modal-header-icon .sk-brand-img {
+        height: 88px;
+        max-width: 200px;
+        opacity: 0.35;
+      }
+
+      /* ── NOISE OVERLAY ── */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+        opacity: 0.028;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* ── HEADER ── */
+      .hdr {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+        padding: 0 48px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(6, 6, 8, 0.88);
+        backdrop-filter: blur(28px);
+        border-bottom: 1px solid var(--border);
+      }
+      .logo {
+        font-family: 'Anton', sans-serif;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ls {
+        color: var(--green);
+      }
+      .lsub {
+        font-size: 0.58rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        color: var(--sub);
+        padding: 3px 9px;
+        border: 1px solid var(--border2);
+        border-radius: var(--rp);
+      }
+      .hdr-nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .hn {
+        color: var(--sub);
+        font-size: 0.78rem;
+        font-weight: 500;
+        padding: 7px 14px;
+        border-radius: var(--rp);
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .hn:hover {
+        color: var(--txt);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .hn.active {
+        color: var(--green);
+        background: rgba(200, 255, 59, 0.08);
+        border: 1px solid rgba(200, 255, 59, 0.15);
+      }
+      .hcta {
+        background: var(--green);
+        color: #000;
+        font-weight: 700;
+        font-size: 0.78rem;
+        padding: 8px 18px;
+        border-radius: var(--rp);
+        transition: all 0.2s;
+        text-decoration: none;
+        letter-spacing: 0.02em;
+      }
+      .hcta:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 24px rgba(200, 255, 59, 0.4);
+      }
+      .hcta,
+      .btn-prim,
+      .btn-sec,
+      .see-all,
+      .uc-cta,
+      .sm-cta,
+      .sc-buy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      [data-sk-icon],
+      .sk-icon {
+        display: inline-flex;
+        flex-shrink: 0;
+        line-height: 0;
+        vertical-align: middle;
+      }
+      /* ── HERO ── */
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        overflow-x: clip;
+        overflow-y: visible;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 48px 60px;
+      }
+      .hero-mesh {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 80% 60% at 20% 50%, rgba(123, 47, 255, 0.12) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 50% at 80% 40%, rgba(0, 212, 255, 0.08) 0%, transparent 55%),
+          radial-gradient(ellipse 50% 40% at 50% 80%, rgba(200, 255, 59, 0.06) 0%, transparent 50%);
+      }
+      .hero-grid-bg,
+      .bgrid {
+        display: none !important;
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 1000px;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(200, 255, 59, 0.07);
+        border: 1px solid rgba(200, 255, 59, 0.2);
+        border-radius: var(--rp);
+        padding: 6px 18px;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        font-weight: 600;
+        color: var(--green);
+        margin-bottom: 32px;
+      }
+      .hero-eyebrow::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: blink 1.5s ease-in-out infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+      }
+      .hero-h1 {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(2.75rem, 8vw, 7.75rem);
+        line-height: 0.9;
+        letter-spacing: -0.02em;
+        margin-bottom: 28px;
+      }
+      .h1-line1 {
+        display: block;
+        background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .h1-line2 {
+        display: block;
+        background: linear-gradient(135deg, #c8ff3b 0%, #00d4ff 60%, #ff2d9b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-sub {
+        font-size: var(--hub-copy-lg);
+        color: var(--sub);
+        line-height: 1.8;
+        max-width: 580px;
+        margin: 0 auto 40px;
+      }
+      .hero-sub em {
+        color: var(--txt);
+        font-style: normal;
+        font-weight: 500;
+      }
+      .hero-ctas {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 64px;
+      }
+      .btn-prim {
+        background: var(--green);
+        color: #000;
+        font-weight: 700;
+        padding: 14px 32px;
+        border-radius: var(--rp);
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: none;
+        transition: all 0.25s;
+        letter-spacing: 0.03em;
+      }
+      .btn-prim:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(200, 255, 59, 0.35);
+      }
+      .btn-sec {
+        background: transparent;
+        color: var(--txt);
+        border: 1.5px solid var(--border2);
+        padding: 13px 30px;
+        border-radius: var(--rp);
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.25s;
+        font-weight: 500;
+      }
+      .btn-sec:hover {
+        border-color: var(--green);
+        color: var(--green);
+      }
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        flex-wrap: wrap;
+      }
+      .hstat {
+        text-align: center;
+      }
+      .hstat-n {
+        font-family: 'Anton', sans-serif;
+        font-size: 2.4rem;
+        background: linear-gradient(135deg, var(--green), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1;
+      }
+      .hstat-l {
+        font-size: 0.72rem;
+        color: var(--sub);
+        margin-top: 4px;
+        letter-spacing: 0.04em;
+      }
+      .hstat-sep {
+        width: 1px;
+        background: var(--border2);
+        height: 50px;
+        align-self: center;
+      }
+
+      /* ── FEATURED SECTION ── */
+      .featured {
+        padding: 80px 48px;
+        background: var(--bg);
+      }
+      .section-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 48px;
+      }
+      .section-label {
+        font-size: 0.74rem;
+        letter-spacing: 0.18em;
+        font-weight: 700;
+        color: var(--green);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+      .section-h2 {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1;
+        color: var(--txt);
+      }
+      .see-all {
+        font-size: 0.8rem;
+        color: var(--sub);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.2s;
+        flex-shrink: 0;
+      }
+      .see-all:hover {
+        color: var(--green);
+      }
+      .section-head-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .univ-view-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px;
+        border-radius: 999px;
+        border: 1px solid var(--border2);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .univ-view-btn {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+        border-radius: 999px;
+        border: none;
+        background: transparent;
+        color: var(--sub);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+      .univ-view-btn:hover {
+        color: var(--txt);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .univ-view-btn.is-active {
+        background: rgba(200, 255, 59, 0.14);
+        color: var(--green);
+      }
+      #universe-section[data-univ-view='carousel'] .univ-grid {
+        display: none;
+      }
+      #universe-section[data-univ-view='grid'] .univ-carousel-wrap {
+        display: none;
+      }
+      .univ-carousel-wrap {
+        margin-top: 48px;
+      }
+
+      /* ── STORE CARDS HERO STYLE ── */
+      .stores-hero {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+        align-items: stretch;
+      }
+      .store-card {
+        position: relative;
+        border-radius: var(--r);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      }
+      .store-card:not(.big) {
+        height: 100%;
+        min-height: 0;
+      }
+      .store-card:not(.big) .sc-bg {
+        min-height: 100%;
+        height: 100%;
+      }
+      .store-card:hover {
+        transform: scale(1.02);
+        z-index: 10;
+      }
+      .store-card:hover .sc-overlay {
+        opacity: 1;
+      }
+      .store-card:hover .sc-buy-btn {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .store-card.big {
+        grid-column: 1;
+        grid-row: 1 / -1;
+      }
+      .sc-bg {
+        width: 100%;
+        height: 100%;
+        min-height: 280px;
+        display: flex;
+        align-items: flex-end;
+        padding: 28px;
+        background: var(--sc-bg, var(--bg3));
+      }
+      .store-card.big .sc-bg {
+        min-height: 580px;
+        padding: 36px;
+      }
+      .sc-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.85) 0%,
+          rgba(0, 0, 0, 0.3) 50%,
+          transparent 100%
+        );
+        transition: opacity 0.3s;
+      }
+      .sc-visual {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        transition: all 0.4s;
+        pointer-events: none;
+      }
+      .store-card:hover .sc-visual .sk-shop-cover {
+        opacity: 0.65;
+        transform: scale(1.05);
+      }
+      .sc-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+      }
+      .sc-badges {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .sc-badge {
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 4px 10px;
+        border-radius: var(--rp);
+        text-transform: uppercase;
+      }
+      .sc-badge.live {
+        background: rgba(255, 45, 45, 0.8);
+        color: #fff;
+        animation: livepulse 2s ease-in-out infinite;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .live-dot {
+        display: inline-flex;
+        align-items: center;
+        line-height: 0;
+      }
+      @keyframes livepulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 45, 45, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 6px rgba(255, 45, 45, 0);
+        }
+      }
+      .sc-badge.new {
+        background: rgba(200, 255, 59, 0.15);
+        color: var(--green);
+        border: 1px solid rgba(200, 255, 59, 0.3);
+      }
+      .sc-badge.hot {
+        background: rgba(255, 92, 26, 0.15);
+        color: var(--orange);
+        border: 1px solid rgba(255, 92, 26, 0.3);
+      }
+      .sc-badge.top {
+        background: rgba(255, 208, 0, 0.15);
+        color: var(--gold);
+        border: 1px solid rgba(255, 208, 0, 0.3);
+      }
+      .sc-cat-icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+      .sc-name {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        width: 210px;
+        height: 46px;
+        flex-shrink: 0;
+        overflow: visible;
+      }
+      .sc-name .sk-brand-img {
+        display: block;
+        width: 210px !important;
+        height: 42px !important;
+        max-width: 210px !important;
+        max-height: 42px !important;
+        min-width: 210px;
+        min-height: 42px;
+        object-fit: contain;
+        object-position: left center;
+        transform: none;
+      }
+      .stores-hero > .store-card.big .sc-name {
+        width: 260px;
+        height: 58px;
+      }
+      .stores-hero > .store-card.big .sc-name .sk-brand-img {
+        width: 260px !important;
+        height: 54px !important;
+        max-width: 260px !important;
+        max-height: 54px !important;
+        min-width: 260px;
+        min-height: 54px;
+      }
+      .stores-hero > .store-card:not(.big) .sc-name {
+        width: 375px;
+        height: 85px;
+        overflow: visible;
+      }
+      .stores-hero > .store-card:not(.big) .sc-name .sk-brand-img {
+        width: 375px !important;
+        height: 80px !important;
+        max-width: 375px !important;
+        max-height: 80px !important;
+        min-width: 375px;
+        min-height: 80px;
+        transform: none;
+      }
+      .sc-desc {
+        font-size: var(--hub-copy-sm);
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.55;
+        margin-bottom: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-clamp: 2;
+        overflow: hidden;
+      }
+      .sc-meta {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .sc-products {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.55);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .sc-products span {
+        color: #fff;
+        font-weight: 600;
+      }
+      .sc-views {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.55);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .sc-views span {
+        color: var(--green);
+        font-weight: 600;
+      }
+      .sc-buy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--green);
+        color: #000;
+        font-weight: 700;
+        font-size: 0.75rem;
+        padding: 8px 16px;
+        border-radius: var(--rp);
+        margin-top: 12px;
+        transform: translateY(8px);
+        opacity: 0;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.04em;
+      }
+      .store-card.big .sc-buy-btn {
+        font-size: 0.85rem;
+        padding: 10px 22px;
+      }
+
+      /* ── STORES GRID (smaller cards) ── */
+      .stores-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .store-card-sm {
+        position: relative;
+        border-radius: var(--r);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+        background: var(--bg3);
+        border: 1px solid var(--border);
+      }
+      .store-card-sm:hover {
+        transform: translateY(-6px);
+        border-color: var(--sc-c, var(--green));
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      }
+      .store-card-sm:hover .sm-cta {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .sm-header {
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .sm-hbg {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .store-card-sm:hover .sm-hbg .sk-shop-cover {
+        transform: scale(1.06);
+      }
+      .sm-body {
+        padding: 18px;
+      }
+      .sm-badges {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .sm-name {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        width: 150px;
+        height: 30px;
+        flex-shrink: 0;
+      }
+      .sm-name .sk-brand-img {
+        display: block;
+        width: 150px !important;
+        height: 30px !important;
+        max-width: 150px !important;
+        max-height: 30px !important;
+        min-width: 150px;
+        min-height: 30px;
+        object-fit: contain;
+        object-position: left center;
+      }
+      .sm-desc {
+        font-size: calc(0.92rem + 2px);
+        color: var(--sub);
+        line-height: 1.55;
+        margin-bottom: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-clamp: 2;
+        overflow: hidden;
+      }
+      .sm-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .sm-stat {
+        text-align: center;
+      }
+      .sm-stat-n {
+        font-family: 'Anton', sans-serif;
+        font-size: 1rem;
+        color: var(--sc-c, var(--green));
+      }
+      .sm-stat-l {
+        font-size: 0.6rem;
+        color: var(--sub2);
+      }
+      .sm-cta {
+        width: 100%;
+        padding: 10px;
+        border-radius: var(--rp);
+        border: 1.5px solid var(--sc-c, var(--green));
+        background: transparent;
+        color: var(--sc-c, var(--green));
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.78rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        opacity: 0;
+        transform: translateY(6px);
+        letter-spacing: 0.03em;
+      }
+      .sm-cta:hover {
+        background: var(--sc-c, var(--green));
+        color: #000;
+      }
+
+      /* ── CATEGORY UNIVERSE ── */
+      .universe {
+        padding: 80px 48px;
+        background: var(--bg2);
+      }
+      .univ-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 48px;
+      }
+      .univ-card {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        border: 2px solid color-mix(in srgb, var(--uc, var(--green)) 42%, rgba(255, 255, 255, 0.1));
+        box-shadow: none;
+      }
+      .univ-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--uc, var(--green));
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      }
+      .univ-card:hover .uc-overlay {
+        opacity: 1;
+      }
+      .univ-card:hover .uc-cta {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .uc-bg {
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .uc-shop-cover {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .uc-mesh {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: none;
+        box-shadow: none;
+        pointer-events: none;
+      }
+      .univ-card:hover .uc-shop-cover .sk-shop-cover {
+        opacity: 0.62;
+        transform: scale(1.04);
+      }
+      .uc-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 30%, rgba(0, 0, 0, 0.7));
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 20px;
+      }
+      .uc-body {
+        padding: 24px;
+      }
+      .uc-name {
+        display: block;
+        position: relative;
+        margin-bottom: 10px;
+        width: 100%;
+        height: 52px;
+        flex-shrink: 0;
+        overflow: visible;
+      }
+      .uc-name .sk-brand-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        object-fit: contain;
+        object-position: left center;
+        transform: none;
+      }
+      .uc-name[data-sk-store='invest'],
+      .uc-name[data-sk-store='realestate'],
+      .uc-name[data-sk-store='publishing'] {
+        height: 88px;
+      }
+      .uc-desc {
+        font-size: var(--hub-copy-sm);
+        color: var(--sub);
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+      .uc-stats {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 14px;
+      }
+      .uc-stat-n {
+        font-family: 'Anton', sans-serif;
+        font-size: 1.1rem;
+        color: var(--uc, var(--green));
+      }
+      .uc-stat-l {
+        font-size: 0.65rem;
+        color: var(--sub2);
+      }
+      .uc-cta {
+        opacity: 0;
+        transform: translateY(8px);
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--uc, var(--green));
+        color: #000;
+        font-weight: 700;
+        font-size: 0.78rem;
+        padding: 9px 20px;
+        border-radius: var(--rp);
+        cursor: pointer;
+        border: none;
+      }
+
+      /* ── HOW IT WORKS ── */
+      .hiw {
+        padding: 80px 48px;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      .hiw-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .hiw-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .hiw-step {
+        display: flex;
+        gap: 24px;
+        padding: 28px 0;
+        border-bottom: 1px solid var(--border);
+        cursor: default;
+        transition: all 0.25s;
+        position: relative;
+      }
+      .hiw-step:last-child {
+        border-bottom: none;
+      }
+      .hiw-step:hover,
+      .hiw-step.active {
+        padding-left: 16px;
+      }
+      .hiw-step::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--sc, var(--green));
+        border-radius: 2px;
+        transform: scaleY(0);
+        transition: transform 0.3s;
+      }
+      .hiw-step:hover::before,
+      .hiw-step.active::before {
+        transform: scaleY(1);
+      }
+      .step-num {
+        font-family: 'Anton', sans-serif;
+        font-size: 3rem;
+        line-height: 1;
+        color: var(--sc, var(--green));
+        opacity: 0.2;
+        flex-shrink: 0;
+        transition: opacity 0.25s;
+        width: 60px;
+        text-align: right;
+      }
+      .hiw-step.active .step-num,
+      .hiw-step:hover .step-num {
+        opacity: 1;
+      }
+      .step-content h3 {
+        font-family: 'Anton', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 6px;
+        color: var(--txt);
+      }
+      .step-content p {
+        font-size: var(--hub-copy);
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.7;
+      }
+      .hiw-visual {
+        position: relative;
+        min-height: 620px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        --hiw-glow: #c8ff3b;
+      }
+      .hiw-visual::before {
+        content: '';
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          color-mix(in srgb, var(--hiw-glow) 18%, transparent) 0%,
+          transparent 68%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 0;
+        transition: background 0.35s ease;
+      }
+      .phone-mockup {
+        width: 290px;
+        height: 580px;
+        border-radius: 44px;
+        border: 3px solid rgba(255, 255, 255, 0.14);
+        background: linear-gradient(165deg, #14141c 0%, #0a0a0f 100%);
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+        pointer-events: auto;
+        --hiw-accent: #c8ff3b;
+        box-shadow:
+          0 48px 120px rgba(0, 0, 0, 0.65),
+          0 0 0 1px rgba(255, 255, 255, 0.08),
+          0 0 52px color-mix(in srgb, var(--hiw-accent) 14%, transparent),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        transition:
+          border-color 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+      #hiw-phone[data-step='watch'] {
+        --hiw-accent: #c8ff3b;
+        border-color: rgba(200, 255, 59, 0.38);
+      }
+      #hiw-phone[data-step='touch'] {
+        --hiw-accent: #00d4ff;
+        border-color: rgba(0, 212, 255, 0.42);
+      }
+      #hiw-phone[data-step='buy'] {
+        --hiw-accent: #ff6b35;
+        border-color: rgba(255, 107, 53, 0.45);
+      }
+      #hiw-phone[data-step='earn'] {
+        --hiw-accent: #ff3cac;
+        border-color: rgba(255, 60, 172, 0.42);
+      }
+      .phone-notch {
+        width: 96px;
+        height: 28px;
+        background: #050508;
+        border-radius: 0 0 18px 18px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+      }
+      .phone-screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 44px 18px 18px;
+        gap: 10px;
+        overflow: hidden;
+        background: #08080c;
+        pointer-events: auto;
+        z-index: 2;
+        transition: background 0.35s ease;
+      }
+      #hiw-phone[data-step='watch'] .phone-screen {
+        background: linear-gradient(180deg, #0a0c08 0%, #08080c 55%);
+      }
+      #hiw-phone[data-step='touch'] .phone-screen {
+        background: linear-gradient(180deg, #071018 0%, #08080c 55%);
+      }
+      #hiw-phone[data-step='buy'] .phone-screen {
+        background: linear-gradient(180deg, #120c08 0%, #08080c 55%);
+      }
+      #hiw-phone[data-step='earn'] .phone-screen {
+        background: linear-gradient(180deg, #100810 0%, #08080c 55%);
+      }
+      .phone-status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 4px;
+        flex-shrink: 0;
+      }
+      .phone-time {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.55);
+        letter-spacing: 0.04em;
+      }
+      .phone-live-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: var(--rp);
+        background: rgba(255, 61, 61, 0.15);
+        border: 1px solid rgba(255, 61, 61, 0.35);
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #ff6b6b;
+      }
+      .phone-live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ff3d3d;
+      }
+      .pscreen-video {
+        height: 188px;
+        border-radius: 14px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 1px solid color-mix(in srgb, var(--hiw-accent) 22%, rgba(255, 255, 255, 0.08));
+        transition: border-color 0.35s ease;
+      }
+      .pvideo-bg {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        background: #0d1220;
+      }
+      .pvideo-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 55%);
+        pointer-events: none;
+      }
+      .pvideo-play {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(6px);
+      }
+      .pvideo-bar {
+        flex: 1;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .pvideo-progress {
+        height: 100%;
+        width: 65%;
+        background: var(--hiw-accent);
+        border-radius: 2px;
+        transition: background 0.35s ease;
+      }
+      .phone-caps-label {
+        font-size: 0.62rem;
+        color: color-mix(in srgb, var(--hiw-accent) 72%, var(--sub));
+        padding: 2px 4px 0;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        transition: color 0.35s ease;
+      }
+      .phone-capsules {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        overflow: hidden;
+        flex: 1;
+        pointer-events: auto;
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s ease;
+      }
+      #hiw-phone[data-step='watch'] .phone-capsules {
+        opacity: 0.42;
+        transform: translateY(4px);
+      }
+      #hiw-phone[data-step='touch'] .phone-capsules {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      #hiw-phone[data-step='buy'] .pcapsule:first-child {
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--hiw-accent) 28%, transparent);
+      }
+      .pcapsule {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 3px solid var(--hiw-accent);
+        border-radius: 12px;
+        padding: 11px 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        pointer-events: auto;
+        transition:
+          border-color 0.35s ease,
+          background 0.25s ease,
+          transform 0.2s ease,
+          box-shadow 0.35s ease;
+      }
+      .pcapsule--added {
+        border-color: color-mix(in srgb, var(--hiw-accent) 42%, transparent);
+        background: color-mix(in srgb, var(--hiw-accent) 12%, transparent);
+        transform: scale(0.98);
+      }
+      .pcap-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: color-mix(in srgb, var(--hiw-accent) 12%, transparent);
+        flex-shrink: 0;
+        transition: background 0.35s ease;
+      }
+      .pcap-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .pcap-name {
+        font-size: 0.76rem;
+        font-weight: 600;
+        color: var(--txt);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.3;
+      }
+      .pcap-price {
+        font-size: 0.7rem;
+        color: var(--hiw-accent);
+        font-weight: 700;
+        margin-top: 2px;
+        transition: color 0.35s ease;
+      }
+      .pcap-btn {
+        background: var(--hiw-accent);
+        color: #000;
+        border: none;
+        border-radius: 10px;
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 5;
+        pointer-events: auto;
+        touch-action: manipulation;
+        transition:
+          transform 0.15s ease,
+          filter 0.15s ease,
+          background 0.35s ease;
+      }
+      .pcap-btn:hover {
+        filter: brightness(1.08);
+        transform: scale(1.06);
+      }
+      .pcap-btn:active {
+        transform: scale(0.94);
+      }
+      .pcap-btn:disabled {
+        cursor: default;
+        transform: none;
+      }
+      .pcap-btn.is-added {
+        background: #fff;
+        color: #000;
+        cursor: pointer;
+      }
+      .hiw-visual.sk-reveal-item {
+        pointer-events: auto;
+      }
+
+      /* ── STATS BANNER — 5 cases ── */
+      .stats-banner {
+        padding: 60px 48px;
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      .stat-item {
+        text-align: center;
+        padding: 28px 18px 24px;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        transition:
+          border-color 0.22s ease,
+          transform 0.22s ease,
+          box-shadow 0.22s ease;
+      }
+      .stat-item:hover {
+        border-color: var(--border2);
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.38);
+      }
+      .stat-n {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(1.75rem, 2.8vw, 2.4rem);
+        background: linear-gradient(135deg, var(--green), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+      }
+      .stat-l {
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.45;
+        margin-top: 10px;
+      }
+
+      /* ── LAUNCH CTA ── */
+      .launch {
+        padding: 100px 48px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .launch-mesh {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 70% 60% at 50% 50%,
+          rgba(123, 47, 255, 0.1) 0%,
+          transparent 70%
+        );
+      }
+      .launch h2 {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(2.5rem, 6vw, 6rem);
+        line-height: 0.95;
+        margin-bottom: 24px;
+        position: relative;
+      }
+      .launch-grad {
+        background: linear-gradient(135deg, #c8ff3b 0%, #00d4ff 50%, #ff2d9b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .launch p {
+        color: var(--sub);
+        font-size: calc(0.98rem + 2px);
+        line-height: 1.8;
+        max-width: 560px;
+        margin: 0 auto 40px;
+        position: relative;
+      }
+      .launch-ctas {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        position: relative;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        padding: 48px;
+        border-top: 1px solid var(--border);
+        background: var(--bg2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .flogo {
+        font-family: 'Anton', sans-serif;
+        font-size: 1.2rem;
+      }
+      .flinks {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .flinks a {
+        color: var(--sub);
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .flinks a:hover {
+        color: var(--green);
+      }
+      .flegal {
+        font-size: 0.68rem;
+        color: var(--sub2);
+        max-width: 400px;
+        line-height: 1.6;
+      }
+
+      /* ── MODAL / STORE DETAIL ── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.88);
+        backdrop-filter: blur(12px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal {
+        background: var(--bg3);
+        border: 1px solid var(--border2);
+        border-radius: 28px;
+        width: 100%;
+        max-width: 760px;
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+      }
+      .modal::-webkit-scrollbar {
+        width: 4px;
+      }
+      .modal::-webkit-scrollbar-thumb {
+        background: var(--border2);
+        border-radius: 2px;
+      }
+      .modal-header {
+        height: 280px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 28px 28px 0 0;
+        display: flex;
+        align-items: flex-end;
+        padding: 32px;
+      }
+      .modal-header-bg {
+        position: absolute;
+        inset: 0;
+      }
+      .modal-header-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      }
+      .modal-header-icon {
+        font-size: 5rem;
+        position: absolute;
+        top: 40px;
+        right: 60px;
+        opacity: 0.25;
+      }
+      .modal-header-content {
+        position: relative;
+        z-index: 2;
+      }
+      .modal-badges {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .modal-name {
+        font-family: 'Anton', sans-serif;
+        font-size: 2.5rem;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .modal-tagline {
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .modal-body {
+        padding: 32px;
+      }
+      .modal-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      .mstat {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 20px;
+        text-align: center;
+      }
+      .mstat-n {
+        font-family: 'Anton', sans-serif;
+        font-size: 1.8rem;
+        color: var(--ms-c, var(--green));
+      }
+      .mstat-l {
+        font-size: 0.72rem;
+        color: var(--sub);
+        margin-top: 4px;
+      }
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #fff;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        z-index: 10;
+      }
+      .modal-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .products-preview {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .prod-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: var(--rs);
+        padding: 14px;
+        text-align: center;
+        transition: all 0.25s;
+        cursor: pointer;
+      }
+      .prod-card:hover {
+        border-color: var(--green);
+        background: rgba(200, 255, 59, 0.05);
+        transform: scale(1.03);
+      }
+      .prod-icon {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+      .prod-name {
+        font-size: 0.68rem;
+        color: var(--sub);
+        margin-bottom: 4px;
+      }
+      .prod-price {
+        font-family: 'Anton', sans-serif;
+        font-size: 0.9rem;
+        color: var(--green);
+      }
+      .modal-cta {
+        width: 100%;
+        padding: 15px;
+        border-radius: var(--rp);
+        background: var(--green);
+        color: #000;
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.95rem;
+        cursor: pointer;
+        border: none;
+        letter-spacing: 0.04em;
+        transition: all 0.2s;
+      }
+      .modal-cta:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 30px rgba(200, 255, 59, 0.3);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        .hero {
+          min-height: auto;
+          padding: calc(var(--hub-nav-offset) + 32px) 32px 48px;
+        }
+        .hero-h1 {
+          font-size: clamp(2.75rem, 7.5vw, 6.5rem);
+        }
+        .hero-sub {
+          font-size: var(--hub-copy-sm);
+          margin-bottom: 32px;
+        }
+        .stores-hero {
+          grid-template-columns: 1.1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+        }
+        .store-card.big {
+          grid-row: 1 / -1;
+        }
+        .stores-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .univ-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .hiw-inner {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .hiw-visual {
+          display: none;
+        }
+        .featured,
+        .universe,
+        .hiw,
+        .launch {
+          padding-left: 32px;
+          padding-right: 32px;
+        }
+        .stats-banner {
+          padding: 48px 32px;
+        }
+        .section-head {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+          margin-bottom: 32px;
+        }
+      }
+      @media (max-width: 640px) {
+        .hero {
+          padding: calc(var(--hub-nav-offset) + 20px) 20px 40px;
+          gap: 0;
+        }
+        .hero-h1 {
+          font-size: clamp(2.5rem, 9vw, 5rem);
+          margin-bottom: 20px;
+        }
+        .hero-sub {
+          font-size: var(--hub-copy-xs);
+          line-height: 1.65;
+          margin-bottom: 28px;
+        }
+        .hero-ctas {
+          flex-direction: column;
+          width: 100%;
+          gap: 10px;
+          margin-bottom: 40px;
+        }
+        .btn-prim,
+        .btn-sec {
+          width: 100%;
+          justify-content: center;
+          min-height: var(--touch-min);
+          padding: 14px 20px;
+          border-radius: 14px;
+          touch-action: manipulation;
+        }
+        .hero-stats {
+          gap: 20px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .hstat-sep {
+          display: none;
+        }
+        .hstat-n {
+          font-size: 2rem;
+        }
+        .stores-hero,
+        .stores-grid {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto;
+        }
+        .store-card.big {
+          grid-row: auto;
+          grid-column: auto;
+        }
+        .store-card:not(.big) {
+          height: auto;
+        }
+        .store-card:not(.big) .sc-bg {
+          min-height: 280px;
+          height: auto;
+        }
+        .univ-grid {
+          grid-template-columns: 1fr;
+        }
+        .featured,
+        .universe,
+        .hiw,
+        .launch {
+          padding: 48px 20px;
+        }
+        .stats-banner {
+          padding: 40px 20px;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .stat-item {
+          padding: 22px 16px 20px;
+        }
+        .section-h2 {
+          font-size: clamp(1.6rem, 7vw, 2.2rem);
+        }
+        .sc-bg {
+          min-height: 220px;
+          padding: 20px;
+        }
+        .modal-panel {
+          width: calc(100% - 32px);
+          max-height: 90dvh;
+          margin: 16px;
+        }
+        .modal-body {
+          padding: 20px;
+        }
+      }
+      @media (max-width: 430px) {
+        .hero {
+          padding: calc(var(--hub-nav-offset) + 12px) var(--phone-gutter) 32px;
+        }
+        .hero-h1 {
+          font-size: clamp(2.25rem, 10vw, 3.5rem);
+        }
+        .featured,
+        .universe,
+        .hiw,
+        .launch,
+        .stats-banner {
+          padding-left: var(--phone-gutter);
+          padding-right: var(--phone-gutter-r);
+        }
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+        .store-card {
+          border-radius: 16px;
+        }
+        .uc-card,
+        .sm-card {
+          padding: 18px 16px;
+        }
+      }
+      @media (hover: none) and (pointer: coarse) {
+        .store-card:hover,
+        .btn-prim:hover,
+        .btn-sec:hover {
+          transform: none;
+          box-shadow: none;
+        }
+        .store-card:active {
+          transform: scale(0.985);
+        }
+      }
+    </style>
+    <style id="hub-nav-styles">
+      /**
+ * Navigation hub — réplique NavLinks Universe (Header.tsx).
+ */
+      :root {
+        --univ-lime: #a8ff35;
+        --hub-top-h: 56px;
+        --hub-pill-h: 38px;
+        --hub-nav-gap: 4px;
+        --hub-nav-offset: calc(var(--hub-top-h) + var(--hub-pill-h) + var(--hub-nav-gap) + 8px);
+        --hub-hero-title-gap: 2rem;
+        --hub-embed-hero-pt: clamp(5.5rem, 9vw, 8rem);
+        --phone-gutter: max(18px, env(safe-area-inset-left, 0px));
+        --phone-gutter-r: max(18px, env(safe-area-inset-right, 0px));
+        --touch-min: 44px;
+      }
+
+      @media (min-width: 768px) {
+        :root {
+          --hub-top-h: 71px;
+        }
+      }
+
+      .hub-shell {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1100;
+        background: transparent;
+        font-family:
+          'Poppins',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        pointer-events: auto;
+        isolation: isolate;
+      }
+
+      .hub-top {
+        position: relative;
+        z-index: 2;
+        border-bottom: 1px solid transparent;
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+
+      .hub-top-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        height: var(--hub-top-h);
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 0 clamp(12px, 3vw, 60px);
+      }
+
+      .hub-top-brand {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: clamp(12px, 2vw, 24px);
+        min-width: 0;
+      }
+
+      .hub-logo {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        text-decoration: none;
+      }
+
+      .hub-logo .sk-brand-img {
+        display: block;
+        height: 28px;
+        width: auto;
+        max-width: 180px;
+        object-fit: contain;
+        transition: opacity 0.3s ease;
+      }
+
+      .hub-logo:hover .sk-brand-img {
+        opacity: 0.9;
+      }
+
+      @media (min-width: 768px) {
+        .hub-logo .sk-brand-img {
+          height: 32px;
+          max-width: 200px;
+        }
+      }
+
+      .hub-universe-wrap {
+        position: relative;
+        display: none;
+      }
+
+      @media (min-width: 768px) {
+        .hub-universe-wrap {
+          display: block;
+        }
+      }
+
+      .hub-universe-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        white-space: nowrap;
+        transition: color 0.3s ease;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      @media (min-width: 768px) {
+        .hub-universe-btn {
+          font-size: 12px;
+        }
+      }
+
+      .hub-universe-btn:hover,
+      .hub-universe-btn.open {
+        color: var(--univ-lime);
+      }
+
+      /* Méga-menu Universe */
+      .hub-universe-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 1090;
+        pointer-events: none;
+      }
+
+      .hub-universe-layer.open {
+        pointer-events: auto;
+      }
+
+      .hub-universe-backdrop {
+        position: absolute;
+        inset: 0;
+        border: none;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(1px);
+        cursor: default;
+      }
+
+      .hub-universe-panel {
+        position: absolute;
+        top: calc(var(--hub-top-h) + 4px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(calc(100vw - 24px), 1600px);
+        max-height: calc(100dvh - var(--hub-top-h) - 16px);
+        border-radius: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(9, 9, 11, 0.98);
+        box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hub-um-scroll {
+        overflow-y: auto;
+        padding: 20px 24px 12px;
+        scrollbar-width: thin;
+      }
+
+      .hub-um-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .hub-um-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 12px;
+      }
+
+      @media (min-width: 640px) {
+        .hub-um-row {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hub-um-row {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+          gap: 20px 16px;
+        }
+      }
+
+      .hub-um-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      }
+
+      .hub-um-col-title {
+        margin: 0 0 8px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      @media (min-width: 768px) {
+        .hub-um-col-title {
+          font-size: 10px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .hub-um-col-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .hub-um-link {
+        display: block;
+        padding: 4px 0;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: color 0.2s ease;
+      }
+
+      .hub-um-link-label {
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      @media (min-width: 768px) {
+        .hub-um-link-label {
+          font-size: 12px;
+        }
+      }
+
+      .hub-um-link:hover .hub-um-link-label {
+        color: var(--univ-lime);
+      }
+
+      .hub-um-footer {
+        flex-shrink: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.2);
+        padding: 12px 24px 16px;
+        text-align: center;
+      }
+
+      .hub-um-all {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .hub-um-all:hover {
+        border-color: rgba(168, 255, 53, 0.4);
+        color: var(--univ-lime);
+      }
+
+      .hub-top-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      @media (min-width: 640px) {
+        .hub-top-actions {
+          gap: 8px;
+        }
+      }
+
+      .hub-top-lang {
+        display: none;
+      }
+
+      @media (min-width: 1024px) {
+        .hub-top-lang {
+          display: block;
+        }
+      }
+
+      .hub-lang {
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .hub-lang-btn {
+        display: inline-flex;
+        height: 36px;
+        flex-shrink: 0;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.9);
+        font-family: 'Poppins', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        line-height: 1;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      @media (min-width: 640px) {
+        .hub-lang-btn {
+          gap: 6px;
+          padding: 0 10px;
+        }
+      }
+
+      .hub-lang-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .hub-lang-btn:focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px #000,
+          0 0 0 4px #c8ff3b;
+      }
+
+      .hub-lang-flag {
+        width: 20px;
+        height: 14px;
+        border-radius: 2px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .hub-lang-flag--lg {
+        width: 24px;
+        height: 16px;
+      }
+
+      .hub-lang-chevron {
+        color: rgba(255, 255, 255, 0.7);
+        transition: transform 0.3s ease;
+      }
+
+      .hub-lang-chevron.is-open {
+        transform: rotate(180deg);
+      }
+
+      .hub-lang-panel {
+        position: fixed;
+        z-index: 1200;
+        max-height: min(60dvh, 30rem);
+        overflow-y: auto;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(17, 17, 17, 0.95);
+        padding: 8px;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .hub-lang-group--sep {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .hub-lang-zone {
+        margin: 0;
+        padding: 4px 12px 4px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .hub-lang-option {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: none;
+        border-radius: 16px;
+        background: transparent;
+        color: #d0d0d0;
+        font-family: 'Poppins', sans-serif;
+        text-align: left;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .hub-lang-option:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .hub-lang-option.is-active {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      .hub-lang-option:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px #c8ff3b;
+      }
+
+      .hub-lang-native {
+        flex: 1;
+        min-width: 0;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .hub-lang-code {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      .hub-mbtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--touch-min, 44px);
+        height: var(--touch-min, 44px);
+        min-width: var(--touch-min, 44px);
+        min-height: var(--touch-min, 44px);
+        border: none;
+        border-radius: 10px;
+        background: transparent;
+        color: #f2f2f2;
+        cursor: pointer;
+        flex-shrink: 0;
+        padding: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 3;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(200, 255, 59, 0.15);
+      }
+
+      .hub-mbtn svg {
+        display: block;
+      }
+
+      @media (min-width: 1024px) {
+        .hub-mbtn {
+          display: none;
+        }
+      }
+
+      /* Pilule — NavLinks Universe */
+      .hub-pill-wrap {
+        display: none;
+        justify-content: center;
+        padding: 0 12px;
+        margin-top: 4px;
+      }
+
+      @media (min-width: 1024px) {
+        .hub-pill-wrap {
+          display: flex;
+        }
+      }
+
+      .hub-pill-nav {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: fit-content;
+        max-width: min(calc(100vw - 3rem), 1600px);
+        min-height: 38px;
+        height: 38px;
+        padding: 4px 8px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.82);
+        font-family:
+          'Poppins',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        backdrop-filter: blur(24px) saturate(1.5);
+        -webkit-backdrop-filter: blur(24px) saturate(1.5);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.1),
+          inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
+          0 12px 34px -8px rgba(0, 0, 0, 0.82),
+          0 0 44px rgba(0, 0, 0, 0.42),
+          inset 0 0 0 1px rgba(0, 0, 0, 0.45);
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        touch-action: pan-x;
+      }
+
+      .hub-pill-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hub-pill-nav a.hub-pill-link {
+        display: inline-flex;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.78);
+        text-decoration: none;
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85);
+        flex-shrink: 0;
+      }
+
+      @media (min-width: 1280px) {
+        .hub-pill-nav a.hub-pill-link {
+          padding: 0 14px;
+        }
+      }
+
+      .hub-pill-nav a.hub-pill-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--univ-lime);
+      }
+
+      .hub-pill-nav a.hub-pill-link.active {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--univ-lime);
+      }
+
+      .hub-mobile-nav {
+        display: none !important;
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px 16px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(5, 5, 5, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .hub-mobile-nav.open {
+        display: flex !important;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hub-mobile-nav a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: var(--touch-min, 44px);
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(200, 255, 59, 0.12);
+      }
+
+      .hub-mobile-nav a:hover,
+      .hub-mobile-nav a.active {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--univ-lime);
+      }
+
+      .hub-mobile-universe {
+        font-weight: 700 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 4px;
+        padding-bottom: 12px !important;
+      }
+
+      body.hub-has-nav main,
+      body.hub-has-nav .page,
+      body.hub-has-nav .hero,
+      body.hub-has-nav section.hero {
+        padding-top: var(--hub-nav-offset);
+      }
+
+      /* Grands titres — espace sous la nav hub */
+      body.hub-has-nav .hero,
+      body.hub-has-nav section.hero {
+        padding-top: calc(var(--hub-nav-offset) + var(--hub-hero-title-gap));
+      }
+
+      body.hub-has-nav main .phero,
+      body.hub-has-nav .page .phero {
+        padding-top: calc(80px + var(--hub-hero-title-gap));
+      }
+
+      body.hub-has-nav .apl-hero {
+        padding-top: calc(110px + var(--hub-hero-title-gap));
+      }
+
+      @media (max-width: 1023px) {
+        :root {
+          --hub-nav-offset: calc(var(--hub-top-h) + 8px);
+        }
+      }
+
+      body.hub-has-nav .page {
+        min-height: calc(100dvh - var(--hub-nav-offset));
+      }
+
+      body.hub-has-nav #page-home {
+        padding-top: 0;
+      }
+
+      @media (max-width: 430px) {
+        .hub-top-inner {
+          padding-left: max(14px, env(safe-area-inset-left, 0px));
+          padding-right: max(14px, env(safe-area-inset-right, 0px));
+        }
+
+        .hub-lang-btn {
+          min-width: var(--touch-min, 44px);
+          min-height: var(--touch-min, 44px);
+          height: var(--touch-min, 44px);
+          padding: 0 12px;
+        }
+
+        .hub-mobile-nav {
+          padding-left: max(14px, env(safe-area-inset-left, 0px));
+          padding-right: max(14px, env(safe-area-inset-right, 0px));
+          padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+          max-height: calc(100dvh - var(--hub-top-h) - env(safe-area-inset-top, 0px));
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+
+      /* Mode embed (/hub/*) — espace sous la navbar React Universe */
+      body.hub-embed main,
+      body.hub-embed .page {
+        padding-top: 0 !important;
+      }
+
+      body.hub-embed .hero,
+      body.hub-embed section.hero,
+      body.hub-embed .phero,
+      body.hub-embed .apl-hero,
+      body.hub-embed main > .phero:first-child {
+        min-height: auto !important;
+        padding-top: var(--hub-embed-hero-pt) !important;
+      }
+    </style>
+    <link rel="stylesheet" href="shared/reveal-animations.css" />
+    <link rel="stylesheet" href="shared/sk-footer.css" />
+  </head>
+  <body class="hub-has-nav" data-footer-page="boutiques">
+    <header class="hub-shell" id="hub-header">
+      <div class="hub-top">
+        <div class="hub-top-inner">
+          <div class="hub-top-brand">
+            <a href="/" class="hub-logo" aria-label="Skoleom">
+              <img
+                src="/logo/logo-skoleom-brand.webp"
+                alt="Skoleom"
+                class="sk-brand-img sk-brand-img--universe"
+                height="32"
+                loading="eager"
+                decoding="async"
+              />
+            </a>
+          </div>
+          <div class="hub-top-actions">
+            <div class="hub-top-lang">
+              <div class="hub-lang" data-hub-lang data-hub-lang-placement="header"></div>
+            </div>
+            <button
+              type="button"
+              class="hub-mbtn"
+              id="hub-mbtn"
+              aria-label="Menu navigation"
+              aria-expanded="false"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="#F2F2F2" stroke-width="1.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="hub-pill-wrap">
+        <nav class="hub-pill-nav" role="navigation" aria-label="Navigation principale">
+          <a class="hub-pill-link" href="/" data-hub-nav="home">Accueil</a
+          ><a
+            class="hub-pill-link active"
+            href="/footer-pages/boutiques.html"
+            data-hub-nav="boutiques"
+            >Boutiques audiovisuelles</a
+          ><a class="hub-pill-link" href="/footer-pages/pour-tous.html" data-hub-nav="public"
+            >Pour tous</a
+          ><a class="hub-pill-link" href="/footer-pages/pour-les-pros.html" data-hub-nav="pros"
+            >Pour les Pros</a
+          ><a class="hub-pill-link" href="/footer-pages/groupe.html" data-hub-nav="group">Groupe</a>
+        </nav>
+      </div>
+      <nav class="hub-mobile-nav" id="hub-mobile-nav" aria-label="Navigation mobile" hidden></nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-mesh"></div>
+      <div class="hero-inner">
+        <h1 class="hero-h1">
+          <span class="h1-line1">Tout ce que</span>
+          <span class="h1-line2">vous regardez</span>
+          <span class="h1-line1">s'achète.</span>
+        </h1>
+        <p class="hero-sub">
+          Skoleom transforme chaque vidéo en boutique interactive.
+          <em>Touchez n'importe quoi.</em> Possédez tout. Instantanément. Sans jamais quitter le
+          contenu.
+        </p>
+        <div class="hero-ctas">
+          <button
+            class="btn-prim"
+            onclick="
+              document.getElementById('stores-section').scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            Explorer les boutiques
+            <span data-sk-icon="chevDown" data-sk-size="14" data-sk-color="currentColor"></span>
+          </button>
+          <button
+            class="btn-sec"
+            onclick="
+              document.getElementById('universe-section').scrollIntoView({ behavior: 'smooth' })
+            "
+          >
+            Univers par catégorie
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat">
+            <div class="hstat-n">10B+</div>
+            <div class="hstat-l">Vidéos skoléomisées/jour</div>
+          </div>
+          <div class="hstat-sep"></div>
+          <div class="hstat">
+            <div class="hstat-n">5,5B+</div>
+            <div class="hstat-l">Personnes exposées</div>
+          </div>
+          <div class="hstat-sep"></div>
+          <div class="hstat">
+            <div class="hstat-n">190</div>
+            <div class="hstat-l">Pays connectés</div>
+          </div>
+          <div class="hstat-sep"></div>
+          <div class="hstat">
+            <div class="hstat-n">500M+</div>
+            <div class="hstat-l">Produits intégrés</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED STORES -->
+    <section class="featured" id="stores-section">
+      <div class="section-head">
+        <div>
+          <div class="section-label">BOUTIQUES EN VEDETTE</div>
+          <h2 class="section-h2">Les plus populaires maintenant</h2>
+        </div>
+        <a href="/footer-pages/univers.html" class="see-all"
+          >Voir tout
+          <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+        ></a>
+      </div>
+
+      <div class="stores-hero">
+        <!-- BIG FEATURED -->
+        <div
+          class="store-card big"
+          style="background: linear-gradient(145deg, #0d1117, #1a1a2e)"
+          onclick="openBoutique('sesports')"
+        >
+          <div class="sc-overlay"></div>
+          <div class="sc-visual" data-sk-shop-cover="sport-elite"></div>
+          <div class="sc-bg">
+            <div class="sc-content">
+              <div class="sc-badges">
+                <span class="sc-badge live"
+                  ><span data-sk-icon="live" data-sk-size="8" data-sk-color="#FF3D3D"></span>
+                  LIVE</span
+                ><span class="sc-badge hot"
+                  ><span data-sk-icon="flame" data-sk-size="12" data-sk-color="#FF5C1A"></span>
+                  HOT</span
+                >
+              </div>
+              <div class="sc-name" data-sk-store="sport-elite" data-sk-height="36"></div>
+              <div class="sc-desc">
+                La boutique audiovisuelle sport ultime. Équipements premium, nutrition, vêtements —
+                achetez directement pendant les matchs en direct.
+              </div>
+              <div class="sc-meta">
+                <div class="sc-products">
+                  <span
+                    data-sk-icon="shop"
+                    data-sk-size="14"
+                    data-sk-color="rgba(255,255,255,.5)"
+                  ></span>
+                  <span>625</span> produits actifs
+                </div>
+                <div class="sc-views">
+                  <span
+                    data-sk-icon="eye"
+                    data-sk-size="14"
+                    data-sk-color="rgba(255,255,255,.5)"
+                  ></span>
+                  <span>142K</span> vues/mois
+                </div>
+              </div>
+              <button class="sc-buy-btn">
+                <span data-sk-icon="play" data-sk-size="12" data-sk-color="#000"></span> Explorer la
+                boutique <span data-sk-icon="arrow" data-sk-size="12" data-sk-color="#000"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- TOP RIGHT -->
+        <div
+          class="store-card"
+          style="background: linear-gradient(145deg, #0d0517, #1a0a2e)"
+          onclick="openBoutique('music')"
+        >
+          <div class="sc-overlay"></div>
+          <div class="sc-visual" data-sk-shop-cover="music-wave"></div>
+          <div class="sc-bg">
+            <div class="sc-content">
+              <div class="sc-badges">
+                <span class="sc-badge new"
+                  ><span data-sk-icon="spark" data-sk-size="10" data-sk-color="#C8FF3B"></span>
+                  NOUVEAU</span
+                >
+              </div>
+              <div class="sc-name" data-sk-store="music-wave" data-sk-height="36"></div>
+              <div class="sc-desc">Instruments, merch, vinyles — achetez dans les clips.</div>
+              <div class="sc-meta">
+                <div class="sc-views">
+                  <span
+                    data-sk-icon="eye"
+                    data-sk-size="14"
+                    data-sk-color="rgba(255,255,255,.5)"
+                  ></span>
+                  <span>58K</span> vues/mois
+                </div>
+              </div>
+              <button class="sc-buy-btn">
+                Explorer
+                <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- BOTTOM RIGHT -->
+        <div
+          class="store-card"
+          style="background: linear-gradient(145deg, #171005, #2a1a05)"
+          onclick="openBoutique('fashion-av')"
+        >
+          <div class="sc-overlay"></div>
+          <div class="sc-visual" data-sk-shop-cover="fashion-av"></div>
+          <div class="sc-bg">
+            <div class="sc-content">
+              <div class="sc-badges">
+                <span class="sc-badge top"
+                  ><span data-sk-icon="sponsor" data-sk-size="12" data-sk-color="#FFD000"></span>
+                  TOP</span
+                >
+              </div>
+              <div class="sc-name" data-sk-store="fashion-av" data-sk-height="36"></div>
+              <div class="sc-desc">Mode, beauté et luxe intégrés dans les défilés et vlogs.</div>
+              <div class="sc-meta">
+                <div class="sc-views">
+                  <span
+                    data-sk-icon="eye"
+                    data-sk-size="14"
+                    data-sk-color="rgba(255,255,255,.5)"
+                  ></span>
+                  <span>118K</span> vues/mois
+                </div>
+              </div>
+              <button class="sc-buy-btn">
+                Explorer
+                <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNIVERSE BY CATEGORY -->
+    <section class="universe" id="universe-section" data-univ-view="carousel">
+      <div class="section-head">
+        <div>
+          <div class="section-label">BOUTIQUES AUDIOVISUELLES</div>
+          <h2 class="section-h2">Toutes les boutiques officielles</h2>
+        </div>
+        <div class="section-head-actions">
+          <div class="univ-view-toggle" role="group" aria-label="Mode d'affichage des boutiques">
+            <button
+              type="button"
+              class="univ-view-btn"
+              data-univ-view="grid"
+              aria-pressed="false"
+              aria-label="Affichage en blocs"
+              title="Affichage en blocs"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect
+                  x="3"
+                  y="3"
+                  width="7"
+                  height="7"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <rect
+                  x="14"
+                  y="3"
+                  width="7"
+                  height="7"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <rect
+                  x="3"
+                  y="14"
+                  width="7"
+                  height="7"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <rect
+                  x="14"
+                  y="14"
+                  width="7"
+                  height="7"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="univ-view-btn is-active"
+              data-univ-view="carousel"
+              aria-pressed="true"
+              aria-label="Affichage en carrousel"
+              title="Affichage en carrousel"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect
+                  x="2"
+                  y="6"
+                  width="6"
+                  height="12"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <rect
+                  x="9"
+                  y="6"
+                  width="6"
+                  height="12"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <rect
+                  x="16"
+                  y="6"
+                  width="6"
+                  height="12"
+                  rx="1.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+          <a href="/stores" class="see-all"
+            >Toutes les boutiques
+            <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+          ></a>
+        </div>
+      </div>
+
+      <div class="univ-grid" id="universe-grid">
+        <div
+          class="univ-card"
+          style="--uc: #00b894; --uc-glow: rgba(0, 184, 148, 0.18)"
+          onclick="openBoutique('sesports', 'https://sesports.skoleom.com/')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="sesports"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #00b894; color: #000">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="sesports"></div>
+            <div class="uc-desc">
+              Univers sport interactif : video-to-commerce, retail média et fan engagement. La
+              boutique audiovisuelle officielle du groupe pour les marques sport.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #00b894">124</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #00b894">680K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #00b894">+15 000</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #00b894;
+                color: #000;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="https://sesports.skoleom.com/"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #10b981; --uc-glow: rgba(16, 185, 129, 0.18)"
+          onclick="openBoutique('cares', '/store/cares')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="cares"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #10b981; color: #000">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="cares"></div>
+            <div class="uc-desc">
+              Impact social et programmes dédiés — l'engagement et les causes au cœur de
+              l'expérience audiovisuelle shoppable.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #10b981">45</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #10b981">142K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #10b981">+2 100</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #10b981;
+                color: #000;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/cares"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #a855f7; --uc-glow: rgba(168, 85, 247, 0.18)"
+          onclick="openBoutique('games', '/store/games')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="games"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #a855f7">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="games"></div>
+            <div class="uc-desc">
+              Jeux, IP et monétisation in-game. Capsules interactives intégrées aux streams et
+              contenus gaming préférés.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #a855f7">156</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #a855f7">520K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #a855f7">+15 600</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #a855f7;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/games"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #ff8a00; --uc-glow: rgba(255, 138, 0, 0.18)"
+          onclick="openBoutique('invest', '/store/invest')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="invest"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #ff8a00; color: #000">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="invest"></div>
+            <div class="uc-desc">
+              Levées, véhicules et structuration — la boutique audiovisuelle dédiée à
+              l'investissement et au financement de projets.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #ff8a00">28</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #ff8a00">96K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #ff8a00">+890</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #ff8a00;
+                color: #000;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/invest"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #1a4d6e; --uc-glow: rgba(36, 98, 138, 0.36)"
+          onclick="openBoutique('services', '/store/services')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="services"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: var(--uc)">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="services"></div>
+            <div class="uc-desc">
+              Services et accompagnement groupe — solutions professionnelles accessibles directement
+              depuis les contenus audiovisuels.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: var(--uc)">92</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: var(--uc)">380K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: var(--uc)">+4 200</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: var(--uc);
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/services"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #f59e0b; --uc-glow: rgba(245, 158, 11, 0.18)"
+          onclick="openBoutique('fnb', '/stores')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="fnb"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #f59e0b; color: #000">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="fnb"></div>
+            <div class="uc-desc">
+              Food &amp; beverage, marques gourmandes et expériences culinaires — commandez en
+              regardant recettes, lives et formats food.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #f59e0b">78</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #f59e0b">248K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #f59e0b">+7 800</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #f59e0b;
+                color: #000;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/stores"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #0891b2; --uc-glow: rgba(8, 145, 178, 0.18)"
+          onclick="openBoutique('travel', '/store/travel')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="travel"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #0891b2">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="travel"></div>
+            <div class="uc-desc">
+              Mobilité, hospitality et contenus voyage — réservez et achetez pendant les
+              documentaires, vlogs et expériences immersives.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #0891b2">34</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #0891b2">112K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #0891b2">+1 200</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #0891b2;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/travel"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #ec4899; --uc-glow: rgba(236, 72, 153, 0.18)"
+          onclick="openBoutique('music', '/store/music')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="music"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #ec4899">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="music"></div>
+            <div class="uc-desc">
+              Label, artistes et merchandising — capsules d'achat directes dans les clips, lives et
+              concerts audiovisuels.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #ec4899">89</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #ec4899">390K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #ec4899">+8 900</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #ec4899;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/music"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #ef4444; --uc-glow: rgba(239, 68, 68, 0.18)"
+          onclick="openBoutique('watch', '/store/watch')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="watch"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #ef4444">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="watch"></div>
+            <div class="uc-desc">
+              L'expérience OTT shoppable : films, séries et lives où chaque produit visible devient
+              accessible en un tap.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #ef4444">67</div>
+                <div class="uc-stat-l">studios</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #ef4444">1,24M</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #ef4444">+6 700</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #ef4444;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/watch"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #06b6d4; --uc-glow: rgba(6, 182, 212, 0.18)"
+          onclick="openBoutique('realestate', '/store/real-estate')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="realestate"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #06b6d4; color: #000">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="realestate"></div>
+            <div class="uc-desc">
+              Promotions, lieux et retail centers — l'immobilier rendu shoppable dans les contenus
+              audiovisuels et visites virtuelles.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #06b6d4">41</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #06b6d4">168K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #06b6d4">+3 400</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #06b6d4;
+                color: #000;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/real-estate"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+
+        <div
+          class="univ-card"
+          style="--uc: #6366f1; --uc-glow: rgba(99, 102, 241, 0.18)"
+          onclick="openBoutique('publishing', '/store/publishing')"
+        >
+          <div class="uc-bg">
+            <div class="uc-shop-cover" data-sk-shop-cover="publishing"></div>
+            <div class="uc-mesh"></div>
+            <div class="uc-overlay">
+              <button class="uc-cta" style="background: #6366f1">Explorer</button>
+            </div>
+          </div>
+          <div class="uc-body">
+            <div class="uc-name" data-sk-store="publishing"></div>
+            <div class="uc-desc">
+              Édition transmédia et catalogues — livres, magazines et contenus enrichis de capsules
+              d'achat intégrées.
+            </div>
+            <div class="uc-stats">
+              <div>
+                <div class="uc-stat-n" style="color: #6366f1">22</div>
+                <div class="uc-stat-l">boutiques</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #6366f1">72K</div>
+                <div class="uc-stat-l">vues/mois</div>
+              </div>
+              <div>
+                <div class="uc-stat-n" style="color: #6366f1">+1 800</div>
+                <div class="uc-stat-l">produits actifs</div>
+              </div>
+            </div>
+            <a
+              class="uc-cta"
+              style="
+                background: #6366f1;
+                opacity: 1;
+                transform: translateY(0);
+                display: inline-block;
+                text-decoration: none;
+              "
+              href="/store/publishing"
+              onclick="event.stopPropagation()"
+              >Découvrir l'univers
+              <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="univ-carousel-wrap" id="universe-carousel"></div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="hiw">
+      <div class="hiw-inner sk-reveal-stagger">
+        <div class="sk-reveal-item" style="--sk-reveal-i: 0">
+          <div class="section-label" style="color: var(--green)">COMMENT ÇA MARCHE</div>
+          <h2 class="section-h2" style="margin-bottom: 40px">Watch. Touch. Buy.</h2>
+          <div class="hiw-steps" id="hiw-steps">
+            <div class="hiw-step active" style="--sc: #c8ff3b" data-hiw-step="watch" tabindex="0">
+              <div class="step-num">01</div>
+              <div class="step-content">
+                <h3>WATCH</h3>
+                <p>
+                  L'utilisateur regarde un live, un replay, une story, un film ou un extrait TV sur
+                  n'importe quelle plateforme connectée à Skoleom (+2 000 OTT, +1B sites).
+                </p>
+              </div>
+            </div>
+            <div class="hiw-step" style="--sc: #00d4ff" data-hiw-step="touch" tabindex="0">
+              <div class="step-num">02</div>
+              <div class="step-content">
+                <h3>TOUCH</h3>
+                <p>
+                  L'IA Skoleom reconnaît l'objet dans la vidéo et affiche une capsule interactive à
+                  la demande (tap, touch ou commande vocale). Ajout au panier intégré sans pause du
+                  flux.
+                </p>
+              </div>
+            </div>
+            <div class="hiw-step" style="--sc: #ff6b35" data-hiw-step="buy" tabindex="0">
+              <div class="step-num">03</div>
+              <div class="step-content">
+                <h3>BUY</h3>
+                <p>
+                  SeSync® et Skoleom Pay exécutent le paiement dans la vidéo. L'utilisateur reprend
+                  le contenu au même timecode. La transaction se fait en arrière-plan, invisible.
+                </p>
+              </div>
+            </div>
+            <div class="hiw-step" style="--sc: #ff3cac" data-hiw-step="earn" tabindex="0">
+              <div class="step-num">04</div>
+              <div class="step-content">
+                <h3>EARN</h3>
+                <p>
+                  Le créateur de contenu, le propriétaire de la boutique et Skoleom se partagent les
+                  revenus en temps réel via le Token et Monetizer Studio powered by Oracle.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hiw-visual sk-reveal-item" style="--sk-reveal-i: 1">
+          <div class="phone-mockup sk-phone-reveal" id="hiw-phone" data-step="watch">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-status">
+                <span class="phone-time">9:41</span>
+                <span class="phone-live-pill"><span class="phone-live-dot"></span>LIVE</span>
+              </div>
+              <div class="pscreen-video">
+                <div class="pvideo-bg" data-sk-shop-cover="sport-elite"></div>
+                <div class="pvideo-play">
+                  <span style="color: #fff; font-size: 0.65rem">▶</span>
+                  <div class="pvideo-bar"><div class="pvideo-progress"></div></div>
+                  <span style="color: rgba(255, 255, 255, 0.5); font-size: 0.62rem"
+                    >Skoleom SeSport</span
+                  >
+                </div>
+              </div>
+              <div class="phone-caps-label">Capsules interactives</div>
+              <div class="phone-capsules">
+                <div class="pcapsule">
+                  <span
+                    class="pcap-icon"
+                    data-sk-icon="sneaker"
+                    data-sk-size="22"
+                    data-sk-color="#C8FF3B"
+                  ></span>
+                  <div class="pcap-info">
+                    <div class="pcap-name">Nike Air Max 270</div>
+                    <div class="pcap-price">129€ HT</div>
+                  </div>
+                  <button class="pcap-btn" type="button" aria-label="Ajouter au panier">+</button>
+                </div>
+                <div class="pcapsule">
+                  <span
+                    class="pcap-icon"
+                    data-sk-icon="cap"
+                    data-sk-size="22"
+                    data-sk-color="#C8FF3B"
+                  ></span>
+                  <div class="pcap-info">
+                    <div class="pcap-name">Casquette The25x</div>
+                    <div class="pcap-price">34€ HT</div>
+                  </div>
+                  <button class="pcap-btn" type="button" aria-label="Ajouter au panier">+</button>
+                </div>
+                <div class="pcapsule">
+                  <span
+                    class="pcap-icon"
+                    data-sk-icon="shorts"
+                    data-sk-size="22"
+                    data-sk-color="#C8FF3B"
+                  ></span>
+                  <div class="pcap-info">
+                    <div class="pcap-name">Short Adidas Pro</div>
+                    <div class="pcap-price">59€ HT</div>
+                  </div>
+                  <button class="pcap-btn" type="button" aria-label="Ajouter au panier">+</button>
+                </div>
+                <div class="pcapsule">
+                  <span
+                    class="pcap-icon"
+                    data-sk-icon="nutrition"
+                    data-sk-size="22"
+                    data-sk-color="#C8FF3B"
+                  ></span>
+                  <div class="pcap-info">
+                    <div class="pcap-name">Pack Nutrition Sport</div>
+                    <div class="pcap-price">89€ HT</div>
+                  </div>
+                  <button class="pcap-btn" type="button" aria-label="Ajouter au panier">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BANNER -->
+    <div class="stats-banner">
+      <div class="stats-grid sk-reveal-stagger">
+        <div class="stat-item">
+          <div class="stat-n">10B+</div>
+          <div class="stat-l">Vidéos skoléomisées/jour</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">5,5B+</div>
+          <div class="stat-l">Personnes exposées quotidiennement</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">2 000+</div>
+          <div class="stat-l">Plateformes OTT connectées</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">500M+</div>
+          <div class="stat-l">Produits dans l'écosystème</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">190</div>
+          <div class="stat-l">Pays de distribution</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAUNCH CTA -->
+    <section class="launch">
+      <div class="launch-mesh"></div>
+      <div class="section-label" style="color: var(--green); position: relative">
+        POUR LES MARQUES & CRÉATEURS
+      </div>
+      <h2 style="margin-top: 12px">
+        <span class="launch-grad">Lancez votre<br />boutique audiovisuelle</span>
+      </h2>
+      <p>
+        Rejoignez l'écosystème Skoleom et transformez vos contenus en machine à vendre. 25
+        vidéos/mois × 25 produits = 625 produits distribués dans les milliards de contenus les plus
+        vus au monde.
+      </p>
+      <div class="launch-ctas">
+        <button
+          class="btn-prim"
+          onclick="window.location.href = '/footer-pages/pour-les-pros/creer-boutique.html'"
+        >
+          Créer ma boutique
+          <span data-sk-icon="arrow" data-sk-size="14" data-sk-color="currentColor"></span>
+        </button>
+        <button
+          class="btn-sec"
+          onclick="
+            (window.top || window).location.href = '/hub/pour-les-pros/creer-boutique#les-offres'
+          "
+        >
+          Voir les tarifs
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <!-- Fragment footer — Boutiques audiovisuelles -->
+    <footer class="sk-footer">
+      <div class="sk-footer-shell">
+        <div class="sk-footer-main">
+          <div class="sk-footer-brand">
+            <a href="/" class="sk-footer-logo" aria-label="Skoleom Universe"
+              ><span data-sk-brand="universe" data-sk-height="36"></span
+            ></a>
+            <p data-footer-brand-desc>
+              L&#x27;écosystème Skoleom réunit les boutiques audiovisuelles, les outils créateurs et
+              les solutions business pour rendre les contenus interactifs et actionnables.
+            </p>
+            <div class="sk-footer-socials" aria-label="Réseaux sociaux Skoleom" data-footer-socials>
+              <a
+                href="https://www.instagram.com/skoleom_universe"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                title="Instagram"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="5" />
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href="https://www.youtube.com/@skoleom9437"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+                title="YouTube"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22 12s0-3.5-.5-5.2c-.3-1.2-1.2-2.1-2.3-2.4C17.5 4 12 4 12 4s-5.5 0-7.2.4c-1.1.3-2 1.2-2.3 2.4C2 8.5 2 12 2 12s0 3.5.5 5.2c.3 1.2 1.2 2.1 2.3 2.4C6.5 20 12 20 12 20s5.5 0 7.2-.4c1.1-.3 2-1.2 2.3-2.4C22 15.5 22 12 22 12z"
+                  />
+                  <path d="M10 15l6-3-6-3v6z" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href="https://www.facebook.com/skoleom"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+                title="Facebook"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/skoleom-group"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-12h4v2" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <a
+                href="https://x.com/skoleom"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="X"
+                title="X"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  class="sk-footer-social-icon-fill"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="sk-footer-grid">
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="1"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-1"
+              >
+                <h3>À propos de Skoleom</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-1" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="À propos de Skoleom">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/mission.html"
+                      data-footer-link-id="101"
+                      >Notre mission</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/technologie.html"
+                      data-footer-link-id="102"
+                      >Notre technologie</a
+                    >
+                    <ul class="sk-footer-sub">
+                      <li>
+                        <a href="/footer-pages/brevets.html" data-footer-link-id="105"
+                          >Brevet Skoleom</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/ecosysteme.html"
+                      data-footer-link-id="103"
+                      >L&#x27;écosystème Skoleom</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/financement.html"
+                      data-footer-link-id="104"
+                      >Programmes de financement</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="2"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-2"
+              >
+                <h3>Boutiques audiovisuelles</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-2" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Boutiques audiovisuelles">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/boutiques.html"
+                      data-footer-link-id="201"
+                      >Explorer les boutiques</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/univers.html"
+                      data-footer-link-id="202"
+                      >Univers par catégorie</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros/creer-boutique.html"
+                      data-footer-link-id="203"
+                      >Lancer une boutique</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="3"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-3"
+              >
+                <h3>Pour tous</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-3" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Pour tous">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/comment-ca-marche.html"
+                      data-footer-link-id="301"
+                      >Comment ça marche</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/regarder-acheter.html"
+                      data-footer-link-id="302"
+                      >Regarder et acheter</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/cashback.html"
+                      data-footer-link-id="303"
+                      >Cashback &amp; récompenses</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/wallet.html"
+                      data-footer-link-id="304"
+                      >Skoleom Wallet</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/securite.html"
+                      data-footer-link-id="305"
+                      >Sécurité &amp; confidentialité</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="4"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-4"
+              >
+                <h3>Pour les Pros</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-4" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Pour les Pros">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html"
+                      data-footer-link-id="401"
+                      >Solutions business</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=monetiser"
+                      data-footer-link-id="402"
+                      >Monétiser vos contenus</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros/creer-boutique.html"
+                      data-footer-link-id="403"
+                      >Créer une boutique audiovisuelle</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=distribuer"
+                      data-footer-link-id="404"
+                      >Distribuer vos produits</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=ads"
+                      data-footer-link-id="405"
+                      >Publicité interactive</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=api"
+                      data-footer-link-id="406"
+                      >API &amp; intégrations</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="5"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-5"
+              >
+                <h3>Groupe</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-5" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Groupe">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#actualites"
+                      data-footer-link-id="501"
+                      >Actualités</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#carrieres"
+                      data-footer-link-id="502"
+                      >Carrières</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#investisseurs"
+                      data-footer-link-id="503"
+                      >Investisseurs</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a class="sk-footer-link" href="/hub/presse" data-footer-link-id="504"
+                      >Presse</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#contact"
+                      data-footer-link-id="505"
+                      >Contact</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#assistance"
+                      data-footer-link-id="506"
+                      >Assistance</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sk-footer-bottom">
+          <small data-footer-copyright>© 2026 .skoleom — Breveté 2020. Tous droits réservés.</small>
+          <div>
+            <a href="/legal" data-footer-legal-id="901">Mentions légales</a>
+            <a href="/terms" data-footer-legal-id="902">CGU &amp; CUV</a>
+            <a href="/privacy" data-footer-legal-id="903">Confidentialité</a>
+            <a href="/affiliates" data-footer-legal-id="904">Divulgation des affiliés</a>
+            <a href="/cookies" data-footer-legal-id="905">Préférences cookies</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="shared/sk-logos.js"></script>
+    <script src="shared/sk-footer.js"></script>
+    <script src="shared/sk-icons.js"></script>
+    <script src="shared/hub-header.js"></script>
+    <script src="shared/boutiques-stores.en.js"></script>
+    <script src="shared/footer-locales.en.js"></script>
+    <script src="shared/footer-i18n.en.js"></script>
+    <script src="shared/footer-i18n.js"></script>
+    <script src="shared/hub-lang.js"></script>
+    <script src="shared/boutiques-store-links.js"></script>
+    <script src="shared/hub-boutique-carousel.js"></script>
+
+    <script>
+      // ── HIW STEPS (survol) + capsules téléphone ──
+      function setHiwStep(el) {
+        if (!el) return;
+        document.querySelectorAll('.hiw-step').forEach((s) => s.classList.remove('active'));
+        el.classList.add('active');
+        const step = el.getAttribute('data-hiw-step') || 'watch';
+        const color = getComputedStyle(el).getPropertyValue('--sc').trim() || '#c8ff3b';
+        const phone = document.getElementById('hiw-phone');
+        const visual = document.querySelector('.hiw-visual');
+        if (phone) {
+          phone.setAttribute('data-step', step);
+          phone.style.setProperty('--hiw-accent', color);
+          phone.querySelectorAll('[data-sk-icon]').forEach((icon) => {
+            const name = icon.getAttribute('data-sk-icon');
+            const size = +(icon.getAttribute('data-sk-size') || 22);
+            icon.setAttribute('data-sk-color', color);
+            if (window.SkIcons && name) {
+              icon.innerHTML = SkIcons.wrap(name, size, color);
+            }
+          });
+        }
+        if (visual) {
+          visual.style.setProperty('--hiw-glow', color);
+        }
+      }
+
+      function initHiwSteps() {
+        const stepsRoot = document.getElementById('hiw-steps');
+        const steps = stepsRoot ? stepsRoot.querySelectorAll('.hiw-step') : [];
+        if (!steps.length) return;
+
+        steps.forEach((step) => {
+          step.addEventListener('mouseenter', () => setHiwStep(step));
+          step.addEventListener('focus', () => setHiwStep(step));
+          if (window.matchMedia('(hover: none)').matches) {
+            step.addEventListener('click', () => setHiwStep(step));
+          }
+        });
+
+        if (stepsRoot) {
+          stepsRoot.addEventListener('mouseleave', () => setHiwStep(steps[0]));
+        }
+
+        setHiwStep(steps[0]);
+      }
+
+      function initPhoneCapsules() {
+        document.querySelectorAll('.pcap-btn').forEach((btn) => {
+          btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const capsule = btn.closest('.pcapsule');
+            const isAdded = btn.classList.contains('is-added');
+
+            if (isAdded) {
+              btn.classList.remove('is-added');
+              btn.textContent = '+';
+              btn.setAttribute('aria-label', 'Ajouter au panier');
+              capsule?.classList.remove('pcapsule--added');
+              return;
+            }
+
+            btn.classList.add('is-added');
+            btn.textContent = '✓';
+            btn.setAttribute('aria-label', 'Ajouté au panier');
+            capsule?.classList.add('pcapsule--added');
+          });
+        });
+      }
+
+      initHiwSteps();
+      initPhoneCapsules();
+
+      // ── STORE DATA ──
+      const STORES = {
+        'sport-elite': {
+          id: 'sport-elite',
+          name: 'Skoleom SeSport',
+          icon: 'sport',
+          tagline: 'La boutique sport ultime — achetez pendant les matchs live',
+          bg: 'linear-gradient(145deg,#0d1117,#1a2535)',
+          color: '#FF3D3D',
+          badges: ['LIVE', 'HOT'],
+          stats: [
+            { n: '142K', l: 'vues/mois', c: '#FF3D3D' },
+            { n: '625', l: 'produits actifs', c: '#FF3D3D' },
+            { n: '15%', l: 'conversion max', c: '#FF3D3D' },
+          ],
+          products: [
+            { i: 'sneaker', n: 'Nike Air Max', p: '129€' },
+            { i: 'cap', n: 'Casquette FR', p: '34€' },
+            { i: 'shorts', n: 'Short Pro', p: '59€' },
+            { i: 'nutrition', n: 'Pack Nutrition', p: '89€' },
+            { i: 'fashion', n: 'Maillot Officiel', p: '79€' },
+            { i: 'sport', n: 'Ballon Pro', p: '45€' },
+            { i: 'fashion', n: 'Chaussettes Sport', p: '14€' },
+            { i: 'flame', n: 'Gel Récup.', p: '24€' },
+          ],
+        },
+        'music-wave': {
+          id: 'music-wave',
+          name: 'Skoleom Music',
+          icon: 'music',
+          tagline: 'Instruments, merch, vinyles — achetez dans les clips',
+          bg: 'linear-gradient(145deg,#0d0517,#1a0a2e)',
+          color: '#FF3CAC',
+          badges: ['NOUVEAU'],
+          stats: [
+            { n: '58K', l: 'vues/mois', c: '#FF3CAC' },
+            { n: '89', l: 'boutiques', c: '#FF3CAC' },
+            { n: '+8900', l: 'produits', c: '#FF3CAC' },
+          ],
+          products: [
+            { i: 'guitar', n: 'Guitare Gibson', p: '899€' },
+            { i: 'keyboard', n: 'Clavier Roland', p: '349€' },
+            { i: 'headset', n: 'Sony WH-1000', p: '249€' },
+            { i: 'film', n: 'Vinyle Collector', p: '29€' },
+            { i: 'mic', n: 'Micro Shure', p: '149€' },
+            { i: 'music', n: 'Violon Pro', p: '599€' },
+            { i: 'music', n: 'Caisse Snare', p: '199€' },
+            { i: 'music', n: 'Ampli Fender', p: '449€' },
+          ],
+        },
+        'fashion-av': {
+          id: 'fashion-av',
+          name: 'Skoleom Fashion',
+          icon: 'fashion',
+          tagline: 'Mode, beauté et luxe — achetez les looks en direct',
+          bg: 'linear-gradient(145deg,#171005,#2a1a05)',
+          color: '#FF6B35',
+          badges: ['TOP'],
+          stats: [
+            { n: '118K', l: 'vues/mois', c: '#FF6B35' },
+            { n: '203', l: 'boutiques', c: '#FF6B35' },
+            { n: '+20K', l: 'produits', c: '#FF6B35' },
+          ],
+          products: [
+            { i: 'shop', n: 'Sac Chanel', p: '2900€' },
+            { i: 'fashion', n: 'Escarpins LV', p: '680€' },
+            { i: 'fashion', n: 'Rouge à lèvres', p: '39€' },
+            { i: 'fashion', n: 'Sérum Visage', p: '89€' },
+            { i: 'fashion', n: 'Écharpe Hermès', p: '340€' },
+            { i: 'shop', n: 'Bague Or', p: '299€' },
+            { i: 'fashion', n: 'Lunettes Ray-Ban', p: '159€' },
+            { i: 'fashion', n: 'Parfum Dior', p: '120€' },
+          ],
+        },
+        gaming: {
+          id: 'gaming',
+          name: 'Skoleom Games',
+          icon: 'gaming',
+          tagline: 'Jeux, périphériques, skins — achetez pendant vos streams',
+          bg: 'linear-gradient(145deg,#020d18,#041526)',
+          color: '#00D4FF',
+          badges: ['LIVE', 'NEW'],
+          stats: [
+            { n: '520K', l: 'vues/mois', c: '#00D4FF' },
+            { n: '156', l: 'boutiques', c: '#00D4FF' },
+            { n: '+15K', l: 'produits', c: '#00D4FF' },
+          ],
+          products: [
+            { i: 'mouse', n: 'Souris Razer', p: '89€' },
+            { i: 'keyboard', n: 'Clavier Mécanique', p: '129€' },
+            { i: 'headset', n: 'Casque Gamer', p: '179€' },
+            { i: 'laptop', n: 'Écran 144Hz', p: '299€' },
+            { i: 'gaming', n: 'Manette PS5', p: '74€' },
+            { i: 'gaming', n: 'Chaise Gaming', p: '349€' },
+            { i: 'tech', n: 'Kit LED RGB', p: '29€' },
+            { i: 'gaming', n: 'Pass Game+', p: '14€' },
+          ],
+        },
+        films: {
+          id: 'films',
+          name: 'Skoleom Screen',
+          icon: 'film',
+          tagline: 'Achetez les produits de vos films et séries préférés',
+          bg: 'linear-gradient(145deg,#0d0517,#120820)',
+          color: '#7B2FFF',
+          badges: ['TOP'],
+          stats: [
+            { n: '428K', l: 'vues/mois', c: '#7B2FFF' },
+            { n: '67', l: 'studios', c: '#7B2FFF' },
+            { n: '+6700', l: 'produits', c: '#7B2FFF' },
+          ],
+          products: [
+            { i: 'fashion', n: 'Veste comme Harry', p: '89€' },
+            { i: 'fashion', n: 'Lunettes MIB', p: '129€' },
+            { i: 'film', n: 'Figurine GOT', p: '45€' },
+            { i: 'bot', n: 'Lego Iron Man', p: '79€' },
+            { i: 'film', n: 'Art Book Marvel', p: '39€' },
+            { i: 'fashion', n: 'Chapeau Indiana', p: '59€' },
+            { i: 'film', n: 'Réplique Prop', p: '149€' },
+            { i: 'film', n: 'Pack Collector', p: '99€' },
+          ],
+        },
+        tech: {
+          id: 'tech',
+          name: 'Skoleom Tech',
+          icon: 'tech',
+          tagline: 'High-tech et innovation — achetez pendant les keynotes',
+          bg: 'linear-gradient(145deg,#0a0f00,#141f00)',
+          color: '#C8FF3B',
+          badges: ['NEW'],
+          stats: [
+            { n: '286K', l: 'vues/mois', c: '#C8FF3B' },
+            { n: '92', l: 'boutiques', c: '#C8FF3B' },
+            { n: '+9200', l: 'produits', c: '#C8FF3B' },
+          ],
+          products: [
+            { i: 'phone', n: 'iPhone 16 Pro', p: '1299€' },
+            { i: 'laptop', n: 'MacBook M4', p: '1599€' },
+            { i: 'watch', n: 'Apple Watch', p: '429€' },
+            { i: 'headset', n: 'AirPods Pro', p: '249€' },
+            { i: 'ads', n: 'Router Mesh', p: '179€' },
+            { i: 'bolt', n: 'Power Bank 100W', p: '79€' },
+            { i: 'bot', n: 'Robot Aspirateur', p: '349€' },
+            { i: 'tech', n: 'Ampoule Smart', p: '19€' },
+          ],
+        },
+        food: {
+          id: 'food',
+          name: 'Skoleom Food',
+          icon: 'food',
+          tagline: 'Produits gourmets — commandez en regardant les recettes',
+          bg: 'linear-gradient(145deg,#0f0d00,#1a1600)',
+          color: '#FFD700',
+          badges: ['HOT'],
+          stats: [
+            { n: '248K', l: 'vues/mois', c: '#FFD700' },
+            { n: '78', l: 'boutiques', c: '#FFD700' },
+            { n: '+7800', l: 'produits', c: '#FFD700' },
+          ],
+          products: [
+            { i: 'food', n: 'Huile Olive AOP', p: '29€' },
+            { i: 'food', n: 'Coffret Fromages', p: '59€' },
+            { i: 'food', n: 'Vin Grand Cru', p: '89€' },
+            { i: 'food', n: 'Truffe en bocal', p: '45€' },
+            { i: 'food', n: 'Couteau Japonais', p: '149€' },
+            { i: 'food', n: 'Cocotte Le Creuset', p: '249€' },
+            { i: 'food', n: 'Machine Nespresso', p: '199€' },
+            { i: 'food', n: 'Box Chocolats', p: '39€' },
+          ],
+        },
+      };
+
+      const BOUTIQUE_MODAL_ALIASES = {
+        sesports: 'sport-elite',
+        music: 'music-wave',
+        watch: 'films',
+        games: 'gaming',
+        fnb: 'food',
+      };
+
+      function openBoutique(id, href) {
+        if (window.SkBoutiqueStoreLinks) {
+          window.SkBoutiqueStoreLinks.navigate(id, href);
+          return;
+        }
+        var top = window;
+        try {
+          if (window.top && window.top !== window) top = window.top;
+        } catch (e) {}
+        top.location.href = href || '/en-construction';
+      }
+
+      function activeStores() {
+        try {
+          if (localStorage.getItem('skoleom-language') !== 'fr' && window.STORES_EN) {
+            const out = {};
+            for (const [k, v] of Object.entries(STORES)) {
+              out[k] = { ...v, ...(STORES_EN[k] || {}) };
+            }
+            return out;
+          }
+        } catch (e) {}
+        return STORES;
+      }
+
+      function openModal(id) {
+        var MODAL_TO_BOUTIQUE = {
+          'sport-elite': 'sesports',
+          'music-wave': 'music',
+          'fashion-av': 'fashion-av',
+          films: 'watch',
+          gaming: 'games',
+          food: 'fnb',
+        };
+        openBoutique(MODAL_TO_BOUTIQUE[id] || id);
+      }
+
+      (function initUniverseViewToggle() {
+        var section = document.getElementById('universe-section');
+        var carouselRoot = document.getElementById('universe-carousel');
+        if (!section || !carouselRoot) return;
+
+        var STORAGE_KEY = 'sk-boutiques-universe-view';
+        var carouselController = null;
+
+        function ensureCarousel() {
+          if (carouselController || !window.SkHubBoutiqueCarousel) return;
+          carouselController = SkHubBoutiqueCarousel.mount(carouselRoot, {
+            dataset: 'av-official',
+            visual: 'shop',
+            exploreLabel: 'Explorer',
+            ariaLabel: 'Carrousel des boutiques officielles',
+          });
+        }
+
+        function setView(view) {
+          var nextView = view === 'carousel' ? 'carousel' : 'grid';
+          section.setAttribute('data-univ-view', nextView);
+          section.querySelectorAll('.univ-view-btn[data-univ-view]').forEach(function (btn) {
+            var active = btn.getAttribute('data-univ-view') === nextView;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          if (nextView === 'carousel') {
+            ensureCarousel();
+            if (carouselController) {
+              requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                  carouselController.resume();
+                });
+              });
+            }
+          } else if (carouselController) {
+            carouselController.pause();
+          }
+          try {
+            localStorage.setItem(STORAGE_KEY, nextView);
+          } catch (e) {}
+        }
+
+        section.querySelectorAll('.univ-view-btn[data-univ-view]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            setView(btn.getAttribute('data-univ-view'));
+          });
+        });
+
+        var savedView = 'carousel';
+        try {
+          savedView = localStorage.getItem(STORAGE_KEY) || 'carousel';
+        } catch (e) {}
+        setView(savedView);
+      })();
+
+      (function wireUnivCardCtas() {
+        document.querySelectorAll('.univ-card').forEach(function (card) {
+          var onclick = card.getAttribute('onclick') || '';
+          var match = onclick.match(/openBoutique\(\s*'([^']+)'(?:\s*,\s*'([^']*)')?/);
+          if (!match) return;
+          var id = match[1];
+          var href = match[2] || '';
+          card.querySelectorAll('a.uc-cta').forEach(function (cta) {
+            cta.addEventListener('click', function (event) {
+              event.preventDefault();
+              event.stopPropagation();
+              openBoutique(id, href);
+            });
+          });
+        });
+      })();
+    </script>
+    <script src="shared/reveal-animations.js"></script>
+  </body>
+</html>

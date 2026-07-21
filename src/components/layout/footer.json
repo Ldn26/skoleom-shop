@@ -1,0 +1,269 @@
+{
+  "colomn": [
+    {
+      "id": 1,
+      "Title": "À propos de Skoleom",
+      "URL": "/footer-pages/a-propos-de-skoleom.html",
+      "Links": [
+        {
+          "id": 101,
+          "text": "Notre mission",
+          "URL": "/footer-pages/mission.html",
+          "target": "_self"
+        },
+        {
+          "id": 102,
+          "text": "Notre technologie",
+          "URL": "/footer-pages/technologie.html",
+          "target": "_self"
+        },
+        {
+          "id": 105,
+          "text": "Brevet Skoleom",
+          "URL": "/footer-pages/brevets.html",
+          "target": "_self"
+        },
+        {
+          "id": 103,
+          "text": "L'écosystème Skoleom",
+          "URL": "/footer-pages/ecosysteme.html",
+          "target": "_self"
+        },
+        {
+          "id": 104,
+          "text": "Programmes de financement",
+          "URL": "/footer-pages/financement.html",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "Title": "Boutiques audiovisuelles",
+      "URL": "/footer-pages/boutiques.html",
+      "Links": [
+        {
+          "id": 201,
+          "text": "Explorer les boutiques",
+          "URL": "/footer-pages/boutiques.html",
+          "target": "_self"
+        },
+        {
+          "id": 202,
+          "text": "Univers par catégorie",
+          "URL": "/footer-pages/univers.html",
+          "target": "_self",
+          "subLinks": []
+        },
+        {
+          "id": 203,
+          "text": "Créer une boutique",
+          "URL": "/footer-pages/pour-les-pros/creer-boutique.html",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "Title": "Pour tous",
+      "URL": "/footer-pages/pour-tous.html",
+      "Links": [
+        {
+          "id": 301,
+          "text": "Comment ça marche",
+          "URL": "/footer-pages/comment-ca-marche.html",
+          "target": "_self"
+        },
+        {
+          "id": 302,
+          "text": "Regarder et acheter",
+          "URL": "/footer-pages/regarder-acheter.html",
+          "target": "_self"
+        },
+        {
+          "id": 303,
+          "text": "Cashback & récompenses",
+          "URL": "/footer-pages/cashback.html",
+          "target": "_self"
+        },
+        {
+          "id": 304,
+          "text": "Skoleom Wallet",
+          "URL": "/footer-pages/wallet.html",
+          "target": "_self"
+        },
+        {
+          "id": 305,
+          "text": "Sécurité & confidentialité",
+          "URL": "/footer-pages/securite.html",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "Title": "Pour les Pros",
+      "URL": "/footer-pages/pour-les-pros.html",
+      "Links": [
+        {
+          "id": 401,
+          "text": "Solutions business",
+          "URL": "/footer-pages/pour-les-pros.html",
+          "target": "_self"
+        },
+        {
+          "id": 402,
+          "text": "Monétiser vos contenus",
+          "URL": "/footer-pages/pour-les-pros.html?page=monetiser",
+          "target": "_self"
+        },
+        {
+          "id": 403,
+          "text": "Créer une boutique audiovisuelle",
+          "URL": "/footer-pages/pour-les-pros/creer-boutique.html",
+          "target": "_self"
+        },
+        {
+          "id": 404,
+          "text": "Distribuer vos produits",
+          "URL": "/footer-pages/pour-les-pros.html?page=distribuer",
+          "target": "_self"
+        },
+        {
+          "id": 405,
+          "text": "Publicité interactive",
+          "URL": "/footer-pages/pour-les-pros.html?page=ads",
+          "target": "_self"
+        },
+        {
+          "id": 406,
+          "text": "API & intégrations",
+          "URL": "/footer-pages/pour-les-pros.html?page=api",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "Title": "Groupe",
+      "URL": "/footer-pages/groupe.html",
+      "Links": [
+        {
+          "id": 501,
+          "text": "Actualités",
+          "URL": "/en-construction/actualites",
+          "target": "_self"
+        },
+        {
+          "id": 502,
+          "text": "Carrières",
+          "URL": "/footer-pages/carrieres.html",
+          "target": "_self"
+        },
+        {
+          "id": 503,
+          "text": "Investisseurs",
+          "URL": "/footer-pages/investisseurs.html",
+          "target": "_self"
+        },
+        {
+          "id": 504,
+          "text": "Presse",
+          "URL": "/hub/presse",
+          "target": "_self"
+        },
+        {
+          "id": 505,
+          "text": "Contact",
+          "URL": "/footer-pages/contact.html",
+          "target": "_self"
+        },
+        {
+          "id": 506,
+          "text": "Assistance",
+          "URL": "/footer-pages/assistance.html",
+          "target": "_self"
+        }
+      ]
+    }
+  ],
+  "legal_links": [
+    {
+      "id": 901,
+      "text": "Mentions légales",
+      "URL": "/legal",
+      "target": "_self",
+      "modalType": "legal"
+    },
+    {
+      "id": 902,
+      "text": "CGU & CUV",
+      "URL": "/terms",
+      "target": "_self",
+      "modalType": "terms"
+    },
+    {
+      "id": 903,
+      "text": "Confidentialité",
+      "URL": "/privacy",
+      "target": "_self",
+      "modalType": "privacy"
+    },
+    {
+      "id": 904,
+      "text": "Divulgation des affiliés",
+      "URL": "/affiliates",
+      "target": "_self",
+      "modalType": "affiliate"
+    },
+    {
+      "id": 905,
+      "text": "Préférences cookies",
+      "URL": "/cookies",
+      "target": "_self",
+      "modalType": "cookies"
+    }
+  ],
+  "social_media_links": [
+    {
+      "id": 1,
+      "name": "Instagram",
+      "link": {
+        "URL": "https://www.instagram.com/skoleom_universe",
+        "target": "_blank"
+      }
+    },
+    {
+      "id": 2,
+      "name": "YouTube",
+      "link": {
+        "URL": "https://www.youtube.com/@skoleom9437",
+        "target": "_blank"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Facebook",
+      "link": {
+        "URL": "https://www.facebook.com/skoleom",
+        "target": "_blank"
+      }
+    },
+    {
+      "id": 4,
+      "name": "LinkedIn",
+      "link": {
+        "URL": "https://www.linkedin.com/company/skoleom-group",
+        "target": "_blank"
+      }
+    },
+    {
+      "id": 5,
+      "name": "X",
+      "link": {
+        "URL": "https://x.com/skoleom",
+        "target": "_blank"
+      }
+    }
+  ]
+}

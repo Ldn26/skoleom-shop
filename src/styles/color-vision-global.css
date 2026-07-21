@@ -1,0 +1,225 @@
+/*
+ * Overrides globaux — thèmes daltonisme sur tout le site.
+ * Cible les utilitaires Tailwind arbitraires encore codés en dur + zones Skoleom Page / Touch.
+ */
+
+/* Skoleom Page — fond et dégradés */
+html[data-a11y-color-vision='deuteranopia'] #univ-page,
+html[data-a11y-color-vision='protanopia'] #univ-page,
+html[data-a11y-color-vision='tritanopia'] #univ-page,
+html[data-a11y-color-vision='achromatopsia'] #univ-page {
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      color-mix(in srgb, var(--univ-page-blue) 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 110%,
+      color-mix(in srgb, var(--univ-page-blue) 10%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02), transparent 50%);
+}
+
+html[data-a11y-color-vision='deuteranopia'] #univ-page .univ-page-text-gradient,
+html[data-a11y-color-vision='protanopia'] #univ-page .univ-page-text-gradient,
+html[data-a11y-color-vision='tritanopia'] #univ-page .univ-page-text-gradient,
+html[data-a11y-color-vision='achromatopsia'] #univ-page .univ-page-text-gradient {
+  background: linear-gradient(
+    120deg,
+    var(--univ-page-blue) 0%,
+    var(--univ-page-blue-light) 50%,
+    var(--univ-page-blue) 100%
+  ) !important;
+}
+
+/* Skoleom Touch — hérite des tokens document */
+html[data-a11y-color-vision='deuteranopia'] .univ-touch-root,
+html[data-a11y-color-vision='protanopia'] .univ-touch-root,
+html[data-a11y-color-vision='tritanopia'] .univ-touch-root,
+html[data-a11y-color-vision='achromatopsia'] .univ-touch-root {
+  --univ-green: var(--univ-lime);
+  --univ-green-glow: var(--a11y-cv-glow);
+  --neon-blue: var(--univ-blue);
+  --neon-blue-deep: color-mix(in srgb, var(--univ-blue) 80%, #000);
+}
+
+/* Halos & cadres HomePage */
+html[data-a11y-color-vision='deuteranopia'] .univ-hero-halo-primary,
+html[data-a11y-color-vision='protanopia'] .univ-hero-halo-primary,
+html[data-a11y-color-vision='tritanopia'] .univ-hero-halo-primary,
+html[data-a11y-color-vision='achromatopsia'] .univ-hero-halo-primary {
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--univ-halo-primary),
+    transparent 62%
+  ) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .univ-hero-halo-secondary,
+html[data-a11y-color-vision='protanopia'] .univ-hero-halo-secondary,
+html[data-a11y-color-vision='tritanopia'] .univ-hero-halo-secondary,
+html[data-a11y-color-vision='achromatopsia'] .univ-hero-halo-secondary {
+  background: radial-gradient(
+    circle at 50% 55%,
+    var(--univ-halo-secondary),
+    transparent 66%
+  ) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .univ-vimeo-frame,
+html[data-a11y-color-vision='protanopia'] .univ-vimeo-frame,
+html[data-a11y-color-vision='tritanopia'] .univ-vimeo-frame,
+html[data-a11y-color-vision='achromatopsia'] .univ-vimeo-frame {
+  background: var(--univ-vimeo-frame) !important;
+  box-shadow: 0 20px 60px -24px var(--univ-glow-orange) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .univ-ecosystem-glow::before,
+html[data-a11y-color-vision='protanopia'] .univ-ecosystem-glow::before,
+html[data-a11y-color-vision='tritanopia'] .univ-ecosystem-glow::before,
+html[data-a11y-color-vision='achromatopsia'] .univ-ecosystem-glow::before {
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--univ-halo-primary),
+    var(--univ-halo-secondary),
+    var(--univ-halo-tertiary),
+    transparent 70%
+  ) !important;
+}
+
+/* Utilitaires Tailwind arbitraires (#0164f8 Skoleom Page) */
+html[data-a11y-color-vision='deuteranopia'] .text-\[\#0164f8\],
+html[data-a11y-color-vision='protanopia'] .text-\[\#0164f8\],
+html[data-a11y-color-vision='tritanopia'] .text-\[\#0164f8\],
+html[data-a11y-color-vision='achromatopsia'] .text-\[\#0164f8\],
+html[data-a11y-color-vision='deuteranopia'] .hover\:text-\[\#0164f8\]:hover,
+html[data-a11y-color-vision='protanopia'] .hover\:text-\[\#0164f8\]:hover,
+html[data-a11y-color-vision='tritanopia'] .hover\:text-\[\#0164f8\]:hover,
+html[data-a11y-color-vision='achromatopsia'] .hover\:text-\[\#0164f8\]:hover {
+  color: var(--univ-page-blue) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .bg-\[\#0164f8\],
+html[data-a11y-color-vision='protanopia'] .bg-\[\#0164f8\],
+html[data-a11y-color-vision='tritanopia'] .bg-\[\#0164f8\],
+html[data-a11y-color-vision='achromatopsia'] .bg-\[\#0164f8\],
+html[data-a11y-color-vision='deuteranopia'] .hover\:bg-\[\#0149c4\]:hover,
+html[data-a11y-color-vision='protanopia'] .hover\:bg-\[\#0149c4\]:hover,
+html[data-a11y-color-vision='tritanopia'] .hover\:bg-\[\#0149c4\]:hover,
+html[data-a11y-color-vision='achromatopsia'] .hover\:bg-\[\#0149c4\]:hover {
+  background-color: var(--univ-page-blue) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .hover\:bg-\[\#0149c4\]:hover,
+html[data-a11y-color-vision='protanopia'] .hover\:bg-\[\#0149c4\]:hover,
+html[data-a11y-color-vision='tritanopia'] .hover\:bg-\[\#0149c4\]:hover,
+html[data-a11y-color-vision='achromatopsia'] .hover\:bg-\[\#0149c4\]:hover {
+  background-color: var(--univ-page-blue-hover) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .bg-\[\#0164f8\]\/10,
+html[data-a11y-color-vision='protanopia'] .bg-\[\#0164f8\]\/10,
+html[data-a11y-color-vision='tritanopia'] .bg-\[\#0164f8\]\/10,
+html[data-a11y-color-vision='achromatopsia'] .bg-\[\#0164f8\]\/10 {
+  background-color: color-mix(in srgb, var(--univ-page-blue) 10%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .bg-\[\#0164f8\]\/15,
+html[data-a11y-color-vision='protanopia'] .bg-\[\#0164f8\]\/15,
+html[data-a11y-color-vision='tritanopia'] .bg-\[\#0164f8\]\/15,
+html[data-a11y-color-vision='achromatopsia'] .bg-\[\#0164f8\]\/15 {
+  background-color: color-mix(in srgb, var(--univ-page-blue) 15%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .bg-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='protanopia'] .bg-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='tritanopia'] .bg-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='achromatopsia'] .bg-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='deuteranopia'] .from-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='protanopia'] .from-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='tritanopia'] .from-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='achromatopsia'] .from-\[\#0164f8\]\/20 {
+  --tw-gradient-from: color-mix(in srgb, var(--univ-page-blue) 20%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .bg-\[\#0164f8\]\/30,
+html[data-a11y-color-vision='protanopia'] .bg-\[\#0164f8\]\/30,
+html[data-a11y-color-vision='tritanopia'] .bg-\[\#0164f8\]\/30,
+html[data-a11y-color-vision='achromatopsia'] .bg-\[\#0164f8\]\/30,
+html[data-a11y-color-vision='deuteranopia'] .from-\[\#0164f8\]\/30,
+html[data-a11y-color-vision='protanopia'] .from-\[\#0164f8\]\/30,
+html[data-a11y-color-vision='tritanopia'] .from-\[\#0164f8\]\/30,
+html[data-a11y-color-vision='achromatopsia'] .from-\[\#0164f8\]\/30 {
+  --tw-gradient-from: color-mix(in srgb, var(--univ-page-blue) 30%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .to-\[\#0164f8\]\/10,
+html[data-a11y-color-vision='protanopia'] .to-\[\#0164f8\]\/10,
+html[data-a11y-color-vision='tritanopia'] .to-\[\#0164f8\]\/10,
+html[data-a11y-color-vision='achromatopsia'] .to-\[\#0164f8\]\/10 {
+  --tw-gradient-to: color-mix(in srgb, var(--univ-page-blue) 10%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .to-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='protanopia'] .to-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='tritanopia'] .to-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='achromatopsia'] .to-\[\#0164f8\]\/20 {
+  --tw-gradient-to: color-mix(in srgb, var(--univ-page-blue) 20%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .border-t-\[\#0164f8\],
+html[data-a11y-color-vision='protanopia'] .border-t-\[\#0164f8\],
+html[data-a11y-color-vision='tritanopia'] .border-t-\[\#0164f8\],
+html[data-a11y-color-vision='achromatopsia'] .border-t-\[\#0164f8\] {
+  border-top-color: var(--univ-page-blue) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .ring-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='protanopia'] .ring-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='tritanopia'] .ring-\[\#0164f8\]\/20,
+html[data-a11y-color-vision='achromatopsia'] .ring-\[\#0164f8\]\/20 {
+  --tw-ring-color: color-mix(in srgb, var(--univ-page-blue) 20%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .hover\:border-\[\#0164f8\]\/30:hover,
+html[data-a11y-color-vision='protanopia'] .hover\:border-\[\#0164f8\]\/30:hover,
+html[data-a11y-color-vision='tritanopia'] .hover\:border-\[\#0164f8\]\/30:hover,
+html[data-a11y-color-vision='achromatopsia'] .hover\:border-\[\#0164f8\]\/30:hover,
+html[data-a11y-color-vision='deuteranopia'] .hover\:border-\[\#0164f8\]\/40:hover,
+html[data-a11y-color-vision='protanopia'] .hover\:border-\[\#0164f8\]\/40:hover,
+html[data-a11y-color-vision='tritanopia'] .hover\:border-\[\#0164f8\]\/40:hover,
+html[data-a11y-color-vision='achromatopsia'] .hover\:border-\[\#0164f8\]\/40:hover {
+  border-color: color-mix(in srgb, var(--univ-page-blue) 35%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .accent-\[\#0164f8\],
+html[data-a11y-color-vision='protanopia'] .accent-\[\#0164f8\],
+html[data-a11y-color-vision='tritanopia'] .accent-\[\#0164f8\],
+html[data-a11y-color-vision='achromatopsia'] .accent-\[\#0164f8\] {
+  accent-color: var(--univ-page-blue) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .via-\[\#0164f8\]\/40,
+html[data-a11y-color-vision='protanopia'] .via-\[\#0164f8\]\/40,
+html[data-a11y-color-vision='tritanopia'] .via-\[\#0164f8\]\/40,
+html[data-a11y-color-vision='achromatopsia'] .via-\[\#0164f8\]\/40 {
+  --tw-gradient-via: color-mix(in srgb, var(--univ-page-blue) 40%, transparent) !important;
+}
+
+/* Footer & liens légaux (#3d83ef) */
+html[data-a11y-color-vision='deuteranopia'] .text-\[\#3d83ef\],
+html[data-a11y-color-vision='protanopia'] .text-\[\#3d83ef\],
+html[data-a11y-color-vision='tritanopia'] .text-\[\#3d83ef\],
+html[data-a11y-color-vision='achromatopsia'] .text-\[\#3d83ef\] {
+  color: var(--univ-link) !important;
+}
+
+/* Ombres brand codées en dur (lime / orange) */
+html[data-a11y-color-vision='deuteranopia'] [class*='rgba(168,255,53'],
+html[data-a11y-color-vision='protanopia'] [class*='rgba(168,255,53'],
+html[data-a11y-color-vision='tritanopia'] [class*='rgba(168,255,53'],
+html[data-a11y-color-vision='achromatopsia'] [class*='rgba(168,255,53'] {
+  --tw-shadow-color: var(--a11y-cv-glow) !important;
+}

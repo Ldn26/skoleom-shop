@@ -1,0 +1,2066 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>Créez une Audiovisual Store Page — Skoleom Universe</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/footer-pages/shared/typography.css" />
+    <link rel="stylesheet" href="/footer-pages/shared/page-base.css" />
+    <style>
+      :root {
+        --bg: #060608;
+        --bg2: #0c0c10;
+        --txt: #f4f3fa;
+        --sub: #9a99b8;
+        --sub2: #6a6988;
+        --green: #c8ff3b;
+        --cyan: #00d4ff;
+        --border: rgba(255, 255, 255, 0.08);
+        --border2: rgba(255, 255, 255, 0.14);
+        --card: #101014;
+      }
+      .cb * {
+        box-sizing: border-box;
+      }
+      .cb {
+        background: var(--bg);
+        color: var(--txt);
+        font-family: 'Poppins', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .cb-shell {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 0 clamp(22px, 5vw, 72px);
+      }
+      .cb-eyebrow {
+        font-size: 0.74rem;
+        letter-spacing: 0.34em;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 18px;
+      }
+      .cb-h2 {
+        font-family: 'Anton', sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.6rem, 6.4vw, 5.6rem);
+        line-height: 0.96;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+      }
+      .cb-grad {
+        color: var(--green);
+      }
+      .cb-mark {
+        position: relative;
+        color: var(--green);
+        white-space: nowrap;
+      }
+      .cb-mark::after {
+        content: '';
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: 0.08em;
+        height: 0.42em;
+        background: rgba(200, 255, 59, 0.16);
+        border-radius: 4px;
+        z-index: -1;
+      }
+
+      /* ── DEVICE (tablette) ── */
+      .cb-tablet {
+        position: relative;
+        border-radius: clamp(20px, 2.2vw, 30px);
+        background: #0a0a0c;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        padding: clamp(8px, 1vw, 14px);
+        box-shadow: 0 50px 120px rgba(0, 0, 0, 0.62);
+      }
+      .cb-tablet-screen {
+        position: relative;
+        border-radius: clamp(12px, 1.4vw, 18px);
+        overflow: hidden;
+        height: 100%;
+      }
+      .cb-tablet-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ── SECTION 1 — HERO ── */
+      .cb-hero {
+        position: relative;
+        overflow: hidden;
+        background: #060608;
+      }
+      body.hub-embed .cb-hero {
+        padding-top: clamp(5rem, 8vw, 8rem);
+      }
+      body.hub-has-nav .cb-hero {
+        padding-top: clamp(1rem, 2vw, 2rem);
+      }
+      .cb-hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: center;
+        min-height: min(86vh, 760px);
+        padding-bottom: clamp(28px, 4vw, 48px);
+      }
+      .cb-hero-txt {
+        grid-column: 1;
+        grid-row: 1;
+        position: relative;
+        z-index: 2;
+        width: min(100%, 720px);
+        padding: clamp(30px, 4vw, 56px) 0;
+      }
+      .cb-hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.28em;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--sub);
+        margin-bottom: 20px;
+      }
+      .cb-hero h1 {
+        font-family: 'Anton', sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.9rem, 7.2vw, 6.6rem);
+        line-height: 0.92;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        margin-bottom: 26px;
+      }
+      .cb-hero h1 .l {
+        display: block;
+      }
+      .cb-hero h1 .g {
+        color: var(--green);
+      }
+      .cb-hero-sub {
+        font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+        line-height: 1.6;
+        color: var(--sub);
+        max-width: 440px;
+        margin-bottom: 14px;
+      }
+      .cb-hero-nb {
+        font-weight: 600;
+        color: var(--txt);
+      }
+      .cb-wtb {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        margin-top: 28px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      .cb-wtb .g {
+        color: var(--green);
+      }
+      .cb-wtb .url {
+        flex-basis: 100%;
+        color: var(--sub);
+        font-weight: 500;
+        font-size: 0.88rem;
+      }
+      .cb-hero-media {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: end;
+        align-self: center;
+        width: clamp(500px, 78%, 1220px);
+        margin-right: calc(clamp(24px, 5vw, 96px) * -1);
+        z-index: 0;
+      }
+      .cb-hero-media .cb-tablet-screen {
+        aspect-ratio: auto;
+        height: auto;
+      }
+      .cb-hero-media .cb-tablet-screen img {
+        height: auto;
+        object-fit: contain;
+      }
+
+      /* ── SECTIONS génériques ── */
+      .cb-sec {
+        padding: clamp(36px, 5vw, 68px) 0;
+      }
+
+      /* ── SECTION 2 — LE PRINCIPE ── */
+      .cb-principe-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.32fr);
+        gap: clamp(28px, 4vw, 64px);
+        align-items: center;
+      }
+      .cb-principe-media .cb-tablet-screen {
+        aspect-ratio: 16 / 11;
+      }
+      .cb-steps {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .cb-step {
+        display: flex;
+        gap: 16px;
+      }
+      .cb-step-ic {
+        flex: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        display: grid;
+        place-items: center;
+        background: rgba(200, 255, 59, 0.1);
+        border: 1px solid rgba(200, 255, 59, 0.22);
+      }
+      .cb-step-ic svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--green);
+      }
+      .cb-step h4 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .cb-step p {
+        color: var(--sub);
+        font-size: 0.93rem;
+        line-height: 1.5;
+        max-width: 380px;
+      }
+      /* Panneau "Similar Products" dans la tablette */
+      .cb-shop {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        bottom: 8px;
+        width: 36%;
+        min-width: 148px;
+        background: rgba(10, 10, 12, 0.88);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 11px 10px 9px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        overflow: hidden;
+      }
+      .cb-shop-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.64rem;
+        font-weight: 700;
+        color: var(--txt);
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .cb-shop-head .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--green);
+        flex: none;
+        box-shadow: 0 0 8px rgba(200, 255, 59, 0.45);
+      }
+      .cb-shop-head-sub {
+        font-size: 0.5rem;
+        font-weight: 500;
+        color: var(--sub);
+        line-height: 1.3;
+        padding-left: 20px;
+        margin-top: -2px;
+      }
+      .cb-shop-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .cb-shop-card {
+        display: flex;
+        gap: 7px;
+        align-items: flex-start;
+        padding: 5px 4px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .cb-shop-thumb {
+        position: relative;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        flex: none;
+        background-color: #1a1a22;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+      .cb-shop-thumb--maillot {
+        background: linear-gradient(145deg, #9b2242 0%, #5c1228 100%);
+      }
+      .cb-shop-thumb--lunettes {
+        background: linear-gradient(145deg, #1e4a7a 0%, #0c2238 100%);
+      }
+      .cb-shop-thumb--lunettes::after {
+        content: '';
+        position: absolute;
+        inset: 28% 18%;
+        border: 2px solid rgba(200, 255, 59, 0.55);
+        border-radius: 40% 40% 45% 45%;
+      }
+      .cb-shop-thumb--bonnet {
+        background: linear-gradient(145deg, #3a3a42 0%, #121216 100%);
+      }
+      .cb-shop-thumb--bonnet::after {
+        content: '';
+        position: absolute;
+        left: 18%;
+        right: 18%;
+        top: 22%;
+        height: 52%;
+        border-radius: 50% 50% 42% 42%;
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .cb-shop-thumb--serviette {
+        background: linear-gradient(145deg, #4a5568 0%, #1f2937 100%);
+      }
+      .cb-shop-thumb--serviette::after {
+        content: '';
+        position: absolute;
+        inset: 18% 22%;
+        border-radius: 3px;
+        background: repeating-linear-gradient(
+          -18deg,
+          rgba(255, 255, 255, 0.14) 0 2px,
+          transparent 2px 5px
+        );
+      }
+      .cb-shop-meta {
+        flex: 1;
+        min-width: 0;
+      }
+      .cb-shop-brand {
+        font-size: 0.46rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--sub2);
+        margin-bottom: 1px;
+      }
+      .cb-shop-name {
+        font-size: 0.56rem;
+        font-weight: 600;
+        color: rgba(244, 243, 250, 0.95);
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cb-shop-detail {
+        margin-top: 2px;
+        font-size: 0.46rem;
+        color: var(--sub);
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cb-shop-row {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 3px;
+      }
+      .cb-shop-price {
+        font-size: 0.58rem;
+        color: var(--green);
+        font-weight: 700;
+      }
+      .cb-shop-stock {
+        font-size: 0.42rem;
+        font-weight: 600;
+        color: rgba(200, 255, 59, 0.75);
+      }
+      .cb-shop-btn {
+        width: 22px;
+        height: 22px;
+        display: grid;
+        place-items: center;
+        font-size: 0.62rem;
+        line-height: 1;
+        background: var(--green);
+        color: #06210a;
+        border-radius: 999px;
+        font-weight: 700;
+        flex: none;
+        margin-top: 1px;
+      }
+      .cb-shop-foot {
+        margin-top: auto;
+        padding-top: 6px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .cb-shop-foot-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        font-size: 0.48rem;
+        color: var(--sub);
+      }
+      .cb-shop-foot-cta {
+        color: var(--green);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      /* 4 stats bas de page (le principe) */
+      .cb-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(14px, 2vw, 30px);
+        margin-top: clamp(28px, 4vw, 48px);
+        padding-top: clamp(22px, 3vw, 36px);
+      }
+      .cb-stat-n {
+        font-family: 'Anton', sans-serif;
+        font-weight: 400;
+        font-size: clamp(1.7rem, 3.2vw, 2.9rem);
+        color: var(--green);
+        line-height: 1;
+      }
+      .cb-stat-l {
+        margin-top: 9px;
+        font-size: 0.66rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--sub);
+        line-height: 1.4;
+      }
+
+      /* ── SECTION 3 — 5 PLATEFORMES ── */
+      .cb-lead {
+        color: var(--sub);
+        font-size: clamp(1rem, 1.4vw, 1.18rem);
+        line-height: 1.6;
+        max-width: 820px;
+        margin-top: 20px;
+      }
+      .cb-flow {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: clamp(22px, 3vw, 34px);
+      }
+      .cb-flow-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 11px 22px;
+        border-radius: 999px;
+        background: #16161b;
+        border: 1px solid var(--border2);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--sub);
+      }
+      .cb-flow-arrow {
+        color: #444;
+      }
+      .cb-flow-arrow.on {
+        color: var(--green);
+      }
+      .cb-flow-arrow svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+      .cb-flow-chip.final {
+        background: var(--green);
+        color: #06210a;
+        border-color: var(--green);
+        font-weight: 700;
+      }
+      .cb-pillars {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(14px, 1.6vw, 22px);
+        margin-top: clamp(22px, 3vw, 34px);
+      }
+      .cb-pillar {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 24px 24px 26px;
+        min-height: clamp(150px, 13vw, 190px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .cb-pillar-ic svg {
+        width: 32px;
+        height: 32px;
+        stroke: var(--green);
+      }
+      .cb-pillar h4 {
+        font-size: 1.18rem;
+        font-weight: 600;
+      }
+      .cb-why {
+        margin-top: clamp(22px, 3vw, 34px);
+        background: #0e0e12;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--green);
+        border-radius: 16px;
+        padding: clamp(24px, 2.6vw, 34px) clamp(26px, 3vw, 42px);
+        display: grid;
+        grid-template-columns: 1.4fr 0.87fr 0.87fr 0.87fr;
+        gap: 26px;
+        align-items: center;
+      }
+      .cb-why h3 {
+        font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+        font-weight: 700;
+        line-height: 1.35;
+      }
+      .cb-why-stat .n {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(1.7rem, 3vw, 2.6rem);
+        color: var(--green);
+        line-height: 1;
+      }
+      .cb-why-stat .l {
+        margin-top: 7px;
+        font-size: 0.82rem;
+        color: var(--sub);
+      }
+      .cb-note {
+        margin-top: 22px;
+        font-size: 0.8rem;
+        color: var(--sub2);
+        line-height: 1.5;
+      }
+      .cb-note.right {
+        text-align: right;
+      }
+
+      /* ── SECTION 4 — CE QUE CONTIENT ── */
+      .cb-contains {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+        gap: clamp(30px, 4.5vw, 72px);
+        margin-top: clamp(36px, 4.5vw, 56px);
+        align-items: start;
+      }
+      .cb-feat {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(18px, 2vw, 26px);
+      }
+      .cb-feat-item h4 {
+        font-size: 1.04rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .cb-feat-item p {
+        color: var(--sub);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+      .cb-result {
+        border: 1px solid rgba(200, 255, 59, 0.4);
+        border-radius: 16px;
+        padding: clamp(20px, 2.4vw, 28px);
+        margin-bottom: 20px;
+      }
+      .cb-result .tag {
+        display: inline-block;
+        color: var(--green);
+        font-size: 0.74rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .cb-result p {
+        color: var(--txt);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+      .cb-monetizer {
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        line-height: 0;
+      }
+      .cb-monetizer img {
+        width: 100%;
+        display: block;
+      }
+
+      /* ── SECTION 5 — OFFRES ── */
+      .cb-prices {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(16px, 1.8vw, 26px);
+        margin-top: clamp(36px, 4vw, 56px);
+      }
+      .cb-price {
+        position: relative;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 30px 26px 28px;
+        display: flex;
+        flex-direction: column;
+      }
+      .cb-price.feat {
+        border-color: var(--green);
+        box-shadow: 0 0 0 1px var(--green);
+      }
+      .cb-price-badge {
+        position: absolute;
+        top: -12px;
+        left: 26px;
+        background: var(--green);
+        color: #06210a;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 6px 13px;
+        border-radius: 999px;
+      }
+      .cb-price-ic {
+        position: absolute;
+        top: 26px;
+        right: 26px;
+      }
+      .cb-price-ic svg {
+        width: 26px;
+        height: 26px;
+        stroke: var(--green);
+      }
+      .cb-price-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+      .cb-price-seg {
+        font-size: 0.86rem;
+        color: var(--sub);
+        margin-top: 3px;
+      }
+      .cb-price-val {
+        font-family: 'Anton', sans-serif;
+        font-weight: 400;
+        font-size: 2.9rem;
+        color: var(--green);
+        line-height: 1;
+        margin: 22px 0 0;
+      }
+      .cb-price-month {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        color: var(--sub);
+        font-weight: 500;
+      }
+      .cb-price-list {
+        margin-top: 22px;
+        border-top: 1px solid var(--border);
+      }
+      .cb-price-li {
+        padding: 13px 2px;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+        color: var(--txt);
+      }
+      .cb-include {
+        margin-top: clamp(28px, 3.4vw, 44px);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: clamp(22px, 2.6vw, 30px);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 26px;
+        align-items: center;
+      }
+      .cb-include .lbl {
+        color: var(--green);
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .cb-include p {
+        color: var(--sub);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+      .cb-include strong {
+        color: var(--txt);
+      }
+
+      /* ── SECTION 6 — CTA FINAL ── */
+      .cb-final {
+        background: #060608;
+      }
+      .cb-final-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: clamp(32px, 5vw, 80px);
+        align-items: center;
+        padding: clamp(36px, 5vw, 68px) 0;
+      }
+      .cb-final h2 {
+        font-family: 'Anton', sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.6rem, 6vw, 5.4rem);
+        line-height: 0.96;
+        text-transform: uppercase;
+        margin-bottom: 22px;
+      }
+      .cb-final h2 .g {
+        color: var(--green);
+      }
+      .cb-final p {
+        color: var(--sub);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        max-width: 440px;
+        margin-bottom: 26px;
+      }
+      .cb-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        border-radius: 999px;
+        background: var(--green);
+        color: #06210a;
+        font-weight: 700;
+        font-size: 0.98rem;
+        text-decoration: none;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+      .cb-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 38px rgba(200, 255, 59, 0.28);
+      }
+      .cb-cta svg {
+        width: 17px;
+        height: 17px;
+      }
+      .cb-final-card {
+        position: relative;
+        border-radius: 22px;
+        overflow: hidden;
+        aspect-ratio: 3 / 3.5;
+        border: 1px solid var(--border);
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+      }
+      .cb-final-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        display: block;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 980px) {
+        .cb-hero-grid {
+          display: flex;
+          flex-direction: column;
+          min-height: auto;
+          padding-top: clamp(8px, 4vw, 24px);
+        }
+        .cb-hero-txt {
+          width: 100%;
+          padding: 0;
+          order: 2;
+        }
+        .cb-hero-media {
+          width: 100%;
+          order: 1;
+          margin-bottom: 24px;
+          margin-right: 0;
+        }
+        .cb-principe-grid,
+        .cb-contains,
+        .cb-final-grid {
+          grid-template-columns: 1fr;
+        }
+        .cb-pillars {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cb-prices {
+          grid-template-columns: 1fr;
+        }
+        .cb-why {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+        .cb-stats {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 26px;
+        }
+        .cb-include {
+          grid-template-columns: 1fr;
+        }
+        .cb-final-card {
+          max-width: 420px;
+        }
+      }
+      @media (max-width: 560px) {
+        .cb-pillars,
+        .cb-stats {
+          grid-template-columns: 1fr;
+        }
+        .cb-shop {
+          display: none;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/footer-pages/shared/reveal-animations.css" />
+    <link rel="stylesheet" href="/footer-pages/shared/sk-footer.css" />
+  </head>
+  <body class="hub-has-nav" data-footer-page="store-page">
+    <header class="hub-shell" id="hub-header">
+      <div class="hub-top">
+        <div class="hub-top-inner">
+          <div class="hub-top-brand">
+            <a href="/" class="hub-logo" aria-label="Skoleom">
+              <img
+                src="/logo/logo-skoleom-brand.webp"
+                alt="Skoleom"
+                class="sk-brand-img sk-brand-img--universe"
+                height="32"
+                loading="eager"
+                decoding="async"
+              />
+            </a>
+          </div>
+          <div class="hub-top-actions">
+            <div class="hub-top-lang">
+              <div class="hub-lang" data-hub-lang data-hub-lang-placement="header"></div>
+            </div>
+            <button
+              type="button"
+              class="hub-mbtn"
+              id="hub-mbtn"
+              aria-label="Menu navigation"
+              aria-expanded="false"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="#F2F2F2" stroke-width="1.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="hub-pill-wrap">
+        <nav class="hub-pill-nav" role="navigation" aria-label="Navigation principale">
+          <a class="hub-pill-link" href="/" data-hub-nav="home">Accueil</a
+          ><a class="hub-pill-link" href="/footer-pages/boutiques.html" data-hub-nav="boutiques"
+            >Boutiques audiovisuelles</a
+          ><a class="hub-pill-link" href="/footer-pages/pour-tous.html" data-hub-nav="public"
+            >Pour tous</a
+          ><a
+            class="hub-pill-link active"
+            href="/footer-pages/pour-les-pros.html"
+            data-hub-nav="pros"
+            >Pour les Pros</a
+          ><a class="hub-pill-link" href="/footer-pages/groupe.html" data-hub-nav="group">Groupe</a>
+        </nav>
+      </div>
+      <nav class="hub-mobile-nav" id="hub-mobile-nav" aria-label="Navigation mobile" hidden></nav>
+    </header>
+    <main class="cb">
+      <!-- ════ SECTION 1 — HERO ════ -->
+      <section class="cb-hero">
+        <div class="cb-shell">
+          <div class="cb-hero-grid">
+            <div class="cb-hero-txt sk-reveal-stagger">
+              <h1 class="sk-reveal-item">
+                <span class="l">Votre marque</span>
+                <span class="l">devient une</span>
+                <span class="l g">boutique</span>
+                <span class="l g">audiovisuelle</span>
+              </h1>
+              <p class="cb-hero-sub sk-reveal-item">
+                Fini la simple page produit. Chaque contenu devient un canal de vente direct —
+                <span class="cb-hero-nb"
+                  >tout ce que l'on regarde devient instantanément achetable.</span
+                >
+              </p>
+              <div class="cb-wtb sk-reveal-item">
+                <span
+                  ><span class="g">Watch.</span> <span class="g">Touch.</span>
+                  <span class="g">Buy.</span><sup>®</sup></span
+                >
+                <span class="url">skoleom.com</span>
+              </div>
+            </div>
+            <div class="cb-hero-media sk-reveal-item">
+              <div class="cb-tablet">
+                <div class="cb-tablet-screen">
+                  <img
+                    src="/footer-pages/assets/store-hero.jpg"
+                    alt="Marque transformée en boutique audiovisuelle"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 2 — LE PRINCIPE ════ -->
+      <section class="cb-sec">
+        <div class="cb-shell">
+          <div class="cb-principe-grid">
+            <div class="sk-reveal-stagger">
+              <div class="cb-eyebrow sk-reveal-item">Le principe</div>
+              <h2 class="cb-h2 sk-reveal-item">
+                De la vue à l'achat,<br />sans quitter le <span class="cb-mark">contenu</span>
+              </h2>
+              <div class="cb-steps">
+                <div class="cb-step sk-reveal-item">
+                  <div class="cb-step-ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>Regardez</h4>
+                    <p>
+                      L'utilisateur regarde un live, un replay, une story, un film ou un extrait TV
+                      — comme d'habitude.
+                    </p>
+                  </div>
+                </div>
+                <div class="cb-step sk-reveal-item">
+                  <div class="cb-step-ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                      <path d="M9 11V6a2 2 0 0 1 4 0v5" />
+                      <path
+                        d="M13 7a2 2 0 0 1 4 0v6a6 6 0 0 1-6 6h-1a5 5 0 0 1-4.3-2.4L3 13a1.6 1.6 0 0 1 2.7-1.7L7 13"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>Touchez</h4>
+                    <p>
+                      L'IA reconnaît l'objet et affiche une capsule à la demande. Ajout au panier
+                      sans interrompre le flux.
+                    </p>
+                  </div>
+                </div>
+                <div class="cb-step sk-reveal-item">
+                  <div class="cb-step-ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                      <circle cx="9" cy="20" r="1.5" />
+                      <circle cx="18" cy="20" r="1.5" />
+                      <path d="M2 3h2.5l2.2 12.2a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21 7H6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4>Achetez</h4>
+                    <p>
+                      Skoleom SeSync et Skoleom Pay exécutent le paiement dans la vidéo. Le
+                      spectateur reprend au même time code.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cb-principe-media sk-reveal-item">
+              <div class="cb-tablet">
+                <div class="cb-tablet-screen">
+                  <img
+                    src="/footer-pages/assets/store-principe.jpg"
+                    alt="Contenu skoléomisé — de la vue à l'achat"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="cb-shop" aria-hidden="true">
+                    <div class="cb-shop-head"><span class="dot"></span> Produits similaires</div>
+                    <div class="cb-shop-head-sub">SeSync · 4 articles détectés à 00:42</div>
+                    <div class="cb-shop-list">
+                      <div class="cb-shop-card">
+                        <div class="cb-shop-thumb cb-shop-thumb--maillot"></div>
+                        <div class="cb-shop-meta">
+                          <div class="cb-shop-brand">Arena</div>
+                          <div class="cb-shop-name">Maillot une pièce</div>
+                          <div class="cb-shop-detail">Taille M · Bordeaux</div>
+                          <div class="cb-shop-row">
+                            <div class="cb-shop-price">129 €</div>
+                            <div class="cb-shop-stock">En stock</div>
+                          </div>
+                        </div>
+                        <div class="cb-shop-btn">+</div>
+                      </div>
+                      <div class="cb-shop-card">
+                        <div class="cb-shop-thumb cb-shop-thumb--lunettes"></div>
+                        <div class="cb-shop-meta">
+                          <div class="cb-shop-brand">Speedo</div>
+                          <div class="cb-shop-name">Lunettes Fastskin</div>
+                          <div class="cb-shop-detail">Miroir · Adulte</div>
+                          <div class="cb-shop-row">
+                            <div class="cb-shop-price">89 €</div>
+                            <div class="cb-shop-stock">En stock</div>
+                          </div>
+                        </div>
+                        <div class="cb-shop-btn">+</div>
+                      </div>
+                      <div class="cb-shop-card">
+                        <div class="cb-shop-thumb cb-shop-thumb--bonnet"></div>
+                        <div class="cb-shop-meta">
+                          <div class="cb-shop-brand">TYR</div>
+                          <div class="cb-shop-name">Bonnet silicone</div>
+                          <div class="cb-shop-detail">Noir · Uni</div>
+                          <div class="cb-shop-row">
+                            <div class="cb-shop-price">59 €</div>
+                            <div class="cb-shop-stock">En stock</div>
+                          </div>
+                        </div>
+                        <div class="cb-shop-btn">+</div>
+                      </div>
+                      <div class="cb-shop-card">
+                        <div class="cb-shop-thumb cb-shop-thumb--serviette"></div>
+                        <div class="cb-shop-meta">
+                          <div class="cb-shop-brand">Nike</div>
+                          <div class="cb-shop-name">Serviette microfibre</div>
+                          <div class="cb-shop-detail">70 × 140 cm</div>
+                          <div class="cb-shop-row">
+                            <div class="cb-shop-price">45 €</div>
+                            <div class="cb-shop-stock">3 restants</div>
+                          </div>
+                        </div>
+                        <div class="cb-shop-btn">+</div>
+                      </div>
+                    </div>
+                    <div class="cb-shop-foot">
+                      <div class="cb-shop-foot-row">
+                        <span>Panier vide</span>
+                        <span class="cb-shop-foot-cta">Toucher pour acheter</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cb-stats sk-reveal-stagger">
+            <div class="sk-reveal-item">
+              <div class="cb-stat-n">190</div>
+              <div class="cb-stat-l">Pays de distribution</div>
+            </div>
+            <div class="sk-reveal-item">
+              <div class="cb-stat-n">+2 000</div>
+              <div class="cb-stat-l">Plateformes OTT</div>
+            </div>
+            <div class="sk-reveal-item">
+              <div class="cb-stat-n">+1 Md</div>
+              <div class="cb-stat-l">Sites web connectés</div>
+            </div>
+            <div class="sk-reveal-item">
+              <div class="cb-stat-n">+10 Md</div>
+              <div class="cb-stat-l">Vidéos skoléomisées / jour</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 3 — 5 PLATEFORMES EN UNE ════ -->
+      <section class="cb-sec">
+        <div class="cb-shell">
+          <div class="cb-eyebrow sk-reveal">Une seule plateforme</div>
+          <h2 class="cb-h2 sk-reveal">5 plateformes en une seule</h2>
+          <p class="cb-lead sk-reveal">
+            Aujourd'hui une marque jongle entre cinq outils. Skoleom les réunit : diffusion vidéo,
+            intégration produit, paiement dans la vidéo, distribution internationale et
+            monétisation.
+          </p>
+          <div class="cb-flow sk-reveal">
+            <span class="cb-flow-chip">Shopify</span>
+            <span class="cb-flow-arrow"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" /></svg
+            ></span>
+            <span class="cb-flow-chip">YouTube / TikTok</span>
+            <span class="cb-flow-arrow"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" /></svg
+            ></span>
+            <span class="cb-flow-chip">Instagram</span>
+            <span class="cb-flow-arrow"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" /></svg
+            ></span>
+            <span class="cb-flow-chip">Amazon</span>
+            <span class="cb-flow-arrow"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" /></svg
+            ></span>
+            <span class="cb-flow-chip">Agence créative</span>
+            <span class="cb-flow-arrow on"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" /></svg
+            ></span>
+            <span class="cb-flow-chip final">Une Audiovisual Store Page</span>
+          </div>
+          <div class="cb-pillars sk-reveal-stagger">
+            <div class="cb-pillar sk-reveal-item">
+              <div class="cb-pillar-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none" />
+                </svg>
+              </div>
+              <h4>Votre média</h4>
+            </div>
+            <div class="cb-pillar sk-reveal-item">
+              <div class="cb-pillar-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
+                  <path d="m12 3 9 5-9 5-9-5z" />
+                  <path d="m3 12 9 5 9-5M3 17l9 5 9-5" />
+                </svg>
+              </div>
+              <h4>Votre catalogue</h4>
+            </div>
+            <div class="cb-pillar sk-reveal-item">
+              <div class="cb-pillar-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
+                  <path d="M4 9h16l-1-4H5z" />
+                  <path d="M5 9v11h14V9M9 20v-6h6v6" />
+                </svg>
+              </div>
+              <h4>Votre boutique</h4>
+            </div>
+            <div class="cb-pillar sk-reveal-item">
+              <div class="cb-pillar-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
+                  <path d="M3 3v18h18" />
+                  <path d="m7 14 3-3 3 3 5-6" />
+                </svg>
+              </div>
+              <h4>Votre chaîne de vente</h4>
+            </div>
+          </div>
+          <div class="cb-why sk-reveal">
+            <h3>Pourquoi la vidéo vend jusqu'à 10× plus que l'e-commerce classique</h3>
+            <div class="cb-why-stat">
+              <div class="n">+80 %</div>
+              <div class="l">de conversion</div>
+            </div>
+            <div class="cb-why-stat">
+              <div class="n">+130 %</div>
+              <div class="l">d'engagement</div>
+            </div>
+            <div class="cb-why-stat">
+              <div class="n">+87 %</div>
+              <div class="l">des consommateurs influencés</div>
+            </div>
+          </div>
+          <p class="cb-note right">*Source : loopexdigital · Firework · Storyly.io</p>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 4 — CE QUE CONTIENT VOTRE STORE PAGE ════ -->
+      <section class="cb-sec">
+        <div class="cb-shell">
+          <div class="cb-eyebrow sk-reveal">Votre page, chaque mois</div>
+          <h2 class="cb-h2 sk-reveal">Ce que contient votre Store Page</h2>
+          <div class="cb-contains">
+            <div class="cb-feat sk-reveal-stagger">
+              <div class="cb-feat-item sk-reveal-item">
+                <h4>25 vidéos publiées par mois</h4>
+                <p>
+                  Les contenus OTT les plus performants (Netflix, Disney+, YouTube, TikTok) intégrés
+                  selon votre zone et votre stratégie.
+                </p>
+              </div>
+              <div class="cb-feat-item sk-reveal-item">
+                <h4>Jusqu'à 625 produits par mois</h4>
+                <p>Jusqu'à 25 produits intégrés par vidéo, présentés avec votre marque.</p>
+              </div>
+              <div class="cb-feat-item sk-reveal-item">
+                <h4>15 capsules de marque par vidéo</h4>
+                <p>
+                  Sur 25 capsules par vidéo, 15 vous sont réservées ; 10 reviennent aux produits
+                  Skoleom.
+                </p>
+              </div>
+              <div class="cb-feat-item sk-reveal-item">
+                <h4>Presse &amp; jeux concours inclus</h4>
+                <p>25 articles de presse, un communiqué et un jeu concours chaque mois.</p>
+              </div>
+            </div>
+            <div class="sk-reveal">
+              <div class="cb-result">
+                <span class="tag">Le résultat</span>
+                <p>
+                  Votre page devient un média, un catalogue et un point de vente — réunis en un seul
+                  endroit, pilotés depuis Monetizer Studio®.
+                </p>
+              </div>
+              <div class="cb-monetizer">
+                <img
+                  src="/footer-pages/assets/creer-boutique-monetizer.jpg"
+                  alt="Monetizer Studio — pilotez votre Store Page"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 5 — 3 OFFRES, 1 MISSION ════ -->
+      <section class="cb-sec">
+        <div class="cb-shell">
+          <div class="cb-eyebrow sk-reveal">Abonnement — Créez votre Audiovisual Store Page</div>
+          <h2 class="cb-h2 sk-reveal">3 offres, 1 mission</h2>
+          <p class="cb-lead sk-reveal">
+            Des Audiovisual Store Pages pensées pour les marques ambitieuses, les créateurs
+            visionnaires et les projets en pleine croissance.
+          </p>
+          <div class="cb-prices sk-reveal-stagger">
+            <div class="cb-price sk-reveal-item">
+              <div class="cb-price-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2 0-2.8a2 2 0 0 0-3 0z" />
+                  <path d="M12 15 9 12a11 11 0 0 1 7-9c2.5 0 4 1.5 4 4a11 11 0 0 1-9 7z" />
+                  <path d="M9 12H5s.5-2.5 2-4 4-1 4-1M12 15v4s2.5-.5 4-2 1-4 1-4" />
+                </svg>
+              </div>
+              <div class="cb-price-name">Starter</div>
+              <div class="cb-price-seg">Lancer votre présence</div>
+              <div class="cb-price-val">4 000 € <span class="cb-price-month">/ mois</span></div>
+              <div class="cb-price-list">
+                <div class="cb-price-li">5 contenus / mois</div>
+                <div class="cb-price-li">Tableau de bord standard (vues, clics)</div>
+                <div class="cb-price-li">Capsules produits</div>
+                <div class="cb-price-li">Design standard</div>
+              </div>
+            </div>
+            <div class="cb-price feat sk-reveal-item">
+              <div class="cb-price-badge">Le plus populaire</div>
+              <div class="cb-price-ic">
+                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                  <path
+                    d="m12 2 2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"
+                  />
+                </svg>
+              </div>
+              <div class="cb-price-name">Growth</div>
+              <div class="cb-price-seg">Accélérez votre croissance</div>
+              <div class="cb-price-val">8 000 € <span class="cb-price-month">/ mois</span></div>
+              <div class="cb-price-list">
+                <div class="cb-price-li">10 contenus / mois</div>
+                <div class="cb-price-li">Tableau de bord avancé (conversions)</div>
+                <div class="cb-price-li">SeSync : 5 plateformes de redirection</div>
+                <div class="cb-price-li">Capsules produits</div>
+              </div>
+            </div>
+            <div class="cb-price sk-reveal-item">
+              <div class="cb-price-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M6 3h12l3 6-9 12L3 9z" />
+                  <path d="M3 9h18M9 3 6 9l6 12 6-12-3-6" />
+                </svg>
+              </div>
+              <div class="cb-price-name">Premium</div>
+              <div class="cb-price-seg">Dominez votre marché</div>
+              <div class="cb-price-val">15 000 € <span class="cb-price-month">/ mois</span></div>
+              <div class="cb-price-list">
+                <div class="cb-price-li">25 contenus / mois</div>
+                <div class="cb-price-li">SeSync illimité, tous territoires</div>
+                <div class="cb-price-li">Sponsoring de célébrités &amp; sportifs*</div>
+                <div class="cb-price-li">Design personnalisé + A/B testing</div>
+              </div>
+            </div>
+          </div>
+          <div class="cb-include sk-reveal">
+            <span class="lbl">Toutes les offres incluent</span>
+            <p>
+              Votre Store Page à votre effigie · hébergement &amp; maintenance · sécurité &amp; RGPD
+              · SEO / SEA · support 7j/7 · analytics avancées ·
+              <strong>commission Skoleom de 20 % sur les ventes.</strong>
+            </p>
+          </div>
+          <p class="cb-note">
+            Montants HT, par marque. Une part des revenus est redistribuée aux créateurs de contenus
+            et aux propriétaires de boutiques audiovisuelles. *Pour le sponsoring de boutiques
+            audiovisuelles de personnalités, des offres dédiées sont disponibles sur demande.
+          </p>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 6 — CTA FINAL ════ -->
+      <section class="cb-final">
+        <div class="cb-shell">
+          <div class="cb-final-grid">
+            <div class="sk-reveal-stagger">
+              <div class="cb-eyebrow sk-reveal-item">Le futur du e-commerce est audiovisuel</div>
+              <h2 class="sk-reveal-item">
+                Lancez dès aujourd'hui<br />votre <span class="g">audiovisual<br />store page</span>
+              </h2>
+              <p class="sk-reveal-item">
+                Votre marque. Vos contenus. Une nouvelle manière d'être vu, touché et acheté.
+              </p>
+              <a
+                class="cb-cta sk-reveal-item"
+                href="mailto:sellers@skoleom.com?subject=Inscription%20Audiovisual%20Store%20Page"
+              >
+                Inscription
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+              <div class="cb-wtb sk-reveal-item" style="margin-top: 36px">
+                <span
+                  ><span class="g">Watch.</span> <span class="g">Touch.</span>
+                  <span class="g">Buy.</span><sup>®</sup></span
+                >
+              </div>
+            </div>
+            <div class="cb-final-card sk-reveal-item">
+              <img
+                src="/maquette/banniere.webp"
+                alt="Lancez votre Audiovisual Store Page"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="sk-footer">
+      <div class="sk-footer-shell">
+        <div class="sk-footer-main">
+          <div class="sk-footer-brand">
+            <a href="/" class="sk-footer-logo" aria-label="Skoleom Universe"
+              ><span data-sk-brand="universe" data-sk-height="36"></span
+            ></a>
+            <p data-footer-brand-desc>
+              L&#x27;écosystème Skoleom réunit les boutiques audiovisuelles, les outils créateurs et
+              les solutions business pour rendre les contenus interactifs et actionnables.
+            </p>
+            <div class="sk-footer-socials" aria-label="Réseaux sociaux Skoleom" data-footer-socials>
+              <a
+                href="https://www.instagram.com/skoleom_universe"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                title="Instagram"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="5" />
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href="https://www.youtube.com/@skoleom9437"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+                title="YouTube"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22 12s0-3.5-.5-5.2c-.3-1.2-1.2-2.1-2.3-2.4C17.5 4 12 4 12 4s-5.5 0-7.2.4c-1.1.3-2 1.2-2.3 2.4C2 8.5 2 12 2 12s0 3.5.5 5.2c.3 1.2 1.2 2.1 2.3 2.4C6.5 20 12 20 12 20s5.5 0 7.2-.4c1.1-.3 2-1.2 2.3-2.4C22 15.5 22 12 22 12z"
+                  />
+                  <path d="M10 15l6-3-6-3v6z" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href="https://www.facebook.com/skoleom"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+                title="Facebook"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/skoleom-group"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-12h4v2" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <a
+                href="https://x.com/skoleom"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="X"
+                title="X"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  class="sk-footer-social-icon-fill"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="sk-footer-grid">
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="1"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-1"
+              >
+                <h3>À propos de Skoleom</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-1" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="À propos de Skoleom">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/mission.html"
+                      data-footer-link-id="101"
+                      >Notre mission</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/technologie.html"
+                      data-footer-link-id="102"
+                      >Notre technologie</a
+                    >
+                    <ul class="sk-footer-sub">
+                      <li>
+                        <a href="/footer-pages/brevets.html" data-footer-link-id="105"
+                          >Brevet Skoleom</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/ecosysteme.html"
+                      data-footer-link-id="103"
+                      >L&#x27;écosystème Skoleom</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/financement.html"
+                      data-footer-link-id="104"
+                      >Programmes de financement</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="2"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-2"
+              >
+                <h3>Boutiques audiovisuelles</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-2" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Boutiques audiovisuelles">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/boutiques.html"
+                      data-footer-link-id="201"
+                      >Explorer les boutiques</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/univers.html"
+                      data-footer-link-id="202"
+                      >Univers par catégorie</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros/creer-boutique.html"
+                      data-footer-link-id="203"
+                      >Lancer une boutique</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="3"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-3"
+              >
+                <h3>Pour tous</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-3" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Pour tous">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/comment-ca-marche.html"
+                      data-footer-link-id="301"
+                      >Comment ça marche</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/regarder-acheter.html"
+                      data-footer-link-id="302"
+                      >Regarder et acheter</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/cashback.html"
+                      data-footer-link-id="303"
+                      >Cashback &amp; récompenses</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/wallet.html"
+                      data-footer-link-id="304"
+                      >Skoleom Wallet</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/securite.html"
+                      data-footer-link-id="305"
+                      >Sécurité &amp; confidentialité</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="4"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-4"
+              >
+                <h3>Pour les Pros</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-4" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Pour les Pros">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html"
+                      data-footer-link-id="401"
+                      >Solutions business</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=monetiser"
+                      data-footer-link-id="402"
+                      >Monétiser vos contenus</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=boutique"
+                      data-footer-link-id="403"
+                      >Créer une boutique audiovisuelle</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=distribuer"
+                      data-footer-link-id="404"
+                      >Distribuer vos produits</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=ads"
+                      data-footer-link-id="405"
+                      >Publicité interactive</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=api"
+                      data-footer-link-id="406"
+                      >API &amp; intégrations</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="5"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-5"
+              >
+                <h3>Groupe</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-5" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Groupe">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#actualites"
+                      data-footer-link-id="501"
+                      >Actualités</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#carrieres"
+                      data-footer-link-id="502"
+                      >Carrières</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#investisseurs"
+                      data-footer-link-id="503"
+                      >Investisseurs</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a class="sk-footer-link" href="/hub/presse" data-footer-link-id="504"
+                      >Presse</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#contact"
+                      data-footer-link-id="505"
+                      >Contact</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#assistance"
+                      data-footer-link-id="506"
+                      >Assistance</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sk-footer-bottom">
+          <small data-footer-copyright>© 2026 .skoleom — Breveté 2020. Tous droits réservés.</small>
+          <div>
+            <a href="/legal" data-footer-legal-id="901">Mentions légales</a>
+            <a href="/terms" data-footer-legal-id="902">CGU &amp; CUV</a>
+            <a href="/privacy" data-footer-legal-id="903">Confidentialité</a>
+            <a href="/affiliates" data-footer-legal-id="904">Divulgation des affiliés</a>
+            <a href="/cookies" data-footer-legal-id="905">Préférences cookies</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/footer-pages/shared/sk-logos.js"></script>
+    <script src="/footer-pages/shared/sk-footer.js"></script>
+    <script src="/footer-pages/shared/sk-icons.js"></script>
+    <script src="/footer-pages/shared/hub-header.js"></script>
+    <script src="/footer-pages/shared/footer-locales.en.js"></script>
+    <script src="/footer-pages/shared/footer-i18n.en.js"></script>
+    <script src="/footer-pages/shared/footer-i18n-pros.en.js"></script>
+    <script src="/footer-pages/shared/footer-i18n.js"></script>
+    <script src="/footer-pages/shared/hub-lang.js"></script>
+    <script src="/footer-pages/shared/reveal-animations.js"></script>
+    <script>
+      // i18n FR→EN du contenu de la page (le chrome nav/footer est géré par footer-i18n.js).
+      (function () {
+        var PAIRS = [
+          ['Votre marque', 'Your brand'],
+          ['devient une', 'becomes an'],
+          ['audiovisuelle', 'store'],
+          [
+            'Fini la simple page produit. Chaque contenu devient un canal de vente direct —',
+            'No more plain product pages. Every piece of content becomes a direct sales channel —',
+          ],
+          [
+            "tout ce que l'on regarde devient instantanément achetable.",
+            'everything you watch becomes instantly shoppable.',
+          ],
+          ['Créer ma Store Page', 'Create my Store Page'],
+          ['Le principe', 'The principle'],
+          ["De la vue à l'achat,", 'From view to purchase,'],
+          ['sans quitter le', 'without leaving the'],
+          ['contenu', 'content'],
+          ['Regardez', 'Watch'],
+          [
+            "L'utilisateur regarde un live, un replay, une story, un film ou un extrait TV — comme d'habitude.",
+            'The user watches a live, a replay, a story, a film or a TV clip — just as usual.',
+          ],
+          ['Touchez', 'Touch'],
+          [
+            "L'IA reconnaît l'objet et affiche une capsule à la demande. Ajout au panier sans interrompre le flux.",
+            'AI recognizes the item and shows a capsule on demand. Add to cart without interrupting playback.',
+          ],
+          ['Achetez', 'Buy'],
+          [
+            'Skoleom SeSync et Skoleom Pay exécutent le paiement dans la vidéo. Le spectateur reprend au même time code.',
+            'Skoleom SeSync and Skoleom Pay process the payment inside the video. The viewer resumes at the same time code.',
+          ],
+          ['Pays de distribution', 'Countries of distribution'],
+          ['Plateformes OTT', 'OTT platforms'],
+          ['Sites web connectés', 'Connected websites'],
+          ['Vidéos skoléomisées / jour', 'Skoleomized videos / day'],
+          ['Une seule plateforme', 'One single platform'],
+          ['5 plateformes en une seule', '5 platforms in one'],
+          [
+            "Aujourd'hui une marque jongle entre cinq outils. Skoleom les réunit : diffusion vidéo, intégration produit, paiement dans la vidéo, distribution internationale et monétisation.",
+            'Today a brand juggles five tools. Skoleom unites them: video streaming, product integration, in-video payment, international distribution and monetization.',
+          ],
+          ['Agence créative', 'Creative agency'],
+          ['Une Audiovisual Store Page', 'One Audiovisual Store Page'],
+          ['Votre média', 'Your media'],
+          ['Votre catalogue', 'Your catalog'],
+          ['Votre boutique', 'Your store'],
+          ['Votre chaîne de vente', 'Your sales channel'],
+          [
+            "Pourquoi la vidéo vend jusqu'à 10× plus que l'e-commerce classique",
+            'Why video sells up to 10× more than classic e-commerce',
+          ],
+          ['de conversion', 'in conversion'],
+          ["d'engagement", 'in engagement'],
+          ['des consommateurs influencés', 'of consumers influenced'],
+          ['Votre page, chaque mois', 'Your page, every month'],
+          ['Ce que contient votre Store Page', 'What your Store Page includes'],
+          ['25 vidéos publiées par mois', '25 videos published per month'],
+          [
+            'Les contenus OTT les plus performants (Netflix, Disney+, YouTube, TikTok) intégrés selon votre zone et votre stratégie.',
+            'The best-performing OTT content (Netflix, Disney+, YouTube, TikTok) integrated according to your region and strategy.',
+          ],
+          ["Jusqu'à 625 produits par mois", 'Up to 625 products per month'],
+          [
+            "Jusqu'à 25 produits intégrés par vidéo, présentés avec votre marque.",
+            'Up to 25 products integrated per video, presented with your brand.',
+          ],
+          ['15 capsules de marque par vidéo', '15 brand capsules per video'],
+          [
+            'Sur 25 capsules par vidéo, 15 vous sont réservées ; 10 reviennent aux produits Skoleom.',
+            'Out of 25 capsules per video, 15 are reserved for you; 10 go to Skoleom products.',
+          ],
+          ['Presse & jeux concours inclus', 'Press & giveaways included'],
+          [
+            '25 articles de presse, un communiqué et un jeu concours chaque mois.',
+            '25 press articles, a press release and a giveaway every month.',
+          ],
+          ['Le résultat', 'The result'],
+          [
+            'Votre page devient un média, un catalogue et un point de vente — réunis en un seul endroit, pilotés depuis Monetizer Studio®.',
+            'Your page becomes a media outlet, a catalog and a point of sale — together in one place, managed from Monetizer Studio®.',
+          ],
+          [
+            'Abonnement — Créez votre Audiovisual Store Page',
+            'Subscription — Create your Audiovisual Store Page',
+          ],
+          ['3 offres, 1 mission', '3 plans, 1 mission'],
+          [
+            'Des Audiovisual Store Pages pensées pour les marques ambitieuses, les créateurs visionnaires et les projets en pleine croissance.',
+            'Audiovisual Store Pages designed for ambitious brands, visionary creators and fast-growing projects.',
+          ],
+          ['Lancer votre présence', 'Launch your presence'],
+          ['5 contenus / mois', '5 contents / month'],
+          ['10 contenus / mois', '10 contents / month'],
+          ['25 contenus / mois', '25 contents / month'],
+          ['Tableau de bord standard (vues, clics)', 'Standard dashboard (views, clicks)'],
+          ['Capsules produits', 'Product capsules'],
+          ['Design standard', 'Standard design'],
+          ['Accélérez votre croissance', 'Accelerate your growth'],
+          ['Tableau de bord avancé (conversions)', 'Advanced dashboard (conversions)'],
+          ['SeSync : 5 plateformes de redirection', 'SeSync: 5 redirection platforms'],
+          ['Dominez votre marché', 'Dominate your market'],
+          ['SeSync illimité, tous territoires', 'Unlimited SeSync, all territories'],
+          ['Sponsoring de célébrités & sportifs*', 'Celebrity & athlete sponsoring*'],
+          ['Design personnalisé + A/B testing', 'Custom design + A/B testing'],
+          ['Toutes les offres incluent', 'All plans include'],
+          [
+            'Votre Store Page à votre effigie · hébergement & maintenance · sécurité & RGPD · SEO / SEA · support 7j/7 · analytics avancées ·',
+            'Your branded Store Page · hosting & maintenance · security & GDPR · SEO / SEA · 7/7 support · advanced analytics ·',
+          ],
+          ['commission Skoleom de 20 % sur les ventes.', 'Skoleom commission of 20% on sales.'],
+          [
+            'Montants HT, par marque. Une part des revenus est redistribuée aux créateurs de contenus et aux propriétaires de boutiques audiovisuelles. *Pour le sponsoring de boutiques audiovisuelles de personnalités, des offres dédiées sont disponibles sur demande.',
+            'Amounts excl. tax, per brand. A share of revenue is redistributed to content creators and audiovisual store owners. *For sponsoring celebrity audiovisual stores, dedicated offers are available on request.',
+          ],
+          ['Le futur du e-commerce est audiovisuel', 'The future of e-commerce is audiovisual'],
+          ["Lancez dès aujourd'hui votre", 'Launch your'],
+          [
+            'Votre marque. Vos contenus. Une nouvelle manière',
+            'Your brand. Your content. A new way',
+          ],
+          ["d'être vu, touché et acheté.", 'to be seen, touched and bought.'],
+          ['Inscription', 'Sign up'],
+          ['/ mois', '/ month'],
+        ];
+        function apply() {
+          if (window.FooterI18n && FooterI18n.lang && FooterI18n.lang() === 'en') {
+            FooterI18n.applyReplacements(PAIRS);
+            if (FooterI18n.applyAttributeReplacements) FooterI18n.applyAttributeReplacements(PAIRS);
+            document.documentElement.lang = 'en';
+          }
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
+        else apply();
+        window.addEventListener('load', apply);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+export type SingleProductType = {
+  id: number;
+  name: string;
+  slug: string;
+  permalink: string;
+  date_created: string;
+  date_created_gmt: string;
+  date_modified: string;
+  date_modified_gmt: string;
+  description: string;
+  short_description?: string;
+  sku: string;
+  price: string;
+  external_url?: string;
+  button_text?: string;
+  regular_price: string;
+  sale_price: string;
+  date_on_sale_from: string | null;
+  date_on_sale_from_gmt: string | null;
+  date_on_sale_to: string | null;
+  date_on_sale_to_gmt: string | null;
+  on_sale: boolean;
+  purchasable: boolean;
+  total_sales: string;
+  virtual: boolean;
+  downloadable: boolean;
+  manage_stock: boolean;
+  stock_quantity: number | null;
+  in_stock: boolean;
+  stock_status: 'instock' | 'outofstock' | string;
+  backorders: 'no' | 'yes' | string;
+  backorders_allowed: boolean;
+  backordered: boolean;
+  low_stock_amount: string;
+  weight: number;
+  dimensions: { length: string; width: string; height: string; unit: string };
+  rating_count: number;
+  images: {
+    id: number;
+    date_created: string;
+    date_created_gmt: string;
+    date_modified: string;
+    date_modified_gmt: string;
+    src: string;
+    name: string;
+    alt: string;
+    position: number;
+  }[];
+  brands?: { id: number; name: string; slug: string }[];
+  categories?: { id: number; name: string; slug: string }[];
+  attributes: { id: number; name: string; slug: string; options: string[] }[];
+  variations: [];
+  _links: {
+    self: { permalink: string; href: string }[];
+    collection: { permalink: string; href: string }[];
+  };
+};
+
+export type Variation = {
+  id: number;
+  price: string;
+  stock_status: 'instock' | 'outofstock';
+  attributes: { name: string; slug: string; option: string }[];
+}[];

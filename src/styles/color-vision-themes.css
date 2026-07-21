@@ -1,0 +1,221 @@
+/*
+ * Thèmes adaptatifs daltonisme — compensation par palette (sans filter SVG).
+ * Chaque profil remappe les tokens Skoleom pour maximiser la distinction perçue.
+ */
+
+/* ── Deutéranopie (rouge–vert) : privilégier bleu / ambre ─────────────────── */
+html[data-a11y-color-vision='deuteranopia'] {
+  color-scheme: dark;
+  --univ-lime: #38bdf8;
+  --univ-green: #0ea5e9;
+  --univ-orange: #f59e0b;
+  --univ-coral: #fbbf24;
+  --univ-yellow: #fde047;
+  --univ-blue: #1d4ed8;
+  --univ-blue-light: #60a5fa;
+  --univ-gradient-display-a: #fde047;
+  --univ-gradient-display-b: #38bdf8;
+  --univ-gradient-display-c: #1d4ed8;
+  --a11y-cv-accent: #38bdf8;
+  --a11y-cv-accent-2: #f59e0b;
+  --a11y-cv-link: #7dd3fc;
+  --a11y-cv-success: #38bdf8;
+  --a11y-cv-warning: #fbbf24;
+  --a11y-cv-danger: #f97316;
+  --a11y-cv-glow: rgba(56, 189, 248, 0.45);
+  --a11y-cv-kicker: linear-gradient(90deg, #f59e0b 0%, #38bdf8 100%);
+}
+
+/* ── Protanopie (rouge–vert) : privilégier or / bleu ──────────────────────── */
+html[data-a11y-color-vision='protanopia'] {
+  color-scheme: dark;
+  --univ-lime: #fde047;
+  --univ-green: #facc15;
+  --univ-orange: #fb923c;
+  --univ-coral: #fdba74;
+  --univ-yellow: #fef08a;
+  --univ-blue: #2563eb;
+  --univ-blue-light: #60a5fa;
+  --univ-gradient-display-a: #fef08a;
+  --univ-gradient-display-b: #fb923c;
+  --univ-gradient-display-c: #2563eb;
+  --a11y-cv-accent: #fde047;
+  --a11y-cv-accent-2: #2563eb;
+  --a11y-cv-link: #93c5fd;
+  --a11y-cv-success: #fde047;
+  --a11y-cv-warning: #fb923c;
+  --a11y-cv-danger: #ea580c;
+  --a11y-cv-glow: rgba(253, 224, 71, 0.4);
+  --a11y-cv-kicker: linear-gradient(90deg, #fb923c 0%, #2563eb 100%);
+}
+
+/* ── Tritanopie (bleu–jaune) : privilégier vert / rouge / violet ──────────── */
+html[data-a11y-color-vision='tritanopia'] {
+  color-scheme: dark;
+  --univ-lime: #4ade80;
+  --univ-green: #22c55e;
+  --univ-orange: #f87171;
+  --univ-coral: #fb7185;
+  --univ-yellow: #86efac;
+  --univ-blue: #c084fc;
+  --univ-blue-light: #d8b4fe;
+  --univ-gradient-display-a: #86efac;
+  --univ-gradient-display-b: #f87171;
+  --univ-gradient-display-c: #c084fc;
+  --a11y-cv-accent: #4ade80;
+  --a11y-cv-accent-2: #f87171;
+  --a11y-cv-link: #fca5a5;
+  --a11y-cv-success: #4ade80;
+  --a11y-cv-warning: #f87171;
+  --a11y-cv-danger: #ef4444;
+  --a11y-cv-glow: rgba(74, 222, 128, 0.4);
+  --a11y-cv-kicker: linear-gradient(90deg, #f87171 0%, #4ade80 100%);
+}
+
+/* ── Achromatopsie : niveaux de gris contrastés ─────────────────────────── */
+html[data-a11y-color-vision='achromatopsia'] {
+  color-scheme: dark;
+  --univ-lime: #f5f5f5;
+  --univ-green: #e5e5e5;
+  --univ-orange: #d4d4d4;
+  --univ-coral: #a3a3a3;
+  --univ-yellow: #fafafa;
+  --univ-blue: #737373;
+  --univ-blue-light: #a3a3a3;
+  --univ-gradient-display-a: #fafafa;
+  --univ-gradient-display-b: #d4d4d4;
+  --univ-gradient-display-c: #737373;
+  --a11y-cv-accent: #ffffff;
+  --a11y-cv-accent-2: #a3a3a3;
+  --a11y-cv-link: #e5e5e5;
+  --a11y-cv-success: #f5f5f5;
+  --a11y-cv-warning: #d4d4d4;
+  --a11y-cv-danger: #ffffff;
+  --a11y-cv-glow: rgba(255, 255, 255, 0.35);
+  --a11y-cv-kicker: linear-gradient(90deg, #d4d4d4 0%, #f5f5f5 100%);
+}
+
+/* ── Règles communes aux thèmes adaptatifs ────────────────────────────────── */
+html[data-a11y-color-vision='deuteranopia'],
+html[data-a11y-color-vision='protanopia'],
+html[data-a11y-color-vision='tritanopia'],
+html[data-a11y-color-vision='achromatopsia'] {
+  --sk-scrollbar-thumb: color-mix(in srgb, var(--a11y-cv-accent) 35%, transparent);
+  --sk-scrollbar-thumb-hover: color-mix(in srgb, var(--a11y-cv-accent) 55%, transparent);
+  --univ-green-glow: var(--a11y-cv-glow);
+  --univ-page-blue: var(--univ-blue);
+  --univ-page-blue-hover: color-mix(in srgb, var(--univ-blue) 82%, #000);
+  --univ-page-blue-light: var(--univ-blue-light);
+  --univ-link: var(--a11y-cv-link);
+  --univ-glow: var(--a11y-cv-glow);
+  --univ-glow-medium: var(--a11y-cv-glow);
+  --univ-glow-strong: var(--a11y-cv-glow);
+  --univ-glow-soft: color-mix(in srgb, var(--a11y-cv-accent) 25%, transparent);
+  --univ-glow-orange: color-mix(in srgb, var(--a11y-cv-accent-2) 45%, transparent);
+  --univ-halo-primary: color-mix(in srgb, var(--a11y-cv-accent) 55%, transparent);
+  --univ-halo-secondary: color-mix(in srgb, var(--a11y-cv-accent-2) 35%, transparent);
+  --univ-halo-tertiary: color-mix(in srgb, var(--univ-blue-light) 18%, transparent);
+  --univ-vimeo-frame: linear-gradient(
+    to top right,
+    var(--univ-orange) 0%,
+    color-mix(in srgb, var(--univ-orange) 85%, var(--univ-yellow)) 30%,
+    var(--univ-lime) 100%
+  );
+}
+
+html[data-a11y-color-vision='deuteranopia'] ::selection,
+html[data-a11y-color-vision='protanopia'] ::selection,
+html[data-a11y-color-vision='tritanopia'] ::selection,
+html[data-a11y-color-vision='achromatopsia'] ::selection {
+  background: var(--a11y-cv-accent);
+  color: #000;
+}
+
+/* Kickers gradient (Tailwind bg-clip-text) */
+html[data-a11y-color-vision='deuteranopia'] .bg-gradient-to-r.from-univ-orange.to-univ-lime,
+html[data-a11y-color-vision='protanopia'] .bg-gradient-to-r.from-univ-orange.to-univ-lime,
+html[data-a11y-color-vision='tritanopia'] .bg-gradient-to-r.from-univ-orange.to-univ-lime,
+html[data-a11y-color-vision='achromatopsia'] .bg-gradient-to-r.from-univ-orange.to-univ-lime,
+html[data-a11y-color-vision='deuteranopia'] [class*='from-univ-orange'][class*='to-univ-lime'],
+html[data-a11y-color-vision='protanopia'] [class*='from-univ-orange'][class*='to-univ-lime'],
+html[data-a11y-color-vision='tritanopia'] [class*='from-univ-orange'][class*='to-univ-lime'],
+html[data-a11y-color-vision='achromatopsia'] [class*='from-univ-orange'][class*='to-univ-lime'] {
+  background-image: var(--a11y-cv-kicker) !important;
+}
+
+/* Boutons & liens — bordures plus lisibles */
+html[data-a11y-color-vision='deuteranopia'] .btn-univ,
+html[data-a11y-color-vision='protanopia'] .btn-univ,
+html[data-a11y-color-vision='tritanopia'] .btn-univ,
+html[data-a11y-color-vision='achromatopsia'] .btn-univ {
+  border: 2px solid color-mix(in srgb, var(--a11y-cv-accent) 70%, #000);
+  box-shadow: 0 0 24px var(--a11y-cv-glow);
+}
+
+html[data-a11y-color-vision='deuteranopia'] .btn-primary:hover,
+html[data-a11y-color-vision='protanopia'] .btn-primary:hover,
+html[data-a11y-color-vision='tritanopia'] .btn-primary:hover,
+html[data-a11y-color-vision='achromatopsia'] .btn-primary:hover {
+  background: var(--a11y-cv-accent) !important;
+  color: #000 !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .card-hover:hover,
+html[data-a11y-color-vision='protanopia'] .card-hover:hover,
+html[data-a11y-color-vision='tritanopia'] .card-hover:hover,
+html[data-a11y-color-vision='achromatopsia'] .card-hover:hover {
+  box-shadow: 0 30px 60px var(--a11y-cv-glow) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .capsule-dot,
+html[data-a11y-color-vision='protanopia'] .capsule-dot,
+html[data-a11y-color-vision='tritanopia'] .capsule-dot,
+html[data-a11y-color-vision='achromatopsia'] .capsule-dot {
+  box-shadow: 0 0 20px var(--a11y-cv-glow) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'] .a11y-option-active,
+html[data-a11y-color-vision='protanopia'] .a11y-option-active,
+html[data-a11y-color-vision='tritanopia'] .a11y-option-active,
+html[data-a11y-color-vision='achromatopsia'] .a11y-option-active {
+  border-color: var(--a11y-cv-accent) !important;
+  background: color-mix(in srgb, var(--a11y-cv-accent) 14%, transparent) !important;
+}
+
+html[data-a11y-color-vision='deuteranopia'][data-a11y-enhanced-focus] a:focus-visible,
+html[data-a11y-color-vision='deuteranopia'][data-a11y-enhanced-focus] button:focus-visible,
+html[data-a11y-color-vision='deuteranopia'][data-a11y-enhanced-focus] input:focus-visible,
+html[data-a11y-color-vision='deuteranopia'][data-a11y-enhanced-focus] select:focus-visible,
+html[data-a11y-color-vision='deuteranopia'][data-a11y-enhanced-focus] textarea:focus-visible,
+html[data-a11y-color-vision='protanopia'][data-a11y-enhanced-focus] a:focus-visible,
+html[data-a11y-color-vision='protanopia'][data-a11y-enhanced-focus] button:focus-visible,
+html[data-a11y-color-vision='protanopia'][data-a11y-enhanced-focus] input:focus-visible,
+html[data-a11y-color-vision='protanopia'][data-a11y-enhanced-focus] select:focus-visible,
+html[data-a11y-color-vision='protanopia'][data-a11y-enhanced-focus] textarea:focus-visible,
+html[data-a11y-color-vision='tritanopia'][data-a11y-enhanced-focus] a:focus-visible,
+html[data-a11y-color-vision='tritanopia'][data-a11y-enhanced-focus] button:focus-visible,
+html[data-a11y-color-vision='tritanopia'][data-a11y-enhanced-focus] input:focus-visible,
+html[data-a11y-color-vision='tritanopia'][data-a11y-enhanced-focus] select:focus-visible,
+html[data-a11y-color-vision='tritanopia'][data-a11y-enhanced-focus] textarea:focus-visible,
+html[data-a11y-color-vision='achromatopsia'][data-a11y-enhanced-focus] a:focus-visible,
+html[data-a11y-color-vision='achromatopsia'][data-a11y-enhanced-focus] button:focus-visible,
+html[data-a11y-color-vision='achromatopsia'][data-a11y-enhanced-focus] input:focus-visible,
+html[data-a11y-color-vision='achromatopsia'][data-a11y-enhanced-focus] select:focus-visible,
+html[data-a11y-color-vision='achromatopsia'][data-a11y-enhanced-focus] textarea:focus-visible {
+  outline-color: var(--a11y-cv-accent) !important;
+  box-shadow: 0 0 0 6px var(--a11y-cv-glow) !important;
+}
+
+/* Achromatopsie — dégradés texte en gris lisible */
+html[data-a11y-color-vision='achromatopsia'] .text-gradient,
+html[data-a11y-color-vision='achromatopsia'] .text-gradient-warm,
+html[data-a11y-color-vision='achromatopsia'] .text-gradient-vertical,
+html[data-a11y-color-vision='achromatopsia'] .text-gradient-horizontal,
+html[data-a11y-color-vision='achromatopsia'] .text-gradient-radial,
+html[data-a11y-color-vision='achromatopsia'] .text-gradient-radial-tl {
+  background-image: linear-gradient(
+    135deg,
+    var(--univ-gradient-display-a) 0%,
+    var(--univ-gradient-display-c) 100%
+  ) !important;
+}

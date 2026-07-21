@@ -1,0 +1,649 @@
+{
+  "stats": {
+    "capital": "228M$",
+    "collaborators": "+30 000",
+    "productsIntegrated": "+500M",
+    "businessUnits": "+30",
+    "intellectualProperties": "+30",
+    "creators": "+250M",
+    "partnerBrands": "+300K",
+    "countries": "+190",
+    "ottPlatforms": "+2 000",
+    "websitesConnected": "+1 milliard"
+  },
+  "brands": [
+    { "id": "brand-nike", "name": "Nike", "category": "sport", "logo": "👟", "color": "#000" },
+    { "id": "brand-adidas", "name": "Adidas", "category": "sport", "logo": "⚡", "color": "#000" },
+    { "id": "brand-apple", "name": "Apple", "category": "tech", "logo": "🍎", "color": "#000" },
+    {
+      "id": "brand-louis",
+      "name": "Louis Vuitton",
+      "category": "luxury",
+      "logo": "💎",
+      "color": "#594028"
+    },
+    { "id": "brand-dior", "name": "Dior", "category": "luxury", "logo": "✨", "color": "#000" },
+    {
+      "id": "brand-25x",
+      "name": "The 25x",
+      "category": "lifestyle",
+      "logo": "🌀",
+      "color": "#FF6B35"
+    },
+    {
+      "id": "brand-skoletoons",
+      "name": "SkoleToon's",
+      "category": "kids",
+      "logo": "🎨",
+      "color": "#FF3366"
+    },
+    { "id": "brand-gulf", "name": "Gulf", "category": "racing", "logo": "🏁", "color": "#FF8A00" },
+    { "id": "brand-puma", "name": "Puma", "category": "sport", "logo": "🐆", "color": "#000" },
+    { "id": "brand-chanel", "name": "Chanel", "category": "luxury", "logo": "🖤", "color": "#000" }
+  ],
+  "businessUnitItems": [
+    {
+      "id": "skoleom-invest",
+      "name": "Skoleom Invest",
+      "tagline": "Véhicule d'investissement officiel du groupe",
+      "description": "Cette société gère les levées de fonds internes et externes (seed, Série A/B/C), les acquisitions stratégiques, la structuration financière des Business Units, et les relations avec les banques, VC et partenaires institutionnels.",
+      "mission": "Financer, sécuriser et valoriser tous les projets stratégiques de Skoleom.",
+      "icon": "💼",
+      "color": "#FF8A00",
+      "category": "satellite"
+    },
+    {
+      "id": "skoleom-business",
+      "name": "Skoleom Business",
+      "tagline": "Société commerciale centrale de Skoleom",
+      "description": "Regroupe et pilote les forces de vente internes et partenaires (Oracle, etc.), les leads B2B/B2C, le réseau d'affiliés, la formation commerciale (CRM, closing) et les reversements en temps réel.",
+      "mission": "Gérer 100 % des ventes mondiales du groupe.",
+      "icon": "📊",
+      "color": "#0033FF",
+      "category": "satellite"
+    },
+    {
+      "id": "skoleom-lab",
+      "name": "Skoleom Lab",
+      "tagline": "Société de Recherche & Développement",
+      "description": "Réseau de jeunes docteurs, techniciens, experts IA et laboratoires dédiés à l'IA souveraine, la blockchain, la computer vision, la robotique et le retail immersif.",
+      "mission": "Innover, breveter et anticiper les technologies du retail media.",
+      "icon": "🔬",
+      "color": "#00D8B0",
+      "category": "satellite"
+    },
+    {
+      "id": "secontent-agency",
+      "name": "SeContent Agency",
+      "tagline": "Première agence transmédiatique internationale",
+      "description": "Production créative (vidéos, XR, capsules immersives), direction artistique, gestion des marques, créateurs, talents, et stratégies de narration transmédia.",
+      "mission": "Donner vie à chaque produit ou idée à travers des contenus puissants et monétisables.",
+      "icon": "🎬",
+      "color": "#FF3366",
+      "category": "satellite"
+    },
+    {
+      "id": "skoleom-rights-management",
+      "name": "Skoleom Rights Management",
+      "tagline": "Pôle juridique officiel",
+      "description": "Gestion des droits d'auteur, marques, brevets et licences. Protection de la PI (technologies, IA, vidéos, codes). Conformité juridique internationale (RGPD, e-commerce, IA).",
+      "mission": "Protéger les actifs juridiques et garantir la conformité mondiale.",
+      "icon": "⚖️",
+      "color": "#7B5CFF",
+      "category": "satellite"
+    },
+    {
+      "id": "skoleom-factory",
+      "name": "Skoleom Factory",
+      "tagline": "Société de planification centrale",
+      "description": "Orchestre la gestion des plannings transmédia, la coordination entre les pôles Retail Media, Transmédia, Lab et Business, et l'exécution opérationnelle des campagnes.",
+      "mission": "Planifier, organiser et exécuter la feuille de route transmédiatique.",
+      "icon": "🏭",
+      "color": "#FFD600",
+      "category": "satellite"
+    },
+    {
+      "id": "monetizer-studio",
+      "name": "Monetizer Studio",
+      "tagline": "ERP/DCM SaaS de monétisation",
+      "description": "Gestion, monétisation et analyse des contenus vidéos interactifs. Connecté à +300 API, contrôle total sur ventes, audiences, campagnes, retargeting et performance produit.",
+      "icon": "☁️",
+      "color": "#0033FF",
+      "category": "platform"
+    },
+    {
+      "id": "sesync",
+      "name": "SeSync",
+      "tagline": "Premier réseau de distribution InPage",
+      "description": "Permet l'achat instantané à l'intérieur des contenus vidéos ou visuels, sans redirection. Compatible avec +2000 plateformes OTT et 1 milliard de sites web.",
+      "icon": "🔥",
+      "color": "#FF6B35",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-retailers",
+      "name": "Skoleom Retailers",
+      "tagline": "Société d'import-export du groupe",
+      "description": "Développe des gammes de produits distributeurs sous les marques The 25x et SkoleToon's, distribués en magasins physiques, online et via SeContent.",
+      "icon": "🛒",
+      "color": "#00B894",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-games",
+      "name": "Skoleom Games",
+      "tagline": "Jeux vidéo skoléomisés",
+      "description": "Création de jeux intégrant mécaniques de commerce, storytelling immersif et achats in-game via SeSync. Jeux XR, mobiles, consoles, WebGL.",
+      "icon": "🎮",
+      "color": "#A855F7",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-music",
+      "name": "Skoleom Music",
+      "tagline": "Premier label musical transmédiatique",
+      "description": "Production d'artistes skoléomisés, gestion d'avatars, albums, clips, vêtements, concerts et produits dérivés intégrés au format SeContent.",
+      "icon": "🎵",
+      "color": "#EC4899",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-cloud",
+      "name": "Skoleom Cloud",
+      "tagline": "Cloud souverain Skoleom",
+      "description": "Infrastructure hébergeant l'ensemble des technologies Skoleom : IA, stockage, edge computing, bases de données privées, services API.",
+      "icon": "☁️",
+      "color": "#0EA5E9",
+      "category": "platform"
+    },
+    {
+      "id": "watch-on-skoleom",
+      "name": "Watch on Skoleom",
+      "tagline": "Box OTT propriétaire",
+      "description": "Chaînes thématiques interconnectées à SeContent. Interface interactive avec achats en direct, contenus exclusifs, formats gamifiés et expériences multisensorielles.",
+      "icon": "📺",
+      "color": "#EF4444",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-pay",
+      "name": "Skoleom Pay",
+      "tagline": "Paiement souverain intégré",
+      "description": "Système de paiement intégré dans les vidéos, plateformes et apps. Iframe interactive, API, paiement CB, wallet, crypto, BNPL.",
+      "icon": "💳",
+      "color": "#10B981",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-ads",
+      "name": "Skoleom Ads",
+      "tagline": "Publicité interactive",
+      "description": "Plateforme permettant de diffuser des capsules sponsorisées skoléomisées à l'intérieur des vidéos. Mesure des performances, retargeting, contextualisation dynamique.",
+      "icon": "📢",
+      "color": "#F59E0B",
+      "category": "platform"
+    },
+    {
+      "id": "secontent-creation",
+      "name": "SeContent Creation",
+      "tagline": "Studio SaaS de création",
+      "description": "Création de capsules, contenus immersifs, visuels XR, vidéos IA pour créateurs et marques.",
+      "icon": "✨",
+      "color": "#8B5CF6",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-shop",
+      "name": "Skoleom Shop",
+      "tagline": "Marketplace centralisée",
+      "description": "Marketplace pour tous les produits physiques, numériques et dérivés connectés à l'écosystème.",
+      "icon": "🛍️",
+      "color": "#F43F5E",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-magazine",
+      "name": "Skoleom Magazine",
+      "tagline": "Première agence de presse transmédia",
+      "description": "Actualités dynamiques, capsules éditoriales interactives, IA journalistique, premier média SeContent.",
+      "icon": "📰",
+      "color": "#3B82F6",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-publishing",
+      "name": "Skoleom Publishing",
+      "tagline": "Maison d'édition transmédia",
+      "description": "Livres, BD, objets d'auteur, albums, produits dérivés. Distribution via SeContent et en physique.",
+      "icon": "📚",
+      "color": "#6366F1",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-universe-engine",
+      "name": "Skoleom Universe Engine",
+      "tagline": "Moteur de skoléomisation universelle",
+      "description": "Permet d'intégrer capsules, paiement, IA et tracking sur n'importe quelle plateforme tierce.",
+      "icon": "⚙️",
+      "color": "#14B8A6",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-pro",
+      "name": "Skoleom Pro",
+      "tagline": "Outils d'analyse et datavisualisation",
+      "description": "Suivi temps réel des performances : vues, clics, conversions, retours produits, rétention, A/B tests, intégrés à Monetizer Studio.",
+      "icon": "📈",
+      "color": "#84CC16",
+      "category": "platform"
+    },
+    {
+      "id": "skoleom-studio",
+      "name": "Skoleom Studio",
+      "tagline": "Studios de production transmédia",
+      "description": "Espaces IA, XR, tournages, doublage, montage, capsules SeContent.",
+      "icon": "🎥",
+      "color": "#DC2626",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-events",
+      "name": "Skoleom Events",
+      "tagline": "Événements internationaux",
+      "description": "E-sport, concerts, conventions, cérémonies transmédiatiques.",
+      "icon": "🎪",
+      "color": "#7C3AED",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-real-estate",
+      "name": "Skoleom Real Estate",
+      "tagline": "Promoteur immobilier du groupe",
+      "description": "Logements, espaces hybrides, bureaux, scènes immersives, retail centers.",
+      "icon": "🏙️",
+      "color": "#0891B2",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-academy",
+      "name": "Skoleom Academy",
+      "tagline": "École supérieure du futur (Bac+5)",
+      "description": "Forme aux métiers stratégiques. Professeurs hologrammes (Einstein, Tesla, Curie).",
+      "icon": "🎓",
+      "color": "#059669",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-stores",
+      "name": "Skoleom Stores",
+      "tagline": "Magasins physiques expérientiels",
+      "description": "SeSync intégré, essayage IA, événements, capsules SeContent.",
+      "icon": "🏬",
+      "color": "#D97706",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-smart-city",
+      "name": "Skoleom Smart City",
+      "tagline": "Ville intelligente et autonome",
+      "description": "Bureaux, logements, commerces, mobilité, IA urbaine, développement durable.",
+      "icon": "🌆",
+      "color": "#2563EB",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-hotels",
+      "name": "Skoleom Hotels",
+      "tagline": "Hébergement haut de gamme",
+      "description": "IA, domotique, réalité augmentée, NFT, contenus personnalisés.",
+      "icon": "🏨",
+      "color": "#BE185D",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-train",
+      "name": "Skoleom Train",
+      "tagline": "Transport futuriste",
+      "description": "Écrans géants, hologrammes embarqués, vidéos interactives, capsules in-ride.",
+      "icon": "🚄",
+      "color": "#0F766E",
+      "category": "nexus"
+    },
+    {
+      "id": "skoleom-arena",
+      "name": "Skoleom Arena",
+      "tagline": "Arène 100 000 places",
+      "description": "Concerts XR, e-sport, défilés, performances IA, shows immersifs avec SeSync.",
+      "icon": "🏟️",
+      "color": "#9333EA",
+      "category": "nexus"
+    }
+  ],
+  "contents": [
+    {
+      "id": "content-to-the-moon",
+      "title": "To The Moon",
+      "type": "film",
+      "category": "drama",
+      "duration": 7320,
+      "thumbnail": "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=1600",
+      "poster": "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "description": "Une romance épique au cœur de la course à la lune des années 60.",
+      "rating": "PG-13",
+      "year": 2024,
+      "genres": ["Drama", "Romance", "History"],
+      "cast": ["Channing Tatum", "Scarlett Johansson"],
+      "capsuleIds": ["cap-001", "cap-002", "cap-003"],
+      "featured": true,
+      "sourceLabel": "Apple TV"
+    },
+    {
+      "id": "content-thunderbolt",
+      "title": "Thunderbolts",
+      "type": "film",
+      "category": "action",
+      "duration": 7800,
+      "thumbnail": "https://images.unsplash.com/photo-1518674660708-0e2c0473e68e?w=1600",
+      "poster": "https://images.unsplash.com/photo-1518674660708-0e2c0473e68e?w=800",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "description": "Une équipe d'antihéros se réunit pour une mission impossible.",
+      "rating": "PG-13",
+      "year": 2024,
+      "genres": ["Action", "Adventure", "Sci-Fi"],
+      "cast": ["Florence Pugh", "Sebastian Stan"],
+      "capsuleIds": ["cap-004", "cap-005"],
+      "featured": true,
+      "sourceLabel": "Marvel"
+    },
+    {
+      "id": "content-paris-cafe",
+      "title": "Paris Café Stories",
+      "type": "series",
+      "category": "lifestyle",
+      "duration": 1800,
+      "thumbnail": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600",
+      "poster": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "description": "Plongée dans la vie parisienne, ses cafés mythiques et sa mode intemporelle.",
+      "rating": "PG",
+      "year": 2024,
+      "genres": ["Lifestyle", "Documentary", "Fashion"],
+      "cast": [],
+      "capsuleIds": ["cap-006", "cap-007", "cap-008"],
+      "featured": true,
+      "sourceLabel": "Skoleom Studio"
+    },
+    {
+      "id": "content-silo",
+      "title": "Silo: The Truth Beneath",
+      "type": "series",
+      "category": "thriller",
+      "duration": 3600,
+      "thumbnail": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1600",
+      "poster": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "description": "Dans un monde post-apocalyptique, une communauté vit dans un silo souterrain géant.",
+      "rating": "TV-14",
+      "year": 2024,
+      "genres": ["Thriller", "Sci-Fi", "Mystery"],
+      "cast": ["Rebecca Ferguson"],
+      "capsuleIds": ["cap-009"],
+      "featured": false,
+      "sourceLabel": "Apple TV"
+    },
+    {
+      "id": "content-tokyo-night",
+      "title": "Tokyo Night Drift",
+      "type": "film",
+      "category": "action",
+      "duration": 6900,
+      "thumbnail": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=1600",
+      "poster": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "description": "Un thriller urbain dans la capitale néon du Japon, où chaque rue cache un secret.",
+      "rating": "R",
+      "year": 2024,
+      "genres": ["Action", "Thriller"],
+      "cast": [],
+      "capsuleIds": ["cap-010"],
+      "featured": false,
+      "sourceLabel": "Skoleom Studio"
+    },
+    {
+      "id": "content-fashion-week",
+      "title": "Fashion Week Insider",
+      "type": "series",
+      "category": "lifestyle",
+      "duration": 2700,
+      "thumbnail": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600",
+      "poster": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+      "description": "Les coulisses des plus grandes Fashion Weeks: Paris, Milan, Tokyo, New York.",
+      "rating": "PG",
+      "year": 2024,
+      "genres": ["Fashion", "Documentary"],
+      "cast": [],
+      "capsuleIds": ["cap-011", "cap-012"],
+      "featured": false,
+      "sourceLabel": "Skoleom Magazine"
+    }
+  ],
+  "capsules": [
+    {
+      "id": "cap-001",
+      "contentId": "content-to-the-moon",
+      "productId": "prod-jacket-techno-01",
+      "timestamp": 245,
+      "duration": 8,
+      "position": { "x": 35, "y": 60 },
+      "label": "Techno Jacket",
+      "aiConfidence": 0.94
+    },
+    {
+      "id": "cap-002",
+      "contentId": "content-to-the-moon",
+      "productId": "prod-watch-luxe-03",
+      "timestamp": 412,
+      "duration": 6,
+      "position": { "x": 55, "y": 45 },
+      "label": "Quantum Chrono",
+      "aiConfidence": 0.97
+    },
+    {
+      "id": "cap-003",
+      "contentId": "content-to-the-moon",
+      "productId": "prod-glasses-04",
+      "timestamp": 890,
+      "duration": 7,
+      "position": { "x": 48, "y": 30 },
+      "label": "Vision X",
+      "aiConfidence": 0.91
+    },
+    {
+      "id": "cap-004",
+      "contentId": "content-thunderbolt",
+      "productId": "prod-sneaker-neon-02",
+      "timestamp": 320,
+      "duration": 8,
+      "position": { "x": 40, "y": 70 },
+      "label": "Neon Runner Pro",
+      "aiConfidence": 0.95
+    },
+    {
+      "id": "cap-005",
+      "contentId": "content-thunderbolt",
+      "productId": "prod-bag-05",
+      "timestamp": 510,
+      "duration": 6,
+      "position": { "x": 65, "y": 55 },
+      "label": "Nomad Pro Backpack",
+      "aiConfidence": 0.88
+    },
+    {
+      "id": "cap-006",
+      "contentId": "content-paris-cafe",
+      "productId": "prod-jacket-techno-01",
+      "timestamp": 120,
+      "duration": 7,
+      "position": { "x": 30, "y": 50 },
+      "label": "Techno Jacket",
+      "aiConfidence": 0.92
+    },
+    {
+      "id": "cap-007",
+      "contentId": "content-paris-cafe",
+      "productId": "prod-headphones-06",
+      "timestamp": 380,
+      "duration": 8,
+      "position": { "x": 70, "y": 35 },
+      "label": "Sonic Wave Pro",
+      "aiConfidence": 0.96
+    },
+    {
+      "id": "cap-008",
+      "contentId": "content-paris-cafe",
+      "productId": "prod-watch-luxe-03",
+      "timestamp": 650,
+      "duration": 5,
+      "position": { "x": 45, "y": 55 },
+      "label": "Quantum Chrono",
+      "aiConfidence": 0.93
+    },
+    {
+      "id": "cap-009",
+      "contentId": "content-silo",
+      "productId": "prod-glasses-04",
+      "timestamp": 200,
+      "duration": 7,
+      "position": { "x": 50, "y": 40 },
+      "label": "Vision X",
+      "aiConfidence": 0.89
+    },
+    {
+      "id": "cap-010",
+      "contentId": "content-tokyo-night",
+      "productId": "prod-sneaker-neon-02",
+      "timestamp": 175,
+      "duration": 8,
+      "position": { "x": 55, "y": 75 },
+      "label": "Neon Runner",
+      "aiConfidence": 0.94
+    },
+    {
+      "id": "cap-011",
+      "contentId": "content-fashion-week",
+      "productId": "prod-bag-05",
+      "timestamp": 90,
+      "duration": 6,
+      "position": { "x": 25, "y": 60 },
+      "label": "Nomad Backpack",
+      "aiConfidence": 0.91
+    },
+    {
+      "id": "cap-012",
+      "contentId": "content-fashion-week",
+      "productId": "prod-jacket-techno-01",
+      "timestamp": 240,
+      "duration": 7,
+      "position": { "x": 60, "y": 45 },
+      "label": "Techno Jacket",
+      "aiConfidence": 0.95
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-jacket-techno-01",
+      "sku": "SKO-JKT-001",
+      "name": "Techno Jacket Urban Edition",
+      "brand": "The 25x",
+      "category": "fashion",
+      "price": 289,
+      "currency": "EUR",
+      "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600",
+      "images": [
+        "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1200",
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200"
+      ],
+      "description": "Veste urbaine technique avec doublure thermo-réactive. Édition limitée Skoleom × The 25x.",
+      "stock": 47,
+      "rating": 4.8,
+      "tags": ["urban", "limited-edition", "tech-wear"]
+    },
+    {
+      "id": "prod-sneaker-neon-02",
+      "sku": "SKO-SNK-002",
+      "name": "Neon Runner Pro",
+      "brand": "Skoleom Sport",
+      "category": "footwear",
+      "price": 179,
+      "currency": "EUR",
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+      "images": ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200"],
+      "description": "Sneakers haute performance avec semelle réactive et finition néon réfléchissante.",
+      "stock": 124,
+      "rating": 4.9,
+      "tags": ["sport", "running", "tech"]
+    },
+    {
+      "id": "prod-watch-luxe-03",
+      "sku": "SKO-WCH-003",
+      "name": "Quantum Chrono Black",
+      "brand": "Skoleom Luxury",
+      "category": "watches",
+      "price": 1290,
+      "currency": "EUR",
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
+      "images": ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200"],
+      "description": "Chronographe automatique en titane noir avec bracelet en cuir italien.",
+      "stock": 12,
+      "rating": 5,
+      "tags": ["luxury", "automatic", "titanium"]
+    },
+    {
+      "id": "prod-glasses-04",
+      "sku": "SKO-GLS-004",
+      "name": "Vision X Smart Glasses",
+      "brand": "Skoleom Lab",
+      "category": "tech",
+      "price": 459,
+      "currency": "EUR",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
+      "images": ["https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1200"],
+      "description": "Lunettes connectées avec affichage AR et reconnaissance d'objets via Skoleom AI.",
+      "stock": 38,
+      "rating": 4.7,
+      "tags": ["ar", "smart", "wearable"]
+    },
+    {
+      "id": "prod-bag-05",
+      "sku": "SKO-BAG-005",
+      "name": "Nomad Pro Backpack",
+      "brand": "The 25x",
+      "category": "accessories",
+      "price": 219,
+      "currency": "EUR",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",
+      "images": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200"],
+      "description": "Sac à dos technique modulable avec compartiment laptop et chargeur intégré.",
+      "stock": 89,
+      "rating": 4.6,
+      "tags": ["travel", "modular", "tech"]
+    },
+    {
+      "id": "prod-headphones-06",
+      "sku": "SKO-HPH-006",
+      "name": "Sonic Wave Pro",
+      "brand": "Skoleom Music",
+      "category": "audio",
+      "price": 349,
+      "currency": "EUR",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600",
+      "images": ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200"],
+      "description": "Casque audio premium avec spatial audio et réduction de bruit active.",
+      "stock": 65,
+      "rating": 4.9,
+      "tags": ["audio", "premium", "wireless"]
+    }
+  ]
+}

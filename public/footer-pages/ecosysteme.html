@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>L'écosystème Skoleom — Skoleom Universe</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="shared/typography.css" />
+    <style id="hub-nav-styles">
+      /**
+ * Navigation hub — réplique NavLinks Universe (Header.tsx).
+ */
+      :root {
+        --univ-lime: #a8ff35;
+        --hub-top-h: 56px;
+        --hub-pill-h: 38px;
+        --hub-nav-gap: 4px;
+        --hub-nav-offset: calc(var(--hub-top-h) + var(--hub-pill-h) + var(--hub-nav-gap) + 8px);
+        --hub-hero-title-gap: 2rem;
+        --hub-embed-hero-pt: clamp(5.5rem, 9vw, 8rem);
+        --phone-gutter: max(18px, env(safe-area-inset-left, 0px));
+        --phone-gutter-r: max(18px, env(safe-area-inset-right, 0px));
+        --touch-min: 44px;
+      }
+
+      @media (min-width: 768px) {
+        :root {
+          --hub-top-h: 71px;
+        }
+      }
+
+      .hub-shell {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1100;
+        background: transparent;
+        font-family:
+          'Poppins',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        pointer-events: auto;
+        isolation: isolate;
+      }
+
+      .hub-top {
+        position: relative;
+        z-index: 2;
+        border-bottom: 1px solid transparent;
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+
+      .hub-top-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        height: var(--hub-top-h);
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 0 clamp(12px, 3vw, 60px);
+      }
+
+      .hub-top-brand {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: clamp(12px, 2vw, 24px);
+        min-width: 0;
+      }
+
+      .hub-logo {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        text-decoration: none;
+      }
+
+      .hub-logo .sk-brand-img {
+        display: block;
+        height: 28px;
+        width: auto;
+        max-width: 180px;
+        object-fit: contain;
+        transition: opacity 0.3s ease;
+      }
+
+      .hub-logo:hover .sk-brand-img {
+        opacity: 0.9;
+      }
+
+      @media (min-width: 768px) {
+        .hub-logo .sk-brand-img {
+          height: 32px;
+          max-width: 200px;
+        }
+      }
+
+      .hub-universe-wrap {
+        position: relative;
+        display: none;
+      }
+
+      @media (min-width: 768px) {
+        .hub-universe-wrap {
+          display: block;
+        }
+      }
+
+      .hub-universe-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        white-space: nowrap;
+        transition: color 0.3s ease;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      @media (min-width: 768px) {
+        .hub-universe-btn {
+          font-size: 12px;
+        }
+      }
+
+      .hub-universe-btn:hover,
+      .hub-universe-btn.open {
+        color: var(--univ-lime);
+      }
+
+      /* Méga-menu Universe */
+      .hub-universe-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 1090;
+        pointer-events: none;
+      }
+
+      .hub-universe-layer.open {
+        pointer-events: auto;
+      }
+
+      .hub-universe-backdrop {
+        position: absolute;
+        inset: 0;
+        border: none;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(1px);
+        cursor: default;
+      }
+
+      .hub-universe-panel {
+        position: absolute;
+        top: calc(var(--hub-top-h) + 4px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(calc(100vw - 24px), 1600px);
+        max-height: calc(100dvh - var(--hub-top-h) - 16px);
+        border-radius: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(9, 9, 11, 0.98);
+        box-shadow: 0 32px 80px -20px rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hub-um-scroll {
+        overflow-y: auto;
+        padding: 20px 24px 12px;
+        scrollbar-width: thin;
+      }
+
+      .hub-um-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .hub-um-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 12px;
+      }
+
+      @media (min-width: 640px) {
+        .hub-um-row {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hub-um-row {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+          gap: 20px 16px;
+        }
+      }
+
+      .hub-um-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      }
+
+      .hub-um-col-title {
+        margin: 0 0 8px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      @media (min-width: 768px) {
+        .hub-um-col-title {
+          font-size: 10px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .hub-um-col-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .hub-um-link {
+        display: block;
+        padding: 4px 0;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: color 0.2s ease;
+      }
+
+      .hub-um-link-label {
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      @media (min-width: 768px) {
+        .hub-um-link-label {
+          font-size: 12px;
+        }
+      }
+
+      .hub-um-link:hover .hub-um-link-label {
+        color: var(--univ-lime);
+      }
+
+      .hub-um-footer {
+        flex-shrink: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.2);
+        padding: 12px 24px 16px;
+        text-align: center;
+      }
+
+      .hub-um-all {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .hub-um-all:hover {
+        border-color: rgba(168, 255, 53, 0.4);
+        color: var(--univ-lime);
+      }
+
+      .hub-top-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      @media (min-width: 640px) {
+        .hub-top-actions {
+          gap: 8px;
+        }
+      }
+
+      .hub-top-lang {
+        display: none;
+      }
+
+      @media (min-width: 1024px) {
+        .hub-top-lang {
+          display: block;
+        }
+      }
+
+      .hub-lang {
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .hub-lang-btn {
+        display: inline-flex;
+        height: 36px;
+        flex-shrink: 0;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.9);
+        font-family: 'Poppins', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        line-height: 1;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      @media (min-width: 640px) {
+        .hub-lang-btn {
+          gap: 6px;
+          padding: 0 10px;
+        }
+      }
+
+      .hub-lang-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .hub-lang-btn:focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px #000,
+          0 0 0 4px #c8ff3b;
+      }
+
+      .hub-lang-flag {
+        width: 20px;
+        height: 14px;
+        border-radius: 2px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .hub-lang-flag--lg {
+        width: 24px;
+        height: 16px;
+      }
+
+      .hub-lang-chevron {
+        color: rgba(255, 255, 255, 0.7);
+        transition: transform 0.3s ease;
+      }
+
+      .hub-lang-chevron.is-open {
+        transform: rotate(180deg);
+      }
+
+      .hub-lang-panel {
+        position: fixed;
+        z-index: 1200;
+        max-height: min(60dvh, 30rem);
+        overflow-y: auto;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(17, 17, 17, 0.95);
+        padding: 8px;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .hub-lang-group--sep {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .hub-lang-zone {
+        margin: 0;
+        padding: 4px 12px 4px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .hub-lang-option {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: none;
+        border-radius: 16px;
+        background: transparent;
+        color: #d0d0d0;
+        font-family: 'Poppins', sans-serif;
+        text-align: left;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .hub-lang-option:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .hub-lang-option.is-active {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      .hub-lang-option:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px #c8ff3b;
+      }
+
+      .hub-lang-native {
+        flex: 1;
+        min-width: 0;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .hub-lang-code {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      .hub-mbtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--touch-min, 44px);
+        height: var(--touch-min, 44px);
+        min-width: var(--touch-min, 44px);
+        min-height: var(--touch-min, 44px);
+        border: none;
+        border-radius: 10px;
+        background: transparent;
+        color: #f2f2f2;
+        cursor: pointer;
+        flex-shrink: 0;
+        padding: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 3;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(200, 255, 59, 0.15);
+      }
+
+      .hub-mbtn svg {
+        display: block;
+      }
+
+      @media (min-width: 1024px) {
+        .hub-mbtn {
+          display: none;
+        }
+      }
+
+      /* Pilule — NavLinks Universe */
+      .hub-pill-wrap {
+        display: none;
+        justify-content: center;
+        padding: 0 12px;
+        margin-top: 4px;
+      }
+
+      @media (min-width: 1024px) {
+        .hub-pill-wrap {
+          display: flex;
+        }
+      }
+
+      .hub-pill-nav {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: fit-content;
+        max-width: min(calc(100vw - 3rem), 1600px);
+        min-height: 38px;
+        height: 38px;
+        padding: 4px 8px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.82);
+        font-family:
+          'Poppins',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        backdrop-filter: blur(24px) saturate(1.5);
+        -webkit-backdrop-filter: blur(24px) saturate(1.5);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.1),
+          inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
+          0 12px 34px -8px rgba(0, 0, 0, 0.82),
+          0 0 44px rgba(0, 0, 0, 0.42),
+          inset 0 0 0 1px rgba(0, 0, 0, 0.45);
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        touch-action: pan-x;
+      }
+
+      .hub-pill-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hub-pill-nav a.hub-pill-link {
+        display: inline-flex;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.78);
+        text-decoration: none;
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85);
+        flex-shrink: 0;
+      }
+
+      @media (min-width: 1280px) {
+        .hub-pill-nav a.hub-pill-link {
+          padding: 0 14px;
+        }
+      }
+
+      .hub-pill-nav a.hub-pill-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--univ-lime);
+      }
+
+      .hub-pill-nav a.hub-pill-link.active {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--univ-lime);
+      }
+
+      .hub-mobile-nav {
+        display: none !important;
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px 16px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(5, 5, 5, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .hub-mobile-nav.open {
+        display: flex !important;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hub-mobile-nav a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: var(--touch-min, 44px);
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(200, 255, 59, 0.12);
+      }
+
+      .hub-mobile-nav a:hover,
+      .hub-mobile-nav a.active {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--univ-lime);
+      }
+
+      .hub-mobile-universe {
+        font-weight: 700 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 4px;
+        padding-bottom: 12px !important;
+      }
+
+      body.hub-has-nav main,
+      body.hub-has-nav .page,
+      body.hub-has-nav .hero,
+      body.hub-has-nav section.hero {
+        padding-top: var(--hub-nav-offset);
+      }
+
+      /* Grands titres — espace sous la nav hub */
+      body.hub-has-nav .hero,
+      body.hub-has-nav section.hero {
+        padding-top: calc(var(--hub-nav-offset) + var(--hub-hero-title-gap));
+      }
+
+      body.hub-has-nav main .phero,
+      body.hub-has-nav .page .phero {
+        padding-top: calc(80px + var(--hub-hero-title-gap));
+      }
+
+      body.hub-has-nav .apl-hero {
+        padding-top: calc(110px + var(--hub-hero-title-gap));
+      }
+
+      @media (max-width: 1023px) {
+        :root {
+          --hub-nav-offset: calc(var(--hub-top-h) + 8px);
+        }
+      }
+
+      body.hub-has-nav .page {
+        min-height: calc(100dvh - var(--hub-nav-offset));
+      }
+
+      body.hub-has-nav #page-home {
+        padding-top: 0;
+      }
+
+      @media (max-width: 430px) {
+        .hub-top-inner {
+          padding-left: max(14px, env(safe-area-inset-left, 0px));
+          padding-right: max(14px, env(safe-area-inset-right, 0px));
+        }
+
+        .hub-lang-btn {
+          min-width: var(--touch-min, 44px);
+          min-height: var(--touch-min, 44px);
+          height: var(--touch-min, 44px);
+          padding: 0 12px;
+        }
+
+        .hub-mobile-nav {
+          padding-left: max(14px, env(safe-area-inset-left, 0px));
+          padding-right: max(14px, env(safe-area-inset-right, 0px));
+          padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+          max-height: calc(100dvh - var(--hub-top-h) - env(safe-area-inset-top, 0px));
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+
+      /* Mode embed (/hub/*) — espace sous la navbar React Universe */
+      body.hub-embed main,
+      body.hub-embed .page {
+        padding-top: 0 !important;
+      }
+
+      body.hub-embed .hero,
+      body.hub-embed section.hero,
+      body.hub-embed .phero,
+      body.hub-embed .apl-hero,
+      body.hub-embed main > .phero:first-child {
+        min-height: auto !important;
+        padding-top: var(--hub-embed-hero-pt) !important;
+      }
+    </style>
+    <link rel="stylesheet" href="shared/page-base.css" />
+    <link rel="stylesheet" href="shared/reveal-animations.css" />
+    <link rel="stylesheet" href="shared/sk-footer.css" />
+  </head>
+  <body class="hub-has-nav" data-footer-page="about">
+    <header class="hub-shell" id="hub-header">
+      <div class="hub-top">
+        <div class="hub-top-inner">
+          <div class="hub-top-brand">
+            <a href="/" class="hub-logo" aria-label="Skoleom">
+              <img
+                src="/logo/logo-skoleom-brand.webp"
+                alt="Skoleom"
+                class="sk-brand-img sk-brand-img--universe"
+                height="32"
+                loading="eager"
+                decoding="async"
+              />
+            </a>
+          </div>
+          <div class="hub-top-actions">
+            <div class="hub-top-lang">
+              <div class="hub-lang" data-hub-lang data-hub-lang-placement="header"></div>
+            </div>
+            <button
+              type="button"
+              class="hub-mbtn"
+              id="hub-mbtn"
+              aria-label="Menu navigation"
+              aria-expanded="false"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="#F2F2F2" stroke-width="1.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="hub-pill-wrap">
+        <nav class="hub-pill-nav" role="navigation" aria-label="Navigation principale">
+          <a class="hub-pill-link" href="/" data-hub-nav="home">Accueil</a
+          ><a class="hub-pill-link" href="/footer-pages/boutiques.html" data-hub-nav="boutiques"
+            >Boutiques audiovisuelles</a
+          ><a class="hub-pill-link" href="/footer-pages/pour-tous.html" data-hub-nav="public"
+            >Pour tous</a
+          ><a class="hub-pill-link" href="/footer-pages/pour-les-pros.html" data-hub-nav="pros"
+            >Pour les Pros</a
+          ><a class="hub-pill-link" href="/footer-pages/groupe.html" data-hub-nav="group">Groupe</a>
+        </nav>
+      </div>
+      <nav class="hub-mobile-nav" id="hub-mobile-nav" aria-label="Navigation mobile" hidden></nav>
+    </header>
+    <div id="hub-root"></div>
+    <footer class="sk-footer">
+      <div class="sk-footer-shell">
+        <div class="sk-footer-main">
+          <div class="sk-footer-brand">
+            <a href="/" class="sk-footer-logo" aria-label="Skoleom Universe"
+              ><span data-sk-brand="universe" data-sk-height="36"></span
+            ></a>
+            <p data-footer-brand-desc>
+              L&#x27;écosystème Skoleom réunit les boutiques audiovisuelles, les outils créateurs et
+              les solutions business pour rendre les contenus interactifs et actionnables.
+            </p>
+            <div class="sk-footer-socials" aria-label="Réseaux sociaux Skoleom" data-footer-socials>
+              <a
+                href="https://www.instagram.com/skoleom_universe"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                title="Instagram"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="5" />
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href="https://www.youtube.com/@skoleom9437"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+                title="YouTube"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22 12s0-3.5-.5-5.2c-.3-1.2-1.2-2.1-2.3-2.4C17.5 4 12 4 12 4s-5.5 0-7.2.4c-1.1.3-2 1.2-2.3 2.4C2 8.5 2 12 2 12s0 3.5.5 5.2c.3 1.2 1.2 2.1 2.3 2.4C6.5 20 12 20 12 20s5.5 0 7.2-.4c1.1-.3 2-1.2 2.3-2.4C22 15.5 22 12 22 12z"
+                  />
+                  <path d="M10 15l6-3-6-3v6z" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href="https://www.facebook.com/skoleom"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+                title="Facebook"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/skoleom-group"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-12h4v2" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <a
+                href="https://x.com/skoleom"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="X"
+                title="X"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  class="sk-footer-social-icon-fill"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="sk-footer-grid">
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="1"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-1"
+              >
+                <h3>À propos de Skoleom</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-1" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="À propos de Skoleom">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/mission.html"
+                      data-footer-link-id="101"
+                      >Notre mission</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/technologie.html"
+                      data-footer-link-id="102"
+                      >Notre technologie</a
+                    >
+                    <ul class="sk-footer-sub">
+                      <li>
+                        <a href="/footer-pages/brevets.html" data-footer-link-id="105"
+                          >Brevet Skoleom</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/ecosysteme.html"
+                      data-footer-link-id="103"
+                      >L&#x27;écosystème Skoleom</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/financement.html"
+                      data-footer-link-id="104"
+                      >Programmes de financement</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="2"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-2"
+              >
+                <h3>Boutiques audiovisuelles</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-2" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Boutiques audiovisuelles">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/boutiques.html"
+                      data-footer-link-id="201"
+                      >Explorer les boutiques</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/univers.html"
+                      data-footer-link-id="202"
+                      >Univers par catégorie</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros/creer-boutique.html"
+                      data-footer-link-id="203"
+                      >Lancer une boutique</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="3"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-3"
+              >
+                <h3>Pour tous</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-3" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Pour tous">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/comment-ca-marche.html"
+                      data-footer-link-id="301"
+                      >Comment ça marche</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/regarder-acheter.html"
+                      data-footer-link-id="302"
+                      >Regarder et acheter</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/cashback.html"
+                      data-footer-link-id="303"
+                      >Cashback &amp; récompenses</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/wallet.html"
+                      data-footer-link-id="304"
+                      >Skoleom Wallet</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/securite.html"
+                      data-footer-link-id="305"
+                      >Sécurité &amp; confidentialité</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="4"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-4"
+              >
+                <h3>Pour les Pros</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-4" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Pour les Pros">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html"
+                      data-footer-link-id="401"
+                      >Solutions business</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=monetiser"
+                      data-footer-link-id="402"
+                      >Monétiser vos contenus</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros/creer-boutique.html"
+                      data-footer-link-id="403"
+                      >Créer une boutique audiovisuelle</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=distribuer"
+                      data-footer-link-id="404"
+                      >Distribuer vos produits</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=ads"
+                      data-footer-link-id="405"
+                      >Publicité interactive</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/pour-les-pros.html?page=api"
+                      data-footer-link-id="406"
+                      >API &amp; intégrations</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div
+              class="sk-footer-column sk-footer-column--accordion"
+              data-footer-column
+              data-footer-column-id="5"
+            >
+              <button
+                type="button"
+                class="sk-footer-column__toggle"
+                aria-expanded="false"
+                aria-controls="footer-column-panel-5"
+              >
+                <h3>Groupe</h3>
+                <svg
+                  class="sk-footer-column__chevron"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <div id="footer-column-panel-5" class="sk-footer-column__panel" hidden>
+                <nav class="sk-footer-nav" aria-label="Groupe">
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#actualites"
+                      data-footer-link-id="501"
+                      >Actualités</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#carrieres"
+                      data-footer-link-id="502"
+                      >Carrières</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#investisseurs"
+                      data-footer-link-id="503"
+                      >Investisseurs</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a class="sk-footer-link" href="/hub/presse" data-footer-link-id="504"
+                      >Presse</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#contact"
+                      data-footer-link-id="505"
+                      >Contact</a
+                    >
+                  </div>
+                  <div class="sk-footer-link-group">
+                    <a
+                      class="sk-footer-link"
+                      href="/footer-pages/groupe.html#assistance"
+                      data-footer-link-id="506"
+                      >Assistance</a
+                    >
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sk-footer-bottom">
+          <small data-footer-copyright>© 2026 .skoleom — Breveté 2020. Tous droits réservés.</small>
+          <div>
+            <a href="/legal" data-footer-legal-id="901">Mentions légales</a>
+            <a href="/terms" data-footer-legal-id="902">CGU &amp; CUV</a>
+            <a href="/privacy" data-footer-legal-id="903">Confidentialité</a>
+            <a href="/affiliates" data-footer-legal-id="904">Divulgation des affiliés</a>
+            <a href="/cookies" data-footer-legal-id="905">Préférences cookies</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="shared/hub-pages.js"></script>
+    <script src="shared/hub-pages.en.js"></script>
+    <script src="shared/sk-logos.js"></script>
+    <script src="shared/sk-icons.js"></script>
+    <script src="shared/hub-header.js"></script>
+    <script src="shared/footer-locales.en.js"></script>
+    <script src="shared/footer-i18n.en.js"></script>
+    <script src="shared/footer-i18n.js"></script>
+    <script src="shared/hub-lang.js"></script>
+
+    <script src="shared/sk-footer.js"></script>
+    <script src="shared/reveal-animations.js"></script>
+    <script src="shared/hub-render.js"></script>
+    <script>
+      HubRender.mountPage('ecosystem');
+    </script>
+  </body>
+</html>

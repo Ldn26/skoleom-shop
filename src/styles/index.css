@@ -1,0 +1,688 @@
+@import './accessibility.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --univ-lime: #a8ff35;
+  --univ-green: #7fe51c;
+  --univ-orange: #ff6b35;
+  --univ-coral: #ff8a50;
+  --univ-yellow: #ffd600;
+  --univ-blue: #0033ff;
+  --univ-blue-light: #3d5afe;
+  /* Dégradé maquette — gros texte Anton */
+  --univ-gradient-display-a: #faee21;
+  --univ-gradient-display-b: #6fe600;
+  --univ-gradient-display-c: #00ffff;
+  /* Tokens étendus — thèmes adaptatifs daltonisme */
+  --univ-page-blue: #0164f8;
+  --univ-page-blue-hover: #0149c4;
+  --univ-page-blue-light: #4d8eff;
+  --univ-link: #3d83ef;
+  --a11y-cv-glow: rgba(168, 255, 53, 0.45);
+  --univ-glow: var(--a11y-cv-glow);
+  --univ-glow-medium: rgba(168, 255, 53, 0.6);
+  --univ-glow-strong: rgba(168, 255, 53, 0.7);
+  --univ-glow-soft: rgba(168, 255, 53, 0.25);
+  --univ-glow-orange: rgba(255, 107, 53, 0.45);
+  --univ-halo-primary: rgba(168, 255, 53, 0.55);
+  --univ-halo-secondary: rgba(255, 107, 53, 0.35);
+  --univ-halo-tertiary: rgba(0, 255, 255, 0.18);
+  --univ-vimeo-frame: linear-gradient(
+    to top right,
+    var(--univ-orange) 0%,
+    color-mix(in srgb, var(--univ-orange) 85%, var(--univ-yellow)) 22%,
+    color-mix(in srgb, var(--univ-yellow) 90%, var(--univ-lime)) 58%,
+    var(--univ-lime) 100%
+  );
+  /* Scrollbars fines (Windows / Chromium / Firefox) */
+  --sk-scrollbar-size: 6px;
+  --sk-scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --sk-scrollbar-thumb-hover: rgba(255, 255, 255, 0.34);
+  --sk-scrollbar-track: transparent;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: #050505;
+  color: #fff;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Réduit le CLS au swap des polices Google (fallback proche de Poppins / Anton). */
+@supports (size-adjust: 100%) {
+  body {
+    size-adjust: 100%;
+  }
+
+  .font-display {
+    size-adjust: 94%;
+  }
+}
+
+/* Scrollbars fines — évite la piste grise pleine hauteur/largeur sous Windows */
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sk-scrollbar-thumb) var(--sk-scrollbar-track);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: var(--sk-scrollbar-size);
+  height: var(--sk-scrollbar-size);
+}
+
+html::-webkit-scrollbar-button,
+body::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: var(--sk-scrollbar-track);
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: var(--sk-scrollbar-thumb);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--sk-scrollbar-thumb-hover);
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Évite le scroll horizontal global */
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: var(--univ-lime);
+  color: #000;
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+
+  .glass-strong {
+    @apply bg-black/40 backdrop-blur-2xl border border-white/10;
+  }
+
+  /* Titres display / Anton — dégradé linéaire 135° (maquette : #faee21 → #6fe600 → #00ffff) */
+  .text-gradient {
+    display: inline-block;
+    background: linear-gradient(
+      135deg,
+      var(--univ-gradient-display-a) 0%,
+      var(--univ-gradient-display-b) 48%,
+      var(--univ-gradient-display-c) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    /* Évite certains artefacts de rendu entre glyphes */
+    -webkit-text-stroke: 0.01px transparent;
+  }
+
+  /* ── Carrousel boutiques auto-défilant (Pour tous / Groupe) ── */
+  .bq-marquee {
+    margin: 0 -1.5rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  .bq-marquee__track {
+    display: flex;
+    width: max-content;
+    padding: 0.5rem 1.5rem 1rem;
+    animation-name: bq-marquee-scroll;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+  .bq-marquee:hover .bq-marquee__track {
+    animation-play-state: paused;
+  }
+  .bq-marquee__card {
+    position: relative;
+    flex: 0 0 280px;
+    width: 280px;
+    height: 360px;
+    margin-right: 1rem;
+    border-radius: 1.75rem;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    background: #16161a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  .bq-marquee__card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(168, 255, 53, 0.4);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  }
+  .bq-marquee__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.45s ease;
+  }
+  .bq-marquee__card:hover .bq-marquee__img {
+    transform: scale(1.08);
+  }
+  .bq-marquee__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.35) 45%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+    pointer-events: none;
+  }
+  .bq-marquee__body {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 1.25rem;
+  }
+  .bq-marquee__name {
+    font-family: 'Anton', system-ui, sans-serif;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+  }
+  @keyframes bq-marquee-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bq-marquee__track {
+      animation: none !important;
+    }
+  }
+  @media (max-width: 640px) {
+    .bq-marquee__card {
+      flex-basis: 240px;
+      width: 240px;
+      height: 320px;
+    }
+  }
+
+  /* Variante verticale 180° — même palette */
+  .text-gradient-vertical {
+    background: linear-gradient(
+      180deg,
+      var(--univ-gradient-display-a) 0%,
+      var(--univ-gradient-display-b) 50%,
+      var(--univ-gradient-display-c) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Variante radiale centrée — même palette */
+  .text-gradient-radial {
+    background: radial-gradient(
+      circle at 50% 50%,
+      var(--univ-gradient-display-a) 0%,
+      var(--univ-gradient-display-b) 52%,
+      var(--univ-gradient-display-c) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Radiale coin haut-gauche (0% 0%) — même palette */
+  .text-gradient-radial-tl {
+    background: radial-gradient(
+      circle at 0% 0%,
+      var(--univ-gradient-display-a) 0%,
+      var(--univ-gradient-display-b) 52%,
+      var(--univ-gradient-display-c) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Linéaire 90° — même palette */
+  .text-gradient-horizontal {
+    background: linear-gradient(
+      90deg,
+      var(--univ-gradient-display-a) 0%,
+      var(--univ-gradient-display-b) 50%,
+      var(--univ-gradient-display-c) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(90deg, var(--univ-orange) 0%, var(--univ-yellow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-primary {
+    @apply px-7 py-3.5 rounded-full font-semibold bg-white text-black
+           hover:bg-univ-lime transition-all duration-300
+           hover:shadow-[0_0_40px_var(--univ-glow-medium)]
+           active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply px-7 py-3.5 rounded-full font-semibold border border-white/20
+           hover:bg-white/10 transition-all duration-300 backdrop-blur-md
+           active:scale-95;
+  }
+
+  .btn-univ {
+    @apply px-7 py-3.5 rounded-full font-bold bg-gradient-to-r from-univ-lime to-univ-yellow
+           text-black hover:shadow-[0_0_60px_var(--univ-glow)]
+           transition-all duration-300 active:scale-95;
+  }
+
+  .btn-univ-outline {
+    @apply relative isolate inline-flex items-center justify-center gap-2 rounded-full
+           border-0 bg-transparent px-7 py-3.5 font-bold text-white transition-all duration-300
+           hover:bg-white/5 hover:shadow-[0_0_40px_var(--univ-glow-soft)] active:scale-95
+           disabled:cursor-not-allowed disabled:opacity-35;
+  }
+
+  .btn-univ-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(to right, var(--univ-lime), var(--univ-yellow));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1
+           hover:shadow-[0_30px_60px_var(--univ-glow-soft)];
+  }
+
+  .display-text {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+  }
+
+  .grain-overlay {
+    position: relative;
+  }
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Capsule pulsing dot */
+  .capsule-dot {
+    @apply absolute w-4 h-4 rounded-full bg-univ-lime cursor-pointer
+           shadow-[0_0_20px_var(--univ-glow-strong)];
+  }
+  .capsule-dot::before {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-univ-lime animate-ping;
+  }
+
+  /* OTT Platform marquee row (hero) */
+  .marquee-track {
+    animation: marquee-css-scroll var(--marquee-duration, 35s) linear infinite;
+    will-change: transform;
+  }
+
+  /**
+   * Marquee CSS (transform) — marques, boutiques, etc.
+   * Fonctionne sur Chrome / Firefox / Safari ; ne dépend pas de scrollLeft.
+   */
+  .marquee-css-clip {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .marquee-css-fade {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  }
+
+  .marquee-css-track {
+    display: flex;
+    width: max-content;
+    flex-wrap: nowrap;
+    animation: marquee-css-scroll var(--marquee-duration, 40s) linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-css-track--reverse {
+    animation-name: marquee-css-scroll-reverse;
+  }
+
+  .marquee-css-track--pausable:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-css-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes marquee-css-scroll-reverse {
+    from {
+      transform: translate3d(-50%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .marquee-css-track {
+      animation: none;
+    }
+  }
+
+  /* Zone scroll verticale (chat Assistance, etc.) */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sk-scrollbar-thumb) transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: var(--sk-scrollbar-thumb);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: var(--sk-scrollbar-thumb-hover);
+  }
+}
+
+/* Light mode */
+html.light {
+  --sk-scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --sk-scrollbar-thumb-hover: rgba(0, 0, 0, 0.32);
+}
+
+html.light body {
+  background: #fafafa;
+  color: #050505;
+}
+html.light .glass {
+  @apply bg-black/5 backdrop-blur-xl border border-black/10;
+}
+html.light .glass-strong {
+  @apply bg-white/80 backdrop-blur-2xl border border-black/10;
+}
+html.light .btn-primary {
+  @apply bg-black text-white hover:bg-univ-orange;
+}
+html.light .btn-ghost {
+  @apply border-black/20 text-black hover:bg-black/5;
+}
+
+/* Scroll horizontal sobre — piste courte, pas de barre pleine largeur */
+.marquee-x-scroll,
+.x-scroll-subtle {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sk-scrollbar-thumb) transparent;
+}
+
+.marquee-x-scroll::-webkit-scrollbar,
+.x-scroll-subtle::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+.marquee-x-scroll::-webkit-scrollbar-track,
+.x-scroll-subtle::-webkit-scrollbar-track {
+  background: transparent;
+  margin-inline: 32%;
+}
+
+.marquee-x-scroll::-webkit-scrollbar-thumb,
+.x-scroll-subtle::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: var(--sk-scrollbar-thumb);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.marquee-x-scroll:hover::-webkit-scrollbar-thumb,
+.x-scroll-subtle:hover::-webkit-scrollbar-thumb {
+  background-color: var(--sk-scrollbar-thumb-hover);
+}
+
+html.light .marquee-x-scroll,
+html.light .x-scroll-subtle {
+  scrollbar-color: var(--sk-scrollbar-thumb) transparent;
+}
+
+/* Scrollbar colonne Actualités (page Assistance) */
+.assistance-news-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 214, 0, 0.85) transparent;
+}
+.assistance-news-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.assistance-news-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.assistance-news-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: linear-gradient(
+    180deg,
+    var(--univ-lime) 0%,
+    var(--univ-yellow) 45%,
+    var(--univ-orange) 100%
+  );
+}
+
+/* ─ Page media hub ───────────────────────────────────────────────────── */
+#univ-page {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      color-mix(in srgb, var(--univ-page-blue) 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 110%,
+      color-mix(in srgb, var(--univ-page-blue) 10%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02), transparent 50%);
+}
+
+#univ-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 78% 32%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 45% 65%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 88% 82%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 22% 88%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 65% 12%, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0.6;
+}
+
+#univ-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+#univ-page .univ-page-glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#univ-page .univ-page-glass-strong {
+  background: rgba(20, 20, 22, 0.7);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#univ-page .univ-page-text-gradient {
+  background: linear-gradient(
+    120deg,
+    var(--univ-page-blue) 0%,
+    var(--univ-page-blue-light) 50%,
+    var(--univ-page-blue) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#univ-page .univ-page-bg-gradient {
+  background: linear-gradient(120deg, #0164f8 0%, #4d8eff 50%, #0164f8 100%);
+}
+
+#univ-page .univ-page-shadow-gold {
+  box-shadow:
+    0 10px 40px -10px rgba(1, 100, 248, 0.4),
+    0 0 0 1px rgba(1, 100, 248, 0.12);
+}
+
+#univ-page .univ-page-focus-ring:focus-within {
+  box-shadow:
+    0 10px 40px -10px rgba(1, 100, 248, 0.4),
+    0 0 0 1px rgba(1, 100, 248, 0.45);
+}
+
+/* Le focus est porté par le conteneur (.univ-page-focus-ring), pas par l’input */
+html[data-a11y-enhanced-focus] #univ-page .univ-page-focus-ring input:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Search pro — pas de contour lime « focus renforcé » sur le champ */
+html[data-a11y-enhanced-focus] .search2-shell input:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+#univ-page .univ-page-result-card:hover {
+  border-color: rgba(1, 100, 248, 0.4);
+  box-shadow:
+    0 10px 40px -10px rgba(1, 100, 248, 0.4),
+    0 0 0 1px rgba(1, 100, 248, 0.12);
+}
