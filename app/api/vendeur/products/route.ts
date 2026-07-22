@@ -3,7 +3,8 @@
 import { NextResponse } from 'next/server';
 import { getAuth } from '@/server/auth';
 import wooModule from '@/server/services/wooService';
-import { injectUserMeta, run } from '@/server/wooRoute';
+
+import { injectUserMeta } from '@/server/wooRoute';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,7 +22,6 @@ export async function GET(request: Request) {
   const page = Math.max(1, Number(url.searchParams.get('page')) || 1);
   const perPage = Math.max(1, Number(url.searchParams.get('per_page')) || 20);
   const mine = String(auth.wpUserId);
-
   try {
     const raw = await wooService.getProductsRaw({ per_page: 100, status: 'any', _fields: 'id,name,slug,status,price,stock_status,images,meta_data' });
     const list = Array.isArray(raw) ? raw : [];
@@ -43,11 +43,19 @@ export async function GET(request: Request) {
 }
 
 
+
+
+
 export async function POST(request: Request) {
   const auth = getAuth(request);
-
-  console.log('auth', auth);
   const body = await request.json().catch(() => ({}));
-  console.log('body', body);
-  return run(() => wooService.createProduct(injectUserMeta(body, auth?.wpUserId)));
+  const payload = injectUserMeta(body, auth?.wpUserId);
+
+  try {
+    const created = await wooService.createProduct(payload);
+    return NextResponse.json(created, { status: 201 });
+  } catch (err: any) {
+    console.error('CREATE PRODUCT FAILED →', err.response?.status, JSON.stringify(err.response?.data) || err.message);
+    return NextResponse.json({ error: err.response?.data?.message ?? err.message }, { status: err.response?.status || 500 });
+  }
 }

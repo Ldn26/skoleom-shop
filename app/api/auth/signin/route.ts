@@ -1,6 +1,4 @@
 
-
-
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { Seller, User } from '@/server/db';

@@ -1,5 +1,5 @@
 import { getAuth } from '@/server/auth';
-import { buildParams, injectUserMeta, query, run, wooService } from '@/server/wooRoute';
+import { buildParams,  query, run, wooService } from '@/server/wooRoute';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

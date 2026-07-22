@@ -353,5 +353,4 @@ export default resource;
 for (const lang of ['de', 'it', 'nl']) {
   const path = join(root, 'src/locales', `${lang}.ts`);
   writeFileSync(path, buildLocale(blocks[lang]));
-  console.log(`Wrote ${path}`);
 }

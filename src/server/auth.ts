@@ -41,7 +41,6 @@ export function getAuth(request: Request): TokenPayload | null {
   if (!token) return null;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as TokenPayload;
-    console.log('decoded', decoded);
     return { id: decoded.id, role: decoded.role, wpUserId: decoded.wpUserId };
   } catch {
     return null;

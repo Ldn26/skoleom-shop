@@ -11,8 +11,7 @@ export default function DashboardOverviewPage() {
   const productCount = products.data?.meta?.total ?? '0';
   
   const orderCount = orders.data ? orders.data.length : '0';
-      console.log('productCount', productCount);
-  console.log('orderCount', orderCount);
+ 
   return (
     <>
       <PageHeader title="Tableau de bord" subtitle="Vue d'ensemble de votre boutique." />

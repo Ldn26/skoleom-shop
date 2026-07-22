@@ -117,14 +117,12 @@ export async function POST(request: Request) {
 
       if (role === 'vendeur') {
         const seller = await Seller.create({ userId: createdUser.id }, { transaction: tx });
-        console.log('seller created:', seller);
         const wpUser = await wpService.createUser({
           username: name,
           email: normalizedEmail,
           password,
           // role: 'seller',
         });
-        console.log('Created WP user:', wpUser);
         
         if (!wpUser?.id) {
           throw new Error('WordPress did not return a user id');

@@ -54,7 +54,6 @@ export default function CataloguePage() {
   const setCategory = useFilterStore((s) => s.setCategory);
   const { data: categories = [], isLoading } = useCategories();
 
-console.log('categories', categories);
   const goToCategory = (slug: string) => {
     setCategory(slug);
     navigate(`/produits?category=${slug}`);

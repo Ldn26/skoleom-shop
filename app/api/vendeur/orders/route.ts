@@ -17,7 +17,6 @@ export async function GET(request: Request) {
 
   try {
     const params = Object.fromEntries(new URL(request.url).searchParams.entries());
-    console.log(auth.id, 'auth.id');
     // if (userId) {
     //   params.meta_key = '_monetizer_user_id';
     //   params.meta_value = String(userId);
