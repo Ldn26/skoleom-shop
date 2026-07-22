@@ -1,6 +1,5 @@
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-
 const SITE_URL = 'https://universe.skoleom.com';
 const SUPPORTED_LANGS = [
   'en',

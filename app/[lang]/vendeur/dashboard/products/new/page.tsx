@@ -108,10 +108,11 @@ export default function AddProductPage() {
   };
 
   return (
-    <>
+    <div className="mx-auto max-w-[1400px]">
+    
       <PageHeader title="Ajouter un produit" subtitle="Créez un produit ou importez-en plusieurs via CSV." />
 
-      <div className="mb-6 inline-flex rounded-2xl border border-white/10 bg-white/5 p-1">
+      <div className="mb-6 inline-flex  rounded-2xl border border-white/10 bg-white/5 p-1">
         <button
           type="button"
           onClick={() => setTab('form')}
@@ -284,6 +285,6 @@ export default function AddProductPage() {
           )}
         </Card>
       )}
-    </>
+    </div>
   );
 }

@@ -18,7 +18,7 @@ export default function VendeurOrdersPage() {
   const orders = data ?? [];
 
   return (
-    <>
+    <div className="mx-auto max-w-[1400px]">
       <PageHeader title="Commandes" subtitle="Les commandes de votre boutique." />
       <Card className="overflow-hidden">
         {isLoading ? (
@@ -64,6 +64,6 @@ export default function VendeurOrdersPage() {
           </div>
         )}
       </Card>
-    </>
+    </div>
   );
 }

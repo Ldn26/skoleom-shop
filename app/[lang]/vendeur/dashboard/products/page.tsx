@@ -16,7 +16,7 @@ export default function VendeurProductsPage() {
   const totalPages = data?.meta?.total_pages ?? 1;
 
   return (
-    <>
+    <div className="mx-auto max-w-[1400px]">
       <PageHeader
         title="Mes produits"
         subtitle={data?.meta ? `${data.meta.total} produit(s)` : 'Vos produits WooCommerce'}
@@ -104,6 +104,6 @@ export default function VendeurProductsPage() {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
