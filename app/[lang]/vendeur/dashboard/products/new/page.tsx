@@ -18,15 +18,15 @@ import {
 type Tab = 'form' | 'csv';
 
 const EMPTY = {
-  name: '',
-  price: '',
-  sale_price: '',
-  sku: '',
-  stock_quantity: '',
+  name: 'test',
+  price: '12',
+  sale_price: '23',
+  sku: '2121',
+  stock_quantity: '123',
   image: '',
   status: 'publish',
   short_description: '',
-  description: '',
+  description: 'DESPCSFS',
 };
 
 const inputClass =

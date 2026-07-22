@@ -10,7 +10,6 @@ const NAV = [
   { to: '/vendeur/dashboard/products', label: 'Products', icon: Package, end: false },
   { to: '/vendeur/dashboard/products/new', label: 'Add product', icon: PlusCircle, end: false },
   { to: '/vendeur/dashboard/orders', label: 'Orders', icon: ShoppingBag, end: false },
-  { to: '/vendeur/dashboard/comments', label: 'Reviews', icon: Star, end: false },
 ];
 
 export default function DashboardShell({ children }: { children: ReactNode }) {
@@ -22,7 +21,7 @@ export default function DashboardShell({ children }: { children: ReactNode }) {
         <aside className="lg:w-60 lg:shrink-0">
           <div className="sticky top-[88px] rounded-3xl border border-white/10 bg-white/[0.03] p-3 backdrop-blur-xl">
             <p className="px-3 pb-3 pt-2 text-[10px] font-bold uppercase tracking-[0.28em] text-white/35">
-              Espace vendeur
+               Dashboard
             </p>
             <nav className="flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">
               {NAV.map(({ to, label, icon: Icon, end }) => (

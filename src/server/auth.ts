@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-type TokenPayload = { id: number | string; role?: string };
+type TokenPayload = { id: number | string; role?: string  , wpUserId?: number | string };
 
 export function signAccessToken(payload: TokenPayload): string {
   return jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: '15h' });
@@ -41,7 +41,8 @@ export function getAuth(request: Request): TokenPayload | null {
   if (!token) return null;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as TokenPayload;
-    return { id: decoded.id, role: decoded.role };
+    console.log('decoded', decoded);
+    return { id: decoded.id, role: decoded.role, wpUserId: decoded.wpUserId };
   } catch {
     return null;
   }

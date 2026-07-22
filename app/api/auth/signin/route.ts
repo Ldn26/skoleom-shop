@@ -1,6 +1,9 @@
+
+
+
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
-import { User } from '@/server/db';
+import { Seller, User } from '@/server/db';
 import { signAccessToken, signRefreshToken, accessCookie, refreshCookie } from '@/server/auth';
 
 export const runtime = 'nodejs';
@@ -14,7 +17,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'Invalid login or password' }, { status: 400 });
     }
 
-    const user = await User.findOne({ where: { email: email.toLowerCase() } });
+    const user = await User.findOne({
+      where: { email: email.toLowerCase() },
+      attributes: ['id', 'name', 'email', 'password', 'role'],
+      include: [{ model: Seller, as: 'seller', attributes: ['wpUserId'] }],
+    });
+
     if (!user) {
       return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
     }
@@ -26,7 +34,15 @@ export async function POST(request: Request) {
 
     await user.update({ lastLogin: new Date() });
 
-    const accessToken = signAccessToken({ id: user.id, role: user.role });
+    // wpUserId is on the Seller row (alias 'seller'), NOT on user.
+    const wpUserId = (user as any).seller?.wpUserId ?? null;
+
+    const accessPayload =
+      user.role === 'vendeur'
+        ? { id: user.id, role: user.role, wpUserId }
+        : { id: user.id, role: user.role };
+
+    const accessToken = signAccessToken(accessPayload);
     const refreshToken = signRefreshToken({ id: user.id, role: user.role });
 
     const response = NextResponse.json({
@@ -39,7 +55,8 @@ export async function POST(request: Request) {
     response.cookies.set('accessToken', accessToken, accessCookie);
     response.cookies.set('refreshToken', refreshToken, refreshCookie);
     return response;
-  } catch {
+  } catch (err) {
+    console.error('Signin failed:', err);
     return NextResponse.json({ success: false, error: 'Server error during login' }, { status: 500 });
   }
 }

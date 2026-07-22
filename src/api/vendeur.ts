@@ -58,15 +58,6 @@ export function useVendeurOrders(params: Record<string, string | number> = {}) {
   });
 }
 
-export function useVendeurComments(params: Record<string, string | number> = {}) {
-  return useQuery({
-    queryKey: ['vendeur', 'comments', params],
-    queryFn: async () => {
-      const { data } = await SesyncRoute.get<VendeurReview[]>('/vendeur/comments', { params });
-      return Array.isArray(data) ? data : [];
-    },
-  });
-}
 
 export function useCreateProduct() {
   const queryClient = useQueryClient();

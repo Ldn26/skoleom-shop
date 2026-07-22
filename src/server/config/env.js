@@ -26,20 +26,12 @@ const env = {
   DB_NAME: process.env.DB_NAME ?? 'marketplace',
   DB_USER: process.env.DB_USER ?? 'root',
   DB_PASSWORD: process.env.DB_PASSWORD ?? '',
-  DATABASE_URL:
-    process.env.DATABASE_URL ??
-    `mysql://${process.env.DB_USER ?? 'root'}:${
-      process.env.DB_PASSWORD ?? ''
-    }@${process.env.DB_HOST ?? '127.0.0.1'}:${
-      process.env.DB_PORT ?? 3306
-    }/${process.env.DB_NAME ?? 'marketplace'}`,
-
+  DATABASE_URL: process.env.DATABASE_URL ??
+    `mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
   JWT_SECRET:
     requireInProduction('JWT_SECRET', process.env.JWT_SECRET) ||
     'dev-jwt-secret',
-
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN ?? '15h',
-
   REFRESH_TOKEN_SECRET:
     requireInProduction(
       'REFRESH_TOKEN_SECRET',
@@ -47,9 +39,7 @@ const env = {
     ) || 'dev-refresh-secret',
 
   REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN ?? '7d',
-
   SESYNC_URL: process.env.SESYNC_URL ?? '',
-
   FRONTEND_URL: (process.env.FRONTEND_URL ?? 'http://localhost:5173')
     .split(',')
     .map((url) => url.trim())

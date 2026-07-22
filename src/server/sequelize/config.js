@@ -14,6 +14,8 @@ const isProduction = process.env.NODE_ENV === "production";
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
   logging: false,
+  // make it sync with heroku postgres ssl requirement
+   
   dialectOptions: isProduction
     ? {
         ssl: {

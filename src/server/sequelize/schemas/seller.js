@@ -10,7 +10,11 @@ const Seller = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-
+   wpUserId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      unique: true,
+    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,

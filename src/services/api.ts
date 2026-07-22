@@ -17,12 +17,7 @@ import type {
   User,
 } from '../types';
 
-/**
- * Client HTTP de l'application (Axios) + fallback hors-ligne basé sur un seed JSON
- * lorsque la variable d'environnement VITE_API_URL n'est pas définie.
- */
 
-/** Indique si un backend HTTP est configuré via la variable d'env Vite. */
 export function usesHttpBackend(): boolean {
   const url = process.env.NEXT_PUBLIC_API_URL;
   return typeof url === 'string' && url.trim().length > 0;
