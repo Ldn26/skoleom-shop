@@ -1,5 +1,5 @@
 import { getAuth } from '@/server/auth';
-import { buildParams, injectUserMeta, query, run, wooService } from '@/server/wooRoute';
+import { buildParams,  query, run, wooService } from '@/server/wooRoute';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -14,10 +14,4 @@ export async function GET(request: Request) {
     }
     return wooService.getProducts(rest);
   });
-}
-
-export async function POST(request: Request) {
-  const auth = getAuth(request);
-  const body = await request.json().catch(() => ({}));
-  return run(() => wooService.createProduct(injectUserMeta(body, auth?.id)));
 }
