@@ -105,7 +105,6 @@ export default function DashboardShell({
         />
       )}
 
-      {/* Sidebar (Fixed Desktop + Off-canvas Mobile) */}
       <aside
         className={`fixed top-0 left-0 z-50 flex h-screen flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
@@ -119,12 +118,8 @@ export default function DashboardShell({
       >
         {/* Brand */}
         <div className="flex items-center gap-2.5 px-6 shrink-0" style={{ height: 78, borderBottom: `1px solid ${C.borderSoft}` }}>
-          <div className="grid place-items-center rounded-xl" style={{ width: 34, height: 34, background: C.lime }}>
-            <Boxes size={19} color="#000" />
-          </div>
+    
           <div className="leading-tight">
-            <p className="font-extrabold tracking-tight" style={{ fontSize: 15 }}>SKOLEOM</p>
-            <p style={{ fontSize: 10, color: C.w40, letterSpacing: '0.18em' }}>ESPACE VENDEUR</p>
           </div>
         </div>
 

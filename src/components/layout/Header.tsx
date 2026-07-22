@@ -218,7 +218,7 @@ export default function Header() {
               </div>
 
               <div className="hidden min-w-0 flex-1 items-center justify-center px-2 md:flex lg:px-4">
-                <GlobalSearch className="block w-full max-w-[420px] lg:hidden" />
+                {/* <GlobalSearch    className="block w-full max-w-[420px] lg:hidden" /> */}
               </div>
 
               <HeaderActions

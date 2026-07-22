@@ -17,11 +17,11 @@ export async function GET(request: Request) {
 
   try {
     const params = Object.fromEntries(new URL(request.url).searchParams.entries());
-    // if (userId) {
-    //   params.meta_key = '_monetizer_user_id';
-    //   params.meta_value = String(userId);
-    // }
-    const data = await wooService.getOrders({ per_page: 20, ...params, customer: auth.id });
+    if (auth.wpUserId) {
+      params.meta_key = '_monetizer_user_id';
+      params.meta_value = String(auth.wpUserId);
+    }
+    const data = await wooService.getOrders({ per_page: 20, ...params, customer: auth.wpUserId });
     // const data = await wooService.getOrders({ per_page: 20, ...params   });
     return NextResponse.json(data);
   } catch (err: any) {

@@ -1,6 +1,5 @@
 
 'use client';
-
 import { useState } from 'react';
 import {
   AreaChart, Area, PieChart, Pie, Cell,
@@ -11,7 +10,7 @@ import {
   Settings, LogOut, TrendingUp, TrendingDown, Boxes, Wallet, Receipt,
   Menu, X,
 } from 'lucide-react';
-
+import {useVendeurProducts   , useVendeurOrders } from '../../../../src/api/vendeur';
 
 const C = {
   bg: '#060606',
@@ -48,7 +47,6 @@ const TOP = [
 const SPARK = (seed: number) =>
   Array.from({ length: 8 }, (_, i) => ({ i, v: 20 + ((Math.sin(seed + i) + 1) * 30) + i * 4 }));
 
-
 const eur = (n: number) => n.toLocaleString('fr-FR') + ' €';
 
 export default function VendeurDashboard({
@@ -58,8 +56,22 @@ export default function VendeurDashboard({
   vendorName?: string;
   vendorEmail?: string;
 }) {
-  const [active, setActive] = useState('dash');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  
+
+  const  { data: products } = useVendeurProducts();
+
+  const { data: orders } = useVendeurOrders();
+  
+const productsCount = products?.meta?.total || 0;
+
+const ordersCount = orders?.length || 0;
+
+
+
+// const inStokcCount = products?.filter((p: any) => p.stock_quantity > 0).length || 0;
+
+  console.log('orders' , orders);
 
   const inStockPct = Math.round((STOCK[0].value / (STOCK[0].value + STOCK[1].value)) * 100);
 
@@ -100,16 +112,16 @@ export default function VendeurDashboard({
           </div>
 
           <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <StatCard delay={40} icon={Package} label="Produits" value="48" trend="+6" up sparkSeed={1} />
-            <StatCard delay={110} icon={Boxes} label="En stock" value="39" trend={`${inStockPct}%`} up sparkSeed={2} />
-            <StatCard delay={180} icon={Wallet} label="Chiffre d’affaires" value={eur(12480)} trend="+18%" up sparkSeed={3} />
-            <StatCard delay={250} icon={Receipt} label="Commandes" value="156" trend="-3%" up={false} sparkSeed={4} />
+            <StatCard delay={40} icon={Package} label="Produits" value={productsCount} trend="+6" up sparkSeed={1} />
+            {/* <StatCard delay={110} icon={Boxes} label="En stock" value={"inStockCount"} trend={`${inStockPct}%`} up sparkSeed={2} /> */}
+            <StatCard delay={180} icon={Wallet} label="Chiffre d’affaires" value={eur(0)} trend="+18%" up sparkSeed={3} />
+            <StatCard delay={250} icon={Receipt} label="Commandes" value={ordersCount} trend="-3%" up={false} sparkSeed={4} />
           </div>
 
           {/* revenue + stock donut */}
           <div className="mb-6 grid grid-cols-1 gap-4 xl:grid-cols-3">
             {/* revenue */}
-            <div className="rise card xl:col-span-2 rounded-3xl p-6" style={{ background: C.panel, border: `1px solid ${C.border}`, animationDelay: '300ms' }}>
+            {/* <div className="rise card xl:col-span-2 rounded-3xl p-6" style={{ background: C.panel, border: `1px solid ${C.border}`, animationDelay: '300ms' }}>
               <div className="mb-5 flex items-center justify-between">
                 <div>
                   <h2 className="font-bold" style={{ fontSize: 16 }}>Revenus</h2>
@@ -141,7 +153,7 @@ export default function VendeurDashboard({
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
-            </div>
+            </div> */}
 
             {/* stock donut */}
             <div className="rise card rounded-3xl p-6" style={{ background: C.panel, border: `1px solid ${C.border}`, animationDelay: '370ms' }}>
@@ -176,7 +188,7 @@ export default function VendeurDashboard({
           </div>
 
           {/* top products */}
-          <div className="rise card rounded-3xl p-6" style={{ background: C.panel, border: `1px solid ${C.border}`, animationDelay: '440ms' }}>
+          {/* <div className="rise card rounded-3xl p-6" style={{ background: C.panel, border: `1px solid ${C.border}`, animationDelay: '440ms' }}>
             <div className="mb-4 flex items-center justify-between">
               <div>
                 <h2 className="font-bold" style={{ fontSize: 16 }}>Meilleures ventes</h2>
@@ -207,7 +219,7 @@ export default function VendeurDashboard({
                 );
               })}
             </div>
-          </div>
+          </div> */}
         </div>
     </div>
   );
@@ -216,7 +228,7 @@ export default function VendeurDashboard({
 function StatCard({ icon: Icon, label, value, trend, up, sparkSeed, delay }: {
   icon: React.ElementType;
   label: string;
-  value: string;
+  value: string | number;
   trend: string;
   up: boolean;
   sparkSeed: number;

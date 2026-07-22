@@ -21,12 +21,12 @@ import { PhotoZone } from '../../components/tryon/PhotoZone';
 import { MeasurementForm } from '../../components/tryon/MeasurementForm';
 import { TwinStage } from '../../components/tryon/TwinStage';
 import { Wardrobe } from '../../components/tryon/Wardrobe';
-import { getCurrentUserId } from '../../lib/utils';
+import { getCurrentUserId } from  '../../lib/utils';
 
 export default function Essayage() {
-  const currentUserId = getCurrentUserId();
+  // const currentUserId = getCurrentUserId();
   const { addToCart } = useCart();
-
+  const  currentUserId = getCurrentUserId();
   const [searchParams] = useSearchParams();
   const preselectProductId = searchParams.get('product');
   const productsQuery = useProducts();
@@ -186,7 +186,7 @@ export default function Essayage() {
 
   const handleSelectProduct = (product: WooProduct) => {
     setActive(product);
-    runTryOn(product);
+    // runTryOn(product);
   };
 
   const handleSaveResult = () => {
@@ -347,7 +347,7 @@ export default function Essayage() {
             savePending={saveTryon.isPending}
           />
 
-          <Wardrobe
+          {/* <Wardrobe
             products={products}
             isLoading={productsQuery.isLoading}
             isError={productsQuery.isError}
@@ -362,7 +362,24 @@ export default function Essayage() {
             recommendedSize={preview?.recommendedSize}
             onSelect={handleSelectProduct}
             onAddToCart={handleAddToCart}
-          />
+          /> */}
+          <Wardrobe
+  products={products}
+  isLoading={productsQuery.isLoading}
+  isError={productsQuery.isError}
+  hasNextPage={!!productsQuery.hasNextPage}
+  isFetchingNextPage={productsQuery.isFetchingNextPage}
+  onFetchNextPage={() => productsQuery.fetchNextPage()}
+  active={active}
+  avatarReady={avatarReady}
+  fitScore={fitScore}
+  fitComment={fitComment}
+  tryOnPending={tryOn.isPending}
+  recommendedSize={preview?.recommendedSize}
+  onSelect={handleSelectProduct}
+  onRunTryOn={runTryOn} // <-- Pass runTryOn here
+  onAddToCart={handleAddToCart}
+/>
         </div>
 
         <EssayageHistory

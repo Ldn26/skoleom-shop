@@ -138,50 +138,6 @@ const mapProduct = (p: BackendProduct): WooProduct => {
   };
 };
 
-/* ─────────────────────────────────────────────
-   useProducts — liste paginée (infinite)
-───────────────────────────────────────────── */
-
-// export const useProducts = (filters: ProductFilters = {}) =>
-//   useInfiniteQuery<ProductPage>({
-//     queryKey: ['products', filters.search ?? '', filters.brand ?? '', filters.category ?? ''],
-//     queryFn: async ({ pageParam }) => {
-//       const page = Number(pageParam ?? 1);
-//       const params = new URLSearchParams({
-//         page: String(page),
-//         limit: String(PER_PAGE),
-//       });
-
-//       if (filters.search?.trim()) params.append('search', filters.search.trim());
-//       if (filters.brand) params.append('brand', String(filters.brand));
-//       if (filters.category) params.append('category', String(filters.category));
-
-//       const { data } = await ShopRoute.get<BackendProductsResponse>(
-//         `/products?${params.toString()}`,
-//       );
-
-//       return {
-//         items: (data.data ?? []).map(mapProduct),
-//         total: data.meta?.total ?? 0,
-//         totalPages: data.meta?.total_pages ?? 1,
-//         page: data.meta?.page ?? page,
-//         limit: data.meta?.limit ?? PER_PAGE,
-//       };
-//     },
-//     getNextPageParam: (lastPage) => {
-//       if (typeof lastPage.totalPages === 'number') {
-//         return lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined;
-//       }
-//       return lastPage.items.length === PER_PAGE ? lastPage.page + 1 : undefined;
-//     },
-//     initialPageParam: 1,
-//     placeholderData: keepPreviousData,
-//     staleTime: 1000 * 60 * 5,
-//     gcTime: 1000 * 60 * 30,
-//   });
-
-
-
 
 
 
