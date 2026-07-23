@@ -1,0 +1,106 @@
+# Pre-push : verification complete avant envoi
+# Si une etape echoue, le push est bloque localement
+# Compatible macOS, Linux, Windows (via Git Bash)
+
+echo ""
+echo "Pre-push : verification complete..."
+echo "===================================="
+
+# 1. Verification de la branche (pas de push direct sur main/develop)
+PROTECTED="^(main|master|develop|production|staging)$"
+BRANCH=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+if echo "$BRANCH" | grep -qE "$PROTECTED"; then
+  echo "ERREUR : Push direct sur '$BRANCH' interdit."
+  echo "Cree une branche feature/ ou fix/ et passe par une PR."
+  exit 1
+fi
+
+# 2. Lint complet du projet
+echo ""
+echo "[1/5] Lint..."
+npm run lint || {
+  echo ""
+  echo "ERREUR : Lint failed. Push bloque."
+  echo "Pour corriger : npm run lint:fix"
+  exit 1
+}
+
+# 3. Format check (Prettier)
+echo ""
+echo "[2/5] Format..."
+npm run format:check || {
+  echo ""
+  echo "ERREUR : Format failed. Push bloque."
+  echo "Pour corriger : npm run format"
+  exit 1
+}
+
+# 4. Type check TypeScript (uniquement si script existe)
+echo ""
+echo "[3/5] Type check..."
+if npm run | grep -q " type-check"; then
+  npm run type-check || {
+    echo ""
+    echo "ERREUR : Type check failed. Push bloque."
+    exit 1
+  }
+else
+  echo "  (skip - pas de TypeScript dans ce projet)"
+fi
+
+# 5. Audit de securite npm (vulnerabilites hautes/critiques)
+echo ""
+echo "[4/5] Audit de securite..."
+npm audit --audit-level=high || {
+  echo ""
+  echo "ERREUR : Vulnerabilites detectees. Push bloque."
+  echo "Pour corriger : npm audit fix"
+  exit 1
+}
+
+# 6. Detection de secrets dans le code
+echo ""
+echo "[5/5] Scan de secrets..."
+SECRETS_FOUND=0
+PATTERNS="api[_-]?key|secret[_-]?key|password|token|aws[_-]?access|private[_-]?key"
+
+SUSPECT_FILES=$(git ls-files | grep -E '\.(js|jsx|ts|tsx|json|env|yml|yaml)$' | grep -v -E '(node_modules|dist|build|\.next|coverage|package-lock|yarn\.lock|pnpm-lock)')
+
+for FILE in $SUSPECT_FILES; do
+  if [ -f "$FILE" ]; then
+    MATCHES=$(grep -n -i -E "($PATTERNS)\s*[=:]\s*['\"][^'\"]{8,}['\"]" "$FILE" 2>/dev/null | grep -v -E "(process\.env|import\.meta\.env|\.example|placeholder|your[-_]|xxx|TODO|FIXME)")
+    if [ -n "$MATCHES" ]; then
+      if [ "$SECRETS_FOUND" = "0" ]; then
+        echo ""
+        echo "ATTENTION : Secrets potentiels detectes :"
+      fi
+      echo "  $FILE :"
+      echo "$MATCHES" | sed 's/^/    /'
+      SECRETS_FOUND=1
+    fi
+  fi
+done
+
+if [ "$SECRETS_FOUND" = "1" ]; then
+  echo ""
+  echo "ERREUR : Des secrets ont peut-etre ete commites."
+  echo "Utilise des variables d'environnement (process.env.XXX ou import.meta.env.XXX)."
+  exit 1
+fi
+
+# 7. Verification que .env n'est pas commite
+if git ls-files | grep -qE "^\.env$|^\.env\.local$|^\.env\.production$"; then
+  echo ""
+  echo "ERREUR CRITIQUE : Un fichier .env est commite dans le repo."
+  echo "Retire-le immediatement :"
+  echo "  git rm --cached .env"
+  echo "  git commit -m 'fix: retire .env du tracking'"
+  exit 1
+fi
+
+echo ""
+echo "===================================="
+echo "OK : Tous les checks sont verts."
+echo "Push autorise."
+echo ""
