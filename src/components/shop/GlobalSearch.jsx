@@ -449,7 +449,7 @@ function Row({ onClick, children }) {
 export default function GlobalSearch({ 
   className = '',
   placeholder = 'Rechercher un produit, une marque…',
-  onSelectProduct // <-- Added optional callback prop
+  onSelectProduct = null
 }) {
   const [term, setTerm] = useState('');
   const [open, setOpen] = useState(false);

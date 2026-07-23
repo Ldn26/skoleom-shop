@@ -112,7 +112,7 @@ export default function Connexion() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700;800&display=swap');
         .sk-auth{--ink:#0A0A0B;--line:rgba(255,255,255,.10);--text:#EDECE8;--muted:#8E8E8A;--lime:#a8ff35;
-                 min-height:100vh;background:transparent;color:var(--text);
+             min-height:100vh;background:transparent;color:var(--text);
                  font-family:'Poppins',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;}
         .sk-auth .disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.01em;line-height:1;}
         .sk-auth .eyebrow{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);font-weight:600;}
@@ -135,10 +135,13 @@ export default function Connexion() {
 
           <div className="relative z-10 flex h-full flex-col justify-between p-12">
             <div></div>
-            <div className="pl-12">
-              <p className="eyebrow">Watch. Touch. Buy.®</p>
+            <div className="pl-48">
+              <p className="eyebrow">Dress haha. Touch. Buy®</p>
               <h1 className="disp mt-5 text-[clamp(2.5rem,4vw,4rem)]">
-                Essayez <span className="text-[#a8ff35]">tout</span>,<br />avant d’acheter.
+                 Connectez-vous  <br />
+              à <span className="text-[#a8ff35]">Skoleom Shop </span> 
+
+
               </h1>
               <p className="mt-6 max-w-sm font-light leading-8 text-zinc-300">
                 Votre avatar IA porte chaque pièce, à la bonne taille. Rejoignez la marketplace

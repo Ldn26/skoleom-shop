@@ -38,7 +38,7 @@ const NAV = [
   { href: '/vendeur/dashboard/products', label: 'Mes produits', icon: Package },
   { href: '/vendeur/dashboard/products/new', label: 'Ajouter un produit', icon: PlusCircle },
   { href: '/vendeur/dashboard/orders', label: 'Commandes', icon: ShoppingCart },
-  { href: '/vendeur/dashboard/stats', label: 'Statistiques', icon: BarChart3 },
+  // { href: '/vendeur/stats', label: 'Statistiques', icon: BarChart3 },
   { href: '/vendeur/dashboard/settings', label: 'Paramètres', icon: Settings },
 ];
 
