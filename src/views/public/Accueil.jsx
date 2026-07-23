@@ -2,10 +2,10 @@
 
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sparkles, Shirt, ScanFace, BrainCircuit, MonitorPlay, ArrowRight, ArrowUpRight, ChevronRight, Check, ShieldCheck, Ruler, ShoppingBag } from 'lucide-react';
+import { Sparkles, Shirt, BrainCircuit, MonitorPlay, ArrowRight, ArrowUpRight, ChevronRight, Ruler } from 'lucide-react';
 import { stripePromise } from '../../lib/stripe';
 import { BackRoute } from '../../api/MyAxios';
-import { useProducts, useCategories, flattenProducts } from '../../api/product';
+import { useProducts,  flattenProducts } from '../../api/product';
 import ProductCard from '../../components/shop/ProductCard';
 import Hero from '@/components/layout/Hero';
 import PageAurora from '@/components/layout/PageAurora';
@@ -15,7 +15,6 @@ export default function Accueil() {
   const navigate = useNavigate();
   const productsQuery = useProducts();
   const allProducts = useMemo(() => flattenProducts(productsQuery.data), [productsQuery.data]);
-  const { data: serverCategories = [] } = useCategories();
 
   const featured = useMemo(() => allProducts.slice(0, 8), [allProducts]);
 
@@ -174,7 +173,7 @@ export default function Accueil() {
         `}</style>
         <div
           style={{ perspective: '1000px' }}
-          className="steps-stack mx-auto mt-10 h-[460px] max-w-4xl"
+          className="steps-stack mx-auto  h-[460px] max-w-7xl"
         >
           <ScrollStack
             itemDistance={60}
