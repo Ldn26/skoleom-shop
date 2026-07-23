@@ -1,22 +1,61 @@
 
-
+"use client";
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Sparkles, Shirt, BrainCircuit, MonitorPlay, ArrowRight, ArrowUpRight, ChevronRight, Ruler } from 'lucide-react';
 import { stripePromise } from '../../lib/stripe';
 import { BackRoute } from '../../api/MyAxios';
-import { useProducts,  flattenProducts } from '../../api/product';
-import ProductCard from '../../components/shop/ProductCard';
+import { useCategories } from '../../api/product';
 import Hero from '@/components/layout/Hero';
 import PageAurora from '@/components/layout/PageAurora';
 import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
+import CircularGallery from '@/components/CircularGallery';
+
+const CATEGORY_IMAGES = {
+  accessoires: [
+    '/shop/categories/enfant-hoodie.webp',
+    '/shop/categories/enf3.webp',
+    '/shop/categories/enf2.webp',
+    '/shop/categories/enf4.webp',
+  ],
+  accessoire: [
+    '/shop/categories/cap.webp',
+    '/shop/categories/cap2.webp',
+    '/shop/categories/cap3.webp',
+    '/shop/categories/cap4.webp',
+  ],
+  soins: [
+    '/shop/categories/care.webp',
+    '/shop/categories/care2.webp',
+    '/shop/categories/care3.webp',
+    '/shop/categories/care4.webp',
+  ],
+  femme: [
+    '/shop/categories/famme.webp',
+    '/shop/categories/famme2.webp',
+    '/shop/categories/famme3.webp',
+    '/shop/categories/famme4.webp',
+  ],
+  homme: [
+    '/shop/categories/homme.webp',
+    '/shop/categories/homme2.webp',
+    '/shop/categories/homme3.webp',
+    '/shop/categories/homme4.webp',
+  ],
+};
 
 export default function Accueil() {
   const navigate = useNavigate();
-  const productsQuery = useProducts();
-  const allProducts = useMemo(() => flattenProducts(productsQuery.data), [productsQuery.data]);
+  const { data: categories = [] } = useCategories();
 
-  const featured = useMemo(() => allProducts.slice(0, 8), [allProducts]);
+  const galleryItems = useMemo(
+    () =>
+      categories.map((c, idx) => ({
+        image: CATEGORY_IMAGES[c.slug]?.[0] || `https://picsum.photos/600/600?random=${idx}`,
+        text: c.name,
+      })),
+    [categories],
+  );
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -31,7 +70,7 @@ export default function Accueil() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [featured.length]);
+  }, [categories.length]);
 
   const handleCheckout = async (priceId) => {
     try {
@@ -80,8 +119,6 @@ export default function Accueil() {
       featured: true,
     },
   ];
-
- 
 
   return (
     <main className="sk">
@@ -173,20 +210,11 @@ export default function Accueil() {
         `}</style>
         <div
           style={{ perspective: '1000px' }}
-          className="steps-stack mx-auto  h-[460px] max-w-7xl"
+          className="steps-stack mx-auto mt-10 h-[460px] max-w-7xl"
         >
-          <ScrollStack
-            itemDistance={60}
-            itemStackDistance={24}
-            itemScale={0.04}
-            baseScale={0.88}
-            blurAmount={0}
-          >
+          <ScrollStack itemDistance={60} itemStackDistance={24} itemScale={0.04} baseScale={0.88} blurAmount={0}>
             {steps.map((s) => (
-              <ScrollStackItem
-                key={s.n}
-                itemClassName="border border-white/10 bg-[#0C0C0D]/85 backdrop-blur-xl"
-              >
+              <ScrollStackItem key={s.n} itemClassName="border border-white/10 bg-[#0C0C0D]/85 backdrop-blur-xl">
                 <div className="flex h-full flex-col justify-center">
                   <div className="disp text-6xl text-[#a8ff35]">{s.n}</div>
                   <h3 className="mt-4 text-3xl font-semibold text-white">{s.title}</h3>
@@ -250,43 +278,30 @@ export default function Accueil() {
         <div className="sk-reveal flex items-end justify-between">
           <div>
             <p className="eyebrow">Sélection Skoleom AI</p>
-            <h2 className="disp mt-6 text-5xl">TENDANCES DANS VOTRE UNIVERS</h2>
+            <h2 className="disp mt-6 text-5xl">EXPLOREZ NOS UNIVERS</h2>
           </div>
           <Link to="/catalogue" className="hidden items-center gap-2 font-medium text-[#a8ff35] transition hover:opacity-80 md:flex">
             Tout voir <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
 
-        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-4">
-          {productsQuery.isLoading && featured.length === 0
-            ? Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="overflow-hidden rounded-2xl border border-white/10">
-                  <div className="sk-shimmer aspect-square w-full" />
-                  <div className="space-y-2 p-3">
-                    <div className="sk-shimmer h-4 w-2/3 rounded" />
-                    <div className="sk-shimmer h-4 w-1/3 rounded" />
-                  </div>
-                </div>
-              ))
-            : featured.map((p) => (
-                <div key={p.id} className="sk-reveal">
-                  <ProductCard
-                    id={p.id}
-                    title={p.name}
-                    image={p.photos?.[0]}
-                    category={p.type}
-                    price={p.price}
-                    regularPrice={p.regularPrice}
-                    onSale={p.onSale}
-                    sku={p.sku}
-                    inStock={p.inStock}
-                  />
-                </div>
-              ))}
+        <div className="mt-12" style={{ height: '600px', position: 'relative' }}>
+          {galleryItems.length > 0 && (
+            <CircularGallery
+              items={galleryItems}
+              bend={1}
+                onItemClick={(item) => navigate(`/produits?category=${item.category}`)}
+
+              textColor="#ffffff"
+              borderRadius={0.05}
+              scrollEase={0.05}
+              font="bold 28px Poppins"
+              scrollSpeed={2}
+            />
+          )}
         </div>
       </section>
 
-   
       <section className="relative overflow-hidden px-6 py-40 text-center">
         <div className="sk-reveal relative z-10 mx-auto max-w-3xl">
           <h2 className="disp text-[clamp(2.5rem,6vw,5rem)] leading-tight">
