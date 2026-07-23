@@ -1,3 +1,5 @@
+
+
 import { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Sparkles, Shirt, ScanFace, BrainCircuit, MonitorPlay, ArrowRight, ArrowUpRight, ChevronRight, Check, ShieldCheck, Ruler, ShoppingBag } from 'lucide-react';
@@ -7,6 +9,7 @@ import { useProducts, useCategories, flattenProducts } from '../../api/product';
 import ProductCard from '../../components/shop/ProductCard';
 import Hero from '@/components/layout/Hero';
 import PageAurora from '@/components/layout/PageAurora';
+import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
 
 export default function Accueil() {
   const navigate = useNavigate();
@@ -79,16 +82,11 @@ export default function Accueil() {
     },
   ];
 
-  const trust = [
-    { icon: <ShieldCheck className="h-5 w-5" />, label: 'Watch.Touch.Buy® breveté — phase nationale 70+ pays' },
-    { icon: <ScanFace className="h-5 w-5" />, label: 'Avatar IA réutilisable sur tout le réseau Skoleom' },
-    { icon: <Check className="h-5 w-5" />, label: 'RGPD natif — photo traitée localement, hébergement EU' },
-  ];
+ 
 
   return (
     <main className="sk">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700;800&display=swap');
         .sk{--ink:#0A0A0B;--panel:#131315;--line:rgba(255,255,255,.10);--text:#EDECE8;--muted:#8E8E8A;--lime:#a8ff35;
              background:transparent;color:var(--text);min-height:100vh;
              font-family:'Poppins',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;}
@@ -162,19 +160,42 @@ export default function Accueil() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-32">
-        <div className="sk-reveal">
+      <section className="px-6 py-32">
+        <div className="sk-reveal mx-auto max-w-7xl">
           <p className="eyebrow">Comment ça marche</p>
           <h2 className="disp mt-6 text-5xl">TROIS GESTES - ZÉRO DOUTE</h2>
         </div>
-        <div className="mt-16 grid gap-12 md:grid-cols-3">
-          {steps.map((s) => (
-            <div key={s.n} className="sk-reveal border-t border-white/10 pt-8">
-              <div className="disp text-6xl text-[#a8ff35]/90">{s.n}</div>
-              <h3 className="mt-6 text-2xl font-semibold">{s.title}</h3>
-              <p className="mt-3 font-light leading-7 text-zinc-400">{s.desc}</p>
-            </div>
-          ))}
+
+        <style>{`
+          .steps-stack .scroll-stack-inner { padding: 6vh 0.5rem 14rem; min-height: 0; }
+          .steps-stack .scroll-stack-card { height: 17rem; width: 100%; }
+          .steps-stack .scroll-stack-scroller { scrollbar-width: none; -ms-overflow-style: none; }
+          .steps-stack .scroll-stack-scroller::-webkit-scrollbar { width: 0; height: 0; display: none; }
+        `}</style>
+        <div
+          style={{ perspective: '1000px' }}
+          className="steps-stack mx-auto mt-10 h-[460px] max-w-4xl"
+        >
+          <ScrollStack
+            itemDistance={60}
+            itemStackDistance={24}
+            itemScale={0.04}
+            baseScale={0.88}
+            blurAmount={0}
+          >
+            {steps.map((s) => (
+              <ScrollStackItem
+                key={s.n}
+                itemClassName="border border-white/10 bg-[#0C0C0D]/85 backdrop-blur-xl"
+              >
+                <div className="flex h-full flex-col justify-center">
+                  <div className="disp text-6xl text-[#a8ff35]">{s.n}</div>
+                  <h3 className="mt-4 text-3xl font-semibold text-white">{s.title}</h3>
+                  <p className="mt-3 max-w-xl text-lg font-light leading-8 text-zinc-300">{s.desc}</p>
+                </div>
+              </ScrollStackItem>
+            ))}
+          </ScrollStack>
         </div>
       </section>
 
@@ -266,17 +287,7 @@ export default function Accueil() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-black/30 backdrop-blur-md">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-16 md:grid-cols-3">
-          {trust.map((t) => (
-            <div key={t.label} className="sk-reveal flex items-start gap-4">
-              <span className="mt-0.5 text-[#a8ff35]">{t.icon}</span>
-              <p className="text-sm font-light leading-6 text-zinc-400">{t.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
+   
       <section className="relative overflow-hidden px-6 py-40 text-center">
         <div className="sk-reveal relative z-10 mx-auto max-w-3xl">
           <h2 className="disp text-[clamp(2.5rem,6vw,5rem)] leading-tight">

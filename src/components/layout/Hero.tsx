@@ -36,7 +36,7 @@ export default function Hero() {
           Essayez{' '}
           <span className="relative text-[#a8ff35]">
             tout
-            <span className="underline-accent absolute -bottom-1 left-0 h-1 w-full rounded-full bg-[#a8ff35]" />
+            {/* <span className="underline-accent absolute -bottom-1 left-0 h-1 w-full rounded-full bg-[#a8ff35]" /> */}
           </span>
           <br />
           avant d’acheter

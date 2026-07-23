@@ -1,8 +1,8 @@
 {
-  "name": "skoleom-univershop",
+  "name": "skoleom-shop",
   "version": "1.0.0",
   "private": true,
-  "description": "Skoleom Univershop - unified Next.js application (frontend + API).",
+  "description": "Skoleom shop - unified Next.js application (frontend + API).",
   "scripts": {
     "dev": "next dev -p 3039",
     "build": "next build",
