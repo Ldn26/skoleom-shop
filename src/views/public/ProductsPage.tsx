@@ -151,7 +151,6 @@ export default function ProductsPage() {
       <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
         <Breadcrumb items={[{ label: 'Accueil', to: '/' }, { label: pageLabel }]} />
 
-        {/* <CategoryBar    /> */}
 
         <div className="flex gap-8">
           <div className="hidden w-72 shrink-0 lg:block">
@@ -162,7 +161,9 @@ export default function ProductsPage() {
 
           <div className="min-w-0 flex-1">
             <div className="mb-4 flex items-center justify-between gap-4">
-              <div>jsp je mis quoi haha  </div>
+              {/* <div>jsp je mis quoi haha  </div> */}
+                      <CategoryBar    />
+
               <SortSelect value={sort} onChange={setSort} />
             </div>
 

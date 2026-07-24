@@ -1,5 +1,5 @@
 'use client';
-import Account from '@/views/acheteur/CompteAchteur';
+import AccountActeur from '@/views/acheteur/CompteAchteur';
 export default function Page() {
-  return <Account />;
+  return <AccountActeur />;
 }
