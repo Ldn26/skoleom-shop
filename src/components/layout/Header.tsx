@@ -95,7 +95,7 @@ export default function Header() {
     },
     [updateMegaTopFromTrigger],
   );
-
+ 
   const openUniverse = useCallback(() => {
     if (universeCloseTimerRef.current) {
       clearTimeout(universeCloseTimerRef.current);
@@ -160,6 +160,12 @@ export default function Header() {
       window.removeEventListener('resize', syncTop);
     };
   }, [megaOpen, megaVariant, updateMegaTopFromTrigger]);
+  
+
+
+  const handleProductSelect = (product) => {
+    
+  };
 
   useEffect(() => {
     if (!universeOpen) return undefined;
@@ -219,7 +225,8 @@ export default function Header() {
 
               <div className="hidden min-w-0 flex-1 items-center justify-center px-2 md:flex lg:px-4">
                 <GlobalSearch    
-                                className="block w-full max-w-[420px] lg:hidden" />
+                             onSelectProduct={handleProductSelect}
+                             className="block w-full max-w-[420px] lg:hidden" />
               </div>
 
               <HeaderActions
