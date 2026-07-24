@@ -75,19 +75,18 @@ export default function Hero() {
 
         {/* Tagline */}
         <p data-reveal style={{ animationDelay: '0.05s' }} className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#a8ff35]">
-          Marketplace IA — Watch. Touch. Buy.<span className="align-super text-[.6em]">®</span>
+          Marketplace IA — Watch. Touch. Buy<span className="align-super text-[.6em]">®</span>
         </p>
 
-        {/* Dynamic Heading */}
         <h1 data-reveal style={{ animationDelay: '0.15s' }} className="display-text mt-7 text-[clamp(2.8rem,8vw,6.5rem)] font-extrabold leading-none tracking-tight">
           {isBuyer ? (
             <>
-              Essayez <span className="relative text-[#a8ff35]">tout</span>,<br />
+              Essayez <span className="relative text-[#a8ff35]">tout</span><br />
               avant d’acheter
             </>
           ) : (
             <>
-              Vendez avec <span className="relative text-[#a8ff35]">l’IA</span>,<br />
+              Vendez avec <span className="relative text-[#a8ff35]">l’IA</span><br />
               boostez vos conversions
             </>
           )}
