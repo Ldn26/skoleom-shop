@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ShoppingBag, Store, LayoutDashboard } from 'lucide-react';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
-
+import {useTranslation} from 'react-i18next';
 const FIGURES_BUYER = [
   { v: '98,4 %', l: 'Précision taille IA' },
   { v: '< 5 %', l: 'Taux de retour cible' },
@@ -22,6 +22,7 @@ const FIGURES_SELLER = [
 export default function Hero() {
   const navigate = useNavigate();
   const localizePath = useLocalizedPath();
+  const { t } = useTranslation();
 
   const [activeRole, setActiveRole] = useState<'acheteur' | 'vendeur'>('acheteur');
 
