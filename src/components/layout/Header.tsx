@@ -212,7 +212,7 @@ export default function Header() {
                 : 'border-transparent bg-transparent shadow-none',
             )}
           >
-            <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between gap-2 sm:gap-3 md:h-[71px]">
+            <div className="mx-auto flex h-14 max-w-[2000px] items-center justify-between gap-2 sm:gap-3 md:h-[71px]">
               <div className="flex shrink-0 items-center gap-4 sm:gap-5 md:gap-6">
                 <BrandLogo />
                 <UniverseButton

@@ -164,7 +164,6 @@ export default function Connexion() {
               </div>
             </div>
 
-            <p className="text-xs text-zinc-600">© {new Date().getFullYear()} Skoleom — RGPD natif, hébergement EU.</p>
           </div>
         </aside>
 

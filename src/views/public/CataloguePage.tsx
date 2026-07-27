@@ -6,7 +6,8 @@ import { ChevronRight, Loader2 } from 'lucide-react';
 import { useCategoriesInfinite, type TaxonomyItem } from '../../api/product';
 import { useFilterStore } from '../../store/filterStore';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
-
+import Ads from '@/components/shop/Ads';
+import Reels from '@/components/shop/Reels';
 interface Group {
   parent: TaxonomyItem;
   children: TaxonomyItem[];
@@ -69,7 +70,10 @@ export default function CataloguePage() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0B] px-4 pb-24 pt-28 text-white sm:px-6">
-      <div className="mx-auto max-w-7xl">
+           <Ads   />
+     
+      
+      <div className="mx-auto mt-4 max-w-7xl">
         <header className="mb-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">Catalogue</p>
           <h1 className="display-text mt-2 text-4xl sm:text-5xl">EXPLOREZ NOS UNIVERS</h1>
@@ -84,7 +88,7 @@ export default function CataloguePage() {
           </div>
         ) : (
           <>
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-3">
               {groups.map((group, gi) => (
                 <GroupCard key={group.parent.id} group={group} seed={gi} onGo={go} />
               ))}
