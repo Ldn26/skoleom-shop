@@ -70,7 +70,7 @@ export default function PiecePage() {
   const { data: rawProduct, isLoading: productLoading } = useProduct(id);
   const { data: rawVariations } = useProductVariations(id);
   const [view, setView] = useState<string>('face');
- const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
   const [feedback, setFeedback] = useState('');
   const [loadingAdd, setLoadingAdd] = useState(false);
   const [openModal, setOpenModal] = useState(false);

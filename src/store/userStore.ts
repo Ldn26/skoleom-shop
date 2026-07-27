@@ -18,6 +18,7 @@ interface UserState {
   setUser: (user: User | null, token: string, role: Role) => void;
   clearUser: () => void;
   setHasHydrated: (v: boolean) => void;
+   logout: () => void;
   isAuthenticated: () => boolean;
 }
 
@@ -33,7 +34,12 @@ export const useUserStore = create<UserState>()(
       setHasHydrated: (v) => set({ hasHydrated: v }),
       isAuthenticated: () => !!get().token,    
       getToken: () => get().token,
-      
+      logout: () => {
+        set({ user: null, token: null, role: null });
+        if (typeof window !== 'undefined') {
+          window.location.href = '/login';
+        }
+      },
     }),
     {
       name: 'user-store',

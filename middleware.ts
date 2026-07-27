@@ -1,4 +1,3 @@
-
 import { NextResponse, type NextRequest } from 'next/server';
 
 const SUPPORTED_LANGS = [
@@ -7,6 +6,26 @@ const SUPPORTED_LANGS = [
 
 const DEFAULT_LANG = 'fr';
 const ACCESS_COOKIE = 'accessToken';
+
+// Comma-separated list in .env: ALLOWED_ORIGIN=https://a.com,https://b.com,http://localhost:5173
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGIN ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+function corsHeaders(origin: string | null): Record<string, string> {
+  // Allow if the origin is in the list, OR (dev convenience) if no list is configured.
+  const allow = !!origin && (ALLOWED_ORIGINS.length === 0 || ALLOWED_ORIGINS.includes(origin));
+  if (!allow || !origin) return {};
+  return {
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
+    Vary: 'Origin',
+  };
+}
 
 type JwtClaims = {
   id?: number;
@@ -58,18 +77,37 @@ function requiresAuthentication(rest: string): boolean {
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const { lang, rest } = stripLang(pathname);
 
+  // ── CORS for the API (handles preflight + adds headers to every /api response) ──
+  if (pathname.startsWith('/api')) {
+    const cors = corsHeaders(req.headers.get('origin'));
+    if (req.method === 'OPTIONS') {
+      return new NextResponse(null, { status: 204, headers: cors });
+    }
+    const res = NextResponse.next();
+    for (const [k, v] of Object.entries(cors)) res.headers.set(k, v);
+    return res;
+  }
+
+  // ── Language + auth guard (pages only) ──
+  const { lang, rest } = stripLang(pathname);
   const requiredRole = getRequiredRole(rest);
   const requiresAuth = requiredRole !== null || requiresAuthentication(rest);
 
   if (requiresAuth) {
-    const token = req.cookies.get(ACCESS_COOKIE)?.value;
-    const claims = token ? decodeJwt(token) : null;
-    const expired = !claims?.exp || claims.exp * 1000 < Date.now();
+    const access = req.cookies.get(ACCESS_COOKIE)?.value;
+    const refresh = req.cookies.get('refreshToken')?.value;
+
+    // Read identity/role from whichever token is present (payload only, no verify).
+    // The access cookie can expire (short-lived) while the refresh cookie (long-lived)
+    // is still valid — in that case the client refresh flow will mint a new access
+    // token, so we must NOT kick the user just because `accessToken` is missing.
+    const claims = access ? decodeJwt(access) : refresh ? decodeJwt(refresh) : null;
     const roleIsValid = !requiredRole || claims?.role === requiredRole;
 
-    if (!token || !claims || expired || !roleIsValid) {
+    // Logged out only if BOTH cookies are missing, the token is unreadable,
+    // or the role doesn't match the route.
+    if ((!access && !refresh) || !claims || !roleIsValid) {
       const loginPath = lang ? `/${lang}/connection` : `/${DEFAULT_LANG}/connection`;
       const url = req.nextUrl.clone();
       url.pathname = loginPath;
@@ -88,5 +126,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|serp|_next/static|_next/image|footer-pages|.*\\..*).*)'],
+  matcher: ['/((?!serp|_next/static|_next/image|footer-pages|.*\\..*).*)'],
 };
