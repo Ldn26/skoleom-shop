@@ -857,12 +857,13 @@ const mapTaxonomy = (t: any): TaxonomyItem => ({
   id: t.id,
   name: t.name,
   slug: t.slug,
-  parent: t.parent ?? 0,
+  parent: t.parent ?? 1929,
   count: t.count ?? 0, 
   image: t.image?.src ?? t.image?.url ?? undefined,
 });
 
-  export const useCategories = (parent = 0, enabled = true) =>
+// the parent need to be the id of the  project
+  export const useCategories = (parent = 1929, enabled = true) =>
     useQuery<TaxonomyItem[]>({
       queryKey: ['categories', parent],
       queryFn: async () => {
