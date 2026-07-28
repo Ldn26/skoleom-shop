@@ -1,13 +1,18 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, Loader2 } from 'lucide-react';
-import { useCategoriesInfinite, type TaxonomyItem } from '../../api/product';
+import { useAllCategories, type TaxonomyItem } from '../../api/product';
 import { useFilterStore } from '../../store/filterStore';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
-import Ads from '@/components/shop/Ads';
-import Reels from '@/components/shop/Reels';
+import Reels from '../../components/shop/Reels';
+
+// Root category "Skoleom Shop". Its direct children are the groups we display,
+// and each group shows up to 4 of ITS children.
+const ROOT_CATEGORY_ID = 1929;
+const MAX_TILES = 4;
+
 interface Group {
   parent: TaxonomyItem;
   children: TaxonomyItem[];
@@ -17,51 +22,25 @@ export default function CataloguePage() {
   const navigate = useNavigate();
   const localizePath = useLocalizedPath();
   const setCategory = useFilterStore((s) => s.setCategory);
-
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useCategoriesInfinite();
-
-  const categories = useMemo<TaxonomyItem[]>(
-    () => data?.pages.flat() ?? [],
-    [data],
-  );
+  const { data: categories = [], isLoading } = useAllCategories();
 
   const groups: Group[] = useMemo(() => {
-    const parents = categories.filter((c) => !c.parent);
     const byParent = new Map<number, TaxonomyItem[]>();
     categories.forEach((c) => {
-      if (c.parent) {
-        const arr = byParent.get(c.parent) ?? [];
-        arr.push(c);
-        byParent.set(c.parent, arr);
-      }
+      const arr = byParent.get(c.parent ?? 0) ?? [];
+      arr.push(c);
+      byParent.set(c.parent ?? 0, arr);
     });
-    return parents
+
+    // groups = direct children of Skoleom Shop (1929)
+    let roots = byParent.get(ROOT_CATEGORY_ID) ?? [];
+    // fallback: if nothing is nested under 1929, use top-level categories
+    if (roots.length === 0) roots = (byParent.get(0) ?? []).filter((c) => c.id !== ROOT_CATEGORY_ID);
+
+    return roots
       .map((parent) => ({ parent, children: byParent.get(parent.id) ?? [] }))
       .sort((a, b) => b.children.length - a.children.length);
   }, [categories]);
-
-  // Auto-load the next page when the sentinel scrolls into view.
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el) return undefined;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      { rootMargin: '400px' },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const go = (slug: string) => {
     setCategory(slug);
@@ -70,15 +49,16 @@ export default function CataloguePage() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0B] px-4 pb-24 pt-28 text-white sm:px-6">
-           <Ads   />
-     
-      
-      <div className="mx-auto mt-4 max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <header className="mb-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">Catalogue</p>
           <h1 className="display-text mt-2 text-4xl sm:text-5xl">EXPLOREZ NOS UNIVERS</h1>
-          <p className="mt-2 text-sm text-white/50">Parcourez les catégories, regroupées par univers.</p>
+          <p className="mt-2 text-sm text-white/50">Parcourez les catégories de Skoleom Shop.</p>
         </header>
+
+        <div className="mb-12">
+          <Reels />
+        </div>
 
         {isLoading ? (
           <div className="grid gap-5 md:grid-cols-2">
@@ -86,25 +66,14 @@ export default function CataloguePage() {
               <div key={i} className="h-80 animate-pulse rounded-3xl border border-white/10 bg-white/[.03]" />
             ))}
           </div>
+        ) : groups.length === 0 ? (
+          <p className="py-16 text-center text-sm text-white/40">Aucune catégorie trouvée.</p>
         ) : (
-          <>
-            <div className="grid gap-5 md:grid-cols-3">
-              {groups.map((group, gi) => (
-                <GroupCard key={group.parent.id} group={group} seed={gi} onGo={go} />
-              ))}
-            </div>
-
-            {/* Scroll sentinel + loading state */}
-            <div ref={sentinelRef} className="h-12" />
-            {isFetchingNextPage && (
-              <div className="flex items-center justify-center gap-2 py-6 text-sm text-white/40">
-                <Loader2 size={16} className="animate-spin" /> Chargement des catégories…
-              </div>
-            )}
-            {!hasNextPage && groups.length > 0 && (
-              <p className="py-6 text-center text-xs text-white/30">Toutes les catégories sont affichées.</p>
-            )}
-          </>
+          <div className="grid gap-5 md:grid-cols-2">
+            {groups.map((group, gi) => (
+              <GroupCard key={group.parent.id} group={group} seed={gi} onGo={go} />
+            ))}
+          </div>
         )}
       </div>
     </div>
@@ -136,7 +105,7 @@ function GroupCard({ group, seed, onGo }: { group: Group; seed: number; onGo: (s
     );
   }
 
-  const shown = children.slice(0, 4);
+  const shown = children.slice(0, MAX_TILES);
 
   return (
     <div className="flex flex-col rounded-3xl border border-white/10 bg-[#0C0C0D] p-5 sm:p-6">
@@ -168,7 +137,7 @@ function GroupCard({ group, seed, onGo }: { group: Group; seed: number; onGo: (s
         ))}
       </div>
 
-      {children.length > 4 && (
+      {children.length > MAX_TILES && (
         <button
           onClick={() => onGo(parent.slug)}
           className="mt-4 inline-flex items-center gap-1 self-start text-sm font-semibold text-[#a8ff35] hover:underline"
@@ -179,3 +148,4 @@ function GroupCard({ group, seed, onGo }: { group: Group; seed: number; onGo: (s
     </div>
   );
 }
+

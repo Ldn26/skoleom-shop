@@ -275,14 +275,9 @@ const wooService = {
 
 
 
-  
-  deleteUSELEES: (parennt) =>
-    wooDelete(`products/category/${attributeId}/terms/${termId}`),
 
 
 
-
-  // Trouve ou crée un brand dans WooCommerce
   createOrFindBrand: async (data) => {
     // Chercher par slug
     const existing = await wooGet('products/brands', { slug: data.slug });
