@@ -49,11 +49,7 @@ const wooService = {
     return Array.isArray(result) ? result : (result?.data ?? []);
   },
 
-  /**
-   * Produits par marque — accepte slug ("gulf") ou ID numérique (1397)
-   * slug → service/v1 ?marque=slug
-   * ID   → wc/v3 ?brand=id
-   */
+
   getProductsByBrand: async (brand, params = {}) => {
     const parsed = normalizeBrand(brand);
 
@@ -65,7 +61,6 @@ const wooService = {
     return wooGet('products', { ...params, brand: parsed.id });
   },
 
-  /** Produits par catégorie slug */
   getProductsByCategory: (categorySlug, params = {}) =>
     svcGet('products', { ...params, categories: categorySlug }),
 
@@ -162,6 +157,7 @@ const wooService = {
     wooDelete(`products/attributes/${attributeId}/terms/${termId}`),
 
   // ── Produit complet (création orchestrée) ──────────────────────────────────
+
 
   createProductFull: async (body) => {
     const safeBody = body ?? {};
@@ -276,6 +272,15 @@ const wooService = {
       createdVariations,
     };
   },
+
+
+
+  
+  deleteUSELEES: (parennt) =>
+    wooDelete(`products/category/${attributeId}/terms/${termId}`),
+
+
+
 
   // Trouve ou crée un brand dans WooCommerce
   createOrFindBrand: async (data) => {

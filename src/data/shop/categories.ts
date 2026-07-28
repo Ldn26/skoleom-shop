@@ -57,7 +57,7 @@ const mainCategories = [
 
   {
     id: 5,
-    name: "Bags & Accessories",
+    name: "Bags & Accessories"  , 
     slug: "bags-accessories",
     subCategories: [
       { id: 26, slug: "handbags", name: "Handbags" },
