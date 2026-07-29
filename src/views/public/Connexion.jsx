@@ -60,7 +60,7 @@ export default function Connexion() {
       setErr('Réponse serveur invalide.');
       return;
     }
-    setUser(user, token, user.role);
+    setUser(user, user.role);
     resetForm();
     // Hard navigation (not client-side) so the auth cookie is fully committed
     // before middleware evaluates the protected route — avoids the intermittent
