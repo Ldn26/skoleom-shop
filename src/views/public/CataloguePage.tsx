@@ -7,6 +7,7 @@ import { useAllCategories, type TaxonomyItem } from '../../api/product';
 import { useFilterStore } from '../../store/filterStore';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 import Reels from '../../components/shop/Reels';
+import CategoryBar from '@/components/shop/CategoryBar';
 
 // Root category "Skoleom Shop". Its direct children are the groups we display,
 // and each group shows up to 4 of ITS children.
@@ -49,19 +50,20 @@ export default function CataloguePage() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0B] px-4 pb-24 pt-28 text-white sm:px-6">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto  max-w-[1600px] ">
         <header className="mb-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">Catalogue</p>
           <h1 className="display-text mt-2 text-4xl sm:text-5xl">EXPLOREZ NOS UNIVERS</h1>
           <p className="mt-2 text-sm text-white/50">Parcourez les catégories de Skoleom Shop.</p>
         </header>
+        <CategoryBar  />
 
-        <div className="mb-12">
+        {/* <div className="mb-12">
           <Reels />
-        </div>
+        </div> */}
 
         {isLoading ? (
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-3">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="h-80 animate-pulse rounded-3xl border border-white/10 bg-white/[.03]" />
             ))}
@@ -69,7 +71,7 @@ export default function CataloguePage() {
         ) : groups.length === 0 ? (
           <p className="py-16 text-center text-sm text-white/40">Aucune catégorie trouvée.</p>
         ) : (
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-3">
             {groups.map((group, gi) => (
               <GroupCard key={group.parent.id} group={group} seed={gi} onGo={go} />
             ))}
