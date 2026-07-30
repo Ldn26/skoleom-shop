@@ -24,7 +24,7 @@ export default function Hero() {
         src="/shop/landig/bg2).webp"
         alt=""
         aria-hidden
-        className="absolute inset-0 h-full w-full object-cover object-[70%_center] sm:object-right"
+        className="absolute inset-0 h-full  hidden  md:block   w-full object-cover object-[70%_center] sm:object-right"
         onError={(e) => { e.currentTarget.style.display = 'none'; }}
       />
 
