@@ -413,7 +413,7 @@ const mapTaxonomy = (t: any): TaxonomyItem => ({
   image: t.image?.src ?? t.image?.url ?? undefined,
 });
 
-  export const useCategories = (parent = 0, enabled = true) =>
+  export const useCategories = (parent = 1929, enabled = true) =>
     useQuery<TaxonomyItem[]>({
       queryKey: ['categories', parent],
       queryFn: async () => {

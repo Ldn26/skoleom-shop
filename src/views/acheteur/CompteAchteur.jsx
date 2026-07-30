@@ -60,7 +60,7 @@ export default function CompteAchteur() {
 
   return (
     <div className="min-h-[calc(100vh-71px)] bg-[#0A0A0B] px-4 pb-20 pt-[100px] text-[#EDECE8] sm:px-6">
-      <div className="mx-auto w-full max-w-3xl">
+      <div className="mx-auto w-full max-w-[1400px]">
         <div className="mb-8 flex items-center gap-4">
       
           <div>
