@@ -210,7 +210,7 @@ export default function ProductsPage() {
                 )}
 
                 {!hasNextPage && (
-                  <p className="mt-8 text-center text-sm text-zinc-600">Tu as vu tout le catalogue.</p>
+                  <p className="mt-8 text-center text-sm text-zinc-600">Vous avez vu tout le catalogue</p>
                 )}
               </>
             ) : (

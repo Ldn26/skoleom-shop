@@ -1,16 +1,8 @@
-
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Loader2, Search, Tag, Layers, X } from 'lucide-react';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
-import { STORE_LINKS } from '../../constants/storeLinks';
-import { Search } from 'lucide-react';
-
-import {
-  useProductSearch,
-  useCategories,
-  useBrands,
-} from '../../api/product';
+import { useProductSearch, useCategories, useBrands } from '../../api/product';
 
 function useDebounced(value, delay = 250) {
   const [v, setV] = useState(value);
@@ -21,42 +13,21 @@ function useDebounced(value, delay = 250) {
   return v;
 }
 
-function Section({ title, children }) {
-  return (
-    <div className="py-2">
-      <p className="px-4 pb-1 text-[10px] uppercase tracking-widest text-zinc-500">{title}</p>
-      {children}
-    </div>
-  );
-}
+const eur = (n) =>
+  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(Number(n) || 0);
 
-function Row({ onClick, children }) {
-  return (
-    <button
-      onMouseDown={(e) => e.preventDefault()}
-      onClick={onClick}
-      className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/5"
-    >
-      {children}
-    </button>
-  );
-}
-
-export default function GlobalSearch({ 
+export default function GlobalSearch({
   className = '',
   placeholder = 'Rechercher un produit, une marque…',
-  onSelectProduct = null
+  autoFocus = false,
 }) {
+  const navigate = useNavigate();
+  const localizePath = useLocalizedPath();
+
   const [term, setTerm] = useState('');
   const [open, setOpen] = useState(false);
   const boxRef = useRef(null);
-
-  const normalizeSearchText = (value) =>
-    value
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase()
-      .trim();
+  const inputRef = useRef(null);
 
   const q = useDebounced(term.trim(), 250);
 
@@ -67,18 +38,17 @@ export default function GlobalSearch({
   const matchedCats = useMemo(() => {
     if (q.length < 2) return [];
     const n = q.toLowerCase();
-    return categories.filter((c) => c.name.toLowerCase().includes(n)).slice(0, 4);
+    return categories.filter((c) => c.name?.toLowerCase().includes(n)).slice(0, 4);
   }, [categories, q]);
 
   const matchedBrands = useMemo(() => {
     if (q.length < 2) return [];
     const n = q.toLowerCase();
-    return brands.filter((b) => b.name.toLowerCase().includes(n)).slice(0, 4);
+    return brands.filter((b) => b.name?.toLowerCase().includes(n)).slice(0, 4);
   }, [brands, q]);
 
   const topProducts = products.slice(0, 6);
-  const hasResults =
-    topProducts.length > 0 || matchedCats.length > 0 || matchedBrands.length > 0;
+  const hasResults = topProducts.length > 0 || matchedCats.length > 0 || matchedBrands.length > 0;
 
   useEffect(() => {
     const onClick = (e) => {
@@ -88,248 +58,156 @@ export default function GlobalSearch({
     return () => document.removeEventListener('mousedown', onClick);
   }, []);
 
-  const { t } = useTranslation();
-  const inputRef = useRef(null);
-  const navigate = useNavigate();
-  const localizePath = useLocalizedPath();
-  const [contentResults, setContentResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-
   const go = (path) => {
     setOpen(false);
     setTerm('');
-    navigate(path);
-  };
-
-  const handleProductSelect = (product) => {
-    setOpen(false);
-    setTerm('');
-    if (onSelectProduct) {
-      onSelectProduct(product); // Trigger inline selection in Wardrobe
-    } else {
-      navigate(`/produit/${product.id}`); // Default behavior for Header/Catalogue
-    }
+    navigate(localizePath(path));
   };
 
   const submitSearch = () => {
     if (!term.trim()) return;
-    go(`/catalogue?q=${encodeURIComponent(term.trim())}`);
+    go(`/produits?search=${encodeURIComponent(term.trim())}`);
   };
 
-  const staticResults = useMemo(
-    () => [
-      {
-        id: 'home',
-        title: t('header.nav.home'),
-        description: t('header.navLabel'),
-        href: '/',
-      },
-      {
-        id: 'stores',
-        title: t('header.nav.stores'),
-        description: t('public.stores.carousel.subtitle', {
-          defaultValue: 'Découvrez toutes les boutiques disponibles dans l’écosystème Skoleom.',
-        }),
-        href: '/stores',
-      },
-      {
-        id: 'content',
-        title: t('public.content.titleHighlight', { defaultValue: 'Contenu shoppable' }),
-        description: t('public.content.subtitle', {
-          defaultValue: 'Films · Séries · Lifestyle · Tous shoppables grâce à SeSync.',
-        }),
-        href: '/content',
-      },
-      {
-        id: 'how-it-works',
-        title: t('header.nav.everyone'),
-        description: t('public.howItWorks.hero.subtitle', {
-          defaultValue: 'Dans la vidéo. Au même moment. Sans friction.',
-        }),
-        href: '/how-it-works',
-      },
-      {
-        id: 'touch',
-        title: 'Watch. Touch. Buy.',
-        description: t('public.skoleomTouch.introSubtitle', {
-          defaultValue:
-            'Repérez les produits cachés dans la vidéo et débloquez une récompense exclusive.',
-        }),
-        href: '/touch',
-      },
-      {
-        id: 'ecosystem',
-        title: t('header.nav.group'),
-        description: t('footer.links.103', { defaultValue: "L'écosystème Skoleom" }),
-        href: '/ecosystem',
-      },
-      {
-        id: 'technology',
-        title: t('footer.links.102', { defaultValue: 'Notre technologie' }),
-        description: t('public.technology.studio.titleLine1', {
-          defaultValue: "L'outil de monétisation",
-        }),
-        href: '/technology',
-      },
-      ...STORE_LINKS.filter((store) => store.external || store.to === '/stores').map((store) => ({
-        id: `store-${store.label}`,
-        title: store.label,
-        description: t('header.nav.stores'),
-        href: store.to,
-        external: store.external,
-      })),
-    ],
-    [t],
-  );
-
-  const query = normalizeSearchText(term);
-
-  const matchedResults = useMemo(() => {
-    if (query.length < 2) return [];
-
-    const matches = staticResults.filter((item) =>
-      normalizeSearchText(`${item.title} ${item.description}`).includes(query),
-    );
-
-    return [...matches, ...contentResults]
-      .filter(
-        (item, index, list) =>
-          list.findIndex((candidate) => candidate.href === item.href) === index,
-      )
-      .slice(0, 8);
-  }, [contentResults, query, staticResults]);
-
-  const navigateToResult = useCallback(
-    (result) => {
-      setOpen(false);
-      setTerm('');
-
-      if (result.external) {
-        window.open(result.href, '_blank', 'noopener,noreferrer');
-        return;
-      }
-
-      navigate(localizePath(result.href));
-    },
-    [localizePath, navigate],
-  );
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
-      setOpen(false);
-      return;
-    }
-
-    if (event.key === 'Enter' && matchedResults[0]) {
-      event.preventDefault();
-      navigateToResult(matchedResults[0]);
-    }
+  const onKeyDown = (e) => {
+    if (e.key === 'Enter') submitSearch();
+    if (e.key === 'Escape') setOpen(false);
   };
 
   return (
-    <div ref={boxRef} className={`relative w-full max-w-xl ${className}`}>
-      <div className="relative w-full min-w-0 max-w-[420px]">
+    <div ref={boxRef} className={`relative ${className}`}>
+      <style>{`
+        input.sk-search-input:focus,
+        input.sk-search-input:focus-visible,
+        html.a11y-high-contrast input.sk-search-input:focus-visible,
+        html[data-a11y-enhanced-focus] input.sk-search-input:focus-visible {
+          outline: none !important;
+          box-shadow: none !important;
+          border: none !important;
+        }
+      `}</style>
+      <div
+        className={`flex items-center gap-2 rounded-full border bg-white/5 px-4 transition-colors ${
+          open ? 'border-[#a8ff35]/40' : 'border-white/12'
+        }`}
+      >
+        <Search className="h-4 w-4 shrink-0 text-zinc-500" />
         <input
           ref={inputRef}
-          type="text"
           value={term}
-          placeholder={placeholder || t('header.searchPlaceholder')}
-          aria-label={t('header.searchAria')}
-          onChange={(event) => {
-            setTerm(event.target.value);
+          autoFocus={autoFocus}
+          onChange={(e) => {
+            setTerm(e.target.value);
             setOpen(true);
           }}
-          onFocus={() => {
-            if (term.trim().length >= 2) setOpen(true);
-          }}
-          onBlur={() => {
-            window.setTimeout(() => setOpen(false), 140);
-          }}
-          onKeyDown={handleKeyDown}
-          className="h-9 w-full rounded-[50px] border border-white/[0.06] bg-[#282828] py-[8px] pl-[15px] pr-10 text-xs text-white placeholder:text-[#B5B5B5] shadow-inner shadow-black/40 transition duration-300 focus:outline-none focus:ring-1 focus:ring-zinc-600"
-          autoComplete="off"
+          onFocus={() => setOpen(true)}
+          onKeyDown={onKeyDown}
+          placeholder={placeholder}
+          className="sk-search-input w-full border-0 bg-transparent py-2.5 text-sm text-white placeholder:text-zinc-500 outline-none"
+          style={{ boxShadow: 'none', outline: 'none' }}
         />
-        <button
-          type="button"
-          aria-label={t('header.searchAria')}
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={() => {
-            if (matchedResults[0]) navigateToResult(matchedResults[0]);
-            else inputRef.current?.focus();
-          }}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-white/55 hover:text-white transition"
-        >
-          <Search size={14} />
-        </button>
-
-        {open && q.length >= 2 && (
-          <div className="absolute z-[99] mt-2 max-h-[70vh] w-full overflow-y-auto rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl">
-            {isLoading && !hasResults ? (
-              <p className="px-4 py-6 text-center text-sm text-zinc-500">Recherche…</p>
-            ) : !hasResults ? (
-              <p className="px-4 py-6 text-center text-sm text-zinc-500">
-                Aucun résultat pour « {q} »
-              </p>
-            ) : (
-              <>
-                {matchedCats.length > 0 && (
-                  <Section title="Catégories">
-                    {matchedCats.map((c) => (
-                      <Row key={`c-${c.id}`} onClick={() => go(`/catalogue?category=${c.slug}`)}>
-                        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-lime-400">
-                          #
-                        </span>
-                        <span className="flex-1">{c.name}</span>
-                        {c.count > 0 && <span className="text-xs text-zinc-500">{c.count}</span>}
-                      </Row>
-                    ))}
-                  </Section>
-                )}
-
-                {matchedBrands.length > 0 && (
-                  <Section title="Marques">
-                    {matchedBrands.map((b) => (
-                      <Row key={`b-${b.id}`} onClick={() => go(`/catalogue?brand=${b.slug}`)}>
-                        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-lime-400">
-                          ⬡
-                        </span>
-                        <span className="flex-1">{b.name}</span>
-                        {b.count > 0 && <span className="text-xs text-zinc-500">{b.count}</span>}
-                      </Row>
-                    ))}
-                  </Section>
-                )}
-
-                {topProducts.length > 0 && (
-                  <Section title="Produits">
-                    {topProducts.map((p) => (
-                      <Row key={`p-${p.id}`} onClick={() => handleProductSelect(p)}>
-                        <img
-                          src={p.photos?.[0] || `https://picsum.photos/60/60?random=${p.id}`}
-                          alt={p.name}
-                          className="h-9 w-9 rounded-lg object-cover"
-                        />
-                        <span className="flex-1 truncate">{p.name}</span>
-                        <span className="text-xs font-semibold text-lime-400">
-                          {Number(p.price || 0).toFixed(2)} €
-                        </span>
-                      </Row>
-                    ))}
-                  </Section>
-                )}
-
-                <button
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={submitSearch}
-                  className="w-full border-t border-white/10 px-4 py-3 text-center text-sm font-semibold text-lime-400 transition hover:bg-lime-400/10"
-                >
-                  Voir tous les résultats pour « {q} »
-                </button>
-              </>
-            )}
-          </div>
+        {term && (
+          <button
+            type="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              setTerm('');
+              inputRef.current?.focus();
+            }}
+            className="shrink-0 text-zinc-500 transition hover:text-white"
+            aria-label="Effacer"
+          >
+            <X className="h-4 w-4" />
+          </button>
         )}
       </div>
+
+      {open && q.length >= 2 && (
+        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 max-h-[70vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#050506] p-2 shadow-2xl shadow-black/70">
+          {isLoading && !hasResults ? (
+            <div className="flex items-center gap-2 px-4 py-6 text-sm text-zinc-400">
+              <Loader2 className="h-4 w-4 animate-spin" /> Recherche…
+            </div>
+          ) : !hasResults ? (
+            <div className="px-4 py-6 text-center text-sm text-zinc-500">
+              Aucun résultat pour « {q} »
+            </div>
+          ) : (
+            <>
+              {matchedCats.length > 0 && (
+                <Section title="Catégories">
+                  {matchedCats.map((c) => (
+                    <Row key={`c-${c.id}`} onClick={() => go(`/produits?category=${c.slug}`)}>
+                      <Layers className="h-4 w-4 text-zinc-500" />
+                      <span className="capitalize">{c.name}</span>
+                    </Row>
+                  ))}
+                </Section>
+              )}
+
+              {matchedBrands.length > 0 && (
+                <Section title="Marques">
+                  {matchedBrands.map((b) => (
+                    <Row key={`b-${b.id}`} onClick={() => go(`/produits?brand=${b.slug}`)}>
+                      <Tag className="h-4 w-4 text-zinc-500" />
+                      <span className="capitalize">{b.name}</span>
+                    </Row>
+                  ))}
+                </Section>
+              )}
+
+              {topProducts.length > 0 && (
+                <Section title="Produits">
+                  {topProducts.map((p) => (
+                    <Row key={`p-${p.id}`} onClick={() => go(`/produit/${p.id}`)}>
+                      <span className="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white/5">
+                        {p.photos?.[0] ? (
+                          <img src={p.photos[0]} alt={p.name} className="h-full w-full object-cover" />
+                        ) : null}
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-white">{p.name}</span>
+                        <span className="text-xs text-[#a8ff35]">{eur(p.price)}</span>
+                      </span>
+                    </Row>
+                  ))}
+                </Section>
+              )}
+
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={submitSearch}
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-white/5 py-2.5 text-sm font-semibold text-[#a8ff35] transition hover:bg-white/10"
+              >
+                <Search className="h-4 w-4" /> Voir tous les résultats pour « {q} »
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </div>
+  );
+}
+
+function Section({ title, children }) {
+  return (
+    <div className="py-1.5">
+      <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">{title}</p>
+      {children}
+    </div>
+  );
+}
+
+function Row({ onClick, children }) {
+  return (
+    <button
+      type="button"
+      onMouseDown={(e) => e.preventDefault()}
+      onClick={onClick}
+      className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/5"
+    >
+      {children}
+    </button>
   );
 }

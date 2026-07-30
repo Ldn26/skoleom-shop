@@ -1,15 +1,15 @@
 
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, CornerLeftUp } from 'lucide-react';
 import { useAllCategories, type TaxonomyItem } from '../../api/product';
+import CategoryBarSkeleton from './CategoryBarSkeleton';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 
 const ROOT_CATEGORY_ID = 1929;
 
 function CategoryBar({ rootId = ROOT_CATEGORY_ID }: { rootId?: number }) {
-  const { data: all = [] } = useAllCategories();
+  const { data: all = [], isLoading } = useAllCategories();
   const navigate = useNavigate();
   const localizePath = useLocalizedPath();
   const [searchParams] = useSearchParams();
@@ -31,7 +31,10 @@ function CategoryBar({ rootId = ROOT_CATEGORY_ID }: { rootId?: number }) {
     [all],
   );
 
-  
+  // Which level to show, based on the active category:
+  //  - active has children → drill into its children
+  //  - active is a leaf     → show its siblings
+  //  - nothing active       → show children of the root (Skoleom Shop)
   const { displayed, parentCat } = useMemo(() => {
     const active = activeSlug ? bySlug.get(activeSlug) : null;
     let parentId = rootId;
@@ -88,6 +91,7 @@ function CategoryBar({ rootId = ROOT_CATEGORY_ID }: { rootId?: number }) {
     el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' });
   };
 
+  if (isLoading) return <CategoryBarSkeleton />;
   if (!displayed.length && !showBack) return null;
 
   return (
