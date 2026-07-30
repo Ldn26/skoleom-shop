@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSignIn, useSignUp } from '../../api/user';
 import { useUserStore } from '../../store/userStore';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
-import PageAurora from '@/components/layout/PageAurora';
 
 const DASHBOARDS = {
   acheteur: '/essayage',
@@ -60,7 +59,7 @@ export default function Connexion() {
       setErr('Réponse serveur invalide.');
       return;
     }
-    setUser(user, user.role);
+    setUser(user, token, user.role);
     resetForm();
     // Hard navigation (not client-side) so the auth cookie is fully committed
     // before middleware evaluates the protected route — avoids the intermittent
@@ -129,46 +128,24 @@ export default function Connexion() {
         @media (prefers-reduced-motion: reduce){.sk-auth *{transition:none!important;}}
       `}</style>
 
-      <PageAurora />
+      {/* Full-page background image */}
+      <div className="fixed inset-0 -z-[1]">
+        <img
+          src="/shop/landig/login.webp"
+          alt=""
+          className="h-full w-full object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+          }}
+        />
+        {/* Legibility overlays: dark base + stronger on the right where the form sits */}
+        <div className="absolute inset-0 bg-[#0A0A0B]/55" />
+        <div className="absolute inset-0 bg-gradient-to-l from-[#0A0A0B] via-[#0A0A0B]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/70 via-transparent to-[#0A0A0B]/40" />
+      </div>
 
-      <div className="grid min-h-screen lg:grid-cols-2">
-        <aside className="relative hidden overflow-hidden lg:block">
-          <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/35 to-black/80" />
-          <div className="pointer-events-none absolute -left-32 bottom-0 h-[420px] w-[420px] rounded-full bg-[#a8ff35]/15 blur-[150px]" />
-
-          <div className="relative z-10 flex h-full flex-col justify-between p-12">
-            <div></div>
-            <div className="pl-12">
-              <p className="eyebrow">Watch. Touch. Buy.®</p>
-              <h1 className="disp mt-5 text-[clamp(2.5rem,4vw,4rem)]">
-                Essayez <span className="text-[#a8ff35]">tout</span>,<br />avant d’acheter.
-              </h1>
-              <p className="mt-6 max-w-sm font-light leading-8 text-zinc-300">
-                Votre avatar IA porte chaque pièce, à la bonne taille. Rejoignez la marketplace
-                nouvelle génération.
-              </p>
-
-              <div className="mt-10 flex gap-8 border-t border-white/10 pt-8">
-                <div>
-                  <div className="disp text-3xl text-[#a8ff35]">98,4 %</div>
-                  <div className="mt-1 text-xs text-zinc-500">Précision taille IA</div>
-                </div>
-                <div>
-                  <div className="disp text-3xl text-[#a8ff35]">−80 %</div>
-                  <div className="mt-1 text-xs text-zinc-500">Retours évités</div>
-                </div>
-                <div>
-                  <div className="disp text-3xl text-[#a8ff35]">3,2×</div>
-                  <div className="mt-1 text-xs text-zinc-500">Conversion</div>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-xs text-zinc-600">© {new Date().getFullYear()} Skoleom — RGPD natif, hébergement EU.</p>
-          </div>
-        </aside>
-
-        <section className="relative flex items-center justify-center overflow-hidden px-5 py-12 sm:px-8">
+      <div className="relative flex min-h-screen items-center justify-center px-5 py-12 sm:px-8">
+        <section className="relative flex items-center justify-center">
           <div className="pointer-events-none absolute right-0 top-0 h-[380px] w-[380px] rounded-full bg-[#a8ff35]/10 blur-[130px]" />
 
           <div className="relative w-full max-w-md">
