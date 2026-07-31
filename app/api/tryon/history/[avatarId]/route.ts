@@ -9,6 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request, ctx: { params: Promise<{ avatarId: string }> }) {
   try {
     const { avatarId } = await ctx.params;
+    console.log('[GET /tryon/history/:avatarId]', avatarId);
     const auth = getAuth(request);
     if (!avatarId) return NextResponse.json({ error: 'avatarId est requis' }, { status: 400 });
     if (!auth) return NextResponse.json({ error: 'Utilisateur non authentifié' }, { status: 401 });

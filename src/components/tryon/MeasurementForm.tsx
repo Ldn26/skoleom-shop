@@ -1,4 +1,4 @@
-import type { Measurements } from '../../api/ai';
+import type { Measurements } from '../../api/tryon';
 import { FIELDS, type MeasurementValues } from '../../types/tryon';
 
 export function MeasurementForm({

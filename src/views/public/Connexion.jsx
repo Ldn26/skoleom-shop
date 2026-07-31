@@ -12,7 +12,6 @@ const DASHBOARDS = {
 const dashboardFor = (role) => DASHBOARDS[role] || DASHBOARDS.acheteur;
 
 const parseAuth = (res) => ({
-  token: res?.data?.jwt ?? null,
   user: res?.data?.user ?? null,
 });
 
@@ -54,16 +53,14 @@ export default function Connexion() {
   };
 
   const enterApp = (response) => {
-    const { token, user } = parseAuth(response);
-    if (!token || !user) {
+    const {  user } = parseAuth(response);
+    if ( !user) {
       setErr('Réponse serveur invalide.');
       return;
     }
-    setUser(user, token, user.role);
+    setUser(user, user.role);
     resetForm();
-    // Hard navigation (not client-side) so the auth cookie is fully committed
-    // before middleware evaluates the protected route — avoids the intermittent
-    // bounce back to /connection.
+
     const target = localizePath(dashboardFor(user.role));
     if (typeof window !== 'undefined') window.location.assign(target);
     else nav(target);
@@ -128,7 +125,6 @@ export default function Connexion() {
         @media (prefers-reduced-motion: reduce){.sk-auth *{transition:none!important;}}
       `}</style>
 
-      {/* Full-page background image */}
       <div className="fixed inset-0 -z-[1]">
         <img
           src="/shop/landig/login.webp"
@@ -140,15 +136,15 @@ export default function Connexion() {
         />
         {/* Legibility overlays: dark base + stronger on the right where the form sits */}
         <div className="absolute inset-0 bg-[#0A0A0B]/55" />
-        <div className="absolute inset-0 bg-gradient-to-l from-[#0A0A0B] via-[#0A0A0B]/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/70 via-transparent to-[#0A0A0B]/40" />
+        {/* <div className="absolute inset-0 bg-gradient-to-l from-[#0A0A0B] via-[#0A0A0B]/60 to-transparent" /> */}
+        {/* <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B]/70 via-transparent to-[#0A0A0B]/40" /> */}
       </div>
 
       <div className="relative flex min-h-screen items-center justify-center px-5 py-12 sm:px-8">
         <section className="relative flex items-center justify-center">
-          <div className="pointer-events-none absolute right-0 top-0 h-[380px] w-[380px] rounded-full bg-[#a8ff35]/10 blur-[130px]" />
+          <div className="pointer-events-none absolute right-0 top-0 h-[580px] w-[580px] rounded-full bg-[#a8ff35]/10 blur-[130px]" />
 
-          <div className="relative w-full max-w-md">
+          <div className="relative w-full max-w-4xl">
             <div className="mb-8 flex flex-col items-center text-center lg:hidden"></div>
 
             <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:p-8">

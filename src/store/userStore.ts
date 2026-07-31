@@ -12,38 +12,33 @@ export interface User {
 
 interface UserState {
   user: User | null;
-  token: string | null;
   role: Role | null;
   hasHydrated: boolean;
-  setUser: (user: User | null, token: string, role: Role) => void;
+  setUser: (user: User | null , role: Role) => void;
   clearUser: () => void;
   setHasHydrated: (v: boolean) => void;
    logout: () => void;
-  isAuthenticated: () => boolean;
 }
 
 export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
       user: null,
-      token: null,
       role: null,
       hasHydrated: false,
-      setUser: (user, token, role) => set({ user, token, role }),
-      clearUser: () => set({ user: null, token: null, role: null }),
+      setUser: (user, role) => set({ user, role }),
+      clearUser: () => set({ user: null, role: null }),
       setHasHydrated: (v) => set({ hasHydrated: v }),
-      isAuthenticated: () => !!get().token,    
-      getToken: () => get().token,
       logout: () => {
-        set({ user: null, token: null, role: null });
+        set({ user: null, role: null });
         if (typeof window !== 'undefined') {
-          window.location.href = '/login';
+          window.location.href = '/connexion';
         }
       },
     }),
     {
       name: 'user-store',
-      partialize: (s) => ({ user: s.user, token: s.token, role: s.role }),
+      partialize: (s) => ({ user: s.user, role: s.role }),
       onRehydrateStorage: () => (state) => state?.setHasHydrated(true),
     },
   ),

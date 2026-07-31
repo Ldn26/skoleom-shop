@@ -53,7 +53,7 @@ export default function CataloguePage() {
       <div className="mx-auto  max-w-[1600px] ">
         <header className="mb-10">
           <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">Catalogue</p>
-          <h1 className="display-text mt-2 text-4xl sm:text-5xl">EXPLOREZ NOS UNIVERS</h1>
+          <h1 className="display-text mt-2 text-4xl sm:text-5xl">EXPLOREZ NOS CATEGORIES</h1>
           <p className="mt-2 text-sm text-white/50">Parcourez les catégories de Skoleom Shop.</p>
         </header>
         <CategoryBar  />

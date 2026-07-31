@@ -1,5 +1,5 @@
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BackRoute } from './MyAxios';
 import { useUserStore } from '../store/userStore';
 
@@ -67,3 +67,52 @@ export const useSignOut = () => {
     },
   });
 };
+
+
+
+
+export const useAccount = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error, void>({
+    mutationFn: async () => {
+      await BackRoute.post(
+        '/auth/account',
+        {},
+        {
+          withCredentials: true,
+        },
+      );
+    },
+
+    onSettled: () => {
+      queryClient.clear();
+    },
+  });
+};  
+
+
+
+
+
+
+export interface Me {
+  id: number;
+  name: string;
+  email: string;
+  role: 'acheteur' | 'vendeur';
+  seller?: { wpUserId?: string | number | null } | null;
+}
+
+export const useMe = () =>
+  useQuery<Me | null>({
+    queryKey: ['me'],
+    queryFn: async () => {
+      const { data } = await BackRoute.get('/auth/account'); // GET, cookie envoyé (withCredentials déjà activé)
+      return data?.data ?? null;
+    },
+    retry: false,          // si 401 → pas de retry inutile
+    staleTime: 5 * 60 * 1000,
+  });
+
+

@@ -1,3 +1,6 @@
+
+
+
 import { NextResponse } from 'next/server';
 import {
   signAccessToken,
@@ -22,7 +25,9 @@ export async function POST(request: Request) {
     const accessToken = signAccessToken({ id: payload.id, role: payload.role });
     const refreshToken = signRefreshToken({ id: payload.id, role: payload.role });
 
-    const response = NextResponse.json({ success: true, data: { jwt: accessToken } });
+    // Cookie-only: no JWT in the body. The client just needs to know it worked.
+    const response = NextResponse.json({ success: true });
+
     // Re-issue BOTH cookies (rolling session) so the refresh token stays fresh.
     response.cookies.set('accessToken', accessToken, accessCookie);
     response.cookies.set('refreshToken', refreshToken, refreshCookie);

@@ -10,16 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 
 import { useUserStore } from "../store/userStore";
 
-interface AuthUser {
-  id: string;
-  email: string;
-  username: string;
-  role?: string;
-  exp?: number;
-  [key: string]: unknown;
-}
 
- 
 
 
 
@@ -35,23 +26,8 @@ interface AuthUser {
 
 
 const getCurrentUserId = (): number | null => {
-  const token = useUserStore.getState().token;
-  if (!token) return null;
-  try {
-    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    const payload = JSON.parse(
-      decodeURIComponent(
-        atob(base64).split('').map(c =>
-          '%' + c.charCodeAt(0).toString(16).padStart(2, '0')
-        ).join('')
-      )
-    );
-    return payload.id ?? null;
-  } catch {
-    return null;
-  }
-}
-
+  return useUserStore.getState().user?.id ?? null;
+};
 
 
 export { getCurrentUserId };
@@ -60,6 +36,13 @@ export { getCurrentUserId };
 
 
 
-
+export function GetCookiesFromRequest(request: Request): Record<string, string> {
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader) return {};
+  return Object.fromEntries(cookieHeader.split(';').map(cookie => {
+    const [name, ...rest] = cookie.trim().split('=');
+    return [name, rest.join('=')];
+  }));
+} 
 
 
