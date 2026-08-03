@@ -38,6 +38,19 @@ export interface BackendProductsResponse {
 }
 
 
+
+interface RawTaxonomyItem {
+  id: number;
+  name: string;
+  slug: string;
+  parent?: number;
+  count?: number;
+  image?: {
+    src?: string;
+    url?: string;
+  };
+}
+
 export interface WooImage {
   id: number;
   src: string;
@@ -137,51 +150,6 @@ const mapProduct = (p: BackendProduct): WooProduct => {
     updatedAt: '',
   };
 };
-
-/* ─────────────────────────────────────────────
-   useProducts — liste paginée (infinite)
-───────────────────────────────────────────── */
-
-// export const useProducts = (filters: ProductFilters = {}) =>
-//   useInfiniteQuery<ProductPage>({
-//     queryKey: ['products', filters.search ?? '', filters.brand ?? '', filters.category ?? ''],
-//     queryFn: async ({ pageParam }) => {
-//       const page = Number(pageParam ?? 1);
-//       const params = new URLSearchParams({
-//         page: String(page),
-//         limit: String(PER_PAGE),
-//       });
-
-//       if (filters.search?.trim()) params.append('search', filters.search.trim());
-//       if (filters.brand) params.append('brand', String(filters.brand));
-//       if (filters.category) params.append('category', String(filters.category));
-
-//       const { data } = await ShopRoute.get<BackendProductsResponse>(
-//         `/products?${params.toString()}`,
-//       );
-
-//       return {
-//         items: (data.data ?? []).map(mapProduct),
-//         total: data.meta?.total ?? 0,
-//         totalPages: data.meta?.total_pages ?? 1,
-//         page: data.meta?.page ?? page,
-//         limit: data.meta?.limit ?? PER_PAGE,
-//       };
-//     },
-//     getNextPageParam: (lastPage) => {
-//       if (typeof lastPage.totalPages === 'number') {
-//         return lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined;
-//       }
-//       return lastPage.items.length === PER_PAGE ? lastPage.page + 1 : undefined;
-//     },
-//     initialPageParam: 1,
-//     placeholderData: keepPreviousData,
-//     staleTime: 1000 * 60 * 5,
-//     gcTime: 1000 * 60 * 30,
-//   });
-
-
-
 
 
 
@@ -398,14 +366,21 @@ export interface TaxonomyItem {
 
 // Normalise une réponse qui peut être soit un tableau (wc/v3),
 // soit { data: [...] } (service/v1 agrégé)
-const asArray = (data: unknown): any[] => {
+// const asArray = (data: unknown): any[] => {
+const asArray = (data: unknown): unknown[] => {
   if (Array.isArray(data)) return data;
   const d = (data as { data?: unknown })?.data;
   return Array.isArray(d) ? d : [];
 };
 
-const mapTaxonomy = (t: any): TaxonomyItem => ({
-  id: t.id,
+
+
+
+
+
+
+const mapTaxonomy = (t: RawTaxonomyItem): TaxonomyItem => ({
+    id: t.id,
   name: t.name,
   slug: t.slug,
   parent: t.parent ?? 0,

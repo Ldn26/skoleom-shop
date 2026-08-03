@@ -132,7 +132,8 @@ export interface LinkProps
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
-  { to, replace, state, reloadDocument, prefetch, ...rest },
+  // { to, replace, state, reloadDocument, prefetch, ...rest },
+  { to, replace, state: _state, reloadDocument, prefetch, ...rest },
   ref,
 ) {
   const href = resolveTo(to);

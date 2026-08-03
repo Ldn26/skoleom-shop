@@ -1,14 +1,15 @@
 
 'use client';
-import { useState } from 'react';
+// import { useState } from 'react';
 import {
-  AreaChart, Area, PieChart, Pie, Cell,
-  ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, LineChart, Line,
+  // AreaChart, Area,  XAxis, YAxis,  CartesianGrid,
+  ResponsiveContainer,  LineChart, Line,Tooltip  , PieChart, Pie, Cell,
 } from 'recharts';
 import {
-  LayoutDashboard, Package, PlusCircle, ShoppingCart, BarChart3,
-  Settings, LogOut, TrendingUp, TrendingDown, Boxes, Wallet, Receipt,
-  Menu, X,
+  Package, PlusCircle,
+  // Settings, LogOut, Boxes  ,  LayoutDashboard, ShoppingCart, BarChart3,
+   TrendingUp, TrendingDown, Wallet, Receipt,
+  // Menu, X,
 } from 'lucide-react';
 import {useVendeurProducts   , useVendeurOrders } from '../../../../src/api/vendeur';
 
@@ -29,21 +30,21 @@ const C = {
 };
 
 /* Mock data */
-const REVENUE = [
-  { m: 'Jan', v: 3200 }, { m: 'Fév', v: 4100 }, { m: 'Mar', v: 3800 },
-  { m: 'Avr', v: 5200 }, { m: 'Mai', v: 4900 }, { m: 'Juin', v: 6400 },
-  { m: 'Juil', v: 7100 }, { m: 'Août', v: 6800 }, { m: 'Sep', v: 8200 },
-];
+// const REVENUE = [
+//   { m: 'Jan', v: 3200 }, { m: 'Fév', v: 4100 }, { m: 'Mar', v: 3800 },
+//   { m: 'Avr', v: 5200 }, { m: 'Mai', v: 4900 }, { m: 'Juin', v: 6400 },
+//   { m: 'Juil', v: 7100 }, { m: 'Août', v: 6800 }, { m: 'Sep', v: 8200 },
+// ];
 const STOCK = [
   { name: 'En stock', value: 39, color: C.lime },
   { name: 'Rupture', value: 9, color: C.amber },
 ];
-const TOP = [
-  { name: 'Veste bomber en cuir', sales: 42, revenue: 8399 },
-  { name: 'Jean slim stretch', sales: 38, revenue: 3039 },
-  { name: 'Hoodie laine mélangée', sales: 27, revenue: 1754 },
-  { name: 'T-shirt coton bio', sales: 629, revenue: 629 },
-];
+// const TOP = [
+//   { name: 'Veste bomber en cuir', sales: 42, revenue: 8399 },
+//   { name: 'Jean slim stretch', sales: 38, revenue: 3039 },
+//   { name: 'Hoodie laine mélangée', sales: 27, revenue: 1754 },
+//   { name: 'T-shirt coton bio', sales: 629, revenue: 629 },
+// ];
 const SPARK = (seed: number) =>
   Array.from({ length: 8 }, (_, i) => ({ i, v: 20 + ((Math.sin(seed + i) + 1) * 30) + i * 4 }));
 
@@ -51,7 +52,7 @@ const eur = (n: number) => `${n.toLocaleString('fr-FR')  } €`;
 
 export default function VendeurDashboard({
   vendorName = 'Youcef Merabet',
-  vendorEmail = 'v2@gmail.com',
+  // vendorEmail = 'v2@gmail.com',
 }: {
   vendorName?: string;
   vendorEmail?: string;
@@ -71,7 +72,6 @@ const ordersCount = orders?.length || 0;
 
 // const inStokcCount = products?.filter((p: any) => p.stock_quantity > 0).length || 0;
 
-  console.log('orders' , orders);
 
   const inStockPct = Math.round((STOCK[0].value / (STOCK[0].value + STOCK[1].value)) * 100);
 

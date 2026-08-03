@@ -123,9 +123,9 @@ export function getAuth(request: Request): TokenPayload | null {
   try {
     const decoded = jwt.verify(token, env.JWT_SECRET) as TokenPayload;
     return { id: decoded.id, role: decoded.role, wpUserId: decoded.wpUserId ?? null };
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Unknown verification error';
-    console.log('Cookie verification failed:', message);
+  } catch  {
+    // const message = err instanceof Error ? err.message : 'Unknown verification error';
+    // console.log('Cookie verification failed:', message);
     return null;
   }
 }
