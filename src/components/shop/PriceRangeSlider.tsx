@@ -35,7 +35,9 @@ export default function PriceRangeSlider({
 
       <div className="mb-4 flex items-center gap-2">
         <div className="flex-1">
-          <label className="mb-1 block text-[10px] uppercase tracking-widest text-zinc-500">Min</label>
+          <label className="mb-1 block text-[10px] uppercase tracking-widest text-zinc-500">
+            Min
+          </label>
           <div className="flex items-center rounded-lg border border-white/10 bg-white/[0.03] px-2.5 focus-within:border-lime-400/50">
             <input
               type="number"
@@ -50,7 +52,9 @@ export default function PriceRangeSlider({
         </div>
         <span className="mt-5 text-zinc-600">—</span>
         <div className="flex-1">
-          <label className="mb-1 block text-[10px] uppercase tracking-widest text-zinc-500">Max</label>
+          <label className="mb-1 block text-[10px] uppercase tracking-widest text-zinc-500">
+            Max
+          </label>
           <div className="flex items-center rounded-lg border border-white/10 bg-white/[0.03] px-2.5 focus-within:border-lime-400/50">
             <input
               type="number"

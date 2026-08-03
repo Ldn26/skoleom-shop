@@ -41,7 +41,10 @@ export default function VendeurOrdersPage() {
               </thead>
               <tbody>
                 {orders.map((o) => (
-                  <tr key={o.id} className="border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
+                  <tr
+                    key={o.id}
+                    className="border-b border-white/5 last:border-0 hover:bg-white/[0.02]"
+                  >
                     <td className="px-5 py-3 font-medium text-white">#{o.number || o.id}</td>
                     <td className="px-5 py-3 text-white/70">
                       {[o.billing?.first_name, o.billing?.last_name].filter(Boolean).join(' ') ||

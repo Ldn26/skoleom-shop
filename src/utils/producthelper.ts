@@ -14,7 +14,6 @@
 //   return anyP.photos?.[0] ?? anyP.images?.[0]?.src ?? '';
 // };
 
-
 // export const getProductCategories = (p: WooProduct): string[] => {
 //   const anyP = p as any;
 //   const out: string[] = [];
@@ -34,14 +33,7 @@
 //   return out;
 // };
 
-
-
-
-
-
-
 // export const productPath = (p: WooProduct): string => `/produit/${p.id}`;
-
 
 import type { WooProduct } from '../api/product';
 

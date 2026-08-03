@@ -1,7 +1,3 @@
-
-
-
-
 // import axios from 'axios';
 // import { v2 as cloudinary } from 'cloudinary';
 
@@ -236,12 +232,6 @@
 //   }
 // }
 
-
-
-
-
-
-
 import axios from 'axios';
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -289,7 +279,9 @@ export async function fetchImageAsBase64(url: string): Promise<ImageData> {
   };
 }
 
-export async function uploadToCloudinary(dataUrl: string): Promise<{ url: string; publicId: string }> {
+export async function uploadToCloudinary(
+  dataUrl: string,
+): Promise<{ url: string; publicId: string }> {
   const res = await cloudinary.uploader.upload(dataUrl, {
     folder: CLOUDINARY_FOLDER,
     resource_type: 'image',
@@ -319,38 +311,45 @@ export async function destroyCloudinary(publicId?: string | null): Promise<void>
 }
 
 function placementFor(product: ProductLike): { zone: string; rules: string } {
-  const hay = `${product?.type ?? ''} ${product?.name ?? ''} ${product?.category ?? ''}`.toLowerCase();
+  const hay =
+    `${product?.type ?? ''} ${product?.name ?? ''} ${product?.category ?? ''}`.toLowerCase();
   const has = (...k: string[]) => k.some((w) => hay.includes(w));
 
   if (has('lunette', 'glasses', 'sunglass', 'eyewear', 'optical'))
     return {
       zone: 'over the eyes, resting on the nose bridge and ears',
-      rules: 'Match temple width to the head; keep both lenses symmetric; do not resize or alter the face.',
+      rules:
+        'Match temple width to the head; keep both lenses symmetric; do not resize or alter the face.',
     };
   if (has('cap', 'casquette', 'hat', 'chapeau', 'beanie', 'bonnet'))
     return {
       zone: 'on top of the head',
-      rules: 'Sit it naturally on the hair/head with correct depth and brim direction; keep the face fully visible.',
+      rules:
+        'Sit it naturally on the hair/head with correct depth and brim direction; keep the face fully visible.',
     };
   if (has('watch', 'montre', 'bracelet', 'bangle'))
     return {
       zone: 'on the wrist',
-      rules: 'Wrap it around the wrist with correct scale and perspective; keep the hand and fingers intact.',
+      rules:
+        'Wrap it around the wrist with correct scale and perspective; keep the hand and fingers intact.',
     };
   if (has('collier', 'necklace', 'chain', 'pendant'))
     return {
       zone: 'around the neck',
-      rules: 'Rest it on the collarbone/chest following the neckline; keep clasp and length realistic.',
+      rules:
+        'Rest it on the collarbone/chest following the neckline; keep clasp and length realistic.',
     };
   if (has('boucle', 'earring'))
     return {
       zone: 'on the earlobes',
-      rules: 'Place a symmetric matching piece on each visible ear; keep the ears and face unchanged.',
+      rules:
+        'Place a symmetric matching piece on each visible ear; keep the ears and face unchanged.',
     };
   if (has('sac', 'bag', 'handbag', 'backpack'))
     return {
       zone: 'carried on the shoulder or held in the hand',
-      rules: 'Add the strap/handle with correct contact and shadow; do not distort the arm or hand.',
+      rules:
+        'Add the strap/handle with correct contact and shadow; do not distort the arm or hand.',
     };
   if (has('chaussure', 'shoe', 'sneaker', 'basket', 'boot', 'botte', 'sandal'))
     return {
@@ -370,7 +369,8 @@ function placementFor(product: ProductLike): { zone: string; rules: string } {
 
   return {
     zone: 'on the upper body (torso and arms)',
-    rules: 'Fit over the torso with realistic drape, folds and soft contact shadows; respect occlusion over the body.',
+    rules:
+      'Fit over the torso with realistic drape, folds and soft contact shadows; respect occlusion over the body.',
   };
 }
 
@@ -486,9 +486,17 @@ Renvoie EXACTEMENT :
       { params: { key: apiKey }, headers: { 'Content-Type': 'application/json' }, timeout: 30000 },
     );
     const raw = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
-    return JSON.parse(String(raw).replace(/```json|```/g, '').trim());
+    return JSON.parse(
+      String(raw)
+        .replace(/```json|```/g, '')
+        .trim(),
+    );
   } catch (err) {
     console.warn('[tryon fit]', (err as Error).message);
-    return { fitScore: 75, recommendedSize: product.recommendedSize ?? 'M', comment: 'Estimation indisponible.' };
+    return {
+      fitScore: 75,
+      recommendedSize: product.recommendedSize ?? 'M',
+      comment: 'Estimation indisponible.',
+    };
   }
 }

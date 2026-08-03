@@ -14,7 +14,6 @@
 //   return run(() => wooService.createProductFull(bodyWithMeta));
 // }
 
-
 import { getAuth } from '@/server/auth';
 import { injectUserMeta, run, wooService } from '@/server/wooRoute';
 

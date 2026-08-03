@@ -36,7 +36,8 @@ export default function CataloguePage() {
     // groups = direct children of Skoleom Shop (1929)
     let roots = byParent.get(ROOT_CATEGORY_ID) ?? [];
     // fallback: if nothing is nested under 1929, use top-level categories
-    if (roots.length === 0) roots = (byParent.get(0) ?? []).filter((c) => c.id !== ROOT_CATEGORY_ID);
+    if (roots.length === 0)
+      roots = (byParent.get(0) ?? []).filter((c) => c.id !== ROOT_CATEGORY_ID);
 
     return roots
       .map((parent) => ({ parent, children: byParent.get(parent.id) ?? [] }))
@@ -52,11 +53,13 @@ export default function CataloguePage() {
     <div className="min-h-screen bg-[#0A0A0B] px-4 pb-24 pt-28 text-white sm:px-6">
       <div className="mx-auto  max-w-[1600px] ">
         <header className="mb-10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">Catalogue</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">
+            Catalogue
+          </p>
           <h1 className="display-text mt-2 text-4xl sm:text-5xl">EXPLOREZ NOS CATEGORIES</h1>
           <p className="mt-2 text-sm text-white/50">Parcourez les catégories de Skoleom Shop.</p>
         </header>
-        <CategoryBar  />
+        <CategoryBar />
 
         {/* <div className="mb-12">
           <Reels />
@@ -65,7 +68,10 @@ export default function CataloguePage() {
         {isLoading ? (
           <div className="grid gap-5 md:grid-cols-3">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-80 animate-pulse rounded-3xl border border-white/10 bg-white/[.03]" />
+              <div
+                key={i}
+                className="h-80 animate-pulse rounded-3xl border border-white/10 bg-white/[.03]"
+              />
             ))}
           </div>
         ) : groups.length === 0 ? (
@@ -82,7 +88,15 @@ export default function CataloguePage() {
   );
 }
 
-function GroupCard({ group, seed, onGo }: { group: Group; seed: number; onGo: (slug: string) => void }) {
+function GroupCard({
+  group,
+  seed,
+  onGo,
+}: {
+  group: Group;
+  seed: number;
+  onGo: (slug: string) => void;
+}) {
   const { parent, children } = group;
 
   if (children.length === 0) {
@@ -111,10 +125,15 @@ function GroupCard({ group, seed, onGo }: { group: Group; seed: number; onGo: (s
 
   return (
     <div className="flex flex-col rounded-3xl border border-white/10 bg-[#0C0C0D] p-5 sm:p-6">
-      <button onClick={() => onGo(parent.slug)} className="group mb-4 flex items-center justify-between text-left">
+      <button
+        onClick={() => onGo(parent.slug)}
+        className="group mb-4 flex items-center justify-between text-left"
+      >
         <div>
           <h3 className="text-xl font-bold capitalize text-white">{parent.name}</h3>
-          <p className="text-xs text-white/40">{parent.count} article{parent.count > 1 ? 's' : ''}</p>
+          <p className="text-xs text-white/40">
+            {parent.count} article{parent.count > 1 ? 's' : ''}
+          </p>
         </div>
         <span className="grid h-8 w-8 place-items-center rounded-full border border-white/10 text-white/50 transition group-hover:border-[#a8ff35]/50 group-hover:text-[#a8ff35]">
           <ChevronRight className="h-4 w-4" />
@@ -150,4 +169,3 @@ function GroupCard({ group, seed, onGo }: { group: Group; seed: number; onGo: (s
     </div>
   );
 }
-

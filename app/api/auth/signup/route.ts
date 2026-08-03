@@ -1,6 +1,3 @@
-
-
-
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 
@@ -64,7 +61,7 @@ export async function POST(request: Request) {
           password,
           // role: 'seller',
         });
-        
+
         if (!wpUser?.id) {
           throw new Error('WordPress did not return a user id');
         }

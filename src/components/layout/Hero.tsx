@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -25,7 +24,9 @@ export default function Hero() {
         alt=""
         aria-hidden
         className="absolute inset-0 h-full  hidden  md:block   w-full object-cover object-[70%_center] sm:object-right"
-        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+        }}
       />
 
       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent" />
@@ -33,14 +34,15 @@ export default function Hero() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="flex max-w-xl flex-col justify-center py-24 text-left lg:max-w-2xl">
-
           <div data-reveal style={{ animationDelay: '0.02s' }} className="mb-6 flex">
             <div className="inline-flex items-center rounded-full border border-white/10 bg-zinc-950/70 p-1.5 shadow-2xl backdrop-blur-xl">
               <button
                 type="button"
                 onClick={() => setActiveRole('acheteur')}
                 className={`group flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-300 sm:px-5 sm:py-2.5 sm:text-sm ${
-                  isBuyer ? 'bg-[#a8ff35] text-zinc-950 shadow-[0_4px_20px_rgba(168,255,53,0.4)]' : 'text-zinc-400 hover:text-white'
+                  isBuyer
+                    ? 'bg-[#a8ff35] text-zinc-950 shadow-[0_4px_20px_rgba(168,255,53,0.4)]'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 <ShoppingBag className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
@@ -50,7 +52,9 @@ export default function Hero() {
                 type="button"
                 onClick={() => setActiveRole('vendeur')}
                 className={`group flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-300 sm:px-5 sm:py-2.5 sm:text-sm ${
-                  !isBuyer ? 'bg-[#a8ff35] text-zinc-950 shadow-[0_4px_20px_rgba(168,255,53,0.4)]' : 'text-zinc-400 hover:text-white'
+                  !isBuyer
+                    ? 'bg-[#a8ff35] text-zinc-950 shadow-[0_4px_20px_rgba(168,255,53,0.4)]'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 <Store className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
@@ -74,9 +78,13 @@ export default function Hero() {
             className="text-4xl font-black uppercase leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl"
           >
             {isBuyer ? (
-              <>Essayez <span className="text-[#a8ff35]">tout</span> avant d'acheter.</>
+              <>
+                Essayez <span className="text-[#a8ff35]">tout</span> avant d'acheter.
+              </>
             ) : (
-              <><span className="text-[#a8ff35]">Boostez</span> vos conversions.</>
+              <>
+                <span className="text-[#a8ff35]">Boostez</span> vos conversions.
+              </>
             )}
           </h1>
 
@@ -134,7 +142,6 @@ export default function Hero() {
               </>
             )}
           </div>
-
         </div>
       </div>
     </section>

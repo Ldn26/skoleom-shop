@@ -58,7 +58,6 @@ export function useVendeurOrders(params: Record<string, string | number> = {}) {
   });
 }
 
-
 export function useCreateProduct() {
   const queryClient = useQueryClient();
   return useMutation({

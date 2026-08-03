@@ -1,14 +1,14 @@
 export interface AdSlide {
   id: number;
-  image: string;                 // banner image (public path like '/ads/x.webp' or full URL)
-  eyebrow?: string;              // small lime label
-  title: string;                 // big headline
-  subtitle?: string;             // one line under the title
-  badge?: string;                // optional pill, e.g. '-50%'
-  cta: string;                   // button label
-  href: string;                  // route to navigate to
-  align?: 'left' | 'center';     // content alignment (default 'left')
-  tint?: string;                 // overlay tailwind gradient (for legibility / mood)
+  image: string; // banner image (public path like '/ads/x.webp' or full URL)
+  eyebrow?: string; // small lime label
+  title: string; // big headline
+  subtitle?: string; // one line under the title
+  badge?: string; // optional pill, e.g. '-50%'
+  cta: string; // button label
+  href: string; // route to navigate to
+  align?: 'left' | 'center'; // content alignment (default 'left')
+  tint?: string; // overlay tailwind gradient (for legibility / mood)
 }
 
 // ── EDIT ME ──────────────────────────────────────────────────────────────────

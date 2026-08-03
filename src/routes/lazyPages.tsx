@@ -8,9 +8,6 @@ function lazyNamed<T extends Record<string, ComponentType<object>>, K extends ke
   return lazy(() => factory().then((module) => ({ default: module[exportName] })));
 }
 
-
-
-
 export const SkyAssistant = lazy(() => import('../views/SkyAssistant'));
 
 export const AdminConsole = lazy(() => import('../views/vendeur/AdminConsole'));

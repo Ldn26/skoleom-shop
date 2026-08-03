@@ -42,14 +42,7 @@ interface MegaMenuVariant {
 }
 
 export type MegaMenuVariantKey =
-  | 'stores'
-  | 'everyone'
-  | 'pros'
-  | 'news'
-  | 'events'
-  | 'group'
-  | 'search'
-  | 'essayage';
+  'stores' | 'everyone' | 'pros' | 'news' | 'events' | 'group' | 'search' | 'essayage';
 
 /** Contenu textuel de chaque variante du méga-menu (partagé desktop + mobile). */
 export const MEGA_MENU_VARIANTS: Readonly<Record<MegaMenuVariantKey, MegaMenuVariant>> = {

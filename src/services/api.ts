@@ -17,7 +17,6 @@
 //   User,
 // } from '../types';
 
-
 // export function usesHttpBackend(): boolean {
 //   const url = process.env.NEXT_PUBLIC_API_URL;
 //   return typeof url === 'string' && url.trim().length > 0;
@@ -163,8 +162,6 @@
 
 //   return Promise.resolve({ ...(content as object), capsules });
 // }
-
-
 
 // /** API d'authentification : register / login / me / logout. */
 // export const authAPI = {

@@ -1,15 +1,7 @@
 /** Logos navigateurs / plateformes (SVG officiels dans public/icons/browsers). */
 
 export type BrowserBrandIconId =
-  | 'chrome'
-  | 'firefox'
-  | 'edge'
-  | 'brave'
-  | 'opera'
-  | 'safari'
-  | 'ios'
-  | 'android'
-  | 'token';
+  'chrome' | 'firefox' | 'edge' | 'brave' | 'opera' | 'safari' | 'ios' | 'android' | 'token';
 
 const BRAND_SRC: Record<Exclude<BrowserBrandIconId, 'token'>, string> = {
   chrome: '/icons/browsers/chrome.svg',

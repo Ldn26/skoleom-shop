@@ -27,8 +27,11 @@ const LIME = 'rgb(163 230 53)';
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('fr-FR', {
-    day: '2-digit', month: 'short', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   });
 }
 
@@ -68,21 +71,15 @@ export default function EssayageHistory({
   return (
     <div className="mt-16">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-[22px] font-bold tracking-[-0.02em]">
-          Historique d'essayage
-        </h2>
+        <h2 className="text-[22px] font-bold tracking-[-0.02em]">Historique d'essayage</h2>
         {items.length > 0 && (
           <span className="text-xs text-[#8a93a8]">{items.length} essayage(s)</span>
         )}
       </div>
 
       {/* États */}
-      {isLoading && (
-        <p className="text-[13px] text-[#8a93a8]">Chargement de l'historique…</p>
-      )}
-      {isError && (
-        <p className="text-[13px] text-red-400">Impossible de charger l'historique.</p>
-      )}
+      {isLoading && <p className="text-[13px] text-[#8a93a8]">Chargement de l'historique…</p>}
+      {isError && <p className="text-[13px] text-red-400">Impossible de charger l'historique.</p>}
       {!isLoading && !isError && items.length === 0 && (
         <p className="text-[13px] text-[#8a93a8]">
           Aucun essayage pour l'instant. Essayez un vêtement pour le voir ici.
@@ -225,9 +222,7 @@ export default function EssayageHistory({
                 )}
 
                 {selected.comment && (
-                  <p className="text-[13px] text-white/80 leading-relaxed">
-                    “{selected.comment}”
-                  </p>
+                  <p className="text-[13px] text-white/80 leading-relaxed">“{selected.comment}”</p>
                 )}
 
                 {/* Comparaison vêtement / jumeau */}
@@ -257,14 +252,14 @@ export default function EssayageHistory({
                 <p className="text-[10px] text-[#8a93a8]">
                   Essayé le {formatDate(selected.createdAt)}
                 </p>
-    
-            <button
-                    onClick={() => navigate(`/produit/${selected.product_id}`)}
-                    disabled={deletingId === selected.id_tryon}
-                    className="w-full py-2.5 rounded-full text-sm font-semibold bg-lime-500/10 text-lime-400 border border-lime-500/30 hover:bg-lime-500/20 transition-colors disabled:opacity-50"
-                  >
-                    Voir le produit 
-                  </button>
+
+                <button
+                  onClick={() => navigate(`/produit/${selected.product_id}`)}
+                  disabled={deletingId === selected.id_tryon}
+                  className="w-full py-2.5 rounded-full text-sm font-semibold bg-lime-500/10 text-lime-400 border border-lime-500/30 hover:bg-lime-500/20 transition-colors disabled:opacity-50"
+                >
+                  Voir le produit
+                </button>
                 {onDelete && (
                   <button
                     onClick={() => handleDelete(selected.id_tryon)}
@@ -274,7 +269,6 @@ export default function EssayageHistory({
                     {deletingId === selected.id_tryon ? 'Suppression…' : 'Supprimer cet essayage'}
                   </button>
                 )}
-
               </div>
             </div>
           </div>

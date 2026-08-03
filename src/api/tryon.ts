@@ -1,5 +1,3 @@
-
-
 // import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 // import { AxiosError } from 'axios';
 // import { BackRoute } from './MyAxios';
@@ -24,14 +22,6 @@
 //   type:            string;
 //   fabric?:         string;
 // }
-
-
-
-
-
-
-
-
 
 // export interface TryOnInput {
 //   avatarId?:    string;
@@ -89,7 +79,6 @@
 //   });
 // }
 
-
 //  export function useTryonHistory( avatarId: string ) {
 //   return useQuery({
 //     queryKey: ['tryon-history'  , avatarId],
@@ -115,7 +104,6 @@
 //     },
 //   });
 // }
-
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
@@ -266,7 +254,9 @@ export function useDeleteTryon() {
     },
     onMutate: async (tryonId) => {
       await queryClient.cancelQueries({ queryKey: [HISTORY_KEY] });
-      const snapshots = queryClient.getQueriesData<TryOnHistoryResponse>({ queryKey: [HISTORY_KEY] });
+      const snapshots = queryClient.getQueriesData<TryOnHistoryResponse>({
+        queryKey: [HISTORY_KEY],
+      });
       snapshots.forEach(([key, value]) => {
         if (!value) return;
         queryClient.setQueryData<TryOnHistoryResponse>(key, {
@@ -277,7 +267,8 @@ export function useDeleteTryon() {
       return { snapshots };
     },
     onError: (_err, _id, ctx) => {
-      const c = ctx as { snapshots?: [readonly unknown[], TryOnHistoryResponse | undefined][] } | undefined;
+      const c = ctx as
+        { snapshots?: [readonly unknown[], TryOnHistoryResponse | undefined][] } | undefined;
       c?.snapshots?.forEach(([key, value]) => queryClient.setQueryData(key, value));
     },
     onSettled: () => {
@@ -291,7 +282,11 @@ export function useSize(productId: number | undefined, measurements: Measurement
     queryKey: ['ai-size', productId, measurements],
     enabled: !!productId,
     queryFn: async () => {
-      const res = await BackRoute.post<{ recommendedSize: string; fitScore: number; confidence: string }>('ai/size', {
+      const res = await BackRoute.post<{
+        recommendedSize: string;
+        fitScore: number;
+        confidence: string;
+      }>('ai/size', {
         productId,
         measurements,
       });

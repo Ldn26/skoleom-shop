@@ -14,10 +14,10 @@ import '../src/components/layout/footer.scss';
 
 import Providers from '../src/app-shell/Providers';
 import GlobalChrome from '../src/app-shell/GlobalChrome';
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { Geist } from 'next/font/google';
+import { cn } from '@/lib/utils';
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: 'SKOLEOM SHOP',
@@ -64,7 +64,7 @@ gtag('set', 'url_passthrough', false);
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang="en" className={cn('font-sans', geist.variable)}>
       <head>
         <link rel="preload" as="image" href="/maquette/banniere.webp" fetchPriority="high" />
         <link rel="stylesheet" href="https://ext.skoleom.com/content.css" />

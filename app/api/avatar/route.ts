@@ -95,9 +95,6 @@
 //   }
 // }
 
-
-
-
 import { NextResponse } from 'next/server';
 import crypto from 'node:crypto';
 import { Avatar } from '@/server/db';
@@ -137,8 +134,9 @@ interface PhotoAnalysis {
 
 export async function POST(request: Request) {
   try {
-    const { userId, photoBase64, measurements } =
-      (await request.json().catch(() => ({}))) as RequestBody;
+    const { userId, photoBase64, measurements } = (await request
+      .json()
+      .catch(() => ({}))) as RequestBody;
 
     if (!userId) return NextResponse.json({ error: 'userId est requis' }, { status: 400 });
 
@@ -151,14 +149,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'photoBase64 est requis' }, { status: 400 });
 
     const parsed = parseDataUrl(photoBase64);
-    if (!parsed) return NextResponse.json({ error: 'Format invalide : data URL attendue' }, { status: 400 });
+    if (!parsed)
+      return NextResponse.json({ error: 'Format invalide : data URL attendue' }, { status: 400 });
 
     if (!measurements || measurements.chest === null || measurements.chest === undefined)
       return NextResponse.json({ error: 'measurements.chest est requis' }, { status: 400 });
 
     let analysis: PhotoAnalysis = { usableForTryOn: null };
     try {
-analysis = (await analyzePhoto(parsed)) as PhotoAnalysis;
+      analysis = (await analyzePhoto(parsed)) as PhotoAnalysis;
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : String(e);
       console.warn('[analyzePhoto] ignoré:', message);
@@ -171,13 +170,17 @@ analysis = (await analyzePhoto(parsed)) as PhotoAnalysis;
       await destroyFromCloudinary(existing.avatar_public_id);
     }
 
-    const original = await uploadToCloudinary(photoBase64, { tag: `user_${numericUserId}_original` });
+    const original = await uploadToCloudinary(photoBase64, {
+      tag: `user_${numericUserId}_original`,
+    });
 
     let avatarUrl = original.url;
     let avatarPublicId: string | null = null;
     const twin = await generateTwinImage(parsed, measurements);
     if (twin) {
-      const uploaded = await uploadToCloudinary(toDataUrl(twin), { tag: `user_${numericUserId}_twin` });
+      const uploaded = await uploadToCloudinary(toDataUrl(twin), {
+        tag: `user_${numericUserId}_twin`,
+      });
       avatarUrl = uploaded.url;
       avatarPublicId = uploaded.publicId;
     }

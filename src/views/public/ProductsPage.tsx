@@ -1,6 +1,3 @@
-
-
-
 import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
@@ -39,9 +36,6 @@ export default function ProductsPage() {
   const patch = useFilterStore((s) => s.patch);
   const reset = useFilterStore((s) => s.reset);
 
-
-
-
   useEffect(() => {
     const category = sp.get('category');
     const q = sp.get('q');
@@ -59,8 +53,6 @@ export default function ProductsPage() {
   const all = flattenProducts(query.data);
   const { data: serverCategories = [] } = useCategories();
   const { data: serverBrands = [] } = useBrands();
-  
-
 
   const derived = useMemo(() => deriveFacets(all), [all]);
   const facets = useMemo(() => {
@@ -146,14 +138,13 @@ export default function ProductsPage() {
     observer.observe(el);
     return () => observer.disconnect();
   }, [onIntersect]);
-  
+
   return (
     <div className="min-h-screen mt-14 bg-black text-white">
       <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: 'Accueil', to: '/' }, { label: pageLabel }]} />
 
         {/* Hero banner */}
-
 
         {/* Category slider (rooted at Skoleom Shop, drills into the active category) */}
         <div className="mb-6">
@@ -177,7 +168,8 @@ export default function ProductsPage() {
                   Filtres
                 </button>
                 <p className="text-sm text-white/50">
-                  <span className="font-bold text-white">{list.length}</span> résultat{list.length > 1 ? 's' : ''}
+                  <span className="font-bold text-white">{list.length}</span> résultat
+                  {list.length > 1 ? 's' : ''}
                 </p>
               </div>
               <SortSelect value={sort} onChange={setSort} />
@@ -196,9 +188,7 @@ export default function ProductsPage() {
               <ProductGrid loading skeletonCount={8} products={[]} />
             ) : list.length ? (
               <>
-                <ProductGrid 
-                 loading={isFetchingNextPage}
-                products={list} />
+                <ProductGrid loading={isFetchingNextPage} products={list} />
 
                 <div ref={sentinelRef} className="h-1 w-full" />
 
@@ -209,7 +199,9 @@ export default function ProductsPage() {
                 )}
 
                 {!hasNextPage && (
-                  <p className="mt-8 text-center text-sm text-zinc-600">Vous avez vu tout le catalogue</p>
+                  <p className="mt-8 text-center text-sm text-zinc-600">
+                    Vous avez vu tout le catalogue
+                  </p>
                 )}
               </>
             ) : (

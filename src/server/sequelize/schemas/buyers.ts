@@ -32,7 +32,6 @@
 
 // module.exports = Buyer;
 
-
 import {
   DataTypes,
   Model,
@@ -40,12 +39,14 @@ import {
   InferCreationAttributes,
   CreationOptional,
   ForeignKey,
-} from "sequelize";
-import sequelize from "../config";
-import User from "./user";
+} from 'sequelize';
+import sequelize from '../config';
+import User from './user';
 
-export interface BuyerModel
-  extends Model<InferAttributes<BuyerModel>, InferCreationAttributes<BuyerModel>> {
+export interface BuyerModel extends Model<
+  InferAttributes<BuyerModel>,
+  InferCreationAttributes<BuyerModel>
+> {
   id: CreationOptional<number>;
   userId: ForeignKey<number>;
   createdAt?: CreationOptional<Date>;
@@ -53,7 +54,7 @@ export interface BuyerModel
 }
 
 export const Buyer = sequelize.define<BuyerModel>(
-  "Buyer",
+  'Buyer',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -67,17 +68,17 @@ export const Buyer = sequelize.define<BuyerModel>(
       unique: true,
       references: {
         model: User,
-        key: "id",
+        key: 'id',
       },
     },
   },
   {
-    tableName: "buyers",
+    tableName: 'buyers',
     timestamps: true,
-  }
+  },
 );
 
-User.hasOne(Buyer, { foreignKey: "userId", as: "buyer" });
-Buyer.belongsTo(User, { foreignKey: "userId", as: "user" });
+User.hasOne(Buyer, { foreignKey: 'userId', as: 'buyer' });
+Buyer.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
 export default Buyer;

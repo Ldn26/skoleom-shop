@@ -1,4 +1,3 @@
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { BackRoute } from './MyAxios';
 import { useUserStore } from '../store/userStore';
@@ -68,9 +67,6 @@ export const useSignOut = () => {
   });
 };
 
-
-
-
 export const useAccount = () => {
   const queryClient = useQueryClient();
 
@@ -89,12 +85,7 @@ export const useAccount = () => {
       queryClient.clear();
     },
   });
-};  
-
-
-
-
-
+};
 
 export interface Me {
   id: number;
@@ -111,8 +102,6 @@ export const useMe = () =>
       const { data } = await BackRoute.get('/auth/account'); // GET, cookie envoyé (withCredentials déjà activé)
       return data?.data ?? null;
     },
-    retry: false,          // si 401 → pas de retry inutile
+    retry: false, // si 401 → pas de retry inutile
     staleTime: 5 * 60 * 1000,
   });
-
-

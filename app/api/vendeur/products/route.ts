@@ -1,5 +1,3 @@
-
-
 // import { NextResponse } from 'next/server';
 // import { getAuth } from '@/server/auth';
 // import wooModule from '@/server/services/wooService';
@@ -41,10 +39,6 @@
 //     return NextResponse.json({ error: err.message }, { status: err.response?.status || 500 });
 //   }
 // }
-
-
-
-
 
 // export async function POST(request: Request) {
 //   const auth = getAuth(request);
@@ -113,7 +107,9 @@ export async function GET(request: Request) {
     );
 
     const start = (page - 1) * perPage;
-    const data = owned.slice(start, start + perPage).map(({ meta_data: _meta_data, ...rest }) => rest);
+    const data = owned
+      .slice(start, start + perPage)
+      .map(({ meta_data: _meta_data, ...rest }) => rest);
 
     return NextResponse.json({
       data,
@@ -126,10 +122,7 @@ export async function GET(request: Request) {
     });
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
-      return NextResponse.json(
-        { error: err.message },
-        { status: err.response?.status || 500 },
-      );
+      return NextResponse.json({ error: err.message }, { status: err.response?.status || 500 });
     }
     const message = err instanceof Error ? err.message : 'An unknown error occurred';
     return NextResponse.json({ error: message }, { status: 500 });

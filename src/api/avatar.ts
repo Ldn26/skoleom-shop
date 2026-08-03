@@ -1,5 +1,3 @@
-
-
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { BackRoute } from './MyAxios';
@@ -10,19 +8,19 @@ function extractError(err: unknown): string {
 export interface Measurements {
   height: number;
   weight: number;
-  chest:  number;
-  waist:  number;
+  chest: number;
+  waist: number;
 }
 
 export interface Product {
-  id:              number;
-  name:            string;
-  brand:           string;
-  price:           number;
+  id: number;
+  name: string;
+  brand: string;
+  price: number;
   recommendedSize: string;
-  image:           string;
-  type:            string;
-  fabric?:         string;
+  image: string;
+  type: string;
+  fabric?: string;
 }
 export interface UserAvatarResponse {
   data: {
@@ -35,22 +33,21 @@ export interface UserAvatarResponse {
   };
 }
 
-
 export interface CreateAvatarInput {
-  photoBase64:  string;
-  userId:       number;
+  photoBase64: string;
+  userId: number;
   measurements: Measurements;
 }
 
 export interface CreateAvatarResponse {
   data: {
-    avatarId:    string;
-    avatarUrl?:  string;    // URL Cloudinary du jumeau généré
+    avatarId: string;
+    avatarUrl?: string; // URL Cloudinary du jumeau généré
     bodyMap?: {
       shoulder: { y: number };
-      chest:    { y: number; width: number };
-      waist:    { y: number; width: number };
-      hip:      { y: number; width: number };
+      chest: { y: number; width: number };
+      waist: { y: number; width: number };
+      hip: { y: number; width: number };
     };
     scanPoints?: { x: number; y: number; label: string }[];
   };
@@ -83,9 +80,6 @@ export function useSize(productId: number | undefined, measurements: Measurement
     staleTime: 60_000,
   });
 }
-
-
-
 
 export function useGetUserAvatar(userId: number | null) {
   return useQuery<UserAvatarResponse | null>({

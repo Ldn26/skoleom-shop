@@ -1,6 +1,5 @@
-
 import { useInfiniteQuery, useQuery, keepPreviousData } from '@tanstack/react-query';
-import { ShopRoute } from './MyAxios'; 
+import { ShopRoute } from './MyAxios';
 export interface WooTaxonomyRef {
   id: number;
   name: string;
@@ -37,8 +36,6 @@ export interface BackendProductsResponse {
   data: BackendProduct[];
 }
 
-
-
 interface RawTaxonomyItem {
   id: number;
   name: string;
@@ -68,9 +65,9 @@ export interface WooProduct {
   onSale: boolean;
   inStock: boolean;
   sku: string;
-  short_description ?: string;
-   brands?: WooTaxonomyRef[];
-   external_url?: string;
+  short_description?: string;
+  brands?: WooTaxonomyRef[];
+  external_url?: string;
   photos: string[];
   images: WooImage[];
   brand?: string;
@@ -151,9 +148,6 @@ const mapProduct = (p: BackendProduct): WooProduct => {
   };
 };
 
-
-
-
 export const useProductVariations = (id: string) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['product-variations', id],
@@ -165,8 +159,6 @@ export const useProductVariations = (id: string) => {
   });
   return { data, isLoading, isError, error };
 };
-
-
 
 export const useProductSearch = (query: string) => {
   const { data, isLoading, isError, error } = useQuery<ProductPage>({
@@ -194,41 +186,32 @@ export const useProductSearch = (query: string) => {
   return { data: data?.items ?? [], isLoading, isError, error };
 };
 
-
-
-
- 
 export const useProducts = (filters: ProductFilters = {}) =>
   useInfiniteQuery<ProductPage>({
-    queryKey: [
-      'products',
-      filters.search ?? '',
-      filters.brand ?? '',
-      filters.category ?? '',
-    ],
+    queryKey: ['products', filters.search ?? '', filters.brand ?? '', filters.category ?? ''],
     queryFn: async ({ pageParam }) => {
       const page = Number(pageParam ?? 1);
       const params = new URLSearchParams({
         page: String(page),
         limit: String(PER_PAGE),
       });
- 
+
       if (filters.search?.trim()) params.append('search', filters.search.trim());
- 
+
       // brand : le controller le gère spécialement (slug ou id)
       if (filters.brand && filters.brand !== 'all') {
         params.append('brand', String(filters.brand));
       }
- 
+
       // category : le backend attend `categories` (pluriel, voir getProductsByCategory)
       if (filters.category && filters.category !== 'all') {
         params.append('categories', String(filters.category));
       }
- 
+
       const { data } = await ShopRoute.get<BackendProductsResponse>(
         `/products?${params.toString()}`,
       );
- 
+
       return {
         items: (data.data ?? []).map(mapProduct),
         total: data.meta?.total ?? 0,
@@ -248,15 +231,9 @@ export const useProducts = (filters: ProductFilters = {}) =>
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 30,
   });
- 
 
-
-
-export const flattenProducts = (
-  data: ReturnType<typeof useProducts>['data'],
-): WooProduct[] => data?.pages.flatMap((page) => page.items) ?? [];
-
-
+export const flattenProducts = (data: ReturnType<typeof useProducts>['data']): WooProduct[] =>
+  data?.pages.flatMap((page) => page.items) ?? [];
 
 export interface ClientFilters {
   category?: string; // slug ou 'all'
@@ -268,10 +245,7 @@ export interface ClientFilters {
   sort?: SortKey;
 }
 
-export const applyClientFilters = (
-  items: WooProduct[],
-  f: ClientFilters,
-): WooProduct[] => {
+export const applyClientFilters = (items: WooProduct[], f: ClientFilters): WooProduct[] => {
   let out = items.slice();
 
   if (f.category && f.category !== 'all') {
@@ -322,8 +296,6 @@ export const deriveFacets = (items: WooProduct[]) => {
   };
 };
 
-
-
 export const useProduct = (id: string) => {
   const { data, isLoading, isError, error } = useQuery<WooProduct>({
     queryKey: ['product', id],
@@ -335,21 +307,6 @@ export const useProduct = (id: string) => {
   });
   return { data, isLoading, isError, error };
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ─────────────────────────────────────────────
    À COLLER dans product.ts, juste avant `export { PER_PAGE };`
@@ -373,85 +330,75 @@ const asArray = (data: unknown): unknown[] => {
   return Array.isArray(d) ? d : [];
 };
 
-
-
-
-
-
-
 const mapTaxonomy = (t: RawTaxonomyItem): TaxonomyItem => ({
-    id: t.id,
+  id: t.id,
   name: t.name,
   slug: t.slug,
   parent: t.parent ?? 0,
-  count: t.count ?? 0, 
+  count: t.count ?? 0,
   image: t.image?.src ?? t.image?.url ?? undefined,
 });
 
-  export const useCategories = (parent = 1929, enabled = true) =>
-    useQuery<TaxonomyItem[]>({
-      queryKey: ['categories', parent],
-      queryFn: async () => {
+export const useCategories = (parent = 1929, enabled = true) =>
+  useQuery<TaxonomyItem[]>({
+    queryKey: ['categories', parent],
+    queryFn: async () => {
+      const { data } = await ShopRoute.get('/products/categories', {
+        params: { per_page: 100, parent, hide_empty: true },
+      });
+      return asArray(data).map(mapTaxonomy);
+    },
+    enabled,
+    staleTime: 1000 * 60 * 10,
+  });
+
+const CATEGORIES_PER_PAGE = 20;
+
+// Infinite / scroll fetching. Omit `parent` to page through ALL categories
+// (for grouping); pass a parent id to page through one parent's children.
+export const useCategoriesInfinite = (
+  parent?: number,
+  perPage = CATEGORIES_PER_PAGE,
+  enabled = true,
+) =>
+  useInfiniteQuery({
+    queryKey: ['categories-infinite', parent ?? 'all', perPage],
+    initialPageParam: 1,
+    queryFn: async ({ pageParam }) => {
+      const params: Record<string, unknown> = {
+        per_page: perPage,
+        page: pageParam,
+        hide_empty: true,
+      };
+      if (parent !== undefined) params.parent = parent;
+      const { data } = await ShopRoute.get('/products/categories', { params });
+      return asArray(data).map(mapTaxonomy);
+    },
+    // WooCommerce returns a plain array; if we got a full page, assume there's another.
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.length === perPage ? allPages.length + 1 : undefined,
+    enabled,
+    staleTime: 1000 * 60 * 10,
+  });
+export const useAllCategories = (enabled = true) =>
+  useQuery<TaxonomyItem[]>({
+    queryKey: ['categories', 'all'],
+    queryFn: async () => {
+      const perPage = 100;
+      const acc: TaxonomyItem[] = [];
+      for (let page = 1; page <= 20; page += 1) {
         const { data } = await ShopRoute.get('/products/categories', {
-          params: { per_page: 100, parent    , hide_empty: true  },
+          params: { per_page: perPage, page, hide_empty: true },
         });
-        return asArray(data).map(mapTaxonomy);
-      },
-      enabled,
-      staleTime: 1000 * 60 * 10,
-    });
-
-  const CATEGORIES_PER_PAGE = 20;
-
-  // Infinite / scroll fetching. Omit `parent` to page through ALL categories
-  // (for grouping); pass a parent id to page through one parent's children.
-  export const useCategoriesInfinite = (
-    parent?: number,
-    perPage = CATEGORIES_PER_PAGE,
-    enabled = true,
-  ) =>
-    useInfiniteQuery({
-      queryKey: ['categories-infinite', parent ?? 'all', perPage],
-      initialPageParam: 1,
-      queryFn: async ({ pageParam }) => {
-        const params: Record<string, unknown> = {
-          per_page: perPage,
-          page: pageParam,
-          hide_empty: true,
-        };
-        if (parent !== undefined) params.parent = parent;
-        const { data } = await ShopRoute.get('/products/categories', { params });
-        return asArray(data).map(mapTaxonomy);
-      },
-      // WooCommerce returns a plain array; if we got a full page, assume there's another.
-      getNextPageParam: (lastPage, allPages) =>
-        lastPage.length === perPage ? allPages.length + 1 : undefined,
-      enabled,
-      staleTime: 1000 * 60 * 10,
-    });
-  export const useAllCategories = (enabled = true) =>
-    useQuery<TaxonomyItem[]>({
-      queryKey: ['categories', 'all'],
-      queryFn: async () => {
-        const perPage = 100;
-        const acc: TaxonomyItem[] = [];
-        for (let page = 1; page <= 20; page += 1) {
-          const { data } = await ShopRoute.get('/products/categories', {
-            params: { per_page: perPage, page, hide_empty: true },
-          });
-          const arr = asArray(data).map(mapTaxonomy);
-          acc.push(...arr);
-          if (arr.length < perPage) break;
-        }
-        return acc;
-      },
-      enabled,
-      staleTime: 1000 * 60 * 10,
-    });
-
-
-
-
+        const arr = asArray(data).map(mapTaxonomy);
+        acc.push(...arr);
+        if (arr.length < perPage) break;
+      }
+      return acc;
+    },
+    enabled,
+    staleTime: 1000 * 60 * 10,
+  });
 
 export const useBrands = () =>
   useQuery<TaxonomyItem[]>({
@@ -475,24 +422,4 @@ export const useTags = () =>
     staleTime: 1000 * 60 * 10,
   });
 
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 export { PER_PAGE };
-
-
-

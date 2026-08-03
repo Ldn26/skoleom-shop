@@ -10,13 +10,13 @@
 
 // module.exports = sequelize;
 
-import sequelize from "./config";
+import sequelize from './config';
 
 // Register all models & associations
-import "./schemas/avatar";
-import "./schemas/tryon";
-import "./schemas/user";
-import "./schemas/relations";
+import './schemas/avatar';
+import './schemas/tryon';
+import './schemas/user';
+import './schemas/relations';
 
 export { sequelize };
 export default sequelize;

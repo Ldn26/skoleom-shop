@@ -1,9 +1,19 @@
- 'use client';
+'use client';
 import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  BadgeCheck, Camera, Check, CreditCard, Loader2, LogOut, Mail,
-  RefreshCw, ShieldCheck, Sparkles, Upload, User,
+  BadgeCheck,
+  Camera,
+  Check,
+  CreditCard,
+  Loader2,
+  LogOut,
+  Mail,
+  RefreshCw,
+  ShieldCheck,
+  Sparkles,
+  Upload,
+  User,
 } from 'lucide-react';
 import { useUserStore } from '../../store/userStore';
 import { useSignOut } from '../../api/user';
@@ -86,11 +96,14 @@ export default function CompteAchteur() {
     <div className="min-h-[calc(100vh-71px)] bg-[#0A0A0B] px-4 pb-24 pt-[100px] text-[#EDECE8] sm:px-6">
       <div className="mx-auto w-full max-w-[1400px]">
         {/* Header */}
-        <div className={`mb-6 flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8 ${card}`}>
+        <div
+          className={`mb-6 flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8 ${card}`}
+        >
           <div className="flex items-center gap-5">
-           
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#a8ff35]">Mon compte</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#a8ff35]">
+                Mon compte
+              </p>
               <h1 className="mt-0.5 text-2xl font-bold tracking-tight">{user.name}</h1>
               <p className="flex items-center gap-1.5 text-sm text-white/50">
                 <Mail size={13} /> {user.email}
@@ -106,26 +119,43 @@ export default function CompteAchteur() {
                   : 'border-amber-400/30 bg-amber-400/10 text-amber-300'
               }`}
             >
-              <span className={`h-1.5 w-1.5 rounded-full ${accountActive ? 'bg-[#a8ff35]' : 'bg-amber-400'}`} />
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${accountActive ? 'bg-[#a8ff35]' : 'bg-amber-400'}`}
+              />
               {accountActive ? 'Compte actif' : 'Compte inactif'}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold capitalize text-white/70">
-              <BadgeCheck size={13} /> {role }
+              <BadgeCheck size={13} /> {role}
             </span>
           </div>
         </div>
 
         {/* Profil */}
         <div className={`mb-6 p-6 sm:p-8 ${card}`}>
-          <SectionHead icon={User} title="Informations personnelles" desc="Modifiez votre nom et votre email." />
+          <SectionHead
+            icon={User}
+            title="Informations personnelles"
+            desc="Modifiez votre nom et votre email."
+          />
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
               <label className={label}>Nom complet</label>
-              <input className={input} value={name} onChange={(e) => setName(e.target.value)} placeholder="Votre nom" />
+              <input
+                className={input}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Votre nom"
+              />
             </div>
             <div>
               <label className={label}>Email</label>
-              <input className={input} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="vous@exemple.com" />
+              <input
+                className={input}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="vous@exemple.com"
+              />
             </div>
           </div>
           {msg && (
@@ -144,22 +174,45 @@ export default function CompteAchteur() {
 
         <div className="mb-6 grid gap-6 lg:grid-cols-2">
           <div className={`p-6 sm:p-8 ${card}`}>
-            <SectionHead icon={ShieldCheck} title="État du compte" desc="Statut et informations de sécurité." />
+            <SectionHead
+              icon={ShieldCheck}
+              title="État du compte"
+              desc="Statut et informations de sécurité."
+            />
             <dl className="space-y-3 text-sm">
-              <Line k="Statut" v={<Badge ok={accountActive}>{accountActive ? 'Actif' : 'Inactif'}</Badge>} />
-              <Line k="Type de compte" v={<span className="capitalize text-white">{role || 'acheteur'}</span>} />
+              <Line
+                k="Statut"
+                v={<Badge ok={accountActive}>{accountActive ? 'Actif' : 'Inactif'}</Badge>}
+              />
+              <Line
+                k="Type de compte"
+                v={<span className="capitalize text-white">{role || 'acheteur'}</span>}
+              />
               <Line k="Identifiant" v={<span className="text-white/70">#{user.id}</span>} />
               <Line k="Email vérifié" v={<Badge ok>Oui</Badge>} />
             </dl>
           </div>
 
           <div className={`flex flex-col p-6 sm:p-8 ${card}`}>
-            <SectionHead icon={CreditCard} title="Facturation" desc="Votre abonnement et vos paiements." />
+            <SectionHead
+              icon={CreditCard}
+              title="Facturation"
+              desc="Votre abonnement et vos paiements."
+            />
             {subscription ? (
               <div className="space-y-3 text-sm">
-                <Line k="Formule" v={<span className="font-semibold text-white">{subscription.plan}</span>} />
-                <Line k="Statut" v={<Badge ok={subscription.status === 'active'}>{subscription.status}</Badge>} />
-                <Line k="Prochaine facture" v={<span className="text-white/70">{subscription.currentPeriodEnd}</span>} />
+                <Line
+                  k="Formule"
+                  v={<span className="font-semibold text-white">{subscription.plan}</span>}
+                />
+                <Line
+                  k="Statut"
+                  v={<Badge ok={subscription.status === 'active'}>{subscription.status}</Badge>}
+                />
+                <Line
+                  k="Prochaine facture"
+                  v={<span className="text-white/70">{subscription.currentPeriodEnd}</span>}
+                />
                 <button className="mt-4 w-full rounded-xl border border-white/15 py-3 text-sm font-semibold text-white transition hover:border-[#a8ff35]/50 hover:text-[#a8ff35]">
                   Gérer mon abonnement
                 </button>
@@ -167,9 +220,11 @@ export default function CompteAchteur() {
             ) : (
               <div className="flex flex-1 flex-col items-start justify-center">
                 <p className="text-sm text-white/60">Aucun abonnement actif.</p>
-                <p className="mt-1 text-xs text-white/40">Débloquez l'essayage illimité et les recommandations IA.</p>
+                <p className="mt-1 text-xs text-white/40">
+                  Débloquez l'essayage illimité et les recommandations IA.
+                </p>
                 <button
-                  onClick={() => nav(`${localizePath('/')  }#tarifs`)}
+                  onClick={() => nav(`${localizePath('/')}#tarifs`)}
                   className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#a8ff35] px-5 py-3 text-sm font-bold text-black transition hover:brightness-105"
                 >
                   <Sparkles size={15} /> Découvrir les offres
@@ -181,7 +236,11 @@ export default function CompteAchteur() {
 
         {/* Avatar IA */}
         <div className={`mb-6 p-6 sm:p-8 ${card}`}>
-          <SectionHead icon={Sparkles} title="Mon avatar IA" desc="Visualisez et mettez à jour votre jumeau numérique." />
+          <SectionHead
+            icon={Sparkles}
+            title="Mon avatar IA"
+            desc="Visualisez et mettez à jour votre jumeau numérique."
+          />
           <AvatarStudio userId={user.id} />
         </div>
 
@@ -210,7 +269,9 @@ function Badge({ ok, children }) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold capitalize ${
-        ok ? 'border-[#a8ff35]/30 bg-[#a8ff35]/10 text-[#a8ff35]' : 'border-white/15 bg-white/5 text-white/60'
+        ok
+          ? 'border-[#a8ff35]/30 bg-[#a8ff35]/10 text-[#a8ff35]'
+          : 'border-white/15 bg-white/5 text-white/60'
       }`}
     >
       {ok && <span className="h-1.5 w-1.5 rounded-full bg-[#a8ff35]" />}
@@ -285,9 +346,18 @@ function AvatarStudio({ userId }) {
             </>
           )}
         </button>
-        <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => onFile(e.target.files?.[0])} />
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(e) => onFile(e.target.files?.[0])}
+        />
         {photo && (
-          <button onClick={() => setPhoto(null)} className="mt-2 text-xs text-white/50 hover:text-white">
+          <button
+            onClick={() => setPhoto(null)}
+            className="mt-2 text-xs text-white/50 hover:text-white"
+          >
             Retirer la photo
           </button>
         )}
@@ -333,7 +403,11 @@ function AvatarStudio({ userId }) {
             </>
           )}
         </button>
-        {create.isPending && <p className="mt-2 text-center text-xs text-white/40">Cela peut prendre jusqu'à une minute.</p>}
+        {create.isPending && (
+          <p className="mt-2 text-center text-xs text-white/40">
+            Cela peut prendre jusqu'à une minute.
+          </p>
+        )}
       </div>
     </div>
   );
@@ -342,7 +416,9 @@ function AvatarStudio({ userId }) {
 function Figure({ title, src, loading, highlight }) {
   return (
     <div>
-      <div className={`relative aspect-[2/3] overflow-hidden rounded-2xl border ${highlight ? 'border-[#a8ff35]/30' : 'border-white/10'} bg-white/[0.02]`}>
+      <div
+        className={`relative aspect-[2/3] overflow-hidden rounded-2xl border ${highlight ? 'border-[#a8ff35]/30' : 'border-white/10'} bg-white/[0.02]`}
+      >
         {loading ? (
           <div className="grid h-full place-items-center text-white/30">
             <Loader2 size={20} className="animate-spin" />
@@ -350,10 +426,14 @@ function Figure({ title, src, loading, highlight }) {
         ) : src ? (
           <img src={src} alt={title} className="h-full w-full object-cover" />
         ) : (
-          <div className="grid h-full place-items-center px-2 text-center text-xs text-white/30">Aucun avatar</div>
+          <div className="grid h-full place-items-center px-2 text-center text-xs text-white/30">
+            Aucun avatar
+          </div>
         )}
       </div>
-      <p className="mt-2 text-center text-[11px] font-semibold uppercase tracking-widest text-white/40">{title}</p>
+      <p className="mt-2 text-center text-[11px] font-semibold uppercase tracking-widest text-white/40">
+        {title}
+      </p>
     </div>
   );
 }

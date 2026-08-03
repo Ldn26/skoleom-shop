@@ -1,7 +1,14 @@
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Heart, ShoppingBag, X, ChevronLeft, ChevronRight, ArrowLeftRight } from 'lucide-react';
+import {
+  ArrowLeft,
+  Heart,
+  ShoppingBag,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ArrowLeftRight,
+} from 'lucide-react';
 import { useCart } from '../../hooks/useCart';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useProduct, useProductVariations } from '../../api/product';
@@ -35,9 +42,6 @@ const PARTNER_DIRECT_SLUGS = new Set(['gulf', 'lemans', 'mind-cbd']);
 const TITLE_THRESHOLD = 55;
 const DESC_THRESHOLD = 200;
 
-  
-
-
 function htmlToPlainText(html?: string): string {
   if (!html) return '';
 
@@ -70,7 +74,7 @@ export default function PiecePage() {
   const { data: rawProduct, isLoading: productLoading } = useProduct(id);
   const { data: rawVariations } = useProductVariations(id);
   const [view, setView] = useState<string>('face');
-    const [quantity, ] = useState(1);
+  const [quantity] = useState(1);
   const [feedback, setFeedback] = useState('');
   const [loadingAdd, setLoadingAdd] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -83,7 +87,7 @@ export default function PiecePage() {
   const handleTest = useCallback(() => {
     if (!id) return;
     // navigate({ pathname: localizedPath('/essayage'), search: `?product=${id}` });
-     navigate(localizedPath(`/essayage?product=${id}`));
+    navigate(localizedPath(`/essayage?product=${id}`));
   }, [id, navigate, localizedPath]);
 
   useEffect(() => {
@@ -295,7 +299,7 @@ export default function PiecePage() {
     }
     setLoadingAdd(true);
     try {
-      const { productId,  } = getCartPayload();
+      const { productId } = getCartPayload();
       await addToCart(productId, quantity);
     } catch {
       setFeedback("Impossible d'ajouter au panier");
@@ -626,9 +630,7 @@ export default function PiecePage() {
                         transition: 'color .2s',
                       }}
                     >
-                      {selectedVariation.stock_status === 'instock'
-                        ? '✓ En stock'
-                        : '✗ Rupture'}
+                      {selectedVariation.stock_status === 'instock' ? '✓ En stock' : '✗ Rupture'}
                     </p>
                   )}
                 </div>
@@ -698,7 +700,6 @@ export default function PiecePage() {
                   );
                 })}
 
-  
                 <div className="flex flex-col gap-2.5">
                   {/* Add to cart */}
                   {(() => {
@@ -743,10 +744,8 @@ export default function PiecePage() {
                     type="button"
                     onClick={handleTest}
                     className="pp-fav inline-flex items-center justify-center gap-2.5 rounded-full border px-5 py-3.5 text-[11px] font-bold uppercase tracking-widest border-white/12 bg-white/[0.015] text-white/58 hover:border-white/24 hover:text-white/84"
-                  > 
-                  <ArrowLeftRight size={13} strokeWidth={2.5} />
-                  
-
+                  >
+                    <ArrowLeftRight size={13} strokeWidth={2.5} />
                     TESTER LE PRODUIT
                   </button>
 

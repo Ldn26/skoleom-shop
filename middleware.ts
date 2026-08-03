@@ -1,7 +1,19 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 const SUPPORTED_LANGS = [
-  'en', 'fr', 'es', 'ar', 'pt', 'hi', 'zh', 'id', 'ru', 'sw', 'de', 'it', 'nl',
+  'en',
+  'fr',
+  'es',
+  'ar',
+  'pt',
+  'hi',
+  'zh',
+  'id',
+  'ru',
+  'sw',
+  'de',
+  'it',
+  'nl',
 ];
 
 const DEFAULT_LANG = 'fr';

@@ -27,7 +27,6 @@
 //   }
 // }
 
-
 import { NextResponse } from 'next/server';
 import { getAuth } from '@/server/auth';
 import { TryOn } from '@/server/db';

@@ -1,8 +1,7 @@
-
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type Role = 'acheteur' | 'vendeur' ;
+export type Role = 'acheteur' | 'vendeur';
 
 export interface User {
   id: number;
@@ -14,15 +13,15 @@ interface UserState {
   user: User | null;
   role: Role | null;
   hasHydrated: boolean;
-  setUser: (user: User | null , role: Role) => void;
+  setUser: (user: User | null, role: Role) => void;
   clearUser: () => void;
   setHasHydrated: (v: boolean) => void;
-   logout: () => void;
+  logout: () => void;
 }
 
 export const useUserStore = create<UserState>()(
   persist(
-    (set, ) => ({
+    (set) => ({
       user: null,
       role: null,
       hasHydrated: false,

@@ -78,7 +78,9 @@ export function useNavigate(): NavigateFunction {
   ) as NavigateFunction;
 }
 
-export function useParams<T extends Record<string, string | undefined> = Record<string, string | undefined>>(): T {
+export function useParams<
+  T extends Record<string, string | undefined> = Record<string, string | undefined>,
+>(): T {
   return (useNextParams() ?? {}) as T;
 }
 
@@ -121,8 +123,7 @@ function resolveTo(to: ToProp): string {
   return `${to.pathname ?? ''}${to.search ?? ''}${to.hash ?? ''}`;
 }
 
-export interface LinkProps
-  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
+export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   to: ToProp;
   replace?: boolean;
   state?: unknown;
@@ -140,17 +141,12 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   if (reloadDocument) {
     return <a ref={ref} href={href} {...rest} />;
   }
-  return (
-    <NextLink ref={ref} href={href} replace={replace} scroll prefetch={prefetch} {...rest} />
-  );
+  return <NextLink ref={ref} href={href} replace={replace} scroll prefetch={prefetch} {...rest} />;
 });
 
-type ClassNameProp =
-  | string
-  | ((state: { isActive: boolean; isPending: boolean }) => string);
+type ClassNameProp = string | ((state: { isActive: boolean; isPending: boolean }) => string);
 type StyleProp =
-  | CSSProperties
-  | ((state: { isActive: boolean; isPending: boolean }) => CSSProperties);
+  CSSProperties | ((state: { isActive: boolean; isPending: boolean }) => CSSProperties);
 
 export interface NavLinkProps extends Omit<LinkProps, 'className' | 'style' | 'children'> {
   className?: ClassNameProp;
@@ -171,11 +167,9 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavL
   const isActive = end ? a === b : a === b || a.startsWith(`${b}/`);
   const state = { isActive, isPending: false };
 
-  const resolvedClassName =
-    typeof className === 'function' ? className(state) : className;
+  const resolvedClassName = typeof className === 'function' ? className(state) : className;
   const resolvedStyle = typeof style === 'function' ? style(state) : style;
-  const resolvedChildren =
-    typeof children === 'function' ? children(state) : children;
+  const resolvedChildren = typeof children === 'function' ? children(state) : children;
 
   return (
     <Link
@@ -208,16 +202,14 @@ export function matchPath(
       : { caseSensitive: false, end: true, ...pattern };
 
   const paramNames: string[] = [];
-  let regexpSource =
-    `^${ 
-    conf.path
-      .replace(/\/*\*?$/, '')
-      .replace(/^\/*/, '/')
-      .replace(/[\\.*+^${}|()[\]]/g, '\\$&')
-      .replace(/\/:(\w+)/g, (_m, key: string) => {
-        paramNames.push(key);
-        return '/([^\\/]+)';
-      })}`;
+  let regexpSource = `^${conf.path
+    .replace(/\/*\*?$/, '')
+    .replace(/^\/*/, '/')
+    .replace(/[\\.*+^${}|()[\]]/g, '\\$&')
+    .replace(/\/:(\w+)/g, (_m, key: string) => {
+      paramNames.push(key);
+      return '/([^\\/]+)';
+    })}`;
 
   if (conf.path.endsWith('*')) {
     paramNames.push('*');

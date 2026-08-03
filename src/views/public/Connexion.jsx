@@ -20,13 +20,15 @@ const ROLES = [
     key: 'acheteur',
     label: 'Acheteur',
     hint: 'Je viens acheter et essayer',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
+    image:
+      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
   },
   {
     key: 'vendeur',
     label: 'Vendeur',
     hint: 'Je gère ma boutique',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+    image:
+      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -50,8 +52,8 @@ export default function Connexion() {
   };
 
   const enterApp = (response) => {
-    const {  user } = parseAuth(response);
-    if ( !user) {
+    const { user } = parseAuth(response);
+    if (!user) {
       setErr('Réponse serveur invalide.');
       return;
     }
@@ -176,7 +178,9 @@ export default function Connexion() {
                     setErr('');
                   }}
                   className={`rounded-xl py-2.5 text-sm font-semibold transition ${
-                    mode === 'register' ? 'bg-[#a8ff35] text-black' : 'text-zinc-400 hover:text-white'
+                    mode === 'register'
+                      ? 'bg-[#a8ff35] text-black'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   Créer un compte
@@ -212,8 +216,18 @@ export default function Connexion() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10" />
                           {active && (
                             <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-[#a8ff35] text-black">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="h-3.5 w-3.5">
-                                <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                              <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="3"
+                                className="h-3.5 w-3.5"
+                              >
+                                <path
+                                  d="M20 6 9 17l-5-5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
                               </svg>
                             </span>
                           )}
@@ -257,7 +271,9 @@ export default function Connexion() {
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-xs font-medium text-zinc-400">Mot de passe</label>
+                  <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+                    Mot de passe
+                  </label>
                   <input
                     type="password"
                     value={password}
@@ -281,13 +297,15 @@ export default function Connexion() {
                 disabled={pending}
                 className="cta mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#a8ff35] py-3.5 text-sm font-bold text-black disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {pending
-                  ? 'Chargement...'
-                  : mode === 'login'
-                    ? 'Se connecter'
-                    : 'Créer mon compte'}
+                {pending ? 'Chargement...' : mode === 'login' ? 'Se connecter' : 'Créer mon compte'}
                 {!pending && (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="h-4 w-4">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    className="h-4 w-4"
+                  >
                     <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}

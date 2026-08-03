@@ -1,10 +1,6 @@
 /** Modes de vision des couleurs (simulation + compensation). */
 export type ColorVisionMode =
-  | 'none'
-  | 'deuteranopia'
-  | 'protanopia'
-  | 'tritanopia'
-  | 'achromatopsia';
+  'none' | 'deuteranopia' | 'protanopia' | 'tritanopia' | 'achromatopsia';
 
 /** Thèmes d’affichage alternatifs. */
 export type ContrastTheme = 'default' | 'light' | 'high-contrast' | 'soft';

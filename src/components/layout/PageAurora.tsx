@@ -1,6 +1,3 @@
-
-
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -19,7 +16,7 @@ export default function PageAurora() {
       {enabled && (
         <div className="absolute inset-0">
           <LiquidEther
-            colors={['#00e0ff', '#6fe600'  ,'#a8ff35']}
+            colors={['#00e0ff', '#6fe600', '#a8ff35']}
             mouseForce={20}
             cursorSize={100}
             isViscous={false}

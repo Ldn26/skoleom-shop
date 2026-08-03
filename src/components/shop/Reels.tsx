@@ -54,7 +54,9 @@ export default function Reels({ reels = REELS, speed = 55 }: { reels?: Reel[]; s
       `}</style>
 
       <div className="mb-5">
-        <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">Skoleom Reels</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#a8ff35]">
+          Skoleom Reels
+        </p>
         <h2 className="display-text mt-1 text-3xl text-white sm:text-4xl">À NE PAS MANQUER</h2>
       </div>
 

@@ -18,7 +18,7 @@ export function MeasurementForm({
           <input
             type="number"
             value={values[key]}
-            onChange={e => onChange(key, e.target.value)}
+            onChange={(e) => onChange(key, e.target.value)}
             className="w-full px-3 py-[10px] bg-[#0c0e15] border border-white/10 rounded-[10px] text-[13px] text-[#eef1f6] focus:border-[rgb(163_230_53)] outline-none transition-colors"
           />
         </div>

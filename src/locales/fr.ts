@@ -41,7 +41,7 @@ const resource = {
     searchPlaceholder: 'Rechercher',
     searchAria: 'Rechercher',
     profile: {
-      profile : 'Mon profil',
+      profile: 'Mon profil',
       logout: 'Déconnexion',
     },
     language: {

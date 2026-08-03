@@ -1,5 +1,3 @@
-
-
 import {
   useCallback,
   useEffect,
@@ -53,14 +51,14 @@ export default function Header() {
 
   // Keep the store in sync with the server's answer.
   useEffect(() => {
-    if (me) setUser(me,me.role);
+    if (me) setUser(me, me.role);
     else if (meError) clearUser();
   }, [me, meError, setUser, clearUser]);
 
   // Instant display from the store; corrected by the server once useMe resolves.
   const user = me ?? storeUser;
   const navigation = useMemo(
-    () => resolveNavigation(hasHydrated && !!user, (me?.role ?? role) ?? null),
+    () => resolveNavigation(hasHydrated && !!user, me?.role ?? role ?? null),
     [hasHydrated, user, me, role],
   );
 
@@ -310,7 +308,11 @@ function UniverseButton({ open, onMouseEnter, onMouseLeave, onClick }: UniverseB
   const { t } = useTranslation();
 
   return (
-    <div className="relative hidden md:block" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <div
+      className="relative hidden md:block"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <button
         type="button"
         onClick={onClick}
@@ -493,7 +495,10 @@ function LanguageButton({ headerShellRef }: { headerShellRef: RefObject<HTMLDivE
       setStorageItem('skoleom-language', languageCode);
       document.documentElement.lang = languageCode;
       document.documentElement.dir = isRtlLanguage(languageCode) ? 'rtl' : 'ltr';
-      const localizedPath = buildLocalizedPath(stripLanguagePrefix(location.pathname), languageCode);
+      const localizedPath = buildLocalizedPath(
+        stripLanguagePrefix(location.pathname),
+        languageCode,
+      );
       const target = `${localizedPath}${location.search}${location.hash}`;
       window.location.replace(target);
     }
@@ -540,9 +545,18 @@ function LanguageButton({ headerShellRef }: { headerShellRef: RefObject<HTMLDivE
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <img src={currentOption.flagImg} alt="" aria-hidden className="h-3.5 w-5 rounded-[2px] object-cover" />
+        <img
+          src={currentOption.flagImg}
+          alt=""
+          aria-hidden
+          className="h-3.5 w-5 rounded-[2px] object-cover"
+        />
         {currentOption.code.toUpperCase()}
-        <ChevronDown size={10} className={cn('transition duration-300', open && 'rotate-180')} aria-hidden />
+        <ChevronDown
+          size={10}
+          className={cn('transition duration-300', open && 'rotate-180')}
+          aria-hidden
+        />
       </button>
 
       {typeof document !== 'undefined' &&
@@ -591,7 +605,12 @@ function LanguageButton({ headerShellRef }: { headerShellRef: RefObject<HTMLDivE
                           aria-disabled={disabled || undefined}
                           lang={option.code}
                         >
-                          <img src={option.flagImg} alt="" aria-hidden className="h-4 w-6 rounded-[2px] object-cover" />
+                          <img
+                            src={option.flagImg}
+                            alt=""
+                            aria-hidden
+                            className="h-4 w-6 rounded-[2px] object-cover"
+                          />
                           <span className="min-w-0 flex-1 text-lg font-medium text-[#D0D0D0]">
                             {option.nativeName}
                           </span>
@@ -660,7 +679,11 @@ function HeaderActions({ headerShellRef, onSearchClick, onMobileMenuOpen }: Head
         <ProfileMenu />
       </div>
 
-      <IconButton label={t('header.actions.openMenu')} onClick={onMobileMenuOpen} className="lg:hidden">
+      <IconButton
+        label={t('header.actions.openMenu')}
+        onClick={onMobileMenuOpen}
+        className="lg:hidden"
+      >
         <Menu size={17} />
       </IconButton>
     </div>
@@ -675,7 +698,13 @@ interface NavLinksProps {
   registerTriggerRef: (variantKey: string, el: HTMLDivElement | null) => void;
 }
 
-function NavLinks({ items, ariaLabel, onOpenMega, onScheduleCloseMega, registerTriggerRef }: NavLinksProps) {
+function NavLinks({
+  items,
+  ariaLabel,
+  onOpenMega,
+  onScheduleCloseMega,
+  registerTriggerRef,
+}: NavLinksProps) {
   return (
     <div
       role="navigation"
@@ -750,7 +779,10 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
       setStorageItem('skoleom-language', languageCode);
       document.documentElement.lang = languageCode;
       document.documentElement.dir = isRtlLanguage(languageCode) ? 'rtl' : 'ltr';
-      const localizedPath = buildLocalizedPath(stripLanguagePrefix(location.pathname), languageCode);
+      const localizedPath = buildLocalizedPath(
+        stripLanguagePrefix(location.pathname),
+        languageCode,
+      );
       const target = `${localizedPath}${location.search}${location.hash}`;
       window.location.replace(target);
     }
@@ -800,7 +832,10 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
                 </div>
                 <ChevronDown
                   size={14}
-                  className={cn('text-white/40 transition duration-300', langMenuOpen && 'rotate-180')}
+                  className={cn(
+                    'text-white/40 transition duration-300',
+                    langMenuOpen && 'rotate-180',
+                  )}
                 />
               </button>
 
@@ -839,7 +874,11 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
                                       : 'bg-white/[0.02] text-white/80',
                                   )}
                                 >
-                                  <img src={option.flagImg} alt="" className="h-3 w-5 rounded-[1px] object-cover" />
+                                  <img
+                                    src={option.flagImg}
+                                    alt=""
+                                    className="h-3 w-5 rounded-[1px] object-cover"
+                                  />
                                   {option.nativeName}
                                 </button>
                               );
@@ -940,7 +979,12 @@ interface NavPillItemProps {
   registerTriggerRef: (variantKey: string, el: HTMLDivElement | null) => void;
 }
 
-function NavPillItem({ item, onOpenMega, onScheduleCloseMega, registerTriggerRef }: NavPillItemProps) {
+function NavPillItem({
+  item,
+  onOpenMega,
+  onScheduleCloseMega,
+  registerTriggerRef,
+}: NavPillItemProps) {
   const { t } = useTranslation();
   const localizePath = useLocalizedPath();
 

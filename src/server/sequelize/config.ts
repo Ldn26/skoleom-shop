@@ -1,5 +1,3 @@
-
-
 // // const { Sequelize } = require("sequelize");
 // // const dotenv = require("dotenv");
 
@@ -14,7 +12,7 @@
 // // const sequelize = new Sequelize(process.env.DATABASE_URL, {
 // //   dialect: "postgres",
 // //   logging: false,
-   
+
 // //   dialectOptions: isProduction
 // //     ? {
 // //         ssl: {
@@ -26,9 +24,6 @@
 // // });
 
 // // module.exports = sequelize;
-
-
-
 
 // const { Sequelize } = require("sequelize");
 // const pg = require("pg"); // 1. Import pg explicitly
@@ -58,21 +53,20 @@
 
 // module.exports = sequelize;
 
-
-import { Sequelize } from "sequelize";
-import pg from "pg";
-import dotenv from "dotenv";
+import { Sequelize } from 'sequelize';
+import pg from 'pg';
+import dotenv from 'dotenv';
 
 dotenv.config({ quiet: true });
 
 if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is missing in .env");
+  throw new Error('DATABASE_URL is missing in .env');
 }
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === 'production';
 
 export const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: "postgres",
+  dialect: 'postgres',
   dialectModule: pg,
   logging: false,
   dialectOptions: isProduction

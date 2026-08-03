@@ -23,8 +23,6 @@
 
 // export default nextConfig;
 
-
-
 // import type { NextConfig } from 'next';
 
 // const nextConfig: NextConfig = {
@@ -54,7 +52,6 @@
 
 // export default nextConfig;
 
-
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -64,14 +61,7 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: true,
   poweredByHeader: false,
-  serverExternalPackages: [
-    'sequelize',
-    'pg',
-    'pg-hstore',
-    'bcrypt',
-    'replicate',
-    'cloudinary',
-  ],
+  serverExternalPackages: ['sequelize', 'pg', 'pg-hstore', 'bcrypt', 'replicate', 'cloudinary'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'res.cloudinary.com' },

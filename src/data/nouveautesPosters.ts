@@ -30,19 +30,7 @@ export const NOUVEAUTES_PROGRAM_DESCRIPTIONS = [
 ] as const;
 
 export type FeaturedLocaleCode =
-  | 'en'
-  | 'fr'
-  | 'es'
-  | 'ar'
-  | 'pt'
-  | 'hi'
-  | 'zh'
-  | 'id'
-  | 'ru'
-  | 'sw'
-  | 'de'
-  | 'it'
-  | 'nl';
+  'en' | 'fr' | 'es' | 'ar' | 'pt' | 'hi' | 'zh' | 'id' | 'ru' | 'sw' | 'de' | 'it' | 'nl';
 
 type FeaturedTextBundle = {
   summaries: readonly [string, string, string];

@@ -31,7 +31,7 @@ const resource = {
     universe: 'Universe',
     profile: {
       logout: 'Cerrar sesión',
-      profile : 'Mi perfil',
+      profile: 'Mi perfil',
     },
     navLabel: 'Navegación principal',
     searchPlaceholder: 'Buscar',

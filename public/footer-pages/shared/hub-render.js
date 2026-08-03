@@ -133,7 +133,7 @@
 //       function escape(a) {
 //         const b = { '=': '=0', ':': '=2' };
 //         return (
-//           `$${ 
+//           `$${
 //           a.replace(/[=:]/g, function (a2) {
 //             return b[a2];
 //           })}`
@@ -202,10 +202,10 @@
 //           throw (
 //             (b = String(a)),
 //             Error(
-//               `Objects are not valid as a React child (found: ${ 
+//               `Objects are not valid as a React child (found: ${
 //                 '[object Object]' === b
 //                   ? `object with keys {${  Object.keys(a).join(', ')  }}`
-//                   : b 
+//                   : b
 //                 }). If you meant to render a collection of children, use an array instead.`,
 //             )
 //           );
@@ -285,8 +285,8 @@
 //       exports.cloneElement = function (a, b, e) {
 //         if (null === a || void 0 === a)
 //           throw Error(
-//             `React.cloneElement(...): The argument must be a React element, but you passed ${ 
-//               a 
+//             `React.cloneElement(...): The argument must be a React element, but you passed ${
+//               a
 //               }.`,
 //           );
 //         let d = C({}, a.props),
@@ -426,10 +426,10 @@
 //         )
 //           b += `&args[]=${  encodeURIComponent(arguments[c])}`;
 //         return (
-//           `Minified React error #${ 
-//           a 
-//           }; visit ${ 
-//           b 
+//           `Minified React error #${
+//           a
+//           }; visit ${
+//           b
 //           } for the full message or use the non-minified dev environment for full errors and additional helpful warnings.`
 //         );
 //       }
@@ -1599,8 +1599,8 @@
 //         a = a.onError(b);
 //         if (null != a && 'string' !== typeof a)
 //           throw Error(
-//             `onError returned something with a type other than "string". onError should return a string and may return null or undefined but must not return anything else. It received something of type "${ 
-//               typeof a 
+//             `onError returned something with a type other than "string". onError should return a string and may return null or undefined but must not return anything else. It received something of type "${
+//               typeof a
 //               }" instead`,
 //           );
 //         return a;
@@ -2360,10 +2360,10 @@
 //         )
 //           b += `&args[]=${  encodeURIComponent(arguments[c])}`;
 //         return (
-//           `Minified React error #${ 
-//           a 
-//           }; visit ${ 
-//           b 
+//           `Minified React error #${
+//           a
+//           }; visit ${
+//           b
 //           } for the full message or use the non-minified dev environment for full errors and additional helpful warnings.`
 //         );
 //       }
@@ -3620,8 +3620,8 @@
 //         a = a.onError(b);
 //         if (null != a && 'string' !== typeof a)
 //           throw Error(
-//             `onError returned something with a type other than "string". onError should return a string and may return null or undefined but must not return anything else. It received something of type "${ 
-//               typeof a 
+//             `onError returned something with a type other than "string". onError should return a string and may return null or undefined but must not return anything else. It received something of type "${
+//               typeof a
 //               }" instead`,
 //           );
 //         return a;

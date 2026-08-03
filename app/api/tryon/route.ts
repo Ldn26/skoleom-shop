@@ -118,7 +118,8 @@ export async function POST(request: Request) {
   try {
     const { avatarId, product, measurements } = await request.json().catch(() => ({}));
     if (!avatarId) return NextResponse.json({ error: 'avatarId est requis' }, { status: 400 });
-    if (!product || !product.name) return NextResponse.json({ error: 'product est requis' }, { status: 400 });
+    if (!product || !product.name)
+      return NextResponse.json({ error: 'product est requis' }, { status: 400 });
 
     const av = await getAvatar(avatarId);
     if (!av) return NextResponse.json({ error: 'Avatar introuvable' }, { status: 404 });

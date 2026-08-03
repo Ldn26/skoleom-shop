@@ -31,7 +31,7 @@ const resource = {
     navLabel: 'Navigazione principale',
     searchPlaceholder: 'Cerca',
     searchAria: 'Cerca',
-    profile : {
+    profile: {
       profile: 'Il mio profilo',
       logout: 'Disconnessione',
     },

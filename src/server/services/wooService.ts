@@ -1,5 +1,3 @@
-
-
 // const axios = require('axios');
 // const { env } = require('../config/env');
 // const {
@@ -9,8 +7,6 @@
 //   clientDelete,
 //   normalizeBrand,
 // } = require('../helpers/woohelper');
-
-
 
 // const wooClient = axios.create({
 //   baseURL: `${env.WOO_BASE_URI}/wp-json/wc/v3/`,
@@ -48,7 +44,6 @@
 //     // wc/v3 renvoie directement un tableau
 //     return Array.isArray(result) ? result : (result?.data ?? []);
 //   },
-
 
 //   getProductsByBrand: async (brand, params = {}) => {
 //     const parsed = normalizeBrand(brand);
@@ -97,7 +92,6 @@
 
 //   duplicateProduct: (id) => wooPost(`products/${id}/duplicate`),
 
-
 //   getVariations: (productId, params = {}) =>
 //     wooGet(`products/${productId}/variations`, { per_page: 100, ...params }),
 
@@ -122,7 +116,7 @@
 //   updateBrand: (id, body) => wooPatch(`products/brands/${id}`, body),
 
 //   getCategories: (params = {}) => wooGet('products/categories', params),
-  
+
 //   getCategoryById: (id) => wooGet(`products/categories/${id}`),
 
 //   getTags: (params = {}) => wooGet('products/tags', params),
@@ -157,7 +151,6 @@
 //     wooDelete(`products/attributes/${attributeId}/terms/${termId}`),
 
 //   // ── Produit complet (création orchestrée) ──────────────────────────────────
-
 
 //   createProductFull: async (body) => {
 //     const safeBody = body ?? {};
@@ -273,11 +266,6 @@
 //     };
 //   },
 
-
-
-
-
-
 //   createOrFindBrand: async (data) => {
 //     // Chercher par slug
 //     const existing = await wooGet('products/brands', { slug: data.slug });
@@ -296,14 +284,9 @@
 //     return { id: created.id, name: created.name, slug: created.slug };
 //   },
 
-
-
 //   getProductsRaw: (params = {}) => wooGet('products', params),
 
-  
 // getOrders: (params = {}) => wooGet('orders', params),
-
-
 
 // };
 
@@ -324,9 +307,9 @@ export type QueryParams = Record<string, unknown>;
 const wooClient = axios.create({
   baseURL: `${env.WOO_BASE_URI}/wp-json/wc/v3/`,
   headers: {
-    Authorization: `Basic ${Buffer.from(
-      `${env.WOO_CLIENT_ID}:${env.WOO_SECRET_KEY}`,
-    ).toString('base64')}`,
+    Authorization: `Basic ${Buffer.from(`${env.WOO_CLIENT_ID}:${env.WOO_SECRET_KEY}`).toString(
+      'base64',
+    )}`,
   },
 });
 
@@ -403,8 +386,7 @@ export const wooService = {
   searchProducts: (q: string, params: QueryParams = {}) =>
     svcGet('products', { ...params, search: q }),
 
-  getProductsOnSale: (params: QueryParams = {}) =>
-    wooGet('products', { ...params, on_sale: true }),
+  getProductsOnSale: (params: QueryParams = {}) => wooGet('products', { ...params, on_sale: true }),
 
   getProductsInStock: (params: QueryParams = {}) =>
     wooGet('products', { ...params, stock_status: 'instock' }),
@@ -461,7 +443,8 @@ export const wooService = {
 
   createAttribute: (body: unknown) => wooPost('products/attributes', body),
 
-  updateAttribute: (id: number | string, body: unknown) => wooPatch(`products/attributes/${id}`, body),
+  updateAttribute: (id: number | string, body: unknown) =>
+    wooPatch(`products/attributes/${id}`, body),
 
   deleteAttribute: (id: number | string) => wooDelete(`products/attributes/${id}`),
 
@@ -474,11 +457,8 @@ export const wooService = {
   createAttributeTerm: (attributeId: number | string, body: unknown) =>
     wooPost(`products/attributes/${attributeId}/terms`, body),
 
-  updateAttributeTerm: (
-    attributeId: number | string,
-    termId: number | string,
-    body: unknown,
-  ) => wooPatch(`products/attributes/${attributeId}/terms/${termId}`, body),
+  updateAttributeTerm: (attributeId: number | string, termId: number | string, body: unknown) =>
+    wooPatch(`products/attributes/${attributeId}/terms/${termId}`, body),
 
   deleteAttributeTerm: (attributeId: number | string, termId: number | string) =>
     wooDelete(`products/attributes/${attributeId}/terms/${termId}`),
@@ -576,10 +556,7 @@ export const wooService = {
         });
       }
 
-      const createdVariation = await wooPost(
-        `products/${productId}/variations`,
-        payload,
-      );
+      const createdVariation = await wooPost(`products/${productId}/variations`, payload);
 
       createdVariations.push(createdVariation);
     }
@@ -597,10 +574,9 @@ export const wooService = {
   },
 
   createOrFindBrand: async (data: { slug?: string; name?: string }) => {
-    const existing = await wooGet<{ id: number; name: string; slug: string }[]>(
-      'products/brands',
-      { slug: data.slug },
-    );
+    const existing = await wooGet<{ id: number; name: string; slug: string }[]>('products/brands', {
+      slug: data.slug,
+    });
     if (Array.isArray(existing) && existing.length > 0) {
       return {
         id: existing[0].id,

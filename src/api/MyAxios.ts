@@ -1,7 +1,6 @@
 // import axios from 'axios';
 // import { useUserStore } from '../store/userStore';
 
-
 // const BASE_URL = process.env.NEXT_PUBLIC_SESYNC_URL ?? '/api';
 
 // let refreshPromise: Promise<string | null> | null = null;
@@ -67,7 +66,6 @@
 //         return instance(originalRequest);
 //       }
 
-    
 //       const { token, setHasHydrated } = useUserStore.getState() as any;
 //       const hadSession = !!token;
 //       const hydrated = useUserStore.getState().hasHydrated;
@@ -92,14 +90,6 @@
 // const SesyncRoute = createAxiosInstance();
 
 // export { BackRoute, ShopRoute, SesyncRoute };
-
-
-
-
-
-
-
-
 
 import axios from 'axios';
 import { useUserStore } from '../store/userStore';

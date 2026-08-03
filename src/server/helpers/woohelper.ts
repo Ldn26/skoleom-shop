@@ -1,6 +1,3 @@
-
-
-
 // const axios = require('axios');
 
 // function handleWooError(error) {
@@ -89,8 +86,6 @@
 //   normalizeBrand,
 // };
 
-
-
 import axios, { AxiosInstance } from 'axios';
 
 // ── Types ───────────────────────────────────────────────────────────────────
@@ -102,9 +97,7 @@ export interface BrandCacheEntry {
   expiresAt: number;
 }
 
-export type NormalizedBrand =
-  | { type: 'id'; id: number }
-  | { type: 'slug'; slug: string };
+export type NormalizedBrand = { type: 'id'; id: number } | { type: 'slug'; slug: string };
 
 // ── Helper Functions ────────────────────────────────────────────────────────
 
@@ -120,7 +113,7 @@ export function handleWooError(error: unknown): never {
 export async function clientGet<T = unknown>(
   client: AxiosInstance,
   path: string,
-  params?: QueryParams
+  params?: QueryParams,
 ): Promise<T> {
   try {
     const { data } = await client.get<T>(path, { params });
@@ -133,7 +126,7 @@ export async function clientGet<T = unknown>(
 export async function clientPost<T = unknown>(
   client: AxiosInstance,
   path: string,
-  body?: unknown
+  body?: unknown,
 ): Promise<T> {
   try {
     const { data } = await client.post<T>(path, body);
@@ -146,7 +139,7 @@ export async function clientPost<T = unknown>(
 export async function clientPatch<T = unknown>(
   client: AxiosInstance,
   path: string,
-  body?: unknown
+  body?: unknown,
 ): Promise<T> {
   try {
     const { data } = await client.patch<T>(path, body);
@@ -156,10 +149,7 @@ export async function clientPatch<T = unknown>(
   }
 }
 
-export async function clientDelete<T = unknown>(
-  client: AxiosInstance,
-  path: string
-): Promise<T> {
+export async function clientDelete<T = unknown>(client: AxiosInstance, path: string): Promise<T> {
   try {
     const { data } = await client.delete<T>(path, { params: { force: true } });
     return data;

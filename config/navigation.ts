@@ -1,4 +1,3 @@
-
 export type UserRole = 'vendeur' | 'acheteur';
 
 export type NavItem = {

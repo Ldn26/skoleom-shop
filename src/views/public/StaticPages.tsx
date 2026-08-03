@@ -46,8 +46,6 @@ import {
 } from '../../locales/staticPages';
 import { useLanguageContext } from '../../i18n/LanguageProvider';
 
-
-
 type LegalDocument = StaticPageDocument;
 type StaticPagesResourceLike = {
   staticPages?: {
@@ -753,8 +751,6 @@ function AssistanceProductCard({ product }: { product: AssistanceProductItem }) 
   );
 }
 
-
-
 function renderInline(text: string): React.ReactNode {
   const TOKEN_RE =
     /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
@@ -879,7 +875,6 @@ function fmtElapsed(s: number): string {
   return `${m} min ${sec < 10 ? '0' : ''}${sec} s`;
 }
 
-
 const cleanQueryFallback = (text: string): string =>
   text
     .replace(
@@ -1000,8 +995,7 @@ export function ContactPage() {
   // Scroll page to products section when products appear in step 5
   useEffect(() => {
     if (step !== 5) return;
-    const hasProducts =
-      faqProducts.length > 0 || skyVideos.length > 0;
+    const hasProducts = faqProducts.length > 0 || skyVideos.length > 0;
     if (hasProducts && productsRef.current) {
       productsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -2117,7 +2111,6 @@ This line is stripped before display — the user never sees it.`;
             </div>
           )}
           {/* Fallback Amazon si aucun produit Skoleom trouvé */}
-    
 
           {/* Contenu par défaut — visible uniquement avant toute recherche */}
           {!aiAnswer && !aiLoading && (
@@ -2543,8 +2536,6 @@ This line is stripped before display — the user never sees it.`;
                   </div>
                 </div>
               )}
-
-         
             </div>
           </div>
         </div>

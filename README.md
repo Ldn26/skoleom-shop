@@ -1,4 +1,5 @@
-# SkOLEOM SHOP 
+# SkOLEOM SHOP
+
 > AI-powered fashion marketplace — **Watch. Touch. Buy.®**
 > Virtual try-on with an AI avatar, brand-aware smart sizing, and instant checkout, on top of a WooCommerce catalog.
 
@@ -20,18 +21,18 @@ Built with **Next.js 16 (App Router)**. Migrated from a React (Vite) + Express c
 
 ## 🧱 Tech stack
 
-| Area | Technology |
-|------|-----------|
-| Framework | Next.js 16 (App Router, Turbopack) |
-| UI | React, Tailwind CSS v3, lucide-react, framer-motion |
-| State / data | Zustand, TanStack React Query |
-| Backend | Next.js Route Handlers (Node runtime) |
-| Database | PostgreSQL (Supabase) via Sequelize |
-| Commerce | WooCommerce REST API (`wc/v3` + custom `service/v1`) |
-| Media / AI | Cloudinary, Google Gemini  for now  we will deploy our TRYON model haha |
-| Payments | Stripe |
-| Charts | Recharts |
-| WebGL effects | react-bits (`three`, `ogl`, `lenis`) |
+| Area          | Technology                                                            |
+| ------------- | --------------------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router, Turbopack)                                    |
+| UI            | React, Tailwind CSS v3, lucide-react, framer-motion                   |
+| State / data  | Zustand, TanStack React Query                                         |
+| Backend       | Next.js Route Handlers (Node runtime)                                 |
+| Database      | PostgreSQL (Supabase) via Sequelize                                   |
+| Commerce      | WooCommerce REST API (`wc/v3` + custom `service/v1`)                  |
+| Media / AI    | Cloudinary, Google Gemini for now we will deploy our TRYON model haha |
+| Payments      | Stripe                                                                |
+| Charts        | Recharts                                                              |
+| WebGL effects | react-bits (`three`, `ogl`, `lenis`)                                  |
 
 ---
 
@@ -112,25 +113,25 @@ App runs on **http://localhost:3039**.
 
 ### Public (client-safe)
 
-| Variable | Example | Notes |
-|----------|---------|-------|
-| `NEXT_PUBLIC_SESYNC_URL` | `/api` | App's own API base. Keep it **relative** so calls are always same-origin (no CORS). |
-| `NEXT_PUBLIC_SHOP_URL` | `` | Public storefront / WooCommerce site URL. |
+| Variable                 | Example | Notes                                                                               |
+| ------------------------ | ------- | ----------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SESYNC_URL` | `/api`  | App's own API base. Keep it **relative** so calls are always same-origin (no CORS). |
+| `NEXT_PUBLIC_SHOP_URL`   | ``      | Public storefront / WooCommerce site URL.                                           |
 
 ### Server-only (secret)
 
-| Variable | Description |
-|----------|-------------|
-| `DATABASE_URL` | Postgres connection string. URL-encode special chars (e.g. `@` → `%40`). |
-| `JWT_SECRET` | Signs the access token (15h). |
-| `REFRESH_TOKEN_SECRET` | Signs the refresh token (7d). |
-| `WOO_BASE_URI` | WooCommerce base, e.g. ``. |
-| `WOO_CLIENT_ID` | WooCommerce consumer key (`ck_…`). |
-| `WOO_SECRET_KEY` | WooCommerce consumer secret (`cs_…`). |
-| `GEMINI_API_KEY` | Google Gemini (avatar analysis + generation). |
-| `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Cloudinary media storage. |
-| `STRIPE_SECRET_KEY` | Stripe checkout sessions. |
-| `ALLOWED_ORIGIN` | Comma-separated CORS allowlist, e.g. `localhost:5173`. Leave empty in dev to reflect any origin. |
+| Variable                                                                 | Description                                                                                      |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `DATABASE_URL`                                                           | Postgres connection string. URL-encode special chars (e.g. `@` → `%40`).                         |
+| `JWT_SECRET`                                                             | Signs the access token (15h).                                                                    |
+| `REFRESH_TOKEN_SECRET`                                                   | Signs the refresh token (7d).                                                                    |
+| `WOO_BASE_URI`                                                           | WooCommerce base, e.g. ``.                                                                       |
+| `WOO_CLIENT_ID`                                                          | WooCommerce consumer key (`ck_…`).                                                               |
+| `WOO_SECRET_KEY`                                                         | WooCommerce consumer secret (`cs_…`).                                                            |
+| `GEMINI_API_KEY`                                                         | Google Gemini (avatar analysis + generation).                                                    |
+| `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Cloudinary media storage.                                                                        |
+| `STRIPE_SECRET_KEY`                                                      | Stripe checkout sessions.                                                                        |
+| `ALLOWED_ORIGIN`                                                         | Comma-separated CORS allowlist, e.g. `localhost:5173`. Leave empty in dev to reflect any origin. |
 
 ---
 
@@ -151,16 +152,16 @@ npm run lint     # Lint
 - Sign-up creates the account, then the client auto-signs-in to obtain the token.
 - `middleware.ts` reads the `accessToken` cookie, decodes the JWT payload, and redirects to `/{lang}/connection` on missing / expired / wrong-role access.
 
-| Route | Access |
-|-------|--------|
-| `/vendeur/**` | `vendeur` |
-| `/essayage/**` | `acheteur` |
+| Route                 | Access                 |
+| --------------------- | ---------------------- |
+| `/vendeur/**`         | `vendeur`              |
+| `/essayage/**`        | `acheteur`             |
 | `/profile`, `/compte` | any authenticated user |
-| everything else | public |
+| everything else       | public                 |
 
 ---
 
-## ☁️ Deployment (Vercel)   only for now 
+## ☁️ Deployment (Vercel) only for now
 
 1. Import the repo into Vercel.
 2. Add all environment variables under **Settings → Environment Variables** (Production + Preview). Keep secrets **without** the `NEXT_PUBLIC_` prefix.

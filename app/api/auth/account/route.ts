@@ -27,7 +27,7 @@
 
 //     const user = await User.findOne({
 //       where: { id: userId },
-//       attributes: { exclude: ['password'] }, 
+//       attributes: { exclude: ['password'] },
 //       include: [{ model: Seller, as: 'seller' }],
 //     });
 
@@ -41,10 +41,6 @@
 //     return NextResponse.json({ success: false, error: 'Erreur serveur' }, { status: 500 });
 //   }
 // }
-
-
-
-
 
 import { NextResponse } from 'next/server';
 import { Seller, User } from '@/server/db';
@@ -60,7 +56,11 @@ export async function GET(request: Request) {
     if (!userId) {
       const rt = readCookie(request, 'refreshToken');
       if (rt) {
-        try { userId = verifyRefresh(rt).id; } catch { userId = null; }
+        try {
+          userId = verifyRefresh(rt).id;
+        } catch {
+          userId = null;
+        }
       }
     }
 
@@ -75,7 +75,10 @@ export async function GET(request: Request) {
     });
 
     if (!user) {
-      return NextResponse.json({ success: false, error: 'Utilisateur introuvable' }, { status: 404 });
+      return NextResponse.json(
+        { success: false, error: 'Utilisateur introuvable' },
+        { status: 404 },
+      );
     }
 
     return NextResponse.json({ success: true, data: user.toJSON() }, { status: 200 });

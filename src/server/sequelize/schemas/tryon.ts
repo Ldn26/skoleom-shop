@@ -146,18 +146,19 @@
 
 // module.exports = TryOn;
 
-
 import {
   DataTypes,
   Model,
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
-} from "sequelize";
-import sequelize from "../config";
+} from 'sequelize';
+import sequelize from '../config';
 
-export interface TryOnModel
-  extends Model<InferAttributes<TryOnModel>, InferCreationAttributes<TryOnModel>> {
+export interface TryOnModel extends Model<
+  InferAttributes<TryOnModel>,
+  InferCreationAttributes<TryOnModel>
+> {
   id_tryon: CreationOptional<number>;
   id_user: number;
   id_avatar: number;
@@ -177,14 +178,14 @@ export interface TryOnModel
   comment?: string | null;
   measurements?: Record<string, unknown> | null;
   analysis?: Record<string, unknown> | null;
-  status: CreationOptional<"processing" | "completed" | "failed">;
+  status: CreationOptional<'processing' | 'completed' | 'failed'>;
   generation_time_ms?: number | null;
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;
 }
 
 export const TryOn = sequelize.define<TryOnModel>(
-  "TryOn",
+  'TryOn',
   {
     id_tryon: {
       type: DataTypes.INTEGER,
@@ -292,8 +293,8 @@ export const TryOn = sequelize.define<TryOnModel>(
 
     // Status
     status: {
-      type: DataTypes.ENUM("processing", "completed", "failed"),
-      defaultValue: "processing",
+      type: DataTypes.ENUM('processing', 'completed', 'failed'),
+      defaultValue: 'processing',
     },
 
     generation_time_ms: {
@@ -302,24 +303,24 @@ export const TryOn = sequelize.define<TryOnModel>(
     },
   },
   {
-    tableName: "tryons",
+    tableName: 'tryons',
     timestamps: true,
 
     indexes: [
       {
-        fields: ["id_user"],
+        fields: ['id_user'],
       },
       {
-        fields: ["id_avatar"],
+        fields: ['id_avatar'],
       },
       {
-        fields: ["product_id"],
+        fields: ['product_id'],
       },
       {
-        fields: ["id_user", "createdAt"],
+        fields: ['id_user', 'createdAt'],
       },
     ],
-  }
+  },
 );
 
 export default TryOn;

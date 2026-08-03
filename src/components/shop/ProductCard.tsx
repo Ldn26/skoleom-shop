@@ -1,6 +1,5 @@
-
 import { FC, useEffect, useRef, useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Heart, ShoppingBag, Check, Loader2, Eye } from 'lucide-react';
 import { useFavorites } from '../../hooks/useFavorites';
 // import { useCart } from '../../hooks/useCart';
@@ -26,7 +25,6 @@ interface ProductCardProps {
   isPartnerDirect?: boolean;
 }
 
-
 function shortenAffiliateTitle(raw: string): string {
   if (!raw) return raw;
   let s = raw.trim();
@@ -51,7 +49,7 @@ function shortenAffiliateTitle(raw: string): string {
   return s;
 }
 
- const ProductCard: FC<ProductCardProps> = ({
+const ProductCard: FC<ProductCardProps> = ({
   id,
   image,
   title,
@@ -64,7 +62,6 @@ function shortenAffiliateTitle(raw: string): string {
   isPartnerDirect = false,
   inStock,
 }) => {
-
   const isAmazonAffiliate = sku?.startsWith('AMZ-') || false;
   const isAffiliate = !isPartnerDirect && (isAmazonAffiliate || Boolean(external_url));
   // const cleanTitle = decodeHtmlEntities(title);
@@ -73,9 +70,10 @@ function shortenAffiliateTitle(raw: string): string {
   const [addedToCart, setAddedToCart] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   // const pendingRef = useRef<any>(null);
-  const { isFavorite, 
+  const {
+    isFavorite,
     // toggleFavorite
-   } = useFavorites({
+  } = useFavorites({
     id,
     image: image ?? '',
     title: '',
@@ -120,7 +118,7 @@ function shortenAffiliateTitle(raw: string): string {
     if (isAffiliate) {
       // ASIN si Amazon, sinon identifiant stable "EXT-<id>" pour les autres marchands.
       // L'extension v2 lit localStorage["skoleom:amazon-cart"] via le bridge.
-      const asin = isAmazonAffiliate ? sku!.replace('AMZ-', '') : `EXT-${  id}`;
+      const asin = isAmazonAffiliate ? sku!.replace('AMZ-', '') : `EXT-${id}`;
       const source: 'amazon' | 'external' = isAmazonAffiliate ? 'amazon' : 'external';
 
       // 1) L'extension écoute 'skoleom:add-amazon' et ajoute l'item dans son
@@ -171,15 +169,14 @@ function shortenAffiliateTitle(raw: string): string {
     }
   };
 
-
   // const trackSelectItem = () =>
-    // trackEvent('select_item', {
-    //   item_id: id,
-    //   item_name: title,
-    //   item_category: category ?? undefined,
-    //   price,
-    //   affiliate: isAffiliate,
-    // });
+  // trackEvent('select_item', {
+  //   item_id: id,
+  //   item_name: title,
+  //   item_category: category ?? undefined,
+  //   price,
+  //   affiliate: isAffiliate,
+  // });
 
   // const handleToggleFavorite = () => {
   //   trackEvent(isFavorite ? 'remove_from_wishlist' : 'add_to_wishlist', {
@@ -209,10 +206,9 @@ function shortenAffiliateTitle(raw: string): string {
     <div ref={cardRef} className="itemCardProduct group">
       <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/[0.08] transition-all duration-300 ease-out group-hover:border-[#a8ff35]/30 group-hover:shadow-[0_0_30px_-5px_rgba(168,255,53,0.12)]">
         <div
-          className={
-            `absolute top-3 left-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border ${ 
-            cartBtnClass}`
-          }
+          className={`absolute top-3 left-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border ${
+            cartBtnClass
+          }`}
           onClick={handleAddToCart}
         >
           {addedToCart ? (
@@ -225,10 +221,9 @@ function shortenAffiliateTitle(raw: string): string {
         </div>
 
         <div
-          className={
-            `absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border backdrop-blur-sm ${ 
-            favBtnClass}`
-          }
+          className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border backdrop-blur-sm ${
+            favBtnClass
+          }`}
           // onClick={handleToggleFavorite}
         >
           <Heart size={16} color="#fff" fill={isFavorite ? '#fff' : 'none'} />
@@ -255,28 +250,26 @@ function shortenAffiliateTitle(raw: string): string {
           </span>
         )}
 
-        <div className={`h-full w-full ${  isAffiliate ? 'bg-white' : 'bg-[#0a0a0a]'}`}>
+        <div className={`h-full w-full ${isAffiliate ? 'bg-white' : 'bg-[#0a0a0a]'}`}>
           {image && (
-
             <img
               src={image}
-              
+
               // alt={cleanTitle}
               width={400}
               height={400}
               loading="lazy"
               decoding="async"
               alt={title}
-              className={
-                `${isAffiliate ? 'object-contain p-4' : 'object-cover' 
-                } w-full h-full transition-transform duration-500 ease-out group-hover:scale-110`
-              }
+              className={`${
+                isAffiliate ? 'object-contain p-4' : 'object-cover'
+              } w-full h-full transition-transform duration-500 ease-out group-hover:scale-110`}
             />
           )}
         </div>
 
         <Link
-          to={`/produit/${  id}`}
+          to={`/produit/${id}`}
           // prefetch={false}
           // onClick={trackSelectItem}
           className="absolute inset-0 z-[5] flex items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"
@@ -296,9 +289,10 @@ function shortenAffiliateTitle(raw: string): string {
       </div>
 
       <div className="mt-3.5 px-0.5">
-        <Link to={`/produit/${  id}`}
+        <Link
+          to={`/produit/${id}`}
           // onClick={trackSelectItem}
-          >
+        >
           <p
             className="text-sm font-semibold text-white/90 leading-snug line-clamp-2 transition-colors duration-200 group-hover:text-white"
             title={title}
@@ -332,8 +326,6 @@ function shortenAffiliateTitle(raw: string): string {
       /> */}
     </div>
   );
-}
-
-
+};
 
 export default ProductCard;

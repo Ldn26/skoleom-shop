@@ -1,4 +1,3 @@
-
 // // require('dotenv/config');
 // import dotenv from 'dotenv';
 
@@ -106,17 +105,12 @@ export const env: EnvConfig = {
   DB_USER: dbUser,
   DB_PASSWORD: dbPassword,
   DATABASE_URL:
-    process.env.DATABASE_URL ??
-    `mysql://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`,
-  JWT_SECRET:
-    requireInProduction('JWT_SECRET', process.env.JWT_SECRET) ||
-    'dev-jwt-secret',
+    process.env.DATABASE_URL ?? `mysql://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`,
+  JWT_SECRET: requireInProduction('JWT_SECRET', process.env.JWT_SECRET) || 'dev-jwt-secret',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN ?? '15h',
   REFRESH_TOKEN_SECRET:
-    requireInProduction(
-      'REFRESH_TOKEN_SECRET',
-      process.env.REFRESH_TOKEN_SECRET,
-    ) || 'dev-refresh-secret',
+    requireInProduction('REFRESH_TOKEN_SECRET', process.env.REFRESH_TOKEN_SECRET) ||
+    'dev-refresh-secret',
   REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN ?? '7d',
   SESYNC_URL: process.env.SESYNC_URL ?? '',
   FRONTEND_URL: (process.env.FRONTEND_URL ?? 'http://localhost:5173')

@@ -43,12 +43,14 @@ import {
   InferCreationAttributes,
   CreationOptional,
   ForeignKey,
-} from "sequelize";
-import sequelize from "../config";
-import User from "./user";
+} from 'sequelize';
+import sequelize from '../config';
+import User from './user';
 
-export interface SellerModel
-  extends Model<InferAttributes<SellerModel>, InferCreationAttributes<SellerModel>> {
+export interface SellerModel extends Model<
+  InferAttributes<SellerModel>,
+  InferCreationAttributes<SellerModel>
+> {
   id: CreationOptional<number>;
   wpUserId?: number | null;
   userId: ForeignKey<number>;
@@ -57,7 +59,7 @@ export interface SellerModel
 }
 
 export const Seller = sequelize.define<SellerModel>(
-  "Seller",
+  'Seller',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -75,17 +77,17 @@ export const Seller = sequelize.define<SellerModel>(
       unique: true,
       references: {
         model: User,
-        key: "id",
+        key: 'id',
       },
     },
   },
   {
-    tableName: "sellers",
+    tableName: 'sellers',
     timestamps: true,
-  }
+  },
 );
 
-User.hasOne(Seller, { foreignKey: "userId", as: "seller" });
-Seller.belongsTo(User, { foreignKey: "userId", as: "user" });
+User.hasOne(Seller, { foreignKey: 'userId', as: 'seller' });
+Seller.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
 export default Seller;

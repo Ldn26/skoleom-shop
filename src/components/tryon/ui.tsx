@@ -21,9 +21,10 @@ export function StepIndicator({ steps }: { steps: Step[] }) {
         <div key={n} className="flex items-center gap-2">
           <div
             className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border transition-all
-              ${done
-                ? 'bg-[rgba(163,230,53,0.12)] border-[rgba(163,230,53,0.4)] text-[rgb(163,230,53)]'
-                : 'bg-white/[0.03] border-white/10 text-[#8a93a8]'
+              ${
+                done
+                  ? 'bg-[rgba(163,230,53,0.12)] border-[rgba(163,230,53,0.4)] text-[rgb(163,230,53)]'
+                  : 'bg-white/[0.03] border-white/10 text-[#8a93a8]'
               }`}
           >
             <span
@@ -45,7 +46,10 @@ export function StepIndicator({ steps }: { steps: Step[] }) {
 export function ScanOverlay({ running }: { running: boolean }) {
   if (!running) return null;
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[18px]" style={{ zIndex: 6 }}>
+    <div
+      className="absolute inset-0 pointer-events-none overflow-hidden rounded-[18px]"
+      style={{ zIndex: 6 }}
+    >
       {/* scan line */}
       <div
         className="absolute left-0 right-0 h-[2px]"
@@ -57,9 +61,9 @@ export function ScanOverlay({ running }: { running: boolean }) {
       />
       {/* corner brackets */}
       {[
-        { top: 10, left: 10,  borderTop: 2, borderLeft: 2  },
+        { top: 10, left: 10, borderTop: 2, borderLeft: 2 },
         { top: 10, right: 10, borderTop: 2, borderRight: 2 },
-        { bottom: 10, left: 10,  borderBottom: 2, borderLeft: 2  },
+        { bottom: 10, left: 10, borderBottom: 2, borderLeft: 2 },
         { bottom: 10, right: 10, borderBottom: 2, borderRight: 2 },
       ].map((s, i) => (
         <div

@@ -1,9 +1,8 @@
-// import { 
-  // useMemo
-  //  useState, type CSSProperties } from 'react';
+// import {
+// useMemo
+//  useState, type CSSProperties } from 'react';
 import { LOGOS } from '../../constants/logos';
 // import type { PosterCardItem } from '../common/PosterCarousel';
-
 
 const MAGAZINE_LOGO = LOGOS.magazineBlack;
 
@@ -141,8 +140,6 @@ export default function AssistanceNewsSidebar({ className = '' }: AssistanceNews
         />
         <span className="font-sans text-sm font-bold tracking-wide text-black">Nouveautés</span>
       </div>
-
- 
     </aside>
   );
 }

@@ -162,7 +162,11 @@ export default function GlobalSearch({
                     <Row key={`p-${p.id}`} onClick={() => go(`/produit/${p.id}`)}>
                       <span className="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white/5">
                         {p.photos?.[0] ? (
-                          <img src={p.photos[0]} alt={p.name} className="h-full w-full object-cover" />
+                          <img
+                            src={p.photos[0]}
+                            alt={p.name}
+                            className="h-full w-full object-cover"
+                          />
                         ) : null}
                       </span>
                       <span className="min-w-0 flex-1">
@@ -193,7 +197,9 @@ export default function GlobalSearch({
 function Section({ title, children }) {
   return (
     <div className="py-1.5">
-      <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">{title}</p>
+      <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+        {title}
+      </p>
       {children}
     </div>
   );

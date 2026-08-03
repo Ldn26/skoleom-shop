@@ -1,6 +1,3 @@
-
-
-
 import { NextResponse } from 'next/server';
 import {
   signAccessToken,
@@ -18,7 +15,10 @@ export async function POST(request: Request) {
   try {
     const token = readCookie(request, 'refreshToken');
     if (!token) {
-      return NextResponse.json({ success: false, error: 'Refresh token not found' }, { status: 401 });
+      return NextResponse.json(
+        { success: false, error: 'Refresh token not found' },
+        { status: 401 },
+      );
     }
 
     const payload = verifyRefresh(token);

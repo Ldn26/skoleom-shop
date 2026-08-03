@@ -24,7 +24,7 @@ export default {
           'gray-500': '#6B6B6B',
           'gray-300': '#B8B8B8',
         },
-          skoleom: {
+        skoleom: {
           lime: '#a8ff35',
           orange: '#ff6b35',
           yellow: '#ffd600',

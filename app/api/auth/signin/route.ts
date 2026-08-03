@@ -1,6 +1,3 @@
-
-
-
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { Seller, User } from '@/server/db';
@@ -25,7 +22,10 @@ export async function POST(request: Request) {
     const { email, password } = await request.json().catch(() => ({}));
 
     if (!email || !password) {
-      return NextResponse.json({ success: false, error: 'Invalid login or password' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'Invalid login or password' },
+        { status: 400 },
+      );
     }
 
     const userInstance = await User.findOne({
@@ -67,6 +67,9 @@ export async function POST(request: Request) {
     return response;
   } catch (err) {
     console.error('Signin failed:', err);
-    return NextResponse.json({ success: false, error: 'Server error during login' }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Server error during login' },
+      { status: 500 },
+    );
   }
 }

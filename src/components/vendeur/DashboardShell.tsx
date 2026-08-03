@@ -1,6 +1,3 @@
-
-
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -69,7 +66,10 @@ export default function DashboardShell({
   }, [pathname]);
 
   return (
-    <div style={{ background: C.bg, color: C.w90, minHeight: '100vh' }} className="relative py-24 font-sans">
+    <div
+      style={{ background: C.bg, color: C.w90, minHeight: '100vh' }}
+      className="relative py-24 font-sans"
+    >
       <style>{`
         .dash-scroll::-webkit-scrollbar { width: 6px; }
         .dash-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.08); border-radius: 8px; }
@@ -81,7 +81,10 @@ export default function DashboardShell({
         style={{ background: 'rgba(10,10,10,0.85)', borderColor: C.borderSoft }}
       >
         <div className="flex items-center gap-2.5">
-          <div className="grid place-items-center rounded-xl" style={{ width: 30, height: 30, background: C.lime }}>
+          <div
+            className="grid place-items-center rounded-xl"
+            style={{ width: 30, height: 30, background: C.lime }}
+          >
             <Boxes size={16} color="#000" />
           </div>
           <span className="font-extrabold tracking-tight text-sm">SKOLEOM</span>
@@ -117,14 +120,19 @@ export default function DashboardShell({
         }}
       >
         {/* Brand */}
-        <div className="flex items-center gap-2.5 px-6 shrink-0" style={{ height: 78, borderBottom: `1px solid ${C.borderSoft}` }}>
-    
+        <div
+          className="flex items-center gap-2.5 px-6 shrink-0"
+          style={{ height: 78, borderBottom: `1px solid ${C.borderSoft}` }}
+        >
           <div className="leading-tight" />
         </div>
 
         {/* Navigation Items */}
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5 dash-scroll">
-          <p className="px-3 pb-2 font-bold uppercase" style={{ fontSize: 10, letterSpacing: '0.2em', color: C.w40 }}>
+          <p
+            className="px-3 pb-2 font-bold uppercase"
+            style={{ fontSize: 10, letterSpacing: '0.2em', color: C.w40 }}
+          >
             Menu
           </p>
           {NAV.map((item) => {
@@ -146,7 +154,12 @@ export default function DashboardShell({
               >
                 <Icon size={17} />
                 <span>{item.label}</span>
-                {isActive && <span className="ml-auto rounded-full shrink-0" style={{ width: 6, height: 6, background: C.lime }} />}
+                {isActive && (
+                  <span
+                    className="ml-auto rounded-full shrink-0"
+                    style={{ width: 6, height: 6, background: C.lime }}
+                  />
+                )}
               </Link>
             );
           })}
@@ -154,7 +167,10 @@ export default function DashboardShell({
 
         {/* Profile + Logout Footer */}
         <div className="px-3 pb-4 pt-3 shrink-0" style={{ borderTop: `1px solid ${C.borderSoft}` }}>
-          <div className="flex items-center gap-3 rounded-2xl px-3 py-2.5" style={{ background: C.panel }}>
+          <div
+            className="flex items-center gap-3 rounded-2xl px-3 py-2.5"
+            style={{ background: C.panel }}
+          >
             <div
               className="grid shrink-0 place-items-center rounded-full font-bold"
               style={{ width: 38, height: 38, background: C.lime, color: '#000', fontSize: 13 }}
@@ -162,8 +178,12 @@ export default function DashboardShell({
               {initials}
             </div>
             <div className="min-w-0 leading-tight">
-              <p className="truncate font-semibold" style={{ fontSize: 13 }}>{vendorName}</p>
-              <p className="truncate" style={{ fontSize: 11, color: C.w40 }}>{vendorEmail}</p>
+              <p className="truncate font-semibold" style={{ fontSize: 13 }}>
+                {vendorName}
+              </p>
+              <p className="truncate" style={{ fontSize: 11, color: C.w40 }}>
+                {vendorEmail}
+              </p>
             </div>
           </div>
 
@@ -173,8 +193,12 @@ export default function DashboardShell({
             }}
             className="mt-2 flex w-full items-center gap-2.5 rounded-2xl px-3 py-2.5 text-left transition-colors duration-200"
             style={{ color: C.red, fontWeight: 600, fontSize: 13 }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(248,113,113,0.1)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(248,113,113,0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+            }}
           >
             <LogOut size={16} />
             <span>Déconnexion</span>
@@ -183,9 +207,7 @@ export default function DashboardShell({
       </aside>
 
       <main className="relative z-10 flex-1 ">
-        <div className="mx-auto  p-4 sm:p-6 lg:p-8">
-          {children}
-        </div>
+        <div className="mx-auto  p-4 sm:p-6 lg:p-8">{children}</div>
       </main>
     </div>
   );

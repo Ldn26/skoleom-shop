@@ -52,18 +52,27 @@ export default function VendeurProductsPage() {
               </thead>
               <tbody>
                 {products.map((p) => (
-                  <tr key={p.id} className="border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
+                  <tr
+                    key={p.id}
+                    className="border-b border-white/5 last:border-0 hover:bg-white/[0.02]"
+                  >
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-3">
                         {p.images?.[0]?.src ? (
-                          <img src={p.images[0].src} alt="" className="h-10 w-10 rounded-lg object-cover" />
+                          <img
+                            src={p.images[0].src}
+                            alt=""
+                            className="h-10 w-10 rounded-lg object-cover"
+                          />
                         ) : (
                           <div className="h-10 w-10 rounded-lg bg-white/5" />
                         )}
                         <span className="font-medium text-white">{p.name}</span>
                       </div>
                     </td>
-                    <td className="px-5 py-3 text-white/50">{(p as { sku?: string }).sku || '—'}</td>
+                    <td className="px-5 py-3 text-white/50">
+                      {(p as { sku?: string }).sku || '—'}
+                    </td>
                     <td className="px-5 py-3 text-white/80">{p.price || p.regular_price || '—'}</td>
                     <td className="px-5 py-3">
                       <Badge tone={p.stock_status === 'instock' ? 'green' : 'amber'}>
@@ -71,7 +80,9 @@ export default function VendeurProductsPage() {
                       </Badge>
                     </td>
                     <td className="px-5 py-3">
-                      <Badge tone={p.status === 'publish' ? 'green' : 'neutral'}>{p.status || '—'}</Badge>
+                      <Badge tone={p.status === 'publish' ? 'green' : 'neutral'}>
+                        {p.status || '—'}
+                      </Badge>
                     </td>
                   </tr>
                 ))}

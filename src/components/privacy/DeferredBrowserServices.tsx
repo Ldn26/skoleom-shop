@@ -23,12 +23,12 @@ const GA_MEASUREMENT_ID = 'G-G2BT836Y1R';
 
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID as string | undefined;
 const SORTLIST_RADAR_PROFILE_ID = process.env.NEXT_PUBLIC_SORTLIST_RADAR_PROFILE_ID as
-  | string
-  | undefined;
+  string | undefined;
 const SORTLIST_RADAR_CDN =
   (process.env.NEXT_PUBLIC_SORTLIST_RADAR_CDN as string | undefined) || 'collector.sortlist.com';
 const SORTLIST_RADAR_API_ENDPOINT =
-  (process.env.NEXT_PUBLIC_SORTLIST_RADAR_API_ENDPOINT as string | undefined) || 'radar.sortlist.com';
+  (process.env.NEXT_PUBLIC_SORTLIST_RADAR_API_ENDPOINT as string | undefined) ||
+  'radar.sortlist.com';
 
 export default function DeferredBrowserServices() {
   const { hasConsentFor } = useSiteChoices();

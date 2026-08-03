@@ -54,7 +54,8 @@ function serializeCookie(name: string, value: string, options: CookieOptions = {
   const parts = [`${name}=${encodeURIComponent(value)}`];
   parts.push(`Path=${options.path ?? '/'}`);
   if (options.domain) parts.push(`Domain=${options.domain}`);
-  if (typeof options.maxAge === 'number') parts.push(`Max-Age=${Math.floor(options.maxAge / 1000)}`);
+  if (typeof options.maxAge === 'number')
+    parts.push(`Max-Age=${Math.floor(options.maxAge / 1000)}`);
   if (options.expires) parts.push(`Expires=${options.expires.toUTCString()}`);
   if (options.httpOnly) parts.push('HttpOnly');
   if (options.secure) parts.push('Secure');
@@ -128,7 +129,9 @@ async function buildRequest(
   };
 }
 
-function verifyAuth(req: NextRequest): { userid: string; role?: string } | { error: string; status: number } {
+function verifyAuth(
+  req: NextRequest,
+): { userid: string; role?: string } | { error: string; status: number } {
   const authHeader = req.headers.get('authorization') ?? '';
   const bearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
   const token = bearer ?? req.cookies.get('accessToken')?.value ?? null;
@@ -263,7 +266,9 @@ export function callController(
             if (!finished) {
               state.statusCode = 500;
               state.headers.set('content-type', 'application/json');
-              finish(JSON.stringify({ error: 'Server error', detail: String(error?.message ?? error) }));
+              finish(
+                JSON.stringify({ error: 'Server error', detail: String(error?.message ?? error) }),
+              );
             }
           });
       });

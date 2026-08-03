@@ -48,7 +48,9 @@ export function StatCard({
         <Icon size={22} />
       </div>
       <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">{label}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+          {label}
+        </p>
         <p className="mt-0.5 text-2xl font-bold text-white">{value}</p>
       </div>
     </Card>
@@ -82,7 +84,13 @@ export function StateBlock({
   return <div className="py-16 text-center text-sm text-white/40">{emptyLabel}</div>;
 }
 
-export function Badge({ children, tone = 'neutral' }: { children: ReactNode; tone?: 'neutral' | 'green' | 'amber' | 'red' }) {
+export function Badge({
+  children,
+  tone = 'neutral',
+}: {
+  children: ReactNode;
+  tone?: 'neutral' | 'green' | 'amber' | 'red';
+}) {
   const tones = {
     neutral: 'border-white/15 bg-white/5 text-white/70',
     green: 'border-[#a8ff35]/30 bg-[#a8ff35]/10 text-[#a8ff35]',
@@ -90,7 +98,9 @@ export function Badge({ children, tone = 'neutral' }: { children: ReactNode; ton
     red: 'border-red-400/30 bg-red-400/10 text-red-300',
   };
   return (
-    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold ${tones[tone]}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold ${tones[tone]}`}
+    >
       {children}
     </span>
   );

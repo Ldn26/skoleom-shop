@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, CornerLeftUp } from 'lucide-react';
@@ -26,10 +25,7 @@ function CategoryBar({ rootId = ROOT_CATEGORY_ID }: { rootId?: number }) {
     return m;
   }, [all]);
 
-  const childrenOf = useCallback(
-    (id: number) => all.filter((c) => (c.parent ?? 0) === id),
-    [all],
-  );
+  const childrenOf = useCallback((id: number) => all.filter((c) => (c.parent ?? 0) === id), [all]);
 
   // Which level to show, based on the active category:
   //  - active has children → drill into its children
@@ -101,8 +97,12 @@ function CategoryBar({ rootId = ROOT_CATEGORY_ID }: { rootId?: number }) {
         .cat-slider::-webkit-scrollbar { display:none; }
       `}</style>
 
-      <div className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-black to-transparent transition-opacity duration-300 ${canLeft ? 'opacity-100' : 'opacity-0'}`} />
-      <div className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-black to-transparent transition-opacity duration-300 ${canRight ? 'opacity-100' : 'opacity-0'}`} />
+      <div
+        className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-black to-transparent transition-opacity duration-300 ${canLeft ? 'opacity-100' : 'opacity-0'}`}
+      />
+      <div
+        className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-black to-transparent transition-opacity duration-300 ${canRight ? 'opacity-100' : 'opacity-0'}`}
+      />
 
       <button
         type="button"
@@ -153,12 +153,21 @@ function CategoryBar({ rootId = ROOT_CATEGORY_ID }: { rootId?: number }) {
                   className={`relative grid h-24 w-24 place-items-center overflow-hidden rounded-full bg-white/[0.04] ring-2 transition duration-300 group-hover:-translate-y-0.5 group-hover:ring-univ-lime/50 sm:h-28 sm:w-28 ${isActive ? 'ring-univ-lime' : 'ring-white/10'}`}
                 >
                   {category.image ? (
-                    <img src={category.image} alt={category.name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    <img
+                      src={category.image}
+                      alt={category.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
                   ) : (
-                    <span className="text-2xl font-bold text-white/50">{category.name?.charAt(0)?.toUpperCase()}</span>
+                    <span className="text-2xl font-bold text-white/50">
+                      {category.name?.charAt(0)?.toUpperCase()}
+                    </span>
                   )}
                 </span>
-                <span className={`line-clamp-2 text-center text-xs font-semibold leading-tight transition-colors duration-300 sm:text-sm ${isActive ? 'text-univ-lime' : 'text-white/80 group-hover:text-univ-lime'}`}>
+                <span
+                  className={`line-clamp-2 text-center text-xs font-semibold leading-tight transition-colors duration-300 sm:text-sm ${isActive ? 'text-univ-lime' : 'text-white/80 group-hover:text-univ-lime'}`}
+                >
                   {category.name}
                 </span>
               </button>

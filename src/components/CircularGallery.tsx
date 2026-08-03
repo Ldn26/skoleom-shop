@@ -59,7 +59,6 @@
 //   );
 // }
 
-
 import { ArrowUpRight } from 'lucide-react';
 
 const FALLBACK_IMAGE =

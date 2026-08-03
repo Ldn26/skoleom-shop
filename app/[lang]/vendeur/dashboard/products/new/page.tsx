@@ -41,8 +41,7 @@ export default function AddProductPage() {
 
   const [form, setForm] = useState({ ...EMPTY });
   const [formMsg, setFormMsg] = useState<{ ok: boolean; text: string } | null>(null);
-  const set = (key: keyof typeof EMPTY, value: string) =>
-    setForm((f) => ({ ...f, [key]: value }));
+  const set = (key: keyof typeof EMPTY, value: string) => setForm((f) => ({ ...f, [key]: value }));
 
   const submitForm = async () => {
     setFormMsg(null);
@@ -109,8 +108,10 @@ export default function AddProductPage() {
 
   return (
     <div className="mx-auto max-w-[1400px]">
-    
-      <PageHeader title="Ajouter un produit" subtitle="Créez un produit ou importez-en plusieurs via CSV." />
+      <PageHeader
+        title="Ajouter un produit"
+        subtitle="Créez un produit ou importez-en plusieurs via CSV."
+      />
 
       <div className="mb-6 inline-flex  rounded-2xl border border-white/10 bg-white/5 p-1">
         <button
@@ -134,31 +135,65 @@ export default function AddProductPage() {
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <label className={labelClass}>Nom du produit *</label>
-              <input className={inputClass} value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="T-shirt Skoleom" />
+              <input
+                className={inputClass}
+                value={form.name}
+                onChange={(e) => set('name', e.target.value)}
+                placeholder="T-shirt Skoleom"
+              />
             </div>
             <div>
               <label className={labelClass}>Prix *</label>
-              <input className={inputClass} value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="29.90" />
+              <input
+                className={inputClass}
+                value={form.price}
+                onChange={(e) => set('price', e.target.value)}
+                placeholder="29.90"
+              />
             </div>
             <div>
               <label className={labelClass}>Prix promo</label>
-              <input className={inputClass} value={form.sale_price} onChange={(e) => set('sale_price', e.target.value)} placeholder="24.90" />
+              <input
+                className={inputClass}
+                value={form.sale_price}
+                onChange={(e) => set('sale_price', e.target.value)}
+                placeholder="24.90"
+              />
             </div>
             <div>
               <label className={labelClass}>SKU</label>
-              <input className={inputClass} value={form.sku} onChange={(e) => set('sku', e.target.value)} placeholder="SKU-001" />
+              <input
+                className={inputClass}
+                value={form.sku}
+                onChange={(e) => set('sku', e.target.value)}
+                placeholder="SKU-001"
+              />
             </div>
             <div>
               <label className={labelClass}>Stock</label>
-              <input className={inputClass} value={form.stock_quantity} onChange={(e) => set('stock_quantity', e.target.value)} placeholder="50" />
+              <input
+                className={inputClass}
+                value={form.stock_quantity}
+                onChange={(e) => set('stock_quantity', e.target.value)}
+                placeholder="50"
+              />
             </div>
             <div className="sm:col-span-2">
               <label className={labelClass}>Image (URL)</label>
-              <input className={inputClass} value={form.image} onChange={(e) => set('image', e.target.value)} placeholder="https://..." />
+              <input
+                className={inputClass}
+                value={form.image}
+                onChange={(e) => set('image', e.target.value)}
+                placeholder="https://..."
+              />
             </div>
             <div>
               <label className={labelClass}>Statut</label>
-              <select className={inputClass} value={form.status} onChange={(e) => set('status', e.target.value)}>
+              <select
+                className={inputClass}
+                value={form.status}
+                onChange={(e) => set('status', e.target.value)}
+              >
                 <option value="publish">Publié</option>
                 <option value="draft">Brouillon</option>
                 <option value="pending">En attente</option>
@@ -166,16 +201,26 @@ export default function AddProductPage() {
             </div>
             <div className="sm:col-span-2">
               <label className={labelClass}>Description courte</label>
-              <input className={inputClass} value={form.short_description} onChange={(e) => set('short_description', e.target.value)} />
+              <input
+                className={inputClass}
+                value={form.short_description}
+                onChange={(e) => set('short_description', e.target.value)}
+              />
             </div>
             <div className="sm:col-span-2">
               <label className={labelClass}>Description</label>
-              <textarea className={`${inputClass} min-h-[120px] resize-y`} value={form.description} onChange={(e) => set('description', e.target.value)} />
+              <textarea
+                className={`${inputClass} min-h-[120px] resize-y`}
+                value={form.description}
+                onChange={(e) => set('description', e.target.value)}
+              />
             </div>
           </div>
 
           {formMsg && (
-            <p className={`mt-5 rounded-xl border px-4 py-2.5 text-xs font-medium ${formMsg.ok ? 'border-[#a8ff35]/30 bg-[#a8ff35]/10 text-[#a8ff35]' : 'border-red-500/30 bg-red-500/10 text-red-400'}`}>
+            <p
+              className={`mt-5 rounded-xl border px-4 py-2.5 text-xs font-medium ${formMsg.ok ? 'border-[#a8ff35]/30 bg-[#a8ff35]/10 text-[#a8ff35]' : 'border-red-500/30 bg-red-500/10 text-red-400'}`}
+            >
               {formMsg.text}
             </p>
           )}
@@ -187,7 +232,11 @@ export default function AddProductPage() {
               disabled={create.isPending}
               className="inline-flex items-center gap-2 rounded-xl bg-[#a8ff35] px-5 py-3 text-sm font-bold text-black transition hover:brightness-105 disabled:opacity-50"
             >
-              {create.isPending ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
+              {create.isPending ? (
+                <Loader2 size={16} className="animate-spin" />
+              ) : (
+                <CheckCircle2 size={16} />
+              )}
               Créer le produit
             </button>
             <button
@@ -253,7 +302,9 @@ export default function AddProductPage() {
               {invalid.length > 0 && (
                 <div className="mt-3 max-h-32 overflow-y-auto rounded-xl border border-red-500/20 bg-red-500/5 p-3 text-xs text-red-300">
                   {invalid.map((it) => (
-                    <div key={it.index}>Ligne {it.index}: {it.reason}</div>
+                    <div key={it.index}>
+                      Ligne {it.index}: {it.reason}
+                    </div>
                   ))}
                 </div>
               )}
@@ -263,11 +314,14 @@ export default function AddProductPage() {
                   <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
                     <div
                       className="h-full bg-[#a8ff35] transition-all"
-                      style={{ width: `${valid.length ? (progress.done / valid.length) * 100 : 0}%` }}
+                      style={{
+                        width: `${valid.length ? (progress.done / valid.length) * 100 : 0}%`,
+                      }}
                     />
                   </div>
                   <p className="mt-2 text-xs text-white/50">
-                    {progress.done}/{valid.length} traités · {progress.ok} créés · {progress.fail} échecs
+                    {progress.done}/{valid.length} traités · {progress.ok} créés · {progress.fail}{' '}
+                    échecs
                   </p>
                 </div>
               )}

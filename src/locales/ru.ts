@@ -28,7 +28,7 @@ const resource = {
   header: {
     brandHome: 'Главная',
     universe: 'Universe',
-    profile : {
+    profile: {
       profile: 'Мой профиль',
       logout: 'Выйти',
     },

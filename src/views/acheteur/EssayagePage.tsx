@@ -1,6 +1,3 @@
-
-
-
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useGetUserAvatar, useCreateAvatar, type Measurements } from '../../api/avatar';
@@ -40,9 +37,6 @@ export default function Essayage() {
   const clearAvatar = useAvatarStore((s) => s.clearAvatar);
 
   const { data: userAvatar, isLoading: avatarLoading } = useGetUserAvatar(currentUserId);
-  
-
-
 
   const {
     data: historyData,
@@ -52,7 +46,9 @@ export default function Essayage() {
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   // FIX 1: Use safe optional chaining for nested data property
-  const [photoPreview, setPhotoPreview] = useState<string | null>(userAvatar?.data?.avatarUrl ?? null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(
+    userAvatar?.data?.avatarUrl ?? null,
+  );
   const [active, setActive] = useState<WooProduct | null>(null);
   const [resultSaved, setResultSaved] = useState(false);
 
@@ -104,10 +100,10 @@ export default function Essayage() {
   const fitComment = tryOn.isPending
     ? 'Analyse…'
     : tryOn.isError
-    ? 'Erreur — réessayez.'
-    : fitScore
-    ? preview?.comment ?? null
-    : null;
+      ? 'Erreur — réessayez.'
+      : fitScore
+        ? (preview?.comment ?? null)
+        : null;
 
   const tryOnImage = preview?.overlayUrl ?? null;
 
@@ -271,7 +267,8 @@ export default function Essayage() {
             Cabine d'essayage <b className="text-[rgb(163_230_53)]">Skoleom™</b>
           </h2>
           <p className="text-[#8a93a8] text-[13px] mt-1.5 font-light max-w-[520px]">
-            Portez-le avant même de le posséder — votre jumeau numérique essaie pour vous en temps réel.
+            Portez-le avant même de le posséder — votre jumeau numérique essaie pour vous en temps
+            réel.
           </p>
           <StepIndicator steps={steps} />
         </div>
@@ -284,7 +281,9 @@ export default function Essayage() {
                 <PhotoZone preview={photoPreview} onFile={handlePhotoSelect} />
               </div>
               {avatarLoading && !avatar && (
-                <p className="text-[10.5px] text-[#8a93a8] mt-2 text-center">Chargement de votre jumeau…</p>
+                <p className="text-[10.5px] text-[#8a93a8] mt-2 text-center">
+                  Chargement de votre jumeau…
+                </p>
               )}
               {photoPreview && !avatar && !avatarLoading && (
                 <p className="text-[10.5px] text-[#8a93a8] mt-2 text-center">

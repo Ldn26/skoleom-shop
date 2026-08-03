@@ -12,7 +12,6 @@ function injectStylesheet(href: string, id: string): void {
   document.head.appendChild(link);
 }
 
-
 function loadDeferredAssets(): void {
   if (deferredAssetsStarted) return;
   deferredAssetsStarted = true;

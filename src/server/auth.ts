@@ -1,5 +1,3 @@
-
-
 // import jwt from 'jsonwebtoken';
 
 // const isProd = process.env.NODE_ENV === 'production';
@@ -46,12 +44,10 @@
 //   return match ? decodeURIComponent(match[1]) : null;
 // }
 
-
 // export function getAuth(request: Request): TokenPayload | null {
 
-  
 //   const token = readCookie(request, 'accessToken'); // ONLY read cookie
-  
+
 //   if (!token) {
 //     // console.log('❌ No cookie found!');
 //     return null;
@@ -60,7 +56,7 @@
 //   try {
 //     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as TokenPayload;
 //     // console.log(' Cookie verified successfully!');
-    
+
 //     return { id: decoded.id, role: decoded.role, wpUserId: decoded.wpUserId ?? null };
 //   }  catch (err: any) {
 //     console.log(' Cookie verification failed:', err.message); // Will log "jwt expired"
@@ -123,7 +119,7 @@ export function getAuth(request: Request): TokenPayload | null {
   try {
     const decoded = jwt.verify(token, env.JWT_SECRET) as TokenPayload;
     return { id: decoded.id, role: decoded.role, wpUserId: decoded.wpUserId ?? null };
-  } catch  {
+  } catch {
     // const message = err instanceof Error ? err.message : 'Unknown verification error';
     // console.log('Cookie verification failed:', message);
     return null;

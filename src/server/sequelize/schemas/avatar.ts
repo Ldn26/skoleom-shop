@@ -65,18 +65,19 @@
 
 // module.exports = Avatar;
 
-
 import {
   DataTypes,
   Model,
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
-} from "sequelize";
-import sequelize from "../config";
+} from 'sequelize';
+import sequelize from '../config';
 
-export interface AvatarModel
-  extends Model<InferAttributes<AvatarModel>, InferCreationAttributes<AvatarModel>> {
+export interface AvatarModel extends Model<
+  InferAttributes<AvatarModel>,
+  InferCreationAttributes<AvatarModel>
+> {
   id_avatar: CreationOptional<number>;
   id_user: number;
   avatar_uuid: string;
@@ -92,7 +93,7 @@ export interface AvatarModel
 }
 
 export const Avatar = sequelize.define<AvatarModel>(
-  "Avatar",
+  'Avatar',
   {
     id_avatar: {
       type: DataTypes.INTEGER,
@@ -148,9 +149,9 @@ export const Avatar = sequelize.define<AvatarModel>(
     },
   },
   {
-    tableName: "avatars",
+    tableName: 'avatars',
     timestamps: true,
-  }
+  },
 );
 
 export default Avatar;

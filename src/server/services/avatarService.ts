@@ -216,7 +216,6 @@
 //   return record;
 // }
 
-
 import axios from 'axios';
 import { v2 as cloudinary } from 'cloudinary';
 import { Avatar } from '@/server/db';
@@ -344,7 +343,11 @@ Réponds STRICTEMENT en JSON valide, sans texte ni markdown.`;
       { params: { key: apiKey }, headers: { 'Content-Type': 'application/json' }, timeout: 30000 },
     );
     const raw = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
-    return JSON.parse(String(raw).replace(/```json|```/g, '').trim());
+    return JSON.parse(
+      String(raw)
+        .replace(/```json|```/g, '')
+        .trim(),
+    );
   } catch (err) {
     const e = err as { response?: { status?: number; data?: unknown }; message?: string };
     const status = e.response?.status;

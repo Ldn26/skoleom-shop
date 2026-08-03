@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 import { buildParams, injectUserMeta, query, run, wooService } from '@/server/wooRoute';
@@ -10,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   const q = query(request);
   const params = buildParams(q);
-  const {  limit, page, ...rest } = params as Record<string, unknown>;
+  const { limit, page, ...rest } = params as Record<string, unknown>;
 
   const queryParams = {
     ...rest,
@@ -34,7 +33,7 @@ export async function POST(request: Request) {
     }
 
     const reqBody: Record<string, unknown> = await request.json();
-    const {  ...productPayload } = reqBody;
+    const { ...productPayload } = reqBody;
     const payloadWithMeta = injectUserMeta(productPayload, auth.id);
 
     return run(() => wooService.createProductFull(payloadWithMeta));
@@ -42,7 +41,7 @@ export async function POST(request: Request) {
     if (axios.isAxiosError(error)) {
       return NextResponse.json(
         { error: error.response?.data?.message || error.message },
-        { status: error.response?.status || 500 }
+        { status: error.response?.status || 500 },
       );
     }
     const message = error instanceof Error ? error.message : 'Unknown error';

@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Breadcrumb({ items }) {
   return (
-    <nav     
-    className="mb-6 flex items-center z-[99]   gap-2 text-sm text-zinc-500">
+    <nav className="mb-6 flex items-center z-[99]   gap-2 text-sm text-zinc-500">
       {items.map((item, i) => (
         <span key={i} className="flex    z-[99]  items-center gap-2">
           {item.to ? (

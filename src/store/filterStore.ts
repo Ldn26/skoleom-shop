@@ -1,4 +1,3 @@
-
 // import { create } from 'zustand';
 
 // export type SortOption = 'reco' | 'price-asc' | 'price-desc' | 'newest';
@@ -62,13 +61,6 @@
 //   patch: (values) => set(values),
 //   reset: () => set(initialFilters),
 // }));
-
-
-
-
-
-
-
 
 import { create } from 'zustand';
 

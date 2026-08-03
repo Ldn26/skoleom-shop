@@ -1,4 +1,3 @@
-
 // const axios = require('axios');
 // const { env } = require('../config/env');
 
@@ -53,7 +52,6 @@
 //   }
 // }
 
-
 // // ── Service ───────────────────────────────────────────────────────────────────
 
 // const wpService = {
@@ -62,8 +60,6 @@
 //   getVideoById: (id) => wpGet(`videos/id/${id}`),
 
 //   getVideoBySlug: (slug) => wpGet(`videos/${encodeURIComponent(slug)}`),
-
-
 
 //   getTaxonomies: () => wpGet('taxonomies'),
 
@@ -91,11 +87,9 @@
 //       data: allData,
 //     };
 //   },
-// } 
+// }
 
 // module.exports = { wpService };
-
-
 
 import axios from 'axios';
 import { env } from '../config/env';

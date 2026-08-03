@@ -38,7 +38,7 @@ const resource = {
     brandHome: 'Home',
     profile: {
       logout: 'Log out',
-      profile : 'My profile',
+      profile: 'My profile',
     },
     universe: 'Universe',
     navLabel: 'Main navigation',

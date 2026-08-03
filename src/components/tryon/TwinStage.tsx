@@ -1,4 +1,3 @@
-
 // // import type { WooProduct } from '../../api/product';
 // // import type { AvatarData, MeasurementValues } from '../../types/tryon';
 // // import { fitColor } from '../../utils/producthelper';
@@ -52,8 +51,6 @@
 // //           </div>
 // //         ))}
 // //       </div>
-
- 
 
 // //       {/* ─── Avatar zone ─────────────────────────────────────── */}
 // //       <div className="relative z-[3] flex items-center justify-center" style={{ height: 460, width: 300 }}>
@@ -156,7 +153,7 @@
 // //       `}</style>
 // //     </div>
 // //   );
-// // } 
+// // }
 
 // import { useEffect, useState } from 'react';
 // import type { WooProduct } from '../../api/product';
@@ -191,12 +188,8 @@
 //   const hasResult = !scanning && !!tryOnImage;
 //   const waitingForProduct = !!avatar && !scanning && !tryOnImage;
 
-
-
-
 //   const [imgLoaded, setImgLoaded] = useState(false);
 //   useEffect(() => { setImgLoaded(false); }, [tryOnImage]);
-
 
 //   return (
 //     <div
@@ -432,7 +425,10 @@ export function TwinStage({
         ))}
       </div>
 
-      <div className="relative z-[3] flex items-center justify-center" style={{ height: 460, width: 300 }}>
+      <div
+        className="relative z-[3] flex items-center justify-center"
+        style={{ height: 460, width: 300 }}
+      >
         {avatar ? (
           <div className="relative w-full h-full">
             <div
@@ -489,7 +485,13 @@ export function TwinStage({
 
               {waitingForProduct && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="rgb(163 230 53)" strokeWidth="1.5" className="w-10 h-10 opacity-70">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="rgb(163 230 53)"
+                    strokeWidth="1.5"
+                    className="w-10 h-10 opacity-70"
+                  >
                     <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
                   </svg>
                   <p className="text-[12px] text-[#8a93a8] leading-snug">
@@ -544,13 +546,21 @@ export function TwinStage({
       />
 
       <div className="absolute bottom-4 right-4 bg-[rgba(7,8,12,0.9)] border border-white/10 rounded-xl px-4 py-3 z-10 min-w-[180px]">
-        <div className="text-[9px] text-[#8a93a8] uppercase tracking-[0.12em] mb-1.5">Indice d'ajustement IA</div>
+        <div className="text-[9px] text-[#8a93a8] uppercase tracking-[0.12em] mb-1.5">
+          Indice d'ajustement IA
+        </div>
         {scanning ? (
           <div className="text-[12px] text-[#8a93a8] animate-pulse">Analyse en cours…</div>
         ) : fitScore ? (
           <>
             <div className="text-[24px] font-bold flex items-center gap-2" style={{ color }}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-4 h-4">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                className="w-4 h-4"
+              >
                 <path d="M5 12l5 5L20 7" />
               </svg>
               {fitScore} %
@@ -560,7 +570,9 @@ export function TwinStage({
             </div>
           </>
         ) : (
-          <div className="text-[11px] text-[#8a93a8]">{avatar ? 'Choisissez un article →' : 'Ajoutez votre photo →'}</div>
+          <div className="text-[11px] text-[#8a93a8]">
+            {avatar ? 'Choisissez un article →' : 'Ajoutez votre photo →'}
+          </div>
         )}
       </div>
 

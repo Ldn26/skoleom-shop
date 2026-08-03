@@ -88,7 +88,8 @@ export async function POST(request: Request) {
     const { avatarId, product, measurements, overlayUrl } = b;
     if (!avatarId) return NextResponse.json({ error: 'avatarId est requis' }, { status: 400 });
     if (!overlayUrl) return NextResponse.json({ error: 'overlayUrl est requis' }, { status: 400 });
-    if (!product || !product.name) return NextResponse.json({ error: 'product est requis' }, { status: 400 });
+    if (!product || !product.name)
+      return NextResponse.json({ error: 'product est requis' }, { status: 400 });
 
     const av = await getAvatar(avatarId);
 
@@ -109,7 +110,11 @@ export async function POST(request: Request) {
       recommended_size: b.recommendedSize ?? null,
       comment: b.comment ?? null,
       measurements: measurements || {},
-      analysis: { fitScore: b.fitScore ?? null, recommendedSize: b.recommendedSize ?? null, comment: b.comment ?? null },
+      analysis: {
+        fitScore: b.fitScore ?? null,
+        recommendedSize: b.recommendedSize ?? null,
+        comment: b.comment ?? null,
+      },
       status: 'completed',
     });
 

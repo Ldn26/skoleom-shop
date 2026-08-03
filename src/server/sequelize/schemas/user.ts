@@ -55,17 +55,24 @@
 
 // module.exports = User;
 
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from 'sequelize';
+import sequelize from '../config';
 
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
-import sequelize from "../config";
-
-export interface UserModel
-  extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
+export interface UserModel extends Model<
+  InferAttributes<UserModel>,
+  InferCreationAttributes<UserModel>
+> {
   id: CreationOptional<number>;
   name: string;
   email: string;
   password: string;
-  role: "acheteur" | "vendeur" | "admin";
+  role: 'acheteur' | 'vendeur' | 'admin';
   isVerified: CreationOptional<boolean>;
   isActive: CreationOptional<boolean>;
   lastLogin?: Date | null;
@@ -74,7 +81,7 @@ export interface UserModel
 }
 
 export const User = sequelize.define<UserModel>(
-  "User",
+  'User',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -99,9 +106,9 @@ export const User = sequelize.define<UserModel>(
     },
 
     role: {
-      type: DataTypes.ENUM("acheteur", "vendeur", "admin"),
+      type: DataTypes.ENUM('acheteur', 'vendeur', 'admin'),
       allowNull: false,
-      defaultValue: "acheteur",
+      defaultValue: 'acheteur',
     },
 
     isVerified: {
@@ -120,9 +127,9 @@ export const User = sequelize.define<UserModel>(
     },
   },
   {
-    tableName: "users",
+    tableName: 'users',
     timestamps: true,
-  }
+  },
 );
 
 export default User;
