@@ -30,6 +30,9 @@ dotenv.config({ quiet: true });
 export interface AuthenticatedRequest extends Request {
   userid?: number | string;
   role?: string;
+  headers: {
+    authorization?: string;
+  };
 }
 
 export interface DecodedToken extends JwtPayload {
