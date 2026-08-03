@@ -1,5 +1,5 @@
 import { lazy, type ComponentType } from 'react';
-import { loadSesyncTranslations } from '../locales/lazyBundles';
+// import { loadSesyncTranslations } from '../locales/lazyBundles';
 
 function lazyNamed<T extends Record<string, ComponentType<object>>, K extends keyof T>(
   factory: () => Promise<T>,

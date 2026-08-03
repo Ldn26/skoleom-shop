@@ -38,7 +38,7 @@ function patchHomeFull(content, lang) {
   }
   // Fichier sans bloc home : insérer avant le footer racine (après skoleomPage / cart)
   if (/^\s*home:\s*\{/m.test(content) === false) {
-    return content.replace(/(\n)(  footer: \{\n    brand:)/, `$1${homeBlock},$1$2`);
+    return content.replace(/(\n)( {2}footer: \{\n {4}brand:)/, `$1${homeBlock},$1$2`);
   }
   return content;
 }

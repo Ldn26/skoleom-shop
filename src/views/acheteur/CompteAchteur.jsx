@@ -1,9 +1,4 @@
-
-
-
-
-'use client';
-
+ 'use client';
 import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -72,7 +67,6 @@ export default function CompteAchteur() {
   }
 
   const dirty = name !== user.name || email !== user.email;
-  const initials = (user.name || 'U').trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 
   const save = () => {
     setUser({ ...user, name: name.trim(), email: email.trim() }, token, role);
@@ -90,7 +84,7 @@ export default function CompteAchteur() {
 
   return (
     <div className="min-h-[calc(100vh-71px)] bg-[#0A0A0B] px-4 pb-24 pt-[100px] text-[#EDECE8] sm:px-6">
-      <div className="mx-auto w-full max-w-[1800px]">
+      <div className="mx-auto w-full max-w-[1400px]">
         {/* Header */}
         <div className={`mb-6 flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8 ${card}`}>
           <div className="flex items-center gap-5">
@@ -175,7 +169,7 @@ export default function CompteAchteur() {
                 <p className="text-sm text-white/60">Aucun abonnement actif.</p>
                 <p className="mt-1 text-xs text-white/40">Débloquez l'essayage illimité et les recommandations IA.</p>
                 <button
-                  onClick={() => nav(localizePath('/') + '#tarifs')}
+                  onClick={() => nav(`${localizePath('/')  }#tarifs`)}
                   className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#a8ff35] px-5 py-3 text-sm font-bold text-black transition hover:brightness-105"
                 >
                   <Sparkles size={15} /> Découvrir les offres

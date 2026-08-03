@@ -6,7 +6,7 @@ import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 
 const DASHBOARDS = {
   acheteur: '/essayage',
-  vendeur: '/vendeur/dashboard',
+  vendeur: '/dashboard',
 };
 
 const dashboardFor = (role) => DASHBOARDS[role] || DASHBOARDS.acheteur;
@@ -36,16 +36,13 @@ export default function Connexion() {
   const setUser = useUserStore((state) => state.setUser);
   const signIn = useSignIn();
   const signUp = useSignUp();
-
   const [mode, setMode] = useState('login');
   const [role, setRole] = useState('acheteur');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [err, setErr] = useState('');
-
   const pending = signIn.isPending || signUp.isPending;
-
   const resetForm = () => {
     setEmail('');
     setPassword('');
@@ -144,8 +141,8 @@ export default function Connexion() {
         <section className="relative flex items-center justify-center">
           <div className="pointer-events-none absolute right-0 top-0 h-[580px] w-[580px] rounded-full bg-[#a8ff35]/10 blur-[130px]" />
 
-          <div className="relative w-full max-w-4xl">
-            <div className="mb-8 flex flex-col items-center text-center lg:hidden"></div>
+          <div className="relative w-full max-w-5xl">
+            <div className="mb-8 flex flex-col items-center text-center lg:hidden" />
 
             <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:p-8">
               <div className="mb-7">
@@ -159,7 +156,7 @@ export default function Connexion() {
                 </p>
               </div>
 
-              <div className="mb-6 grid grid-cols-2 gap-1 rounded-2xl border border-white/10 bg-white/5 p-1">
+              <div className="mb-6 grid grid-cols-2 gap-4 rounded-2xl border border-white/10 bg-white/5 p-1  ">
                 <button
                   type="button"
                   onClick={() => {

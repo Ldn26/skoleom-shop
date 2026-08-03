@@ -70,7 +70,7 @@ export default function PiecePage() {
   const { data: rawProduct, isLoading: productLoading } = useProduct(id);
   const { data: rawVariations } = useProductVariations(id);
   const [view, setView] = useState<string>('face');
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, ] = useState(1);
   const [feedback, setFeedback] = useState('');
   const [loadingAdd, setLoadingAdd] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -295,7 +295,7 @@ export default function PiecePage() {
     }
     setLoadingAdd(true);
     try {
-      const { productId, variationId } = getCartPayload();
+      const { productId,  } = getCartPayload();
       await addToCart(productId, quantity);
     } catch {
       setFeedback("Impossible d'ajouter au panier");
@@ -698,64 +698,7 @@ export default function PiecePage() {
                   );
                 })}
 
-                {/* Size + Quantity (no variations) */}
-                {/* {variation.length === 0 && (
-                  <div className="mb-5 grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="piece-page-muted mb-2 text-[9px] font-bold uppercase tracking-[.25em] text-white/30">
-                        Taille
-                      </p>
-                      <select
-                        value={size}
-                        onChange={(e) => setSize(e.target.value)}
-                        className="piece-page-input w-full rounded-xl bg-white/[.04] border border-white/10 px-3 py-2.5 text-sm text-white focus:outline-none"
-                        style={{ transition: 'border-color .15s' }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--skoleom-lime,#b4ff00)';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(255,255,255,.1)';
-                        }}
-                      >
-                        {(['XS', 'S', 'M', 'L', 'XL'] as const).map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <p className="piece-page-muted mb-2 text-[9px] font-bold uppercase tracking-[.25em] text-white/30">
-                        Quantité
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                          className="piece-page-ghost pp-qty flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[.04] border border-white/10 text-white/55 hover:text-white text-lg font-light"
-                        >
-                          −
-                        </button>
-                        <span
-                          key={quantity}
-                          className="piece-page-strong flex-1 text-center text-sm font-bold text-white tabular-nums"
-                          style={{ animation: 'none' }}
-                        >
-                          {quantity}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-                          className="piece-page-ghost pp-qty flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[.04] border border-white/10 text-white/55 hover:text-white text-lg font-light"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )} */}
-
-                {/* CTAs */}
+  
                 <div className="flex flex-col gap-2.5">
                   {/* Add to cart */}
                   {(() => {

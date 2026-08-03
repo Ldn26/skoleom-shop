@@ -1,6 +1,7 @@
 
 
 
+
 // import axios from 'axios';
 // import { v2 as cloudinary } from 'cloudinary';
 
@@ -27,9 +28,8 @@
 
 // export async function fetchImageAsBase64(url: string): Promise<ImageData> {
 //   const { data, headers } = await http.get(url, { responseType: 'arraybuffer', timeout: 20000 });
-//   const contentType = headers['content-type'];
 //   return {
-//     mimeType: typeof contentType === 'string' ? contentType : 'image/jpeg',
+//     mimeType: headers['content-type'] || 'image/jpeg',
 //     base64: Buffer.from(data).toString('base64'),
 //   };
 // }
@@ -239,6 +239,9 @@
 
 
 
+
+
+
 import axios from 'axios';
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -259,21 +262,33 @@ const http = axios.create();
 
 export type ImageData = { mimeType: string; base64: string };
 
+type ProductLike = {
+  name?: string;
+  type?: string;
+  category?: string;
+  fabric?: string;
+  recommendedSize?: string;
+};
+
+type FitResult = {
+  fitScore: number;
+  recommendedSize: string;
+  comment: string;
+};
+
 export function toDataUrl({ mimeType, base64 }: ImageData): string {
   return `data:${mimeType};base64,${base64}`;
 }
 
 export async function fetchImageAsBase64(url: string): Promise<ImageData> {
   const { data, headers } = await http.get(url, { responseType: 'arraybuffer', timeout: 20000 });
+  const contentType = headers['content-type'];
   return {
-    mimeType: headers['content-type'] || 'image/jpeg',
+    mimeType: typeof contentType === 'string' ? contentType : 'image/jpeg',
     base64: Buffer.from(data).toString('base64'),
   };
 }
 
-// ── Deterministic output size + centering ──────────────────────────────────
-// Gemini's image output is not dimension-locked, so we normalize here:
-// every result becomes exactly 1024x1536 with the subject centered.
 export async function uploadToCloudinary(dataUrl: string): Promise<{ url: string; publicId: string }> {
   const res = await cloudinary.uploader.upload(dataUrl, {
     folder: CLOUDINARY_FOLDER,
@@ -298,14 +313,12 @@ export async function destroyCloudinary(publicId?: string | null): Promise<void>
   if (!publicId) return;
   try {
     await cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
-  } catch (e: any) {
-    console.warn('[cloudinary destroy]', e.message);
+  } catch (e) {
+    console.warn('[cloudinary destroy]', (e as Error).message);
   }
 }
 
-// ── Category-aware placement ────────────────────────────────────────────────
-// Maps a product to WHERE it belongs on the body + HOW to treat it.
-function placementFor(product: any): { zone: string; rules: string } {
+function placementFor(product: ProductLike): { zone: string; rules: string } {
   const hay = `${product?.type ?? ''} ${product?.name ?? ''} ${product?.category ?? ''}`.toLowerCase();
   const has = (...k: string[]) => k.some((w) => hay.includes(w));
 
@@ -355,7 +368,6 @@ function placementFor(product: any): { zone: string; rules: string } {
       rules: 'Place at the waistline over existing clothing; keep the buckle sharp and centered.',
     };
 
-  // Default: upper-body garment (t-shirt, hoodie, jacket, dress, top, shirt…)
   return {
     zone: 'on the upper body (torso and arms)',
     rules: 'Fit over the torso with realistic drape, folds and soft contact shadows; respect occlusion over the body.',
@@ -365,7 +377,7 @@ function placementFor(product: any): { zone: string; rules: string } {
 export async function renderTryOnImage(
   personImg: ImageData,
   garmentImg: ImageData,
-  product: any,
+  product: ProductLike,
 ): Promise<ImageData | null> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY manquant');
@@ -427,18 +439,26 @@ export async function renderTryOnImage(
       },
       { params: { key: apiKey }, headers: { 'Content-Type': 'application/json' }, timeout: 60000 },
     );
-    const parts = data.candidates?.[0]?.content?.parts ?? [];
-    const imgPart = parts.find((p: any) => p.inlineData || p.inline_data);
+
+    type InlineData = { data?: string; mimeType?: string; mime_type?: string };
+    type GeminiPart = { inlineData?: InlineData; inline_data?: InlineData };
+
+    const parts: GeminiPart[] = data.candidates?.[0]?.content?.parts ?? [];
+    const imgPart = parts.find((p) => p.inlineData || p.inline_data);
     const inline = imgPart?.inlineData || imgPart?.inline_data;
     if (!inline?.data) return null;
     return { mimeType: inline.mimeType || inline.mime_type || 'image/png', base64: inline.data };
-  } catch (err: any) {
-    console.warn('[tryon render]', err.response?.status || '', err.message);
+  } catch (err) {
+    const e = err as { response?: { status?: number }; message?: string };
+    console.warn('[tryon render]', e.response?.status || '', e.message);
     return null;
   }
 }
 
-export async function analyzeFit(measurements: any, product: any): Promise<any> {
+export async function analyzeFit(
+  measurements: Record<string, unknown>,
+  product: ProductLike,
+): Promise<FitResult> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY manquant');
 
@@ -467,8 +487,8 @@ Renvoie EXACTEMENT :
     );
     const raw = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}';
     return JSON.parse(String(raw).replace(/```json|```/g, '').trim());
-  } catch (err: any) {
-    console.warn('[tryon fit]', err.message);
+  } catch (err) {
+    console.warn('[tryon fit]', (err as Error).message);
     return { fitScore: 75, recommendedSize: product.recommendedSize ?? 'M', comment: 'Estimation indisponible.' };
   }
 }

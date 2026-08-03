@@ -381,9 +381,10 @@ function ProfileMenu() {
         aria-label={t('header.profile.open', { defaultValue: 'Mon compte' })}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-univ-lime text-xs font-black uppercase text-black transition duration-300 hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        className="inline-flex h-9 w-9  border border-univ-lime  shrink-0 items-center justify-center rounded-full  text-xs font-black text-black transition duration-300 hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       >
-        {initials}
+        {/* {initials} */}
+        <User size={15} className="text-univ-lime  text-white    " />
       </button>
 
       <AnimatePresence>

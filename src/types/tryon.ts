@@ -1,5 +1,4 @@
-import type { Measurements } from '../api/ai';
-import type { WooProduct } from '../api/product';
+import type { Measurements } from '../api/tryon';
 
 /* ─── Types ──────────────────────────────────────────────────── */
 export interface AvatarData {

@@ -3,10 +3,10 @@ import { FC, useEffect, useRef, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { Heart, ShoppingBag, Check, Loader2, Eye } from 'lucide-react';
 import { useFavorites } from '../../hooks/useFavorites';
-import { useCart } from '../../hooks/useCart';
+// import { useCart } from '../../hooks/useCart';
 // import { useLanguage } from '@/components/i18n/LanguageProvider';
 // import { VariantDrawer } from '@/components/VariantDrawer/VariantDrawer';
-import { useTranslation } from '../../i18n/react-i18next-shim';
+// import { useTranslation } from '../../i18n/react-i18next-shim';
 // import { trackEvent } from '@/lib/analytics';
 // import { pushAddToCart } from '@/lib/analytics/gtm';
 // import { decodeHtmlEntities } from '@/lib/utils';
@@ -68,13 +68,15 @@ function shortenAffiliateTitle(raw: string): string {
   const isAmazonAffiliate = sku?.startsWith('AMZ-') || false;
   const isAffiliate = !isPartnerDirect && (isAmazonAffiliate || Boolean(external_url));
   // const cleanTitle = decodeHtmlEntities(title);
-  const { t } = useTranslation();
-  const { addToCart } = useCart();
+  // const { t } = useTranslation();
+  // const { addToCart } = useCart();
   const [addedToCart, setAddedToCart] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
-  const pendingRef = useRef<any>(null);
-  const { isFavorite, toggleFavorite } = useFavorites({
-    id: id,
+  // const pendingRef = useRef<any>(null);
+  const { isFavorite, 
+    // toggleFavorite
+   } = useFavorites({
+    id,
     image: image ?? '',
     title: '',
     price,
@@ -118,7 +120,7 @@ function shortenAffiliateTitle(raw: string): string {
     if (isAffiliate) {
       // ASIN si Amazon, sinon identifiant stable "EXT-<id>" pour les autres marchands.
       // L'extension v2 lit localStorage["skoleom:amazon-cart"] via le bridge.
-      const asin = isAmazonAffiliate ? sku!.replace('AMZ-', '') : 'EXT-' + id;
+      const asin = isAmazonAffiliate ? sku!.replace('AMZ-', '') : `EXT-${  id}`;
       const source: 'amazon' | 'external' = isAmazonAffiliate ? 'amazon' : 'external';
 
       // 1) L'extension écoute 'skoleom:add-amazon' et ajoute l'item dans son
@@ -127,7 +129,7 @@ function shortenAffiliateTitle(raw: string): string {
         new CustomEvent('skoleom:add-amazon', {
           detail: {
             asin,
-            title: title,
+            title,
             price: String(price),
             image: image || '',
             url: external_url || '',
@@ -208,8 +210,8 @@ function shortenAffiliateTitle(raw: string): string {
       <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/[0.08] transition-all duration-300 ease-out group-hover:border-[#a8ff35]/30 group-hover:shadow-[0_0_30px_-5px_rgba(168,255,53,0.12)]">
         <div
           className={
-            'absolute top-3 left-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border ' +
-            cartBtnClass
+            `absolute top-3 left-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border ${ 
+            cartBtnClass}`
           }
           onClick={handleAddToCart}
         >
@@ -224,8 +226,8 @@ function shortenAffiliateTitle(raw: string): string {
 
         <div
           className={
-            'absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border backdrop-blur-sm ' +
-            favBtnClass
+            `absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 border backdrop-blur-sm ${ 
+            favBtnClass}`
           }
           // onClick={handleToggleFavorite}
         >
@@ -253,29 +255,28 @@ function shortenAffiliateTitle(raw: string): string {
           </span>
         )}
 
-        <div className={'h-full w-full ' + (isAffiliate ? 'bg-white' : 'bg-[#0a0a0a]')}>
+        <div className={`h-full w-full ${  isAffiliate ? 'bg-white' : 'bg-[#0a0a0a]'}`}>
           {image && (
-            // <img> natif : on évite le proxy /_next/image (fetch upstream + Sharp).
-            // Les hôtes externes (WooCommerce, Amazon, partenaires) servent déjà
-            // des tailles raisonnables — la grille reste fluide même sans transform.
-            // eslint-disable-next-line @next/next/no-img-element
+
             <img
               src={image}
+              
               // alt={cleanTitle}
               width={400}
               height={400}
               loading="lazy"
               decoding="async"
+              alt={title}
               className={
-                (isAffiliate ? 'object-contain p-4' : 'object-cover') +
-                ' w-full h-full transition-transform duration-500 ease-out group-hover:scale-110'
+                `${isAffiliate ? 'object-contain p-4' : 'object-cover' 
+                } w-full h-full transition-transform duration-500 ease-out group-hover:scale-110`
               }
             />
           )}
         </div>
 
         <Link
-          to={"/produit/" + id}
+          to={`/produit/${  id}`}
           // prefetch={false}
           // onClick={trackSelectItem}
           className="absolute inset-0 z-[5] flex items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"
@@ -295,7 +296,7 @@ function shortenAffiliateTitle(raw: string): string {
       </div>
 
       <div className="mt-3.5 px-0.5">
-        <Link to={"/produit/" + id}
+        <Link to={`/produit/${  id}`}
           // onClick={trackSelectItem}
           >
           <p

@@ -22,7 +22,7 @@ interface UserState {
 
 export const useUserStore = create<UserState>()(
   persist(
-    (set, get) => ({
+    (set, ) => ({
       user: null,
       role: null,
       hasHydrated: false,

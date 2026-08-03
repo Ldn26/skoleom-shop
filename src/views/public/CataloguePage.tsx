@@ -2,11 +2,11 @@
 
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, Loader2 } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { useAllCategories, type TaxonomyItem } from '../../api/product';
 import { useFilterStore } from '../../store/filterStore';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
-import Reels from '../../components/shop/Reels';
+// import Reels from '../../components/shop/Reels';
 import CategoryBar from '@/components/shop/CategoryBar';
 
 // Root category "Skoleom Shop". Its direct children are the groups we display,

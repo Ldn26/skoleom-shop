@@ -12,14 +12,6 @@ function injectStylesheet(href: string, id: string): void {
   document.head.appendChild(link);
 }
 
-function injectScript(src: string, id: string): void {
-  if (document.getElementById(id)) return;
-  const script = document.createElement('script');
-  script.id = id;
-  script.src = src;
-  script.defer = true;
-  document.body.appendChild(script);
-}
 
 function loadDeferredAssets(): void {
   if (deferredAssetsStarted) return;

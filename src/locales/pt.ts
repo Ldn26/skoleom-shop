@@ -1,6 +1,6 @@
 import type { LocaleResource } from './types';
 import { getA11yFallback } from './a11yFallback';
-import { profile } from 'node:console';
+// import { profile } from 'node:console';
 
 const resource = {
   common: {

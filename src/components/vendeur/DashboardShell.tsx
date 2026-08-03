@@ -11,7 +11,7 @@ import {
   Package,
   PlusCircle,
   ShoppingCart,
-  BarChart3,
+  // BarChart3,
   Settings,
   LogOut,
   Boxes,
@@ -119,8 +119,7 @@ export default function DashboardShell({
         {/* Brand */}
         <div className="flex items-center gap-2.5 px-6 shrink-0" style={{ height: 78, borderBottom: `1px solid ${C.borderSoft}` }}>
     
-          <div className="leading-tight">
-          </div>
+          <div className="leading-tight" />
         </div>
 
         {/* Navigation Items */}

@@ -8,7 +8,9 @@
       const res = await fetch(fragment);
       mount.innerHTML = await res.text();
       if (window.SkIcons) window.SkIcons.injectAll();
-    } catch {}
+    } catch {
+      return;
+    }
   }
   window.skLoadFooter = skLoadFooter;
 })();

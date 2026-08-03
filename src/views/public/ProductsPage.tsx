@@ -27,7 +27,6 @@ export default function ProductsPage() {
   const search = useFilterStore((s) => s.search);
   const sort = useFilterStore((s) => s.sort);
   const maxPrice = useFilterStore((s) => s.maxPrice);
-  const parent = useFilterStore((s) => s.parent);
   const inStockOnly = useFilterStore((s) => s.inStockOnly);
   const onSaleOnly = useFilterStore((s) => s.onSaleOnly);
   const priceTouched = useFilterStore((s) => s.priceTouched);

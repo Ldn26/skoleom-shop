@@ -27,7 +27,6 @@ import { getCurrentUserId } from '../../lib/utils';
 export default function Essayage() {
   const { addToCart } = useCart();
   const currentUserId = getCurrentUserId();
-  console.log('Current User ID:', currentUserId); // Debugging line to check the current user ID
   const [searchParams] = useSearchParams();
   const preselectProductId = searchParams.get('product');
   const productsQuery = useProducts();
@@ -40,7 +39,6 @@ export default function Essayage() {
   const setAvatar = useAvatarStore((s) => s.setAvatar);
   const clearAvatar = useAvatarStore((s) => s.clearAvatar);
 
-  console.log('Avatar:', avatar); // Debugging line to check the avatar state
   const { data: userAvatar, isLoading: avatarLoading } = useGetUserAvatar(currentUserId);
   
 

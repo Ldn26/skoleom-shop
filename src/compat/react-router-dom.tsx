@@ -208,7 +208,7 @@ export function matchPath(
 
   const paramNames: string[] = [];
   let regexpSource =
-    '^' +
+    `^${ 
     conf.path
       .replace(/\/*\*?$/, '')
       .replace(/^\/*/, '/')
@@ -216,7 +216,7 @@ export function matchPath(
       .replace(/\/:(\w+)/g, (_m, key: string) => {
         paramNames.push(key);
         return '/([^\\/]+)';
-      });
+      })}`;
 
   if (conf.path.endsWith('*')) {
     paramNames.push('*');

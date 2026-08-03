@@ -33,7 +33,7 @@ function formatDate(iso: string) {
 }
 
 function fitColor(score: number | null) {
-  if (score == null) return '#8a93a8';
+  if (score === null) return '#8a93a8';
   if (score >= 85) return LIME;
   if (score >= 65) return '#facc15';
   return '#f87171';
@@ -110,7 +110,7 @@ export default function EssayageHistory({
             </button>
 
             {/* Badge score */}
-            {item.fit_score != null && (
+            {item.fit_score !== null && (
               <span
                 className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/60 backdrop-blur"
                 style={{ color: fitColor(item.fit_score) }}
@@ -194,7 +194,7 @@ export default function EssayageHistory({
                   <h3 className="text-lg font-bold leading-tight">{selected.product_name}</h3>
                 </div>
 
-                {selected.fit_score != null && (
+                {selected.fit_score !== null && (
                   <div>
                     <p className="text-[11px] text-[#8a93a8] mb-1">Score d'ajustement</p>
                     <div className="flex items-center gap-2">

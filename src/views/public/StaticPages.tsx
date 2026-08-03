@@ -45,16 +45,8 @@ import {
   type StaticPageDocumentKey,
 } from '../../locales/staticPages';
 import { useLanguageContext } from '../../i18n/LanguageProvider';
-import skyLogo from '../../data/SKOLEOM-SKY.png';
 
-/**
- * Pages statiques publiques : Actualités, Contact, Business.
- * Regroupées dans un seul module pour limiter la dispersion (peu de logique).
- */
 
-/* ------------------------------------------------------------------------- */
-/* Pages légales statiques */
-/* ------------------------------------------------------------------------- */
 
 type LegalDocument = StaticPageDocument;
 type StaticPagesResourceLike = {
@@ -887,56 +879,6 @@ function fmtElapsed(s: number): string {
   return `${m} min ${sec < 10 ? '0' : ''}${sec} s`;
 }
 
-function SkyVideoCard({
-  video,
-}: {
-  video: {
-    video_id: string;
-    title?: string;
-    duration?: string;
-    video_thumbnail_url?: string;
-    info_profile?: { title?: string };
-  };
-}) {
-  return (
-    <a
-      href={`/watch/${video.video_id}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative overflow-hidden rounded-2xl border border-white/8 bg-[#111] transition hover:border-univ-lime/30"
-    >
-      <div className="relative aspect-video overflow-hidden bg-white/5">
-        {video.video_thumbnail_url ? (
-          <img
-            src={video.video_thumbnail_url}
-            alt={video.title ?? ''}
-            className="h-full w-full object-cover transition group-hover:scale-105"
-            loading="lazy"
-            decoding="async"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <span className="text-2xl opacity-20">▶</span>
-          </div>
-        )}
-        {video.duration && (
-          <span className="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[11px] text-white">
-            {video.duration}
-          </span>
-        )}
-        <span className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-univ-lime/90 px-2 py-0.5 text-[10px] font-semibold text-black">
-          <span>⚡</span> SeSync
-        </span>
-      </div>
-      <div className="p-3">
-        <p className="line-clamp-2 text-sm font-medium text-white/90">{video.title}</p>
-        {video.info_profile?.title && (
-          <p className="mt-1 text-xs text-white/45">{video.info_profile.title}</p>
-        )}
-      </div>
-    </a>
-  );
-}
 
 const cleanQueryFallback = (text: string): string =>
   text
@@ -984,8 +926,8 @@ export function ContactPage() {
   const [aiAnswer, setAiAnswer] = useState<string | null>(null);
   const [aiLoading] = useState(false);
   const [productSearchQuery, setProductSearchQuery] = useState('');
-  const [searchTick, setSearchTick] = useState(0);
-  const [showSkyVideos, setShowSkyVideos] = useState(false);
+  const [, setSearchTick] = useState(0);
+  const [, setShowSkyVideos] = useState(false);
 
   // ── Recherche produits step 3 (mêmes APIs que SearchPage) ────────────────
   const { data: faqCapsuleData } = useFetch<AssistanceProductItem[]>(
@@ -1040,28 +982,6 @@ export function ContactPage() {
     );
   }, [faqCapsuleData, faqWooData]);
 
-  // ── Fallback Amazon quand la boutique Skoleom ne retourne rien ────────────
-  const [amazonLoading, setAmazonLoading] = useState(false);
-
-  // useEffect(() => {
-  //   if (!productSearchQuery) {
-  //     setAmazonFallbackProducts([]);
-  //     setAmazonLoading(false);
-  //     return;
-  //   }
-  //   setAmazonLoading(true);
-  //   void searchAmazonProducts(productSearchQuery)
-  //     .then((products) => {
-  //       setAmazonFallbackProducts(products);
-  //       setAmazonLoading(false);
-  //     })
-  //     .catch(() => {
-  //       setAmazonFallbackProducts([]);
-  //       setAmazonLoading(false);
-  //     });
-  // }, [productSearchQuery, searchTick]);
-
-  // ── Chat step 5 ─────────────────────────────────────────────────────────
   const [chatMessages, setChatMessages] = useState<LocalChatMsg[]>([]);
   const [chatInput, setChatInput] = useState('');
   const [chatSending, setChatSending] = useState(false);
@@ -1676,7 +1596,7 @@ This line is stripped before display — the user never sees it.`;
                       {id === 'chat' ? (
                         <span className="flex h-9 w-9 shrink-0 overflow-hidden rounded-xl">
                           <img
-                            src={skyLogo}
+                            src={'../../data/SKOLEOM-SKY.png'}
                             alt="Sky"
                             className="h-full w-full scale-125 object-cover"
                           />
@@ -2152,7 +2072,7 @@ This line is stripped before display — the user never sees it.`;
             <div className="mb-8 rounded-2xl border border-univ-lime/30 bg-univ-lime/5 px-5 py-4">
               <div className="mb-2 flex items-center gap-2">
                 <img
-                  src={skyLogo}
+                  src={'../../data/SKOLEOM-SKY.png'}
                   alt="Sky"
                   className="h-6 w-6 shrink-0 rounded-full object-cover"
                 />
@@ -2424,7 +2344,7 @@ This line is stripped before display — the user never sees it.`;
               {/* En-tête Sky */}
               <div className="flex shrink-0 items-center gap-4 px-5 py-4 md:px-6">
                 <img
-                  src={skyLogo}
+                  src={'../../data/SKOLEOM-SKY.png'}
                   alt="Sky"
                   className="h-12 w-12 shrink-0 rounded-full object-cover"
                 />
@@ -2514,7 +2434,7 @@ This line is stripped before display — the user never sees it.`;
                     </div>
                   ) : (
                     <img
-                      src={skyLogo}
+                      src={'../../data/SKOLEOM-SKY.png'}
                       alt="Sky"
                       className="h-10 w-10 shrink-0 rounded-full object-cover"
                     />

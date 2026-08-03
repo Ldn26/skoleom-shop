@@ -31,7 +31,7 @@ export default function Ads({ slides = adsData }: { slides?: AdSlide[] }) {
     touchX.current = e.touches[0].clientX;
   };
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchX.current == null) return;
+    if (touchX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchX.current;
     if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
     touchX.current = null;

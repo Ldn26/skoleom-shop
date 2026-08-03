@@ -174,14 +174,14 @@ export default function GlobalSearch({
                 </Section>
               )}
 
-              <button
+              {/* <button
                 type="button"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={submitSearch}
                 className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-white/5 py-2.5 text-sm font-semibold text-[#a8ff35] transition hover:bg-white/10"
               >
                 <Search className="h-4 w-4" /> Voir tous les résultats pour « {q} »
-              </button>
+              </button> */}
             </>
           )}
         </div>

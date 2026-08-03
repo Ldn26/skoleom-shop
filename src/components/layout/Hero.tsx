@@ -13,7 +13,7 @@ export default function Hero() {
   const isBuyer = activeRole === 'acheteur';
 
   return (
-    <section className="sk-hero relative flex min-h-[100svh] w-full items-center overflow-hidden">
+    <section className="sk-hero relative flex min-h-[100svh]  mt-8  w-full items-center overflow-hidden">
       <style>{`
         .sk-hero [data-reveal]{opacity:0;transform:translateY(18px);animation:sk-hero-rise .8s cubic-bezier(.16,.84,.28,1) forwards;}
         @keyframes sk-hero-rise{to{opacity:1;transform:none;}}

@@ -47,7 +47,7 @@ const TOP = [
 const SPARK = (seed: number) =>
   Array.from({ length: 8 }, (_, i) => ({ i, v: 20 + ((Math.sin(seed + i) + 1) * 30) + i * 4 }));
 
-const eur = (n: number) => n.toLocaleString('fr-FR') + ' €';
+const eur = (n: number) => `${n.toLocaleString('fr-FR')  } €`;
 
 export default function VendeurDashboard({
   vendorName = 'Youcef Merabet',
