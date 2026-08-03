@@ -1,30 +1,4 @@
 
-
-
-// import { buildParams, query, run, wooService } from '@/server/wooRoute';
-
-// export const runtime = 'nodejs';
-// export const dynamic = 'force-dynamic';
-
-// export async function GET(request: Request) {
-//   const q = query(request);
-//   const params = buildParams(q);
-//   // const { brand, limit, page, ...rest } = params as any;
-//   const { brand, limit, page, ...rest } = params as Record<string, unknown>;
-
-//   const queryParams = {
-//     ...rest,
-//     page: page || 1,
-//     per_page: limit || 24, 
-//   };
-
-//   return run(() => {
-//     if (typeof q.brand === 'string' && q.brand.trim()) {
-//       return wooService.getProductsByBrand(q.brand.trim(), queryParams);
-//     }
-//     return wooService.getProducts(queryParams);
-//   });
-// }
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 import { buildParams, injectUserMeta, query, run, wooService } from '@/server/wooRoute';
@@ -36,7 +10,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   const q = query(request);
   const params = buildParams(q);
-  const { brand, limit, page, ...rest } = params as Record<string, unknown>;
+  const {  limit, page, ...rest } = params as Record<string, unknown>;
 
   const queryParams = {
     ...rest,
@@ -60,8 +34,7 @@ export async function POST(request: Request) {
     }
 
     const reqBody: Record<string, unknown> = await request.json();
-    const { meta_data: _meta_data, userId: _userId, ...productPayload } = reqBody;
-
+    const {  ...productPayload } = reqBody;
     const payloadWithMeta = injectUserMeta(productPayload, auth.id);
 
     return run(() => wooService.createProductFull(payloadWithMeta));

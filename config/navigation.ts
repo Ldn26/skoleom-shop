@@ -12,7 +12,7 @@ export const guestNavigation: NavItem[] = [
   { label: 'header.nav.home', href: '/' },
   { label: 'header.nav.essayage', href: '/essayage', megaVariant: 'essayage' },
   { label: 'Catalogue', href: '/catalogue' },
-  { label: 'header.nav.support', href: '/contact' },
+  // { label: 'header.nav.support', href: '/contact' },
 ];
 
 export const navigationByRole: Record<UserRole, NavItem[]> = {

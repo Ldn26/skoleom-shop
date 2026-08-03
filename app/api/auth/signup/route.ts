@@ -86,7 +86,7 @@ export async function POST(request: Request) {
   } catch (err) {
     // Rare residual case: WP user created, then the local commit failed.
     // Best-effort cleanup; if it fails, log for manual reconciliation.
-    if (createdWpUserId != null) {
+    if (createdWpUserId !== null) {
       void wpService
         .deleteUser?.(createdWpUserId)
         .catch((e: unknown) =>

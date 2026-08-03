@@ -248,6 +248,7 @@ type GeminiPart = { inlineData?: InlineData; inline_data?: InlineData };
 type AvatarRecord = {
   id: number;
   uuid: string;
+  id_avatar?: number;
   avatarUrl: string;
   originalUrl: string;
   photo: ImageParts | null;
