@@ -82,10 +82,8 @@ export function Wardrobe({
         </div>
       )}
 
-      {/* Global Search updates the active selection without running try-on */}
-      <GlobalSearch onSelectProduct={(p) => onSelect(p)} />
+      <GlobalSearch />
 
-      {/* NEW: Confirm / Launch Try-On Button */}
       <button
         type="button"
         onClick={() => active && onRunTryOn(active)}

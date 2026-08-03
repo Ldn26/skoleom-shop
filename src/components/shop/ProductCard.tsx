@@ -74,7 +74,7 @@ const ProductCard: FC<ProductCardProps> = ({
     isFavorite,
     // toggleFavorite
   } = useFavorites({
-    id,
+    id: id as number,
     image: image ?? '',
     title: '',
     price,

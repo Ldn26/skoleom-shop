@@ -18,7 +18,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {!isImmersivePage && <Header role="acheteur" lang="fr" />}
+      {!isImmersivePage && <Header />}
       <main id="main-content" tabIndex={-1} className={mainClass}>
         {children}
       </main>

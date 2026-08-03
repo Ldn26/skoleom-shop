@@ -41,7 +41,6 @@ const cn = (...classes: Array<string | false | null | undefined>) =>
   classes.filter(Boolean).join(' ');
 
 export default function Header() {
-  // Server is the source of truth: /auth/account validates the cookie.
   const { data: me, isError: meError } = useMe();
   const storeUser = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);

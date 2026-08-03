@@ -698,6 +698,8 @@ const sesyncEs: SesyncTranslations = {
       howCta: 'Ver cómo funciona',
     },
     stats: {
+      sectionTitle: 'SeSync en cifras',
+
       ott: {
         n: '2.000+',
         l: 'Plataformas OTT',
@@ -1131,6 +1133,8 @@ const sesyncDe: SesyncTranslations = {
       howCta: 'Sehen Sie, wie es funktioniert',
     },
     stats: {
+      sectionTitle: 'SeSync in Zahlen',
+
       ott: {
         n: '2.000+',
         l: 'OTT-Plattformen',
@@ -1564,6 +1568,8 @@ const sesyncIt: SesyncTranslations = {
       howCta: 'Guarda come funziona',
     },
     stats: {
+      sectionTitle: 'SeSync in cifre',
+
       ott: {
         n: '2.000+',
         l: 'Piattaforme OTT',
@@ -1997,6 +2003,8 @@ const sesyncNl: SesyncTranslations = {
       howCta: 'Kijk hoe het werkt',
     },
     stats: {
+      sectionTitle: 'SeSync in cijfers',
+
       ott: {
         n: '2.000+',
         l: 'OTT-platforms',
@@ -2430,6 +2438,8 @@ const sesyncPt: SesyncTranslations = {
       howCta: 'Veja como funciona',
     },
     stats: {
+      sectionTitle: 'SeSync em números',
+
       ott: {
         n: '2.000+',
         l: 'Plataformas OTT',
@@ -2863,6 +2873,8 @@ const sesyncAr: SesyncTranslations = {
       howCta: 'اكتشف طريقة العمل',
     },
     stats: {
+      sectionTitle: 'SeSync بالأرقام',
+
       ott: { n: '2,000+', l: 'منصات OTT' },
       sites: { n: '1 مليار+', l: 'موقع مغطى' },
       browsers: { n: '6', l: 'متصفحات رئيسية' },
@@ -3210,6 +3222,8 @@ const sesyncHi: SesyncTranslations = {
       howCta: 'देखो यह कैसे काम करता है',
     },
     stats: {
+      sectionTitle: 'SeSync के आंकड़े',
+
       ott: {
         n: '2,000+',
         l: 'ओटीटी प्लेटफॉर्म',
@@ -3643,6 +3657,8 @@ const sesyncZh: SesyncTranslations = {
       howCta: '看看它是如何工作的',
     },
     stats: {
+      sectionTitle: 'SeSync 统计数据',
+
       ott: {
         n: '2,000+',
         l: 'OTT平台',
@@ -4073,6 +4089,7 @@ const sesyncId: SesyncTranslations = {
       howCta: 'Lihat cara kerjanya',
     },
     stats: {
+      sectionTitle: 'Statistik SeSync',
       ott: {
         n: '2.000+',
         l: 'platform OTT',
@@ -4506,6 +4523,7 @@ const sesyncRu: SesyncTranslations = {
       howCta: 'Посмотрите, как это работает',
     },
     stats: {
+      sectionTitle: 'Статистика SeSync',
       ott: {
         n: '2 000+',
         l: 'ОТТ-платформы',
@@ -4939,6 +4957,7 @@ const sesyncSw: SesyncTranslations = {
       howCta: 'Tazama jinsi inavyofanya kazi',
     },
     stats: {
+      sectionTitle: 'Takwimu za SeSync',
       ott: {
         n: '2,000+',
         l: 'majukwaa ya OTT',
