@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import {
@@ -16,7 +16,6 @@ import {
   YAxis,
 } from 'recharts';
 import { Activity, Film, Package, ShoppingBag, Sparkles, TrendingUp, Users } from 'lucide-react';
-import { adminAPI, analyticsAPI } from '../../services/api';
 import { EUR_TO_USD } from '../../constants/app';
 import type { Order } from '../../types';
 import { useAccessibility } from '../../context/AccessibilityContext';
@@ -68,8 +67,8 @@ const formatUsd = (eur: number | undefined | null): string =>
   `${(Number(eur ?? 0) * EUR_TO_USD).toFixed(2)} $`;
 
 export default function AdminConsole() {
-  const [overview, setOverview] = useState<AdminOverview | null>(null);
-  const [dashboard, setDashboard] = useState<DashboardData | null>(null);
+  const [overview] = useState<AdminOverview | null>(null);
+  const [dashboard] = useState<DashboardData | null>(null);
   const { i18n, t } = useTranslation();
   const { settings } = useAccessibility();
   const chartColors = useMemo(() => getSkoleomChartColors(), [settings.colorVision]);
@@ -80,16 +79,16 @@ export default function AdminConsole() {
   );
 
   // Charge en parallèle les deux endpoints alimentant le dashboard
-  useEffect(() => {
-    adminAPI
-      .overview()
-      .then(setOverview)
-      .catch(() => {});
-    analyticsAPI
-      .dashboard()
-      .then(setDashboard)
-      .catch(() => {});
-  }, []);
+  // useEffect(() => {
+  //   adminAPI
+  //     .overview()
+  //     .then(setOverview)
+  //     .catch(() => {});
+  //   analyticsAPI
+  //     .dashboard()
+  //     .then(setDashboard)
+  //     .catch(() => {});
+  // }, []);
 
   /** Données dérivées (transformations pour les charts). */
   const charts = useMemo(() => {
