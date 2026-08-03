@@ -14,7 +14,6 @@
 //     return NextResponse.json({ error: 'Accès réservé aux vendeurs' }, { status: 403 });
 //   }
 
-
 //   try {
 //     const params = Object.fromEntries(new URL(request.url).searchParams.entries());
 //     if (auth.wpUserId) {
@@ -27,7 +26,6 @@
 //     return NextResponse.json({ error: err.message }, { status: err.response?.status || 500 });
 //   }
 // }
-
 
 import { NextResponse } from 'next/server';
 import axios from 'axios';
@@ -45,7 +43,6 @@ export async function GET(request: Request) {
   if (auth.role !== 'vendeur' && auth.role !== 'admin') {
     return NextResponse.json({ error: 'Accès réservé aux vendeurs' }, { status: 403 });
   }
-
   try {
     const params = Object.fromEntries(new URL(request.url).searchParams.entries());
     if (auth.wpUserId) {
@@ -56,10 +53,7 @@ export async function GET(request: Request) {
     return NextResponse.json(data);
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
-      return NextResponse.json(
-        { error: err.message },
-        { status: err.response?.status || 500 },
-      );
+      return NextResponse.json({ error: err.message }, { status: err.response?.status || 500 });
     }
     const message = err instanceof Error ? err.message : 'An unknown error occurred';
     return NextResponse.json({ error: message }, { status: 500 });
