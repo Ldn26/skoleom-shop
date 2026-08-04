@@ -9,9 +9,9 @@ export type NavItem = {
 
 export const guestNavigation: NavItem[] = [
   { label: 'header.nav.home', href: '/' },
-  { label: 'header.nav.essayage', href: '/essayage', megaVariant: 'essayage' },
+  // { label: 'header.nav.essayage', href: '/essayage', megaVariant: 'essayage' },
   { label: 'Catalogue', href: '/catalogue' },
-  // { label: 'header.nav.support', href: '/contact' },
+  { label: 'header.nav.support', href: '/contact' },
 ];
 
 export const navigationByRole: Record<UserRole, NavItem[]> = {
@@ -19,7 +19,7 @@ export const navigationByRole: Record<UserRole, NavItem[]> = {
     { label: 'Dashboard', href: '/vendeur/dashboard' },
     { label: 'Products', href: '/vendeur/dashboard/products' },
     { label: 'Orders', href: '/vendeur/dashboard/orders' },
-    { label: 'Profile', href: '/profile' },
+    { label: 'Profile', href: '/compte' },
   ],
   acheteur: [
     { label: 'header.nav.essayage', href: '/essayage', megaVariant: 'essayage' },

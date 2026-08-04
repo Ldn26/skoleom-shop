@@ -1,4 +1,4 @@
-const mainCategories = [
+const TestableCategories = [
   {
     id: 1,
     slug: 'womens-fashion',
@@ -56,21 +56,6 @@ const mainCategories = [
   },
 
   {
-    id: 5,
-    name: 'Bags & Accessories',
-    slug: 'bags-accessories',
-    subCategories: [
-      { id: 26, slug: 'handbags', name: 'Handbags' },
-      { id: 27, slug: 'backpacks', name: 'Backpacks' },
-      { id: 28, slug: 'wallets', name: 'Wallets' },
-      { id: 29, slug: 'belts', name: 'Belts' },
-      { id: 30, slug: 'hats-caps', name: 'Hats & Caps' },
-      { id: 31, slug: 'sunglasses', name: 'Sunglasses' },
-      { id: 32, slug: 'scarves-gloves', name: 'Scarves & Gloves' },
-    ],
-  },
-
-  {
     id: 6,
     name: 'Jewelry & Watches',
     slug: 'jewelry-watches',
@@ -94,45 +79,6 @@ const mainCategories = [
       { id: 41, slug: 'sports-accessories', name: 'Sports Accessories' },
     ],
   },
-
-  {
-    id: 8,
-    name: 'Beauty & Personal Care',
-    slug: 'beauty-personal-care',
-    subCategories: [
-      { id: 42, slug: 'makeup', name: 'Makeup' },
-      { id: 43, slug: 'perfumes', name: 'Perfumes' },
-      { id: 44, slug: 'skincare', name: 'Skincare' },
-      { id: 45, slug: 'hair-care', name: 'Hair Care' },
-      { id: 46, slug: 'body-care', name: 'Body Care' },
-    ],
-  },
-
-  {
-    id: 9,
-    name: 'Home & Decoration',
-    slug: 'home-decoration',
-    subCategories: [
-      { id: 47, slug: 'home-decor', name: 'Home Decor' },
-      { id: 48, slug: 'furniture', name: 'Furniture' },
-      { id: 49, slug: 'kitchen', name: 'Kitchen' },
-      { id: 50, slug: 'home-textiles', name: 'Home Textiles' },
-      { id: 51, slug: 'lighting', name: 'Lighting' },
-    ],
-  },
-
-  {
-    id: 10,
-    name: 'Electronics',
-    slug: 'electronics',
-    subCategories: [
-      { id: 52, slug: 'smartphones', name: 'Smartphones' },
-      { id: 53, slug: 'computers-laptops', name: 'Computers & Laptops' },
-      { id: 54, slug: 'headphones-earbuds', name: 'Headphones & Earbuds' },
-      { id: 55, slug: 'phone-accessories', name: 'Phone Accessories' },
-      { id: 56, slug: 'smartwatches', name: 'Smartwatches' },
-    ],
-  },
 ];
 
-export default mainCategories;
+export default TestableCategories;
