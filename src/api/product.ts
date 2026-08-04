@@ -72,6 +72,7 @@ export interface WooProduct {
   images: WooImage[];
   brand?: string;
   brandSlug?: string;
+  categories?: WooTaxonomyRef[];
   type?: string;
   typeSlug?: string;
   slug?: string;

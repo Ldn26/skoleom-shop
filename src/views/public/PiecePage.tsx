@@ -9,6 +9,7 @@ import {
   ChevronRight,
   ArrowLeftRight,
 } from 'lucide-react';
+import TESTABLE_SLUGS from '../../data/shop/canTest';
 import { useCart } from '../../hooks/useCart';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useProduct, useProductVariations } from '../../api/product';
@@ -73,6 +74,13 @@ export default function PiecePage() {
   const navigate = useNavigate();
   const { data: rawProduct, isLoading: productLoading } = useProduct(id);
   const { data: rawVariations } = useProductVariations(id);
+  const isTestable = useMemo(() => {
+    if (!rawProduct?.categories?.length) return false;
+    return rawProduct.categories.some((category: { id: number; slug: string }) =>
+      TESTABLE_SLUGS.has(category.slug),
+    );
+  }, [rawProduct]);
+
   const [view, setView] = useState<string>('face');
   const [quantity] = useState(1);
   const [feedback, setFeedback] = useState('');
@@ -740,14 +748,16 @@ export default function PiecePage() {
                     {isFavorite ? 'Enregistré' : 'Enregistrer'}
                   </button>
 
-                  <button
-                    type="button"
-                    onClick={handleTest}
-                    className="pp-fav inline-flex items-center justify-center gap-2.5 rounded-full border px-5 py-3.5 text-[11px] font-bold uppercase tracking-widest border-white/12 bg-white/[0.015] text-white/58 hover:border-white/24 hover:text-white/84"
-                  >
-                    <ArrowLeftRight size={13} strokeWidth={2.5} />
-                    TESTER LE PRODUIT
-                  </button>
+                  {isTestable && (
+                    <button
+                      type="button"
+                      onClick={handleTest}
+                      className="pp-fav inline-flex items-center justify-center gap-2.5 rounded-full border px-5 py-3.5 text-[11px] font-bold uppercase tracking-widest border-white/12 bg-white/[0.015] text-white/58 hover:border-white/24 hover:text-white/84"
+                    >
+                      <ArrowLeftRight size={13} strokeWidth={2.5} />
+                      Essayer
+                    </button>
+                  )}
 
                   {feedback && (
                     <p

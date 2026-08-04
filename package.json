@@ -4,7 +4,7 @@
   "private": true,
   "description": "Skoleom Shop - Next.js application.",
   "scripts": {
-    "dev": "next dev --webpack -p 3039",
+    "dev": "next dev -p 3039",
     "build": "next build",
     "start": "next start -p 3039",
     "seo:sitemap": "node scripts/generate-sitemap.mjs",
