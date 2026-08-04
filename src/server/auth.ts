@@ -92,7 +92,7 @@ export const accessCookie = {
   secure: isProd,
   sameSite: 'lax' as const,
   path: '/',
-  maxAge: 60 * 15, // 15 minutes (in seconds)
+  maxAge: 60 * 30, // 15 minutes (in seconds)
 };
 
 export const refreshCookie = {

@@ -39,10 +39,9 @@ export const Subscription = sequelize.define<SubscriptionModel>(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'users',
+        model: User,
         key: 'id',
       },
-      onDelete: 'CASCADE',
     },
     stripeCustomerId: {
       type: DataTypes.STRING,
@@ -62,9 +61,8 @@ export const Subscription = sequelize.define<SubscriptionModel>(
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM('active', 'canceled', 'past_due', 'unpaid', 'incomplete'),
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'incomplete',
     },
     currentPeriodStart: {
       type: DataTypes.DATE,
@@ -81,6 +79,7 @@ export const Subscription = sequelize.define<SubscriptionModel>(
   }
 );
 
+// Associations directes entre User et Subscription
 User.hasOne(Subscription, { foreignKey: 'userId', as: 'subscription' });
 Subscription.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 

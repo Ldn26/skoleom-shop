@@ -63,7 +63,7 @@ export const User = sequelize.define<UserModel>(
 
     isActive: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      defaultValue: false,
     },
 
     lastLogin: {

@@ -1,3 +1,6 @@
+
+
+
 'use client';
 import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +22,7 @@ import { useUserStore } from '../../store/userStore';
 import { useSignOut } from '../../api/user';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 import { useGetUserAvatar, useCreateAvatar } from '../../api/avatar';
-import { BackRoute } from '@/api/MyAxios';
+import { useCreateCheckoutSession, useGetSubscription } from '../../api/payement';
 
 const input =
   'w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-[#a8ff35]/60 focus:ring-2 focus:ring-[#a8ff35]/15';
@@ -44,32 +47,9 @@ function SectionHead({ icon: Icon, title, desc, action }) {
 }
 
 export default function CompteAchteur() {
+  const checkoutMutation = useCreateCheckoutSession();
+  const { data: subscription } = useGetSubscription();
 
-
-
-
-
-
-
-  const handleActivate = async () => {
-  setIsSubmitting(true);
-  try {
-    const res = await BackRoute.post('/api/billing/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(),
-    });
-
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    }
-  } catch (err) {
-    console.error('Payment activation error:', err);
-  } finally {
-    setIsSubmitting(false);
-  }
-};
   const nav = useNavigate();
   const localizePath = useLocalizedPath();
   const user = useUserStore((s) => s.user);
@@ -82,10 +62,7 @@ export default function CompteAchteur() {
   const [email, setEmail] = useState(user?.email || '');
   const [msg, setMsg] = useState('');
 
-  // TODO: replace with a real hook once GET /api/billing/subscription exists.
-  // Expected shape: { plan, status, currentPeriodEnd, amount, currency } | null
-  const subscription = null;
-  const accountActive = !!user; // replace with user.status === 'active' when available
+  const accountActive = !!user;
 
   if (!user) {
     return (
@@ -250,12 +227,17 @@ export default function CompteAchteur() {
                 <p className="mt-1 text-xs text-white/40">
                   Débloquez l'essayage illimité et les recommandations IA.
                 </p>
-                <button 
-                  // onClick={() => nav(`${localizePath('/')}#tarifs`)}
-                  onClick={handleActivate}
-                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#a8ff35] px-5 py-3 text-sm font-bold text-black transition hover:brightness-105"
+                <button
+                  onClick={() => checkoutMutation.mutate()}
+                  disabled={checkoutMutation.isPending}
+                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#a8ff35] px-5 py-3 text-sm font-bold text-black transition hover:brightness-105 disabled:opacity-50"
                 >
-                  <Sparkles size={15} /> Découvrir les offres
+                  {checkoutMutation.isPending ? (
+                    <Loader2 size={15} className="animate-spin" />
+                  ) : (
+                    <Sparkles size={15} />
+                  )}
+                  Découvrir les offres
                 </button>
               </div>
             )}

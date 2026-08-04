@@ -1,45 +1,18 @@
-// // const { Sequelize } = require("sequelize");
-// // const dotenv = require("dotenv");
-
-// // dotenv.config({ quiet: true });
-
-// // if (!process.env.DATABASE_URL) {
-// //   throw new Error("DATABASE_URL is missing in .env");
-// // }
-
-// // const isProduction = process.env.NODE_ENV === "production";
-
-// // const sequelize = new Sequelize(process.env.DATABASE_URL, {
-// //   dialect: "postgres",
-// //   logging: false,
-
-// //   dialectOptions: isProduction
-// //     ? {
-// //         ssl: {
-// //           require: true,
-// //           rejectUnauthorized: false,
-// //         },
-// //       }
-// //     : {},
-// // });
-
-// // module.exports = sequelize;
-
-// const { Sequelize } = require("sequelize");
-// const pg = require("pg"); // 1. Import pg explicitly
-// const dotenv = require("dotenv");
+// import { Sequelize } from 'sequelize';
+// import pg from 'pg';
+// import dotenv from 'dotenv';
 
 // dotenv.config({ quiet: true });
 
 // if (!process.env.DATABASE_URL) {
-//   throw new Error("DATABASE_URL is missing in .env");
+//   throw new Error('DATABASE_URL is missing in .env');
 // }
 
-// const isProduction = process.env.NODE_ENV === "production";
+// const isProduction = process.env.NODE_ENV === 'production';
 
-// const sequelize = new Sequelize(process.env.DATABASE_URL, {
-//   dialect: "postgres",
-//   dialectModule: pg, // 2. Pass pg here to prevent dynamic lookup errors in Next.js/Turbopack
+// export const sequelize = new Sequelize(process.env.DATABASE_URL, {
+//   dialect: 'postgres',
+//   dialectModule: pg,
 //   logging: false,
 //   dialectOptions: isProduction
 //     ? {
@@ -51,13 +24,10 @@
 //     : {},
 // });
 
-// module.exports = sequelize;
+// export default sequelize;
 
 import { Sequelize } from 'sequelize';
 import pg from 'pg';
-import dotenv from 'dotenv';
-
-dotenv.config({ quiet: true });
 
 if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL is missing in .env');
@@ -65,18 +35,27 @@ if (!process.env.DATABASE_URL) {
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-export const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  dialectModule: pg,
-  logging: false,
-  dialectOptions: isProduction
-    ? {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      }
-    : {},
-});
+// Singleton pour éviter les fuites de pool de connexions avec Next.js HMR
+const globalForSequelize = global as unknown as { sequelize: Sequelize };
+
+export const sequelize =
+  globalForSequelize.sequelize ||
+  new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    dialectModule: pg,
+    logging: false,
+    dialectOptions: isProduction
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        }
+      : {},
+  });
+
+if (process.env.NODE_ENV !== 'production') {
+  globalForSequelize.sequelize = sequelize;
+}
 
 export default sequelize;
