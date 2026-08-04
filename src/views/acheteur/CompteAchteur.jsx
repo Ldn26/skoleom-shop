@@ -19,6 +19,7 @@ import { useUserStore } from '../../store/userStore';
 import { useSignOut } from '../../api/user';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 import { useGetUserAvatar, useCreateAvatar } from '../../api/avatar';
+import { BackRoute } from '@/api/MyAxios';
 
 const input =
   'w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-[#a8ff35]/60 focus:ring-2 focus:ring-[#a8ff35]/15';
@@ -43,6 +44,32 @@ function SectionHead({ icon: Icon, title, desc, action }) {
 }
 
 export default function CompteAchteur() {
+
+
+
+
+
+
+
+  const handleActivate = async () => {
+  setIsSubmitting(true);
+  try {
+    const res = await BackRoute.post('/api/billing/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(),
+    });
+
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  } catch (err) {
+    console.error('Payment activation error:', err);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   const nav = useNavigate();
   const localizePath = useLocalizedPath();
   const user = useUserStore((s) => s.user);
@@ -223,8 +250,9 @@ export default function CompteAchteur() {
                 <p className="mt-1 text-xs text-white/40">
                   Débloquez l'essayage illimité et les recommandations IA.
                 </p>
-                <button
-                  onClick={() => nav(`${localizePath('/')}#tarifs`)}
+                <button 
+                  // onClick={() => nav(`${localizePath('/')}#tarifs`)}
+                  onClick={handleActivate}
                   className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#a8ff35] px-5 py-3 text-sm font-bold text-black transition hover:brightness-105"
                 >
                   <Sparkles size={15} /> Découvrir les offres

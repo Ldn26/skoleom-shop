@@ -405,7 +405,7 @@ export default function PiecePage() {
       `}</style>
 
       <main className="piece-page pp-static sk-shell bg-black pb-28 pt-28 text-white lg:pt-32">
-        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-10">
           {/* ── Back ── */}
           <div className={revealed ? 'pp-in-0 mb-8' : 'opacity-0 mb-8'}>
             <Link
