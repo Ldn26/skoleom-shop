@@ -19,7 +19,6 @@ const SUPPORTED_LANGS = [
 const DEFAULT_LANG = 'fr';
 const ACCESS_COOKIE = 'accessToken';
 
-// Comma-separated list in .env: ALLOWED_ORIGIN=https://a.com,https://b.com,http://localhost:5173
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGIN ?? '')
   .split(',')
   .map((s) => s.trim())

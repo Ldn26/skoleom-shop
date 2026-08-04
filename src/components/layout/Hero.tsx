@@ -125,7 +125,7 @@ export default function Hero() {
               <>
                 <button
                   type="button"
-                  onClick={() => navigate(localizePath('/dashboard/vendeur'))}
+                  onClick={() => navigate(localizePath('vendeur/dashboard'))}
                   className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#a8ff35] px-7 py-4 text-sm font-bold text-black shadow-[0_10px_35px_-10px_rgba(168,255,53,0.6)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#b8ff4d] sm:px-8"
                 >
                   <LayoutDashboard className="h-4 w-4 shrink-0" />

@@ -6,7 +6,7 @@ import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 
 const DASHBOARDS = {
   acheteur: '/essayage',
-  vendeur: '/dashboard',
+  vendeur: '/vendeur/dashboard',
 };
 
 const dashboardFor = (role) => DASHBOARDS[role] || DASHBOARDS.acheteur;

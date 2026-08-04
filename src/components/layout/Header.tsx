@@ -376,17 +376,19 @@ function ProfileMenu() {
 
   return (
     <div className="relative" ref={rootRef}>
-      <button
-        type="button"
+
+
+    <button
+      type="button"
         onClick={() => setOpen((v) => !v)}
+      className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white/85 shadow-sm transition duration-300 hover:border-univ-lime/50 hover:bg-white/10 hover:text-univ-lime focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black `}
+      aria-haspopup="dialog"
+      aria-expanded={open}
         aria-label={t('header.profile.open', { defaultValue: 'Mon compte' })}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        className="inline-flex h-9 w-9  border border-univ-lime  shrink-0 items-center justify-center rounded-full  text-xs font-black text-black transition duration-300 hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-      >
-        {/* {initials} */}
-        <User size={15} className="text-univ-lime  text-white    " />
-      </button>
+    >
+      <User size={16} strokeWidth={2.25} aria-hidden="true" />
+    </button>
+
 
       <AnimatePresence>
         {open && (
