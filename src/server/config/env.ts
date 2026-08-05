@@ -32,12 +32,15 @@ export interface EnvConfig {
   REFRESH_TOKEN_EXPIRES_IN: string;
   SESYNC_URL: string;
   FRONTEND_URL: string[];
-   SERP_API_KEY: string;
-  GOOGLE_SEARCH_API_KEY: string;
-  GOOGLE_SEARCH_ENGINE_ID: string;
-  AMAZON_ASSOCIATE_TAG: string;
-  BACKEND_API_BASE_URL?: string;
-  ALLOW_SYNTHETIC_SHOP_FALLBACK?: string | boolean;
+  //  SERP_API_KEY: string;
+  // GOOGLE_SEARCH_API_KEY: string;
+  // GOOGLE_SEARCH_ENGINE_ID: string;
+  // AMAZON_ASSOCIATE_TAG: string;
+  // BACKEND_API_BASE_URL?: string;
+  // ALLOW_SYNTHETIC_SHOP_FALLBACK?: string | boolean;
+
+
+
   BACKEND_URL: string;
 }
 
