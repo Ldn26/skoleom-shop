@@ -7,12 +7,19 @@ export type NavItem = {
   external?: boolean;
 };
 
+
+
+
+
 export const guestNavigation: NavItem[] = [
   { label: 'header.nav.home', href: '/' },
-  // { label: 'header.nav.essayage', href: '/essayage', megaVariant: 'essayage' },
   { label: 'Catalogue', href: '/catalogue' },
-    { label: 'Abonnement', href: '/#tarifs' },
-  { label: 'header.nav.support', href: '/contact' },
+  { label: 'Abonnement', href: '/#tarifs' },
+  {
+    label: 'header.nav.support',
+    href: 'https://skoleom.com/contact',
+    external: true,
+  },
 ];
 
 export const navigationByRole: Record<UserRole, NavItem[]> = {
@@ -21,11 +28,21 @@ export const navigationByRole: Record<UserRole, NavItem[]> = {
     { label: 'Products', href: '/vendeur/products' },
     { label: 'Orders', href: '/vendeur/orders' },
     { label: 'Profile', href: '/vendeur/compte' },
+    {
+      label: 'header.nav.support',
+      href: 'https://skoleom.com/contact',
+      external: true,
+    },
   ],
+
   acheteur: [
     { label: 'header.nav.essayage', href: '/acheteur/essayage', megaVariant: 'essayage' },
     { label: 'Catalogue', href: '/catalogue' },
-    { label: 'header.nav.support', href: '/contact' },
+    {
+      label: 'header.nav.support',
+      href: 'https://skoleom.com/contact',
+      external: true,
+    },
     { label: 'Profile', href: '/acheteur/compte' },
   ],
 };
