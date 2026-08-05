@@ -38,12 +38,12 @@ export const navigationByRole: Record<UserRole, NavItem[]> = {
   acheteur: [
     { label: 'header.nav.essayage', href: '/acheteur/essayage', megaVariant: 'essayage' },
     { label: 'Catalogue', href: '/catalogue' },
+    { label: 'Profile', href: '/acheteur/compte' },
     {
       label: 'header.nav.support',
       href: 'https://skoleom.com/contact',
       external: true,
     },
-    { label: 'Profile', href: '/acheteur/compte' },
   ],
 };
 

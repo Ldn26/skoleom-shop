@@ -233,7 +233,12 @@ export default function Header() {
 
               <HeaderActions
                 headerShellRef={headerShellRef}
-                onSearchClick={() => navigate(localizePath('/search'))}
+                onSearchClick={() => {
+                  if (window.innerWidth < 1024) {
+                    setMobileOpen(true);
+                    scrollAppToTop();
+                  }
+                }}
                 onMobileMenuOpen={() => setMobileOpen((open) => !open)}
               />
             </div>
@@ -731,264 +736,7 @@ interface MobileMenuProps {
   items: NavItem[];
 }
 
-function MobileMenu({ open, onClose, items }: MobileMenuProps) {
-  const { t, i18n } = useTranslation();
-  const { openPanel } = useAccessibility();
-  const location = useLocation();
-  const localizePath = useLocalizedPath();
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
-  const toggleSection = (sectionId: string) => {
-    setExpandedSection((current) => (current === sectionId ? null : sectionId));
-  };
-
-  useEffect(() => {
-    if (!open) {
-      setExpandedSection(null);
-      setLangMenuOpen(false);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return undefined;
-    const onEsc = (event: globalThis.KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onEsc);
-    return () => window.removeEventListener('keydown', onEsc);
-  }, [open, onClose]);
-
-  const currentLanguage = I18N_TRANSLATION_ENABLED
-    ? (i18n.resolvedLanguage || i18n.language || I18N_DEFAULT_LANGUAGE).split('-')[0]
-    : I18N_DEFAULT_LANGUAGE;
-
-  const languageZoneGroups = useMemo(() => getLanguageZoneGroups(), []);
-  const zoneLabel = (zoneId: LanguageZoneId) => t(`header.language.zones.${zoneId}`);
-
-  const handleLanguageChange = (languageCode: string) => {
-    if (!I18N_TRANSLATION_ENABLED) {
-      onClose();
-      return;
-    }
-    if (!isSupportedLanguage(languageCode)) {
-      onClose();
-      return;
-    }
-    i18n.changeLanguage(languageCode);
-    if (typeof window !== 'undefined') {
-      setStorageItem('skoleom-language', languageCode);
-      document.documentElement.lang = languageCode;
-      document.documentElement.dir = isRtlLanguage(languageCode) ? 'rtl' : 'ltr';
-      const localizedPath = buildLocalizedPath(
-        stripLanguagePrefix(location.pathname),
-        languageCode,
-      );
-      const target = `${localizedPath}${location.search}${location.hash}`;
-      window.location.replace(target);
-    }
-    onClose();
-  };
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <>
-          <motion.button
-            type="button"
-            aria-label={t('header.actions.closeMenu')}
-            onClick={onClose}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[59] bg-black/50 backdrop-blur-[1px] lg:hidden"
-          />
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.24, ease: 'easeOut' }}
-            className="fixed left-3 right-3 top-[62px] z-[60] max-h-[calc(100dvh-100px)] overflow-y-auto rounded-3xl border border-white/10 bg-black/95 text-white shadow-2xl backdrop-blur-xl md:left-8 md:right-8 md:top-[78px] lg:hidden custom-scrollbar"
-          >
-            <div className="flex items-center justify-between px-4 py-3">
-              <BrandLogo />
-              <button
-                type="button"
-                onClick={onClose}
-                className="grid size-8 place-items-center rounded-full transition duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                aria-label={t('header.actions.closeMenu')}
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="px-4 py-4">
-              <button
-                type="button"
-                onClick={() => setLangMenuOpen((prev) => !prev)}
-                className="flex w-full items-center justify-between text-left focus-visible:outline-none"
-              >
-                <div className="text-xs font-semibold uppercase tracking-wider text-white/40">
-                  {t('header.language.change')}
-                </div>
-                <ChevronDown
-                  size={14}
-                  className={cn(
-                    'text-white/40 transition duration-300',
-                    langMenuOpen && 'rotate-180',
-                  )}
-                />
-              </button>
-
-              <AnimatePresence initial={false}>
-                {langMenuOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                    animate={{ height: 'auto', opacity: 1, marginTop: 12 }}
-                    exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeInOut' }}
-                    className="overflow-hidden"
-                  >
-                    <div className="space-y-4">
-                      {languageZoneGroups.map((group) => (
-                        <div key={group.id}>
-                          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
-                            {zoneLabel(group.id)}
-                          </p>
-                          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                            {group.languages.map((option) => {
-                              const active = option.code === currentLanguage;
-                              const disabled =
-                                !I18N_TRANSLATION_ENABLED && option.code !== I18N_DEFAULT_LANGUAGE;
-
-                              return (
-                                <button
-                                  key={option.code}
-                                  type="button"
-                                  disabled={disabled}
-                                  onClick={() => handleLanguageChange(option.code)}
-                                  className={cn(
-                                    'flex items-center gap-2 rounded-xl border border-white/5 px-3 py-2.5 text-left text-xs transition duration-300',
-                                    disabled ? 'cursor-default opacity-40' : 'hover:bg-white/10',
-                                    active
-                                      ? 'border-univ-lime bg-univ-lime/10 font-semibold text-univ-lime'
-                                      : 'bg-white/[0.02] text-white/80',
-                                  )}
-                                >
-                                  <img
-                                    src={option.flagImg}
-                                    alt=""
-                                    className="h-3 w-5 rounded-[1px] object-cover"
-                                  />
-                                  {option.nativeName}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <div className="px-3 py-4">
-              <button
-                type="button"
-                onClick={() => {
-                  openPanel();
-                  onClose();
-                }}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-univ-lime/35 bg-univ-lime/10 px-3 py-3 font-sans text-sm font-semibold text-univ-lime transition hover:bg-univ-lime/20"
-              >
-                {t('a11y.panel.open')}
-              </button>
-            </div>
-
-            <nav className="space-y-1 px-3 pb-4 pt-4">
-              <MobileAccordionItem
-                id="universe"
-                label={t('header.universe')}
-                expanded={expandedSection === 'universe'}
-                onToggle={() => toggleSection('universe')}
-                highlight
-              >
-                <MobileUniversePanel onNavigate={onClose} />
-              </MobileAccordionItem>
-
-              {items.map((item) => {
-                if (item.megaVariant) {
-                  const variant = item.megaVariant as MegaMenuVariantKey;
-                  return (
-                    <MobileAccordionItem
-                      key={item.href}
-                      id={variant}
-                      label={t(item.label)}
-                      expanded={expandedSection === variant}
-                      onToggle={() => toggleSection(variant)}
-                    >
-                      <MobileMegaMenuPanel variant={variant} onNavigate={onClose} />
-                    </MobileAccordionItem>
-                  );
-                }
-
-                if (item.external) {
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        scrollAppToTop();
-                        onClose();
-                      }}
-                      className="block rounded-2xl px-3 py-3 text-sm font-semibold text-[#B5B5B5] transition duration-300 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime"
-                    >
-                      {t(item.label)}
-                    </a>
-                  );
-                }    
-
-                   if (item.href.includes('#')) {
-  return (
-    <a
-      href={item.href}
-      className={cn(
-        'text-white/78 hover:bg-white/[0.10] hover:text-univ-lime',
-      )}
-      onClick={scrollAppToTop}
-    >
-      {t(item.label)}
-    </a>
-  );
-}
-
-     
-
-
-                return (
-                  <Link
-                    key={item.href}
-                    to={localizePath(item.href)}
-                    onClick={() => {
-                      scrollAppToTop();
-                      onClose();
-                    }}
-                    className="block rounded-2xl px-3 py-3 text-sm font-semibold text-[#B5B5B5] transition duration-300 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime"
-                  >
-                    {t(item.label)}
-                  </Link>
-                );
-              })}
-            </nav>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
-}
 
 interface NavPillItemProps {
   item: NavItem;
@@ -1089,5 +837,347 @@ function NavPillItem({
     >
       {innerLink()}
     </div>
+  );
+}
+
+
+
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FULL-SCREEN mobile menu — drop-in replacement for the `MobileMenu` function
+// in Header.tsx.
+//
+// • Covers the whole viewport (fixed inset-0), logo pinned at the top.
+// • Big, bold rows with hairline dividers — matches your screenshot exactly.
+// • Locks background scroll while open; respects notch / home-bar safe areas.
+// • Uses ONLY imports already present at the top of Header.tsx:
+//     motion, AnimatePresence, useTranslation, useAccessibility, useLocation,
+//     useLocalizedPath, useState, useEffect, useMemo, Link, AlignJustify,
+//     ChevronDown, X, BrandLogo, MobileMegaMenuPanel, MobileUniversePanel, cn,
+//     scrollAppToTop, the i18n helpers, NavItem, MegaMenuVariantKey, LanguageZoneId.
+//   → `MobileAccordionItem` is no longer used here. If your tsconfig flags
+//     unused imports, drop it from the `./MobileNavMenus` import line.
+//
+// • Routes, hrefs, language logic and the logo are all untouched.
+// • FIX kept from before: the `href.includes('#')` branch now renders a real
+//   row and closes the menu.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MOBILE_ROW =
+  'flex w-full items-center justify-between border-b border-white/[0.06] py-[18px] text-left text-xl font-bold tracking-tight transition-colors duration-200 focus-visible:outline-none';
+const MOBILE_ROW_IDLE = 'text-white/90 hover:text-univ-lime';
+
+function MobileMenu({ open, onClose, items }: MobileMenuProps) {
+  const { t, i18n } = useTranslation();
+  const { openPanel } = useAccessibility();
+  const location = useLocation();
+  const localizePath = useLocalizedPath();
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSection((current) => (current === sectionId ? null : sectionId));
+  };
+
+  useEffect(() => {
+    if (!open) {
+      setExpandedSection(null);
+      setLangMenuOpen(false);
+    }
+  }, [open]);
+
+  // Lock the page behind the full-screen menu so it can't scroll through.
+  useEffect(() => {
+    if (!open || typeof document === 'undefined') return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onEsc = (event: globalThis.KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onEsc);
+    return () => window.removeEventListener('keydown', onEsc);
+  }, [open, onClose]);
+
+  const currentLanguage = I18N_TRANSLATION_ENABLED
+    ? (i18n.resolvedLanguage || i18n.language || I18N_DEFAULT_LANGUAGE).split('-')[0]
+    : I18N_DEFAULT_LANGUAGE;
+
+  const languageZoneGroups = useMemo(() => getLanguageZoneGroups(), []);
+  const zoneLabel = (zoneId: LanguageZoneId) => t(`header.language.zones.${zoneId}`);
+
+  const handleLanguageChange = (languageCode: string) => {
+    if (!I18N_TRANSLATION_ENABLED) {
+      onClose();
+      return;
+    }
+    if (!isSupportedLanguage(languageCode)) {
+      onClose();
+      return;
+    }
+    i18n.changeLanguage(languageCode);
+    if (typeof window !== 'undefined') {
+      setStorageItem('skoleom-language', languageCode);
+      document.documentElement.lang = languageCode;
+      document.documentElement.dir = isRtlLanguage(languageCode) ? 'rtl' : 'ltr';
+      const localizedPath = buildLocalizedPath(
+        stripLanguagePrefix(location.pathname),
+        languageCode,
+      );
+      const target = `${localizedPath}${location.search}${location.hash}`;
+      window.location.replace(target);
+    }
+    onClose();
+  };
+
+  // Inline expandable row (Universe + any mega-variant nav item).
+  const renderAccordion = (id: string, label: string, accent: boolean, panel: ReactNode) => {
+    const expanded = expandedSection === id;
+    return (
+      <div className="border-b border-white/[0.06]">
+        <button
+          type="button"
+          onClick={() => toggleSection(id)}
+          aria-expanded={expanded}
+          className={cn(
+            'flex w-full items-center justify-between py-[18px] text-left text-xl font-bold tracking-tight transition-colors duration-200 focus-visible:outline-none',
+            accent ? 'text-univ-lime' : 'text-white/90 hover:text-univ-lime',
+          )}
+        >
+          <span>{label}</span>
+          {accent ? (
+            <AlignJustify size={20} className="shrink-0 text-univ-lime/80" aria-hidden />
+          ) : (
+            <ChevronDown
+              size={20}
+              className={cn('shrink-0 text-white/50 transition-transform duration-200', expanded && 'rotate-180')}
+              aria-hidden
+            />
+          )}
+        </button>
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.28, ease: 'easeInOut' }}
+              className="overflow-hidden"
+            >
+              <div className="pb-5 pt-1">{panel}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
+
+  const renderNavEntry = (item: NavItem) => {
+    if (item.megaVariant) {
+      const variant = item.megaVariant as MegaMenuVariantKey;
+      return (
+        <div key={item.href}>
+          {renderAccordion(
+            variant,
+            t(item.label),
+            false,
+            <MobileMegaMenuPanel variant={variant} onNavigate={onClose} />,
+          )}
+        </div>
+      );
+    }
+
+    if (item.external) {
+      return (
+        <a
+          key={item.href}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => {
+            scrollAppToTop();
+            onClose();
+          }}
+          className={cn(MOBILE_ROW, MOBILE_ROW_IDLE)}
+        >
+          {t(item.label)}
+        </a>
+      );
+    }
+
+    // FIX: hash / anchor links render like every other row and close the menu.
+    if (item.href.includes('#')) {
+      return (
+        <a
+          key={item.href}
+          href={item.href}
+          onClick={() => {
+            scrollAppToTop();
+            onClose();
+          }}
+          className={cn(MOBILE_ROW, MOBILE_ROW_IDLE)}
+        >
+          {t(item.label)}
+        </a>
+      );
+    }
+
+    return (
+      <Link
+        key={item.href}
+        to={localizePath(item.href)}
+        onClick={() => {
+          scrollAppToTop();
+          onClose();
+        }}
+        className={cn(MOBILE_ROW, MOBILE_ROW_IDLE)}
+      >
+        {t(item.label)}
+      </Link>
+    );
+  };
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22, ease: 'easeOut' }}
+          className="fixed inset-0 z-[70] flex flex-col bg-[#060606] text-white lg:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('header.navLabel')}
+        >
+          {/* Top bar — logo pinned, close on the right */}
+          <div className="flex shrink-0 items-center justify-between border-b border-white/[0.07] px-5 pb-4 pt-[max(1rem,env(safe-area-inset-top))]">
+            <BrandLogo />
+            <button
+              type="button"
+              onClick={onClose}
+              className="grid size-10 place-items-center rounded-full text-white/70 transition duration-200 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              aria-label={t('header.actions.closeMenu')}
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Scrollable body */}
+          <motion.div
+            initial={{ y: 8 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+            className="custom-scrollbar flex-1 overflow-y-auto overscroll-contain px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+          >
+            {/* Primary navigation */}
+            <nav className="pt-2">
+              {renderAccordion(
+                'universe',
+                t('header.universe'),
+                true,
+                <MobileUniversePanel onNavigate={onClose} />,
+              )}
+              {items.map(renderNavEntry)}
+            </nav>
+
+            {/* Accessibility */}
+            <button
+              type="button"
+              onClick={() => {
+                openPanel();
+                onClose();
+              }}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl border border-univ-lime/35 bg-univ-lime/[0.08] px-4 py-3.5 text-sm font-semibold text-univ-lime transition duration-200 hover:bg-univ-lime/[0.16] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime"
+            >
+              {t('a11y.panel.open')}
+            </button>
+
+            {/* Language */}
+            <div className="mt-3">
+              <button
+                type="button"
+                onClick={() => setLangMenuOpen((prev) => !prev)}
+                aria-expanded={langMenuOpen}
+                className="flex w-full items-center justify-between rounded-2xl bg-white/[0.03] px-4 py-3.5 text-left transition duration-200 hover:bg-white/[0.06] focus-visible:outline-none"
+              >
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+                  {t('header.language.change')}
+                </span>
+                <ChevronDown
+                  size={16}
+                  className={cn(
+                    'text-white/45 transition duration-200',
+                    langMenuOpen && 'rotate-180 text-white/75',
+                  )}
+                />
+              </button>
+
+              <AnimatePresence initial={false}>
+                {langMenuOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    className="overflow-hidden"
+                  >
+                    <div className="space-y-4 px-1 pt-4">
+                      {languageZoneGroups.map((group) => (
+                        <div key={group.id}>
+                          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">
+                            {zoneLabel(group.id)}
+                          </p>
+                          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                            {group.languages.map((option) => {
+                              const active = option.code === currentLanguage;
+                              const disabled =
+                                !I18N_TRANSLATION_ENABLED &&
+                                option.code !== I18N_DEFAULT_LANGUAGE;
+
+                              return (
+                                <button
+                                  key={option.code}
+                                  type="button"
+                                  disabled={disabled}
+                                  onClick={() => handleLanguageChange(option.code)}
+                                  className={cn(
+                                    'flex items-center gap-2 rounded-xl border px-3 py-2.5 text-left text-sm transition duration-200',
+                                    disabled
+                                      ? 'cursor-default border-white/5 opacity-40'
+                                      : 'hover:bg-white/10',
+                                    active
+                                      ? 'border-univ-lime/60 bg-univ-lime/10 font-semibold text-univ-lime'
+                                      : 'border-white/5 bg-white/[0.02] text-white/80',
+                                  )}
+                                >
+                                  <img
+                                    src={option.flagImg}
+                                    alt=""
+                                    className="h-3.5 w-5 rounded-[1px] object-cover"
+                                  />
+                                  <span className="truncate">{option.nativeName}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

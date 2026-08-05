@@ -21,14 +21,14 @@ const ROLES = [
     label: 'Acheteur',
     hint: 'Je viens acheter et essayer',
     image:
-      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
+      '/shop/landig/ach.webp',
   },
   {
     key: 'vendeur',
     label: 'Vendeur',
     hint: 'Je gère ma boutique',
     image:
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80',
+      '/shop/landig/vend.webp',
   },
 ];
 
