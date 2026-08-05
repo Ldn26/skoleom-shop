@@ -949,7 +949,24 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
                       {t(item.label)}
                     </a>
                   );
-                }
+                }    
+
+                   if (item.href.includes('#')) {
+  return (
+    <a
+      href={item.href}
+      className={cn(
+        'text-white/78 hover:bg-white/[0.10] hover:text-univ-lime',
+      )}
+      onClick={scrollAppToTop}
+    >
+      {t(item.label)}
+    </a>
+  );
+}
+
+     
+
 
                 return (
                   <Link
@@ -1005,7 +1022,9 @@ function NavPillItem({
           {t(item.label)}
         </a>
       );
-    }
+    }   
+
+    
 
     if (isHubStaticPath(item.href)) {
       return (
@@ -1017,7 +1036,24 @@ function NavPillItem({
           {t(item.label)}
         </a>
       );
-    }
+    }  
+
+
+     if (item.href.includes('#')) {
+  return (
+    <a
+      href={item.href}
+      className={cn(
+        baseLinkClass,
+        'text-white/78 hover:bg-white/[0.10] hover:text-univ-lime',
+      )}
+      onClick={scrollAppToTop}
+    >
+      {t(item.label)}
+    </a>
+  );
+} 
+
 
     return (
       <NavLink

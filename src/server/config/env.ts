@@ -68,32 +68,32 @@ export const env: EnvConfig = {
     'dev-refresh-secret',
   REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN ?? '7d',
   SESYNC_URL: process.env.SESYNC_URL ?? '',
-  FRONTEND_URL: (process.env.FRONTEND_URL ?? 'http://localhost:5173')
+  FRONTEND_URL: (process.env.FRONTEND_URL ?? 'http://localhost:3039')
     .split(',')
     .map((url) => url.trim())
     .filter(Boolean),
-  BACKEND_URL: process.env.BACKEND_URL ?? 'http://localhost:5000',
+  BACKEND_URL: process.env.BACKEND_URL ?? 'http://localhost:3039',
 
 
 
 
 
 
- SERP_API_KEY: requireInProduction('SERP_API_KEY', process.env.SERP_API_KEY),
-  GOOGLE_SEARCH_API_KEY: requireInProduction(
-    'GOOGLE_SEARCH_API_KEY',
-    process.env.GOOGLE_SEARCH_API_KEY,
-  ),
-  GOOGLE_SEARCH_ENGINE_ID: requireInProduction(
-    'GOOGLE_SEARCH_ENGINE_ID',
-    process.env.GOOGLE_SEARCH_ENGINE_ID,
-  ),
-  AMAZON_ASSOCIATE_TAG: requireInProduction(
-    'AMAZON_ASSOCIATE_TAG',
-    process.env.AMAZON_ASSOCIATE_TAG,
-  ),
-  BACKEND_API_BASE_URL: process.env.BACKEND_API_BASE_URL?.trim(),
-  ALLOW_SYNTHETIC_SHOP_FALLBACK: process.env.ALLOW_SYNTHETIC_SHOP_FALLBACK?.trim().toLowerCase() === 'true',
+//  SERP_API_KEY: requireInProduction('SERP_API_KEY', process.env.SERP_API_KEY),
+//   GOOGLE_SEARCH_API_KEY: requireInProduction(
+//     'GOOGLE_SEARCH_API_KEY',
+//     process.env.GOOGLE_SEARCH_API_KEY,
+//   ),
+//   GOOGLE_SEARCH_ENGINE_ID: requireInProduction(
+//     'GOOGLE_SEARCH_ENGINE_ID',
+//     process.env.GOOGLE_SEARCH_ENGINE_ID,
+//   ),
+//   AMAZON_ASSOCIATE_TAG: requireInProduction(
+//     'AMAZON_ASSOCIATE_TAG',
+//     process.env.AMAZON_ASSOCIATE_TAG,
+//   ),
+//   BACKEND_API_BASE_URL: process.env.BACKEND_API_BASE_URL?.trim(),
+//   ALLOW_SYNTHETIC_SHOP_FALLBACK: process.env.ALLOW_SYNTHETIC_SHOP_FALLBACK?.trim().toLowerCase() === 'true',
 
   
 
