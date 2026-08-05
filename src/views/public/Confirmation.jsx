@@ -1,9 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store/userStore';
 
 export default function Confirmation() {
   const { state } = useLocation();
   const nav = useNavigate();
+  const role = useUserStore((state) => state.role);
   const number = state?.number || 'SK-29482';
+  const accountPath = role === 'vendeur' ? '/vendeur/compte' : '/acheteur/compte';
   return (
     <section className="view on">
       <div
@@ -43,7 +46,7 @@ export default function Confirmation() {
           Suivi en temps réel disponible.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button className="btn btn-lime" onClick={() => nav('/compte')}>
+          <button className="btn btn-lime" onClick={() => nav(accountPath)}>
             Suivre ma commande
           </button>
           <button className="btn btn-dark" onClick={() => nav('/')}>

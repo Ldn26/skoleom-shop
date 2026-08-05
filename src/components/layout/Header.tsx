@@ -338,6 +338,7 @@ function UniverseButton({ open, onMouseEnter, onMouseLeave, onClick }: UniverseB
 
 function ProfileMenu() {
   const user = useUserStore((state) => state.user);
+  const role = useUserStore((state) => state.role);
   const hasHydrated = useUserStore((state) => state.hasHydrated);
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -419,7 +420,9 @@ function ProfileMenu() {
               type="button"
               role="menuitem"
               onClick={() => {
-                navigate(localizePath('/compte'));
+                navigate(localizePath(
+                  `/${role === 'vendeur' ? 'vendeur' : 'acheteur'}/compte`
+                ));
                 setOpen(false);
               }}
               className="mt-1 flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-white/85 transition hover:bg-white/10"
