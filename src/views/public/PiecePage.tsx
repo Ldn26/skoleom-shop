@@ -94,8 +94,7 @@ export default function PiecePage() {
   const asideRef = useRef<HTMLDivElement>(null);
   const handleTest = useCallback(() => {
     if (!id) return;
-    // navigate({ pathname: localizedPath('/essayage'), search: `?product=${id}` });
-    navigate(localizedPath(`/essayage?product=${id}`));
+    navigate(localizedPath(`/acheteur/essayage?product=${id}`));
   }, [id, navigate, localizedPath]);
 
   useEffect(() => {
