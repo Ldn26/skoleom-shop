@@ -11,6 +11,7 @@ export const guestNavigation: NavItem[] = [
   { label: 'header.nav.home', href: '/' },
   // { label: 'header.nav.essayage', href: '/essayage', megaVariant: 'essayage' },
   { label: 'Catalogue', href: '/catalogue' },
+    { label: 'Abonnement', href: '/#tarifs' },
   { label: 'header.nav.support', href: '/contact' },
 ];
 

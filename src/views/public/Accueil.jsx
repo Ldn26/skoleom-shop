@@ -16,7 +16,6 @@ import { BackRoute } from '../../api/MyAxios';
 import { useCategories } from '../../api/product';
 import Hero from '@/components/layout/Hero';
 import PageAurora from '@/components/layout/PageAurora';
-import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
 
 const FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1000&auto=format&fit=crop';
@@ -24,7 +23,6 @@ const FALLBACK_IMAGE =
 export default function Accueil() {
   const navigate = useNavigate();
   const { data: categories = [] } = useCategories();
-
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const els = document.querySelectorAll('.sk-reveal');
@@ -40,18 +38,7 @@ export default function Accueil() {
     return () => io.disconnect();
   }, [categories.length]);
 
-  const handleCheckout = async (priceId) => {
-    try {
-      const stripe = await stripePromise;
-      const { data } = await BackRoute.post('/stripe/create-checkout-session', { priceId });
-      const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
-      if (error) console.error(error.message);
-    } catch (err) {
-      console.error(err);
-      alert('Impossible de démarrer le paiement.');
-    }
-  };
-
+ 
   const features = [
     {
       title: "Cabine d'essayage virtuelle",
@@ -158,7 +145,7 @@ export default function Accueil() {
       <PageAurora />
       <Hero />
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+      <section className="mx-auto max-w-[1600px]  px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
         <div className="grid gap-10 md:grid-cols-2 md:gap-16">
           <div className="sk-reveal">
             <p className="eyebrow">Le problème</p>
@@ -189,7 +176,7 @@ export default function Accueil() {
       </section>
 
       <section className="border-y border-white/10 bg-black/30 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+        <div className="mx-auto max-w-[1600px] px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
           <div className="sk-reveal max-w-2xl">
             <p className="eyebrow">Propulsé par Skoleom AI</p>
             <h2 className="disp mt-4 text-3xl sm:mt-6 sm:text-4xl md:text-5xl">
@@ -200,7 +187,7 @@ export default function Accueil() {
             {features.map((f) => (
               <div
                 key={f.title}
-                onClick={() => navigate('/essayage')}
+                onClick={() => navigate('/acheteur/essayage')}
                 className="lift sk-reveal group cursor-pointer bg-black/40 p-6 sm:p-9"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#a8ff35]/30 text-[#a8ff35]">
@@ -217,53 +204,40 @@ export default function Accueil() {
         </div>
       </section>
 
-      <section className="px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-        <div className="sk-reveal mx-auto max-w-7xl">
-          <p className="eyebrow">Comment ça marche</p>
-          <h2 className="disp mt-4 text-3xl sm:mt-6 sm:text-4xl md:text-5xl">
-            TROIS GESTES — ZÉRO DOUTE
-          </h2>
-        </div>
-        <style>{`
-          .steps-stack .scroll-stack-inner { padding: 4vh 0.5rem 10rem; min-height: 0; }
-          .steps-stack .scroll-stack-card { height: auto; min-height: 14rem; width: 100%; }
-          .steps-stack .scroll-stack-scroller { scrollbar-width: none; -ms-overflow-style: none; }
-          .steps-stack .scroll-stack-scroller::-webkit-scrollbar { width: 0; height: 0; display: none; }
-        `}</style>
+   
+
+
+<section className="px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+  <div className="mx-auto max-w-[1600px]">
+    <p className="eyebrow">Comment ça marche</p>
+    <h2 className="disp mt-4 text-3xl sm:mt-6 sm:text-4xl md:text-5xl">
+      TROIS GESTES — ZÉRO DOUTE
+    </h2>
+
+    <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-3">
+      {steps.map((s) => (
         <div
-          style={{ perspective: '1000px' }}
-          className="steps-stack mx-auto mt-8 h-[420px] max-w-7xl sm:mt-10 sm:h-[460px]"
+          key={s.n}
+          className="rounded-2xl border border-white/10 bg-[#0C0C0D]/85 p-6 backdrop-blur-xl transition-colors hover:border-[#a8ff35]/40 sm:p-8"
         >
-          <ScrollStack
-            itemDistance={60}
-            itemStackDistance={24}
-            itemScale={0.04}
-            baseScale={0.88}
-            blurAmount={0}
-          >
-            {steps.map((s) => (
-              <ScrollStackItem
-                key={s.n}
-                itemClassName="border border-white/10 bg-[#0C0C0D]/85 backdrop-blur-xl p-6 sm:p-8"
-              >
-                <div className="flex h-full flex-col justify-center">
-                  <div className="disp text-4xl text-[#a8ff35] sm:text-6xl">{s.n}</div>
-                  <h3 className="mt-2 text-xl font-semibold text-white sm:mt-4 sm:text-3xl">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 max-w-xl text-sm font-light leading-relaxed text-zinc-300 sm:mt-3 sm:text-lg sm:leading-8">
-                    {s.desc}
-                  </p>
-                </div>
-              </ScrollStackItem>
-            ))}
-          </ScrollStack>
+          <div className="disp text-4xl text-[#a8ff35] sm:text-5xl">{s.n}</div>
+          <h3 className="mt-4 text-xl font-semibold text-white sm:text-2xl">
+            {s.title}
+          </h3>
+          <p className="mt-2 text-sm font-light leading-relaxed text-zinc-300 sm:text-base sm:leading-7">
+            {s.desc}
+          </p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
+
 
       <section
         id="tarifs"
-        className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32"
+        className="mx-auto max-w-[1600px] px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32"
       >
         <div className="sk-reveal max-w-2xl">
           <p className="eyebrow">Abonnements</p>
@@ -311,7 +285,8 @@ export default function Accueil() {
                 ))}
               </div>
               <button
-                onClick={() => handleCheckout(plan.stripePriceId)}
+              //  navigate to login
+                onClick={() => navigate('/connexion')}
                 className={`mt-8 w-full rounded-xl py-3.5 text-base font-bold transition sm:mt-10 sm:rounded-2xl sm:py-4 sm:text-lg ${
                   plan.featured
                     ? 'bg-[#a8ff35] text-black hover:opacity-90'
@@ -325,7 +300,7 @@ export default function Accueil() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8 lg:pb-32">
+      <section className="mx-auto max-w-[1600px] px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8 lg:pb-32">
         <div className="sk-reveal flex items-end justify-between">
           <div>
             <p className="eyebrow">Sélection Skoleom AI</p>
