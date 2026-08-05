@@ -5,7 +5,7 @@ import { useUserStore } from '../../store/userStore';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 
 const DASHBOARDS = {
-  acheteur: '/essayage',
+  acheteur: '/acheteur/essayage',
   vendeur: '/vendeur/dashboard',
 };
 

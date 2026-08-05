@@ -17,15 +17,15 @@ export const guestNavigation: NavItem[] = [
 export const navigationByRole: Record<UserRole, NavItem[]> = {
   vendeur: [
     { label: 'Dashboard', href: '/vendeur/dashboard' },
-    { label: 'Products', href: '/vendeur/dashboard/products' },
-    { label: 'Orders', href: '/vendeur/dashboard/orders' },
-    { label: 'Profile', href: '/compte' },
+    { label: 'Products', href: '/vendeur/products' },
+    { label: 'Orders', href: '/vendeur/orders' },
+    { label: 'Profile', href: '/vendeur/compte' },
   ],
   acheteur: [
-    { label: 'header.nav.essayage', href: '/essayage', megaVariant: 'essayage' },
+    { label: 'header.nav.essayage', href: '/acheteur/essayage', megaVariant: 'essayage' },
     { label: 'Catalogue', href: '/catalogue' },
     { label: 'header.nav.support', href: '/contact' },
-    { label: 'Profile', href: '/compte' },
+    { label: 'Profile', href: '/acheteur/compte' },
   ],
 };
 

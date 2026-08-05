@@ -14,6 +14,7 @@ import {
   Boxes,
   Menu,
   X,
+  User,
 } from 'lucide-react';
 
 const C = {
@@ -32,11 +33,11 @@ const C = {
 
 const NAV = [
   { href: '/vendeur/dashboard', label: 'Tableau de bord', icon: LayoutDashboard },
-  { href: '/vendeur/dashboard/products', label: 'Mes produits', icon: Package },
-  { href: '/vendeur/dashboard/products/new', label: 'Ajouter un produit', icon: PlusCircle },
-  { href: '/vendeur/dashboard/orders', label: 'Commandes', icon: ShoppingCart },
+  { href: '/vendeur/products', label: 'Mes produits', icon: Package },
+  { href: '/vendeur/products/new', label: 'Ajouter un produit', icon: PlusCircle },
+  { href: '/vendeur/orders', label: 'Commandes', icon: ShoppingCart },
   // { href: '/vendeur/stats', label: 'Statistiques', icon: BarChart3 },
-  { href: '/vendeur/dashboard/settings', label: 'Paramètres', icon: Settings },
+  { href: '/vendeur/compte', label: 'Mon Compte', icon : User },
 ];
 
 interface DashboardShellProps {
