@@ -243,7 +243,7 @@
 
 'use client';
 
-import { useMemo, useState, useEffect, useRef, useCallback } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { X } from 'lucide-react';
 import {
@@ -314,8 +314,12 @@ export default function ProductsPage() {
     return { categories: cats, brands: brs, priceMax: derived.priceMax };
   }, [serverCategories, serverBrands, derived]);
 
+  const initialPriceSetRef = useRef(false);
   useEffect(() => {
-    if (!priceTouched && facets.priceMax) patch({ maxPrice: facets.priceMax });
+    if (!priceTouched && facets.priceMax && !initialPriceSetRef.current) {
+      patch({ maxPrice: facets.priceMax });
+      initialPriceSetRef.current = true;
+    }
   }, [facets.priceMax, priceTouched, patch]);
 
   const list = useMemo(
@@ -325,6 +329,7 @@ export default function ProductsPage() {
 
   const resetAll = () => {
     reset();
+    initialPriceSetRef.current = false;
     setSp({});
   };
 
@@ -369,22 +374,27 @@ export default function ProductsPage() {
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const { hasNextPage, isFetchingNextPage, fetchNextPage } = query;
 
-  const onIntersect = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-        fetchNextPage();
-      }
-    },
-    [hasNextPage, isFetchingNextPage, fetchNextPage],
-  );
+  const fetchStateRef = useRef({ hasNextPage, isFetchingNextPage, fetchNextPage });
+  useEffect(() => {
+    fetchStateRef.current = { hasNextPage, isFetchingNextPage, fetchNextPage };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(onIntersect, { rootMargin: '400px' });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const { hasNextPage: canFetchMore, isFetchingNextPage: fetching, fetchNextPage: loadMore } =
+          fetchStateRef.current;
+        if (entries[0].isIntersecting && canFetchMore && !fetching) {
+          loadMore();
+        }
+      },
+      { rootMargin: '600px' },
+    );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [onIntersect]);
+  }, []);
 
   useEffect(() => {
     if (sideOpen) {
@@ -407,8 +417,8 @@ export default function ProductsPage() {
         </div>
 
         <div className="flex gap-6">
-          <aside className="hidden w-64 shrink-0 lg:block xl:w-72">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-white/10 p-5 backdrop-blur scrollbar-thin scrollbar-thumb-white/10">
+          <aside className="hidden w-56 shrink-0 md:block lg:w-64 xl:w-72">
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-white/10 p-5 backdrop-blur scrollbar-thin scrollbar-thumb-white/10 lg:top-36 lg:max-h-[calc(100vh-10rem)]">
               <FilterSidebar facetsPriceMax={facets.priceMax} />
             </div>
           </aside>
@@ -419,7 +429,7 @@ export default function ProductsPage() {
                 <button
                   type="button"
                   onClick={() => setSideOpen(true)}
-                  className="rounded-xl border border-white/15 px-3.5 py-2 text-sm font-semibold text-white/80 transition hover:border-[#a8ff35]/50 hover:text-[#a8ff35] lg:hidden"
+                  className="rounded-xl border border-white/15 px-3.5 py-2 text-sm font-semibold text-white/80 transition hover:border-[#a8ff35]/50 hover:text-[#a8ff35] md:hidden"
                 >
                   Filtres
                 </button>
@@ -444,7 +454,7 @@ export default function ProductsPage() {
               <ProductGrid loading skeletonCount={8} products={[]} />
             ) : list.length ? (
               <>
-                <ProductGrid loading={isFetchingNextPage} products={list} />
+                <ProductGrid products={list} />
 
                 <div ref={sentinelRef} className="h-4 w-full" />
 
@@ -473,14 +483,14 @@ export default function ProductsPage() {
       </div>
 
       <div
-        className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
           sideOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         onClick={() => setSideOpen(false)}
       />
 
       <div
-        className={`fixed bottom-0 left-0 top-0 z-50 w-80 transform bg-zinc-900 p-6 shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
+        className={`fixed bottom-0 left-0 top-0 z-50 w-80 max-w-[85vw] transform bg-zinc-900 p-6 shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
           sideOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
