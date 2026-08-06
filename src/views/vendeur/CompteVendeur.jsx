@@ -1,16 +1,15 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  BadgeCheck, Calendar, Camera, Check, CreditCard, Crown, Loader2, LogOut,
-  Mail, RefreshCw, ShieldCheck, Sparkles, Upload, User, X,
+  BadgeCheck, Calendar, Check, CreditCard, Crown, Loader2, LogOut,
+  Mail, ShieldCheck, Sparkles, User,
 } from 'lucide-react';
 import { useUserStore } from '../../store/userStore';
 import { useMe, useSignOut } from '../../api/user';
 import { useSubscription, useCancelSubscription, useCheckout } from '../../api/billing';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
-import { useGetUserAvatar, useCreateAvatar } from '../../api/avatar';
 
 const input =
   'w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-[#a8ff35]/60 focus:ring-2 focus:ring-[#a8ff35]/15';
@@ -104,7 +103,6 @@ export default function CompteVendeur() {
   }
 
   const dirty = name !== user.name || email !== user.email;
-  const active = !!subscription && subscription.status === 'active';
   const scheduledCancel = !!subscription?.cancelAtPeriodEnd;
 
   const statusTone = !subscription
@@ -137,8 +135,8 @@ export default function CompteVendeur() {
   const doResume = () => cancel.mutate({ resume: true });
 
   return (
-    <div className="min-h-[calc(100vh-71px)] bg-[#0A0A0B] px-4 pb-24 pt-[100px] text-[#EDECE8] sm:px-6">
-      <div className="mx-auto w-full max-w-[1600px]">
+    <div className="text-[#EDECE8]">
+      <div className="mx-auto max-w-[1400px]">
         <div className={`mb-6 overflow-hidden ${card}`}>
           <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div className="flex items-center gap-5">

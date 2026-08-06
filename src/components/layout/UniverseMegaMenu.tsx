@@ -417,7 +417,7 @@ function ColumnBlock({ column, onNavigate }: { column: UniverseColumn; onNavigat
   );
 }
 
-function GridRow({
+export function GridRow({
   columns,
   onNavigate,
   className,

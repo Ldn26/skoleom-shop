@@ -14,7 +14,7 @@ import { useUserStore } from '../../store/userStore';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { AlignJustify, ChevronDown, LogOut, Menu, Search, User, X } from 'lucide-react';
+import { AlignJustify, ChevronDown, LogIn, LogOut, Menu, Search, User, X } from 'lucide-react';
 import { I18N_DEFAULT_LANGUAGE, I18N_TRANSLATION_ENABLED } from '../../i18n/config';
 import {
   buildLocalizedPath,
@@ -27,9 +27,8 @@ import { getLanguageZoneGroups, languageOptions } from '../../locales';
 import type { LanguageZoneId } from '../../i18n/languageZones';
 import Navbar, { type MegaMenuVariantKey } from './Navbar';
 import UniverseMegaMenu from './UniverseMegaMenu';
-import { MobileAccordionItem, MobileMegaMenuPanel, MobileUniversePanel } from './MobileNavMenus';
+import { MobileMegaMenuPanel, MobileUniversePanel } from './MobileNavMenus';
 import AccessibilityTrigger from '../accessibility/AccessibilityTrigger';
-import { useAccessibility } from '../../context/AccessibilityContext';
 import { scrollAppToTop } from './ScrollToTop';
 import { setStorageItem } from '../../utils/browserStorage';
 import { isHubStaticPath } from '../../constants/hubLinks';
@@ -74,8 +73,6 @@ export default function Header() {
   const [universeOpen, setUniverseOpen] = useState(false);
   const [universeTopPx, setUniverseTopPx] = useState(0);
 
-  const navigate = useNavigate();
-  const localizePath = useLocalizedPath();
   const { t } = useTranslation();
 
   const updateMegaTopFromTrigger = useCallback((variantKey: string) => {
@@ -216,7 +213,7 @@ export default function Header() {
                 : 'border-transparent bg-transparent shadow-none',
             )}
           >
-            <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between gap-2 sm:gap-3 md:h-[71px]">
+            <div className="relative mx-auto flex h-14 max-w-[1600px] items-center justify-between gap-2 sm:gap-3 md:h-[71px]">
               <div className="flex shrink-0 items-center gap-4 sm:gap-5 md:gap-6">
                 <BrandLogo />
                 <UniverseButton
@@ -450,6 +447,29 @@ function ProfileMenu() {
   );
 }
 
+function LoginButton() {
+  const { t } = useTranslation();
+  const localizePath = useLocalizedPath();
+
+  return (
+    <Link
+      to={localizePath('/connection')}
+      className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-3.5 text-xs font-semibold text-white/90 shadow-sm transition duration-300 hover:border-univ-lime/50 hover:bg-white/10 hover:text-univ-lime focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+    >
+      <LogIn size={15} strokeWidth={2.25} aria-hidden="true" />
+      <span>{t('common.actions.login', { defaultValue: 'Connexion' })}</span>
+    </Link>
+  );
+}
+
+function AuthArea() {
+  const user = useUserStore((state) => state.user);
+  const hasHydrated = useUserStore((state) => state.hasHydrated);
+
+  if (!hasHydrated) return null;
+  return user ? <ProfileMenu /> : <LoginButton />;
+}
+
 function LanguageButton({ headerShellRef }: { headerShellRef: RefObject<HTMLDivElement | null> }) {
   const { i18n, t } = useTranslation();
   const location = useLocation();
@@ -549,7 +569,7 @@ function LanguageButton({ headerShellRef }: { headerShellRef: RefObject<HTMLDivE
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex h-9 shrink-0 items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2 text-[10px] font-semibold uppercase leading-none tracking-wide text-white/90 transition duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:gap-1.5 sm:px-2.5"
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center gap-1 rounded-full border border-white/10 bg-white/[0.04] text-[10px] font-semibold uppercase leading-none tracking-wide text-white/90 transition duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:w-auto sm:gap-1.5 sm:px-2.5"
         aria-label={t('header.language.change')}
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -560,10 +580,10 @@ function LanguageButton({ headerShellRef }: { headerShellRef: RefObject<HTMLDivE
           aria-hidden
           className="h-3.5 w-5 rounded-[2px] object-cover"
         />
-        {currentOption.code.toUpperCase()}
+        <span className="hidden sm:inline">{currentOption.code.toUpperCase()}</span>
         <ChevronDown
           size={10}
-          className={cn('transition duration-300', open && 'rotate-180')}
+          className={cn('hidden transition duration-300 sm:inline', open && 'rotate-180')}
           aria-hidden
         />
       </button>
@@ -678,14 +698,12 @@ function HeaderActions({ headerShellRef, onSearchClick, onMobileMenuOpen }: Head
         <Search size={15} />
       </IconButton>
 
-      <div className="hidden lg:block">
-        <LanguageButton headerShellRef={headerShellRef} />
-      </div>
+      <LanguageButton headerShellRef={headerShellRef} />
 
-      <AccessibilityTrigger className="hidden lg:inline-flex" />
+      <AccessibilityTrigger />
 
       <div className="hidden lg:block">
-        <ProfileMenu />
+        <AuthArea />
       </div>
 
       <IconButton
@@ -847,36 +865,22 @@ function NavPillItem({
 
 
 
-// ─────────────────────────────────────────────────────────────────────────────
-// FULL-SCREEN mobile menu — drop-in replacement for the `MobileMenu` function
-// in Header.tsx.
-//
-// • Covers the whole viewport (fixed inset-0), logo pinned at the top.
-// • Big, bold rows with hairline dividers — matches your screenshot exactly.
-// • Locks background scroll while open; respects notch / home-bar safe areas.
-// • Uses ONLY imports already present at the top of Header.tsx:
-//     motion, AnimatePresence, useTranslation, useAccessibility, useLocation,
-//     useLocalizedPath, useState, useEffect, useMemo, Link, AlignJustify,
-//     ChevronDown, X, BrandLogo, MobileMegaMenuPanel, MobileUniversePanel, cn,
-//     scrollAppToTop, the i18n helpers, NavItem, MegaMenuVariantKey, LanguageZoneId.
-//   → `MobileAccordionItem` is no longer used here. If your tsconfig flags
-//     unused imports, drop it from the `./MobileNavMenus` import line.
-//
-// • Routes, hrefs, language logic and the logo are all untouched.
-// • FIX kept from before: the `href.includes('#')` branch now renders a real
-//   row and closes the menu.
-// ─────────────────────────────────────────────────────────────────────────────
+// Mobile navigation — slide-in sidebar (right-docked) with a backdrop.
+// Nav accordion + account block only; language/accessibility now live in
+// the header's icon row instead of being duplicated in here.
 
 const MOBILE_ROW =
   'flex w-full items-center justify-between border-b border-white/[0.06] py-[18px] text-left text-xl font-bold tracking-tight transition-colors duration-200 focus-visible:outline-none';
 const MOBILE_ROW_IDLE = 'text-white/90 hover:text-univ-lime';
 
 function MobileMenu({ open, onClose, items }: MobileMenuProps) {
-  const { t, i18n } = useTranslation();
-  const { openPanel } = useAccessibility();
-  const location = useLocation();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const localizePath = useLocalizedPath();
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const user = useUserStore((state) => state.user);
+  const role = useUserStore((state) => state.role);
+  const hasHydrated = useUserStore((state) => state.hasHydrated);
+  const signOut = useSignOut();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   const toggleSection = (sectionId: string) => {
@@ -884,13 +888,10 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
   };
 
   useEffect(() => {
-    if (!open) {
-      setExpandedSection(null);
-      setLangMenuOpen(false);
-    }
+    if (!open) setExpandedSection(null);
   }, [open]);
 
-  // Lock the page behind the full-screen menu so it can't scroll through.
+  // Lock the page behind the sidebar menu so it can't scroll through.
   useEffect(() => {
     if (!open || typeof document === 'undefined') return undefined;
     const previous = document.body.style.overflow;
@@ -909,35 +910,16 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
     return () => window.removeEventListener('keydown', onEsc);
   }, [open, onClose]);
 
-  const currentLanguage = I18N_TRANSLATION_ENABLED
-    ? (i18n.resolvedLanguage || i18n.language || I18N_DEFAULT_LANGUAGE).split('-')[0]
-    : I18N_DEFAULT_LANGUAGE;
+  const accountPath = role === 'vendeur' ? '/vendeur/compte' : '/acheteur/compte';
 
-  const languageZoneGroups = useMemo(() => getLanguageZoneGroups(), []);
-  const zoneLabel = (zoneId: LanguageZoneId) => t(`header.language.zones.${zoneId}`);
-
-  const handleLanguageChange = (languageCode: string) => {
-    if (!I18N_TRANSLATION_ENABLED) {
-      onClose();
-      return;
-    }
-    if (!isSupportedLanguage(languageCode)) {
-      onClose();
-      return;
-    }
-    i18n.changeLanguage(languageCode);
-    if (typeof window !== 'undefined') {
-      setStorageItem('skoleom-language', languageCode);
-      document.documentElement.lang = languageCode;
-      document.documentElement.dir = isRtlLanguage(languageCode) ? 'rtl' : 'ltr';
-      const localizedPath = buildLocalizedPath(
-        stripLanguagePrefix(location.pathname),
-        languageCode,
-      );
-      const target = `${localizedPath}${location.search}${location.hash}`;
-      window.location.replace(target);
-    }
-    onClose();
+  const handleMobileLogout = () => {
+    signOut.mutate(undefined, {
+      onSettled: () => {
+        useUserStore.getState().clearUser();
+        navigate(localizePath('/'));
+        onClose();
+      },
+    });
   };
 
   // Inline expandable row (Universe + any mega-variant nav item).
@@ -1050,36 +1032,41 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="fixed inset-0 z-[70] flex flex-col bg-[#060606] text-white lg:hidden"
-          role="dialog"
-          aria-modal="true"
-          aria-label={t('header.navLabel')}
-        >
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="fixed inset-0 z-[69] bg-black/60 backdrop-blur-sm lg:hidden"
+            onClick={onClose}
+            aria-hidden
+          />
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-y-0 right-0 z-[70] flex w-[85vw] max-w-[340px] flex-col border-l border-white/[0.08] bg-[#060606] text-white shadow-[-20px_0_60px_rgba(0,0,0,0.55)] lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('header.navLabel')}
+          >
           {/* Top bar — logo pinned, close on the right */}
-          <div className="flex shrink-0 items-center justify-between border-b border-white/[0.07] px-5 pb-4 pt-[max(1rem,env(safe-area-inset-top))]">
+          <div className="flex shrink-0 items-center justify-between border-b border-white/[0.07] px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))]">
             <BrandLogo />
             <button
               type="button"
               onClick={onClose}
-              className="grid size-10 place-items-center rounded-full text-white/70 transition duration-200 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="grid size-9 shrink-0 place-items-center rounded-full text-white/70 transition duration-200 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               aria-label={t('header.actions.closeMenu')}
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
 
           {/* Scrollable body */}
-          <motion.div
-            initial={{ y: 8 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="custom-scrollbar flex-1 overflow-y-auto overscroll-contain px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
-          >
+          <div className="custom-scrollbar flex-1 overflow-y-auto overscroll-contain px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
             {/* Primary navigation */}
             <nav className="pt-2">
               {renderAccordion(
@@ -1091,95 +1078,63 @@ function MobileMenu({ open, onClose, items }: MobileMenuProps) {
               {items.map(renderNavEntry)}
             </nav>
 
-            {/* Accessibility */}
-            <button
-              type="button"
-              onClick={() => {
-                openPanel();
-                onClose();
-              }}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl border border-univ-lime/35 bg-univ-lime/[0.08] px-4 py-3.5 text-sm font-semibold text-univ-lime transition duration-200 hover:bg-univ-lime/[0.16] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime"
-            >
-              {t('a11y.panel.open')}
-            </button>
-
-            {/* Language */}
-            <div className="mt-3">
-              <button
-                type="button"
-                onClick={() => setLangMenuOpen((prev) => !prev)}
-                aria-expanded={langMenuOpen}
-                className="flex w-full items-center justify-between rounded-2xl bg-white/[0.03] px-4 py-3.5 text-left transition duration-200 hover:bg-white/[0.06] focus-visible:outline-none"
-              >
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
-                  {t('header.language.change')}
-                </span>
-                <ChevronDown
-                  size={16}
-                  className={cn(
-                    'text-white/45 transition duration-200',
-                    langMenuOpen && 'rotate-180 text-white/75',
-                  )}
-                />
-              </button>
-
-              <AnimatePresence initial={false}>
-                {langMenuOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeInOut' }}
-                    className="overflow-hidden"
-                  >
-                    <div className="space-y-4 px-1 pt-4">
-                      {languageZoneGroups.map((group) => (
-                        <div key={group.id}>
-                          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">
-                            {zoneLabel(group.id)}
-                          </p>
-                          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                            {group.languages.map((option) => {
-                              const active = option.code === currentLanguage;
-                              const disabled =
-                                !I18N_TRANSLATION_ENABLED &&
-                                option.code !== I18N_DEFAULT_LANGUAGE;
-
-                              return (
-                                <button
-                                  key={option.code}
-                                  type="button"
-                                  disabled={disabled}
-                                  onClick={() => handleLanguageChange(option.code)}
-                                  className={cn(
-                                    'flex items-center gap-2 rounded-xl border px-3 py-2.5 text-left text-sm transition duration-200',
-                                    disabled
-                                      ? 'cursor-default border-white/5 opacity-40'
-                                      : 'hover:bg-white/10',
-                                    active
-                                      ? 'border-univ-lime/60 bg-univ-lime/10 font-semibold text-univ-lime'
-                                      : 'border-white/5 bg-white/[0.02] text-white/80',
-                                  )}
-                                >
-                                  <img
-                                    src={option.flagImg}
-                                    alt=""
-                                    className="h-3.5 w-5 rounded-[1px] object-cover"
-                                  />
-                                  <span className="truncate">{option.nativeName}</span>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            {/* Account */}
+            <div className="mt-6">
+              {hasHydrated && user ? (
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-univ-lime text-sm font-black text-black">
+                      {(user.name || 'U')
+                        .trim()
+                        .split(/\s+/)
+                        .map((w) => w[0])
+                        .slice(0, 2)
+                        .join('')
+                        .toUpperCase()}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-semibold text-white">
+                        {user.name}
+                      </span>
+                      <span className="block truncate text-xs text-white/45">{user.email}</span>
+                    </span>
+                  </div>
+                  <div className="mt-3 flex gap-2">
+                    <Link
+                      to={localizePath(accountPath)}
+                      onClick={onClose}
+                      className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm font-semibold text-white/85 transition duration-200 hover:bg-white/10"
+                    >
+                      <User size={15} />
+                      {t('header.profile.profile', { defaultValue: 'Mon compte' })}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={handleMobileLogout}
+                      disabled={signOut.isPending}
+                      className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-red-400/20 bg-red-400/[0.06] px-3 py-2.5 text-sm font-semibold text-red-400 transition duration-200 hover:bg-red-400/10 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <LogOut size={15} />
+                      {signOut.isPending
+                        ? t('common.states.loading', { defaultValue: 'Déconnexion...' })
+                        : t('header.profile.logout', { defaultValue: 'Déconnexion' })}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  to={localizePath('/connection')}
+                  onClick={onClose}
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl border border-univ-lime/35 bg-univ-lime/[0.08] px-4 py-3.5 text-sm font-semibold text-univ-lime transition duration-200 hover:bg-univ-lime/[0.16] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-univ-lime"
+                >
+                  <LogIn size={16} />
+                  {t('common.actions.login', { defaultValue: 'Connexion' })}
+                </Link>
+              )}
             </div>
+          </div>
           </motion.div>
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

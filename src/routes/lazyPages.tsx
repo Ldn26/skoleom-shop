@@ -1,5 +1,4 @@
 import { lazy, type ComponentType } from 'react';
-// import { loadSesyncTranslations } from '../locales/lazyBundles';
 
 function lazyNamed<T extends Record<string, ComponentType<object>>, K extends keyof T>(
   factory: () => Promise<T>,
@@ -16,7 +15,6 @@ const staticPages = () => import('../views/public/StaticPages');
 export const AffiliateDisclosurePage = lazyNamed(staticPages, 'AffiliateDisclosurePage');
 export const AboutTechnologyPage = lazyNamed(staticPages, 'AboutTechnologyPage');
 export const BusinessPage = lazyNamed(staticPages, 'BusinessPage');
-export const ContactPage = lazyNamed(staticPages, 'ContactPage');
 export const CookiePreferencesPage = lazyNamed(staticPages, 'CookiePreferencesPage');
 export const FundingProgramPage = lazyNamed(staticPages, 'FundingProgramPage');
 export const LegalNoticePage = lazyNamed(staticPages, 'LegalNoticePage');

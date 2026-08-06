@@ -86,9 +86,12 @@ export default function AccordionShowcase({
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   /** Ouvre l'item s'il est fermé, le ferme s'il est déjà ouvert. */
-  const toggle = useCallback((id: string) => {
-    setActiveId((current) => (current === id ? '' : id));
-  }, []);
+  const toggle = useCallback(
+    (id: string) => {
+      setActiveId((current) => (current === id ? '' : id));
+    },
+    [setActiveId],
+  );
 
   const activeItem = useMemo(
     () => items.find((item) => item.id === activeId) ?? items[0],

@@ -11,8 +11,6 @@ import {
   ChevronRight,
   Ruler,
 } from 'lucide-react';
-import { stripePromise } from '../../lib/stripe';
-import { BackRoute } from '../../api/MyAxios';
 import { useCategories } from '../../api/product';
 import Hero from '@/components/layout/Hero';
 import PageAurora from '@/components/layout/PageAurora';

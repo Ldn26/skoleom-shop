@@ -71,12 +71,18 @@ export default function AdminConsole() {
   const [dashboard] = useState<DashboardData | null>(null);
   const { i18n, t } = useTranslation();
   const { settings } = useAccessibility();
-  const chartColors = useMemo(() => getSkoleomChartColors(), [settings.colorVision]);
-  const primaryChartColor = useMemo(() => getSkoleomPrimaryChartColor(), [settings.colorVision]);
-  const secondaryChartColor = useMemo(
-    () => getSkoleomSecondaryChartColor(),
-    [settings.colorVision],
-  );
+  const chartColors = useMemo(() => {
+    void settings.colorVision;
+    return getSkoleomChartColors();
+  }, [settings.colorVision]);
+  const primaryChartColor = useMemo(() => {
+    void settings.colorVision;
+    return getSkoleomPrimaryChartColor();
+  }, [settings.colorVision]);
+  const secondaryChartColor = useMemo(() => {
+    void settings.colorVision;
+    return getSkoleomSecondaryChartColor();
+  }, [settings.colorVision]);
 
   // Charge en parallèle les deux endpoints alimentant le dashboard
   // useEffect(() => {

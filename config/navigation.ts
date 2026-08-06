@@ -26,6 +26,7 @@ export const navigationByRole: Record<UserRole, NavItem[]> = {
   vendeur: [
     { label: 'Dashboard', href: '/vendeur/dashboard' },
     { label: 'Products', href: '/vendeur/products' },
+    { label: 'Add product', href: '/vendeur/products/new' },
     { label: 'Orders', href: '/vendeur/orders' },
     { label: 'Profile', href: '/vendeur/compte' },
     {

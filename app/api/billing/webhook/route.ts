@@ -33,8 +33,9 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (err: any) {
-    return NextResponse.json({ error: `Webhook Signature Error: ${err.message}` }, { status: 400 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return NextResponse.json({ error: `Webhook Signature Error: ${message}` }, { status: 400 });
   }
 
   // Filtrer uniquement les événements gérés pour accélérer le traitement
@@ -123,9 +124,10 @@ export async function POST(req: Request) {
         break;
       }
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Webhook processing error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const message = error instanceof Error ? error.message : 'Erreur inconnue';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 
   return NextResponse.json({ received: true });

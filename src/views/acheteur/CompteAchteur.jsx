@@ -104,7 +104,6 @@ export default function CompteAchteur() {
   }
 
   const dirty = name !== user.name || email !== user.email;
-  const active = !!subscription && subscription.status === 'active';
   const scheduledCancel = !!subscription?.cancelAtPeriodEnd;
 
   const statusTone = !subscription

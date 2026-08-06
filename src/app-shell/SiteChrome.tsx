@@ -10,7 +10,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname() || '/';
   const path = stripLanguagePrefix(pathname);
   const isImmersivePage = path.startsWith('/watch/') || path === '/touch';
-  const topMargin = !path.startsWith('/vendeur/dashboard');
+  const topMargin = !path.startsWith('/vendeur');
 
   const mainClass = isImmersivePage
     ? 'min-w-0 overflow-x-hidden focus:outline-none'

@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { columnI18nKey, keySafe, tOr } from '../../i18n/keySafe';
+import { keySafe, tOr } from '../../i18n/keySafe';
 import { useLocalizedPath } from '../../i18n/useLocalizedPath';
 import { scrollAppToTop } from './ScrollToTop';
 import DevelopmentStatusModal from '../common/DevelopmentStatusModal';
 import { MEGA_MENU_VARIANTS, type MegaMenuVariantKey } from './Navbar';
-import { UNIVERSE_MENU_COLUMNS } from './UniverseMegaMenu';
+import { GridRow, UNIVERSE_MENU_COLUMNS } from './UniverseMegaMenu';
 
 const cn = (...classes: Array<string | false | null | undefined>) =>
   classes.filter(Boolean).join(' ');
@@ -222,31 +222,11 @@ interface MobileUniversePanelProps {
 }
 
 export function MobileUniversePanel({ onNavigate }: MobileUniversePanelProps) {
-  const { t } = useTranslation();
-
   return (
-    <div className="space-y-4">
-      {UNIVERSE_MENU_COLUMNS.map((column) => (
-        <div key={column.columnKey}>
-          <h4 className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">
-            {tOr(t, `mega.universe.columns.${columnI18nKey(column.columnKey)}.title`, column.title)}
-          </h4>
-          <ul className="flex flex-col gap-0.5">
-            {column.links.map((item) => {
-              const label = tOr(t, `mega.universe.links.${keySafe(item.label)}`, item.label);
-              const isExternal = item.external || /^https?:\/\//.test(item.to);
-
-              return (
-                <li key={`${column.columnKey}-${item.label}`}>
-                  <MobileNavLink to={item.to} external={isExternal} onNavigate={onNavigate}>
-                    {label}
-                  </MobileNavLink>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ))}
-    </div>
+    <GridRow
+      columns={UNIVERSE_MENU_COLUMNS}
+      onNavigate={onNavigate}
+      className="gap-y-5 sm:gap-y-6"
+    />
   );
 }

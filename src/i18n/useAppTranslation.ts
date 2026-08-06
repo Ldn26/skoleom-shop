@@ -14,7 +14,11 @@ export function useTranslation() {
   const version = useSyncExternalStore(subscribeLanguage, getLanguageVersion, getLanguageVersion);
 
   const t = useCallback(
-    (key: string, options?: Record<string, string | number>) => translate(key, options),
+    (key: string, options?: Record<string, string | number>) => {
+      void ctx.language;
+      void version;
+      return translate(key, options);
+    },
     [ctx.language, version],
   );
 
